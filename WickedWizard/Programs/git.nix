@@ -8,7 +8,7 @@
       signByDefault = true;
     };
     extraConfig = {
-      credential.helper = "git-credential-libsecret";
+      credential.helper = "/run/current-system/sw/bin/git-credential-libsecret";
     };
   };
 }

@@ -34,6 +34,7 @@
   };
 
   programs.gamemode.enable = true;
+  programs.gnupg.agent.enable = true;
 
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import

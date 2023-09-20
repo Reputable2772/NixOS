@@ -27,7 +27,7 @@
   ]);
 
   environment.systemPackages = with pkgs; [
-    git
+    gitFull
     curl
     nano
     # libsForQt5.qtstyleplugin-kvantum

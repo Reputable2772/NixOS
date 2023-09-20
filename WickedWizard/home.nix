@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     bottom
     calibre
+    libsecret
     dnsutils
     dconf2nix
     easyeffects
