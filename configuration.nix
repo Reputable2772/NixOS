@@ -1,40 +1,17 @@
 { config, pkgs, ... }:
 {
-  imports =
-    [
-      ./System
-    ];
-
   time.timeZone = "Asia/Kolkata";
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
   nix.settings.trusted-users = [ "wickedwizard" "shuba" ];
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
-      defaultNetwork.settings = { dns_enabled = true; ipv6 = true; };
-    };
-    containers.enable = true;
-    containers.storage.settings = {
-      storage = {
-        driver = "overlay";
-        runroot = "/run/containers/storage";
-        graphroot = "/var/lib/containers/storage";
-        rootless_storage_path = "/tmp/containers-$USER";
-        options.overlay.mountopt = "nodev,metacopy=on";
-      };
-    };
-
-    oci-containers.backend = "podman";
-    waydroid.enable = true;
-  };
-
-  programs.gamemode.enable = true;
-  programs.gnupg.agent.enable = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "beeper"
+    "obsidian"
+    "spotify"
+    "skypeforlinux"
+  ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     nur = import
@@ -46,8 +23,6 @@
         inherit pkgs;
       };
   };
-
-  services.fwupd.enable = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -77,5 +52,10 @@
     dates = "daily";
     options = "--delete-older-than 2d";
   };
+
+  imports =
+    [
+      ./System
+    ];
 }
 

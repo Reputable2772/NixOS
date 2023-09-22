@@ -2,16 +2,13 @@
   imports = [
     ./Browsers
     ./Communication
+    ./Desktop
+    ./Games
     ./Media
+    ./Misc
+    ./Proprietary
+    ./Selfhosted
     ./Shell
-    ./bitwarden.nix
-    ./git.nix
-    ./gpg.nix
-    ./flameshot.nix
-    ./gnome.nix
-    ./obsidian.nix
-    ./spotify.nix
-    ./kitty.nix
-    ./vscode.nix
+    ./Utilities
   ];
 }

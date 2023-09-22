@@ -14,6 +14,14 @@ with lib.hm.gvariant;
       width = 1920;
     };
 
+    "ca/desrt/dconf-editor" = {
+      saved-pathbar-path = "/org/gnome/shell/extensions/bluetooth_battery_indicator/devices";
+      saved-view = "/org/gnome/shell/extensions/bluetooth_battery_indicator/devices";
+      window-height = 500;
+      window-is-maximized = true;
+      window-width = 540;
+    };
+
     "com/github/GradienceTeam/Gradience" = {
       first-run = false;
       last-opened-version = "0.4.1";
@@ -27,6 +35,10 @@ with lib.hm.gvariant;
     "com/github/wwmm/easyeffects" = {
       last-used-input-preset = "Presets";
       last-used-output-preset = "Presets";
+      window-fullscreen = false;
+      window-height = 429;
+      window-maximized = true;
+      window-width = 702;
     };
 
     "com/github/wwmm/easyeffects/spectrum" = {
@@ -45,8 +57,29 @@ with lib.hm.gvariant;
       use-default-output-device = false;
     };
 
+    "de/haeckerfelix/Fragments" = {
+      client-last-connection = "00000000-0000-0000-0000-000000000000";
+      window-height = 700;
+      window-width = 900;
+    };
+
+    "org/freedesktop/folks" = {
+      primary-store = "eds:2e3f59a3c755791be28f96e836d822b57ef45739";
+    };
+
     "org/gnome/Console" = {
+      font-scale = 1.0;
       last-window-size = mkTuple [ 652 481 ];
+      theme = "night";
+    };
+
+    "org/gnome/Contacts" = {
+      did-initial-setup = true;
+      sort-on-surname = false;
+      window-fullscreen = false;
+      window-height = 600;
+      window-maximized = true;
+      window-width = 800;
     };
 
     "org/gnome/GWeather4" = {
@@ -79,7 +112,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "removable-media";
+      last-panel = "location";
       window-state = mkTuple [ 980 640 ];
     };
 
@@ -116,12 +149,16 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" ];
       show-in-lock-screen = true;
     };
 
     "org/gnome/desktop/notifications/application/beeper" = {
       application-id = "beeper.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/codium" = {
+      application-id = "codium.desktop";
     };
 
     "org/gnome/desktop/notifications/application/com-obsproject-studio" = {
@@ -150,6 +187,18 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-flameshot-flameshot" = {
       application-id = "org.flameshot.Flameshot.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-console" = {
+      application-id = "org.gnome.Console.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-evince" = {
+      application-id = "org.gnome.Evince.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-maps" = {
+      application-id = "org.gnome.Maps.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect" = {
@@ -191,8 +240,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
+      disabled = [ "org.gnome.Settings.desktop" ];
       enabled = [ "org.gnome.Weather.desktop" ];
-      sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
+      sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" ];
     };
 
     "org/gnome/desktop/session" = {
@@ -225,11 +275,75 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.979866 0.75772 ];
+      window-ratio = mkTuple [ 0.980903 0.758838 ];
     };
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/evolution" = {
+      default-address-book = "2e3f59a3c755791be28f96e836d822b57ef45739";
+      default-calendar = "3e01427c011feac5c9644676fb52bd9dc1478282";
+      version = "3.48.4";
+    };
+
+    "org/gnome/evolution/addressbook" = {
+      completion-minimum-query-length = 3;
+      completion-show-address = false;
+      primary-addressbook = "2e3f59a3c755791be28f96e836d822b57ef45739";
+    };
+
+    "org/gnome/evolution/calendar" = {
+      allow-direct-summary-edit = false;
+      confirm-purge = true;
+      date-navigator-pane-position = 167;
+      editor-show-timezone = false;
+      prefer-new-item = "event-new";
+      primary-calendar = "47e8f2faf8acad9e89e1996f999bba43f72c1f49";
+      primary-memos = "system-memo-list";
+      primary-tasks = "system-task-list";
+      tag-vpane-position = 1.111e-3;
+      time-divisions = 30;
+      week-start-day-name = "monday";
+      work-day-friday = true;
+      work-day-monday = true;
+      work-day-saturday = false;
+      work-day-sunday = false;
+      work-day-thursday = true;
+      work-day-tuesday = true;
+      work-day-wednesday = true;
+    };
+
+    "org/gnome/evolution/mail" = {
+      browser-close-on-reply-policy = "ask";
+      forward-style-name = "attached";
+      image-loading-policy = "never";
+      paned-size = 1227027;
+      prompt-check-if-default-mailer = false;
+      reply-style-name = "quoted";
+      to-do-bar-width = 1150000;
+    };
+
+    "org/gnome/evolution/shell" = {
+      default-component-id = "addressbook";
+      folder-bar-width = 259;
+    };
+
+    "org/gnome/evolution/shell/window" = {
+      height = 480;
+      maximized = true;
+      width = 640;
+      x = 0;
+      y = 0;
+    };
+
+    "org/gnome/maps" = {
+      last-viewed-location = [ 12.950596 77.710161 ];
+      map-type = "MapsStreetSource";
+      transportation-type = "pedestrian";
+      window-maximized = true;
+      zoom-level = 19;
     };
 
     "org/gnome/mutter" = {
@@ -261,6 +375,11 @@ with lib.hm.gvariant;
       ignore-phase2-ca-cert = false;
     };
 
+    "org/gnome/settings-daemon/plugins/color" = {
+      night-light-enabled = false;
+      night-light-last-coordinates = mkTuple [ 12.97430344827636 77.7105947 ];
+    };
+
     "org/gnome/settings-daemon/plugins/media-keys" = {
       calculator = [ "Calculator" ];
       control-center = [ "<Super>s" ];
@@ -285,6 +404,8 @@ with lib.hm.gvariant;
       disable-user-extensions = false;
       disabled-extensions = [ ];
       enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "gsconnect@andyholmes.github.io" "user-theme@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" ];
+      favorite-apps = [ "librewolf.desktop" "firefox.desktop" "obsidian.desktop" "kitty.desktop" "beeper.desktop" "schildichat-desktop.desktop" "spotify.desktop" "codium.desktop" "bitwarden.desktop" ];
+      last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "44.4";
     };
 
@@ -317,6 +438,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d" = {
+      certificate-pem = "-----BEGIN CERTIFICATE-----\nMIIDHzCCAgegAwIBAgIBATANBgkqhkiG9w0BAQsFADBTMS0wKwYDVQQDDCRkNzhh\nYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBD\nb25uZWN0MQwwCgYDVQQKDANLREUwHhcNMjIwODE1MTgzMDAwWhcNMzIwODE1MTgz\nMDAwWjBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJi\nMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwggEiMA0G\nCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkPj4moAadNTwmMiPy82yssvmIbjc/\npnz5tuoLHZfh1vheHvURhEatThiFC8hbwMfB047yXbK6HO41ZavuysDml+okcm3P\nBvKZjZTyXhCQRPCu6B+VNWn0XwOnmSLlXTkkwVFxN0QAHUi2+mp4+0scHa/Q1Ux7\nGMQ79LXgxUsewEA42rZk4P9hyHmDwFUr3sVVLh0NwUBC97oIHyHbxdvVZepABT8s\nqXBvf+HIVGrEsxh+HTpqfNzAT4G+fTesOC0N8eJPdjQmxdHynXSphXipWwI92xSW\nUJGergjR6zA0v6fq5L4rs0ZwDaSjhqcZu8CWt2S7ACQQK1B38jsgnwPzAgMBAAEw\nDQYJKoZIhvcNAQELBQADggEBAHtRq93nLHQAotvnKwjuuyVzhBAexwwGrkmR1CUJ\n0ad/9kp9whgzqEJwAtn7Aa2mdjtd+A3omHazEG53AOYnU7hCj3FR7F7suIos2OkJ\nSl6NX5ZBt1l47tWJyVOMEooh5YuSlFUGppyPEQuCksJFM/yaE4cxxeExSVKQ42sV\nKMt29sad7BwGdv7x/pZ6792ug8AP90VLdQgvhXRbHHHLtU+W0YZoqEWtoEg4bSVT\n0NY3hgoSXAIxgdiOaWMhrAJCIKrsrrrfQ14xJe0Dvb8tb6/gaM84p3jajNGIeTG9\ng/PzUzimgdE1rPMOIzycikrKn9ADXBCVDxv/tVqA/9ameAY=\n-----END CERTIFICATE-----\n";
       incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.photo.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
       last-connection = "lan://192.168.0.103:1716";
       name = "Redmi  S2";
@@ -337,7 +459,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/notification" = {
       applications = ''
-        {"Beeper":{"iconName":"","enabled":true},"SchildiChat":{"iconName":"","enabled":true}}\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\n\\\\\\\\n\\\\n\\n\n
+        {"Beeper":{"iconName":"","enabled":true},"SchildiChat":{"iconName":"","enabled":true}}
       '';
     };
 
@@ -370,12 +492,31 @@ with lib.hm.gvariant;
       locations = "@av []";
     };
 
+    "org/gnome/system/location" = {
+      enabled = true;
+    };
+
     "org/gnome/tweaks" = {
       show-extensions-notice = false;
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {
+      date-format = "regular";
+      location-mode = "path-bar";
       show-hidden = true;
+      show-size-column = true;
+      show-type-column = true;
+      sidebar-width = 140;
+      sort-column = "name";
+      sort-directories-first = true;
+      sort-order = "ascending";
+      type-format = "category";
+      view-type = "list";
+      window-size = mkTuple [ 859 374 ];
+    };
+
+    "org/gtk/settings/color-chooser" = {
+      selected-color = mkTuple [ true 0.0 ];
     };
 
     "org/gtk/settings/file-chooser" = {

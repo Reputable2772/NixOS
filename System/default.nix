@@ -1,11 +1,13 @@
 { pkgs, config, lib, ... }: {
   imports = [
+    ./Services
     ./boot.nix
-    ./bluetooth.nix
-    ./environment.nix
+    ./gnome.nix
     ./hardware.nix
     ./networking.nix
-    ./Services
+    ./packages.nix
+    ./programs.nix
     ./sudo.nix
+    ./virtualisation.nix
   ];
 }

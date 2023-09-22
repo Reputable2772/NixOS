@@ -2,6 +2,7 @@
   imports = [
     ./pipewire.nix
     ./syncthing.nix
+    ./fwupd.nix
     ./xserver.nix
   ];
 }

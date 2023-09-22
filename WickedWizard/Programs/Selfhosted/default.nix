@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
   imports = [
-    ./schildichat.nix
+    ./bitwarden.nix
   ];
 }

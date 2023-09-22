@@ -1,4 +1,4 @@
-{
+{ config, pkgs, ... }: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {
@@ -7,4 +7,7 @@
     "net.core.rmem_max" = 2500000;
     "net.core.wmem_max" = 2500000;
   };
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.rtl8821ce
+  ];
 }

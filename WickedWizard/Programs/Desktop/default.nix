@@ -1,5 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
-    ./schildichat.nix
+    ./Gnome
+    ./qt.nix
+    ./gtk.nix
   ];
 }
