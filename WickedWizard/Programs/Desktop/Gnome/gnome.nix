@@ -377,7 +377,7 @@ with lib.hm.gvariant;
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = false;
-      night-light-last-coordinates = mkTuple [ 12.97430344827636 77.7105947 ];
+      night-light-last-coordinates = mkTuple [ 12.941517 77.710574 ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -416,7 +416,7 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [
         ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}\n
         ''
       ];
       hide-indicator = true;
@@ -459,7 +459,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/notification" = {
       applications = ''
-        {"Beeper":{"iconName":"","enabled":true},"SchildiChat":{"iconName":"","enabled":true}}
+        {"Beeper":{"iconName":"","enabled":true},"SchildiChat":{"iconName":"","enabled":true},"Power":{"iconName":"","enabled":true}}\n
       '';
     };
 

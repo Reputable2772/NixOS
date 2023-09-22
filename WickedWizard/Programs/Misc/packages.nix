@@ -10,6 +10,8 @@
     rclone
     podman-compose
 
+    protonvpn-cli
+
     nur.repos.mikilio.xwaylandvideobridge
 
     fragments
