@@ -7,6 +7,8 @@
     enable = true;
     defaultApplications = {
       "application/pdf" = "org.gnome.Evince.desktop";
+      "application/zip" = "org.gnome.FileRoller.desktop";
+      "text/plain" = "org.gnome.TextEditor.desktop";
       "x-scheme-handler/sms" = "org.gnome.Shell.Extensions.GSConnect.desktop";
       "x-scheme-handler/tel" = "org.gnome.Shell.Extensions.GSConnect.desktop";
     };
