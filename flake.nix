@@ -32,7 +32,10 @@
           ./configuration.nix
           home-manager.nixosModules.home-manager
           {
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = [
+              inputs.nur.overlay
+              (import ./Overlays/prismlauncher.nix)
+            ];
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.wickedwizard = {
