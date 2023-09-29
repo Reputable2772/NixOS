@@ -18,6 +18,7 @@
     };
 
     oci-containers.backend = "podman";
-    waydroid.enable = false;
+    waydroid.enable = true;
+    lxd.enable = true;
   };
 }

@@ -1,13 +1,13 @@
 { config, pkgs, ... }: {
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
-    "net.ipv4.ip_unprivileged_port_start" = 443;
+    "net.ipv4.ip_unprivileged_port_start" = 80;
     "net.core.rmem_max" = 2500000;
     "net.core.wmem_max" = 2500000;
   };
-  boot.extraModulePackages = [
-    config.boot.kernelPackages.rtl8821ce
-  ];
+  # boot.extraModulePackages = with pkgs; [ linuxKernel.packages.linux_latest_libre.rtl8821ce ];
+  # boot.blacklistedKernelModules = [ "rtw88_8821ce" ];
 }

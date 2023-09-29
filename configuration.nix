@@ -4,11 +4,10 @@
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
   nix.settings.trusted-users = [ "wickedwizard" "shuba" ];
-  # nixpkgs.config.allowUnfree = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "beeper"
-    "obsidian"
+    # "obsidian"
     "spotify"
     "skypeforlinux"
   ];

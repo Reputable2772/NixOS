@@ -6,6 +6,8 @@
     ./Games
     ./Media
     ./Misc
+    ./Productivity
+    ./Programming
     ./Proprietary
     ./Selfhosted
     ./Shell

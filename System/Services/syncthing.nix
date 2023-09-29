@@ -32,6 +32,10 @@
           path = "/home/wickedwizard/Documents/Magisk";
           devices = [ "Redmi S2" ];
         };
+        "Joplin" = {
+          path = "/home/wickedwizard/Documents/Joplin";
+          devices = [ "Redmi S2" ];
+        };
         "SIM Backup" = {
           path = "/home/wickedwizard/Documents/SIM Backup";
           devices = [ "Redmi S2" ];

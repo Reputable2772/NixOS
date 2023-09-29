@@ -11,13 +11,15 @@
     podman-compose
 
     protonvpn-cli
+    fluffychat
+    libreoffice-qt
+    android-tools
 
     nur.repos.mikilio.xwaylandvideobridge
 
     fragments
     metadata-cleaner
     gnome-obfuscate
-    newsflash
     # textpieces
   ];
 }

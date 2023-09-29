@@ -1,7 +1,9 @@
 { config, pkgs, ... }: {
   imports = [
     ./beeper.nix
-    ./obsidian.nix
+    # ./obsidian.nix
     ./spotify.nix
+    ./telegram.nix
+    ./whatsapp.nix
   ];
 }
