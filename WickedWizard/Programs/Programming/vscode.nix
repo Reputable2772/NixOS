@@ -12,6 +12,7 @@
       eamodio.gitlens
       pkief.material-icon-theme
       jnoortheen.nix-ide
+      rust-lang.rust-analyzer
       arcticicestudio.nord-visual-studio-code
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
