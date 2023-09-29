@@ -35,6 +35,7 @@
             nixpkgs.overlays = [
               inputs.nur.overlay
               (import ./Overlays/prismlauncher.nix)
+              (import ./Overlays/dconf2nix.nix)
             ];
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
