@@ -10,7 +10,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "wifi";
+      last-panel = "search";
       window-state = mkTuple [ 980 640 ];
     };
 
@@ -70,6 +70,10 @@ with lib.hm.gvariant;
       numlock-state = true;
     };
 
+    "org/gnome/desktop/search-providers" = {
+      sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
+    };
+
     "org/gnome/evolution-data-server" = {
       migrated = true;
     };
@@ -91,6 +95,10 @@ with lib.hm.gvariant;
       favorite-apps = [ "librewolf.desktop" "skypeforlinux.desktop" "com.github.eneshecan.WhatsAppForLinux.desktop" "org.gnome.Calendar.desktop" "org.gnome.Nautilus.desktop" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "44.3";
+    };
+
+    "org/gnome/shell/extensions/clipboard-indicator" = {
+      notify-on-copy = true;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
@@ -126,7 +134,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/0a585d73_e9e9_4945_be32_27baf898f2ba/plugin/notification" = {
       applications = ''
-        {"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true},"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true}}\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\n\\\\\\\\n\\\\n\\n\n
+        {}\n
       '';
     };
 

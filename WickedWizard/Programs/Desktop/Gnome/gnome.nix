@@ -6,7 +6,7 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "apps/seahorse/listing" = {
-      keyrings-selected = [ "gnupg://" ];
+      keyrings-selected = [ "secret-service:///org/freedesktop/secrets/collection/login" ];
     };
 
     "apps/seahorse/windows/key-manager" = {
@@ -22,6 +22,10 @@ with lib.hm.gvariant;
       window-width = 540;
     };
 
+    "com/belmoussaoui/Obfuscate" = {
+      is-maximized = true;
+    };
+
     "com/github/GradienceTeam/Gradience" = {
       first-run = false;
       last-opened-version = "0.4.1";
@@ -35,6 +39,8 @@ with lib.hm.gvariant;
     "com/github/wwmm/easyeffects" = {
       last-used-input-preset = "Presets";
       last-used-output-preset = "Presets";
+      process-all-outputs = false;
+      shutdown-on-window-close = true;
       window-fullscreen = false;
       window-height = 429;
       window-maximized = true;
@@ -49,12 +55,12 @@ with lib.hm.gvariant;
     "com/github/wwmm/easyeffects/streaminputs" = {
       input-device = "alsa_input.pci-0000_04_00.6.analog-stereo";
       plugins = [ "rnnoise#0" ];
-      use-default-input-device = false;
+      use-default-input-device = true;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
       output-device = "bluez_output.41_42_4C_5C_BB_63.1";
-      use-default-output-device = false;
+      use-default-output-device = true;
     };
 
     "de/haeckerfelix/Fragments" = {
@@ -80,6 +86,14 @@ with lib.hm.gvariant;
       window-height = 600;
       window-maximized = true;
       window-width = 800;
+    };
+
+    "org/gnome/Fractal" = {
+      main-window-state-height = 1010;
+      main-window-state-maximized = true;
+      main-window-state-width = 1920;
+      main-window-state-x = 0;
+      main-window-state-y = 0;
     };
 
     "org/gnome/GWeather4" = {
@@ -112,8 +126,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "location";
+      last-panel = "network";
       window-state = mkTuple [ 980 640 ];
+    };
+
+    "org/gnome/desktop/a11y/magnifier" = {
+      mag-factor = 13.0;
     };
 
     "org/gnome/desktop/app-folders" = {
@@ -149,12 +167,25 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" ];
+      show-banners = true;
       show-in-lock-screen = true;
+    };
+
+    "org/gnome/desktop/notifications/application/-joplinapp-desktop" = {
+      application-id = "@joplinapp-desktop.desktop";
     };
 
     "org/gnome/desktop/notifications/application/beeper" = {
       application-id = "beeper.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/bitwarden" = {
+      application-id = "bitwarden.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/ca-desrt-dconf-editor" = {
+      application-id = "ca.desrt.dconf-editor.desktop";
     };
 
     "org/gnome/desktop/notifications/application/codium" = {
@@ -163,6 +194,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/com-obsproject-studio" = {
       application-id = "com.obsproject.Studio.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/de-haeckerfelix-fragments" = {
+      application-id = "de.haeckerfelix.Fragments.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
@@ -177,8 +212,20 @@ with lib.hm.gvariant;
       application-id = "gnome-power-panel.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/io-gitlab-news-flash-newsflash" = {
+      application-id = "io.gitlab.news_flash.NewsFlash.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/kitty" = {
+      application-id = "kitty.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/librewolf" = {
       application-id = "librewolf.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/mullvadbrowser" = {
+      application-id = "mullvadbrowser.desktop";
     };
 
     "org/gnome/desktop/notifications/application/obsidian" = {
@@ -189,8 +236,16 @@ with lib.hm.gvariant;
       application-id = "org.flameshot.Flameshot.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-characters" = {
+      application-id = "org.gnome.Characters.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-console" = {
       application-id = "org.gnome.Console.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-eog" = {
+      application-id = "org.gnome.eog.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-evince" = {
@@ -199,6 +254,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-gnome-maps" = {
       application-id = "org.gnome.Maps.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
+      application-id = "org.gnome.Nautilus.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect" = {
@@ -246,17 +305,17 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 300;
+      idle-delay = mkUint32 120;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      cycle-windows = [ ];
-      cycle-windows-backward = [ ];
+      cycle-windows = [];
+      cycle-windows-backward = [];
       move-to-workspace-left = [ "<Control><Super>Up" ];
       move-to-workspace-right = [ "<Control><Super>Down" ];
       show-desktop = [ "<Super>d" ];
-      switch-applications = [ ];
-      switch-applications-backward = [ ];
+      switch-applications = [];
+      switch-applications-backward = [];
       switch-to-workspace-left = [ "<Control><Super>Left" ];
       switch-to-workspace-right = [ "<Control><Super>Right" ];
       switch-windows = [ "<Alt>Tab" ];
@@ -275,7 +334,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.980903 0.758838 ];
+      window-ratio = mkTuple [ 0.980392 0.710859 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -338,6 +397,25 @@ with lib.hm.gvariant;
       y = 0;
     };
 
+    "org/gnome/file-roller/dialogs/extract" = {
+      recreate-folders = true;
+      skip-newer = false;
+    };
+
+    "org/gnome/file-roller/listing" = {
+      list-mode = "as-folder";
+      name-column-width = 250;
+      show-path = false;
+      sort-method = "name";
+      sort-type = "ascending";
+    };
+
+    "org/gnome/file-roller/ui" = {
+      sidebar-width = 200;
+      window-height = 480;
+      window-width = 600;
+    };
+
     "org/gnome/maps" = {
       last-viewed-location = [ 12.950596 77.710161 ];
       map-type = "MapsStreetSource";
@@ -352,22 +430,34 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts = [ ];
+      restore-shortcuts = [];
     };
 
     "org/gnome/nautilus/icon-view" = {
       default-zoom-level = "small";
     };
 
+    "org/gnome/nautilus/list-view" = {
+      use-tree-view = true;
+    };
+
     "org/gnome/nautilus/preferences" = {
       default-folder-viewer = "icon-view";
       migrated-gtk-settings = true;
       search-filter-time-type = "last_modified";
+      search-view = "list-view";
+      show-create-link = true;
+      show-delete-permanently = false;
     };
 
     "org/gnome/nautilus/window-state" = {
       initial-size = mkTuple [ 890 550 ];
       maximized = true;
+    };
+
+    "org/gnome/nm-applet/eap/0cce0e39-4461-3261-b44a-e55e745bae07" = {
+      ignore-ca-cert = false;
+      ignore-phase2-ca-cert = false;
     };
 
     "org/gnome/nm-applet/eap/0feb9aeb-a39e-49a0-ab66-dd40a7bb0bd5" = {
@@ -377,7 +467,7 @@ with lib.hm.gvariant;
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = false;
-      night-light-last-coordinates = mkTuple [ 12.941517 77.710574 ];
+      night-light-last-coordinates = mkTuple [ 12.963584 77.5855 ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -399,12 +489,16 @@ with lib.hm.gvariant;
       name = "Screenshot";
     };
 
+    "org/gnome/settings-daemon/plugins/power" = {
+      sleep-inactive-battery-type = "suspend";
+    };
+
     "org/gnome/shell" = {
       app-picker-layout = "[{'waydroid.com.android.inputmethod.latin.desktop': <{'position': <0>}>, 'org.gnome.Contacts.desktop': <{'position': <1>}>, 'org.gnome.Weather.desktop': <{'position': <2>}>, 'org.gnome.clocks.desktop': <{'position': <3>}>, 'org.gnome.Maps.desktop': <{'position': <4>}>, 'beeper.desktop': <{'position': <5>}>, 'bitwarden.desktop': <{'position': <6>}>, 'waydroid.org.lineageos.jelly.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'waydroid.com.android.calculator2.desktop': <{'position': <9>}>, 'waydroid.org.lineageos.etar.desktop': <{'position': <10>}>, 'org.gnome.Settings.desktop': <{'position': <11>}>, 'gnome-system-monitor.desktop': <{'position': <12>}>, 'calibre-gui.desktop': <{'position': <13>}>, 'waydroid.com.android.camera2.desktop': <{'position': <14>}>, 'waydroid.com.android.deskclock.desktop': <{'position': <15>}>, 'org.gnome.Characters.desktop': <{'position': <16>}>, 'yelp.desktop': <{'position': <17>}>, 'waydroid.com.android.contacts.desktop': <{'position': <18>}>, 'calibre-ebook-edit.desktop': <{'position': <19>}>, 'org.gnome.font-viewer.desktop': <{'position': <20>}>, 'calibre-ebook-viewer.desktop': <{'position': <21>}>, 'com.github.wwmm.easyeffects.desktop': <{'position': <22>}>, 'org.gnome.Extensions.desktop': <{'position': <23>}>}, {'waydroid.com.android.documentsui.desktop': <{'position': <0>}>, 'firefox.desktop': <{'position': <1>}>, 'org.flameshot.Flameshot.desktop': <{'position': <2>}>, 'waydroid.com.android.gallery3d.desktop': <{'position': <3>}>, 'com.github.GradienceTeam.Gradience.desktop': <{'position': <4>}>, 'kitty.desktop': <{'position': <5>}>, 'kvantummanager.desktop': <{'position': <6>}>, 'librewolf.desktop': <{'position': <7>}>, 'calibre-lrfviewer.desktop': <{'position': <8>}>, 'waydroid.org.lineageos.eleven.desktop': <{'position': <9>}>, 'nheko.desktop': <{'position': <10>}>, 'nixos-manual.desktop': <{'position': <11>}>, 'com.obsproject.Studio.desktop': <{'position': <12>}>, 'obsidian.desktop': <{'position': <13>}>, 'qt5ct.desktop': <{'position': <14>}>, 'qt6ct.desktop': <{'position': <15>}>, 'waydroid.org.lineageos.recorder.desktop': <{'position': <16>}>, 'schildichat-desktop.desktop': <{'position': <17>}>, 'waydroid.com.android.settings.desktop': <{'position': <18>}>, 'spotify.desktop': <{'position': <19>}>, 'org.gnome.TextEditor.desktop': <{'position': <20>}>, 'vlc.desktop': <{'position': <21>}>, 'codium.desktop': <{'position': <22>}>, 'Waydroid.desktop': <{'position': <23>}>}, {'org.gnome.FileRoller.desktop': <{'position': <0>}>, 'org.gnome.Connections.desktop': <{'position': <1>}>, 'org.gnome.Console.desktop': <{'position': <2>}>, 'org.gnome.baobab.desktop': <{'position': <3>}>, 'org.gnome.DiskUtility.desktop': <{'position': <4>}>, 'org.gnome.Evince.desktop': <{'position': <5>}>, 'org.gnome.eog.desktop': <{'position': <6>}>, 'org.gnome.Logs.desktop': <{'position': <7>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <8>}>}]";
       disable-user-extensions = false;
-      disabled-extensions = [ ];
-      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "gsconnect@andyholmes.github.io" "user-theme@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" ];
-      favorite-apps = [ "librewolf.desktop" "firefox.desktop" "obsidian.desktop" "kitty.desktop" "beeper.desktop" "schildichat-desktop.desktop" "spotify.desktop" "codium.desktop" "bitwarden.desktop" ];
+      disabled-extensions = [];
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "gsconnect@andyholmes.github.io" "user-theme@gnome-shell-extensions.gcampax.github.com" "caffeine@patapon.info" "bluetooth-battery@michalw.github.com" ];
+      favorite-apps = [ "librewolf.desktop" "firefox.desktop" "@joplinapp-desktop.desktop" "kitty.desktop" "beeper.desktop" "schildichat-desktop.desktop" "spotify.desktop" "codium.desktop" "bitwarden.desktop" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "44.4";
     };
@@ -413,14 +507,27 @@ with lib.hm.gvariant;
       current-workspace-only = true;
     };
 
+    "org/gnome/shell/extensions/appindicator" = {
+      legacy-tray-enabled = true;
+    };
+
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
-      devices = [
-        ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}\n
-        ''
-      ];
+      devices = [ ''
+        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic"}
+      '' ''
+        {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
+      '' ];
       hide-indicator = true;
       interval = 1;
+    };
+
+    "org/gnome/shell/extensions/caffeine" = {
+      indicator-position-max = 1;
+      restore-state = false;
+      show-indicator = "only-active";
+      show-notifications = false;
+      toggle-shortcut = [ "<Shift><Control><Alt>c" ];
+      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -433,8 +540,32 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect" = {
       devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" ];
+      enabled = true;
       id = "43515925-5fe7-495b-adb0-7ad321ef7803";
       name = "nixos";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/0a585d73_e9e9_4945_be32_27baf898f2ba" = {
+      incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
+      last-connection = "lan://192.168.0.101:1716";
+      name = "Galaxy J6+";
+      outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
+      supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
+      type = "phone";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/0a585d73_e9e9_4945_be32_27baf898f2ba/plugin/battery" = {
+      custom-battery-notification-value = mkUint32 80;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/0a585d73_e9e9_4945_be32_27baf898f2ba/plugin/notification" = {
+      applications = ''
+        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"calibre":{"iconName":"calibre-gui","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Easy Effects":{"iconName":"com.github.wwmm.easyeffects","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Fractal":{"iconName":"org.gnome.Fractal","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true},"NewsFlash":{"iconName":"io.gitlab.news_flash.NewsFlash","enabled":true}}\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n\\\\\\\\\\\\\\\\n\\\\\\\\n\\\\n\\n\n
+      '';
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/0a585d73_e9e9_4945_be32_27baf898f2ba/plugin/share" = {
+      receive-directory = "/home/wickedwizard/Downloads";
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d" = {
@@ -449,7 +580,10 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/battery" = {
+      custom-battery-notification = true;
       custom-battery-notification-value = mkUint32 80;
+      full-battery-notification = true;
+      send-statistics = true;
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/clipboard" = {
@@ -459,12 +593,16 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/notification" = {
       applications = ''
-        {"Beeper":{"iconName":"","enabled":true},"SchildiChat":{"iconName":"","enabled":true},"Power":{"iconName":"","enabled":true}}\n
+        {"NewsFlash":{"iconName":"io.gitlab.news_flash.NewsFlash","enabled":true},"Spotify":{"iconName":"","enabled":true},"Beeper":{"iconName":"","enabled":true},"SchildiChat":{"iconName":"","enabled":true}}\n
       '';
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/share" = {
       receive-directory = "/home/wickedwizard/Downloads";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/telephony" = {
+      ringing-pause = true;
     };
 
     "org/gnome/shell/extensions/gsconnect/preferences" = {
@@ -479,8 +617,8 @@ with lib.hm.gvariant;
     "org/gnome/shell/keybindings" = {
       screenshot = [ "<Alt>Print" ];
       screenshot-window = [ "<Shift>Print" ];
-      show-screenshot-ui = [ ];
-      toggle-overview = [ ];
+      show-screenshot-ui = [];
+      toggle-overview = [];
     };
 
     "org/gnome/shell/weather" = {
@@ -493,7 +631,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/system/location" = {
-      enabled = true;
+      enabled = false;
     };
 
     "org/gnome/tweaks" = {
@@ -525,7 +663,7 @@ with lib.hm.gvariant;
       show-hidden = false;
       show-size-column = true;
       show-type-column = true;
-      sidebar-width = 175;
+      sidebar-width = 188;
       sort-column = "name";
       sort-directories-first = false;
       sort-order = "ascending";
