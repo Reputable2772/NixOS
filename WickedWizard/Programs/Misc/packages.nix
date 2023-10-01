@@ -5,6 +5,8 @@
     dnsutils
     eza
     gocryptfs
+    libsForQt5.kdenlive
+    ungoogled-chromium
     neofetch
     rmtrash
     rclone
