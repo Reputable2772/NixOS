@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {
@@ -8,6 +8,6 @@
     "net.core.rmem_max" = 2500000;
     "net.core.wmem_max" = 2500000;
   };
-  # boot.extraModulePackages = with pkgs; [ linuxKernel.packages.linux_latest_libre.rtl8821ce ];
-  # boot.blacklistedKernelModules = [ "rtw88_8821ce" ];
+  boot.extraModulePackages = with pkgs; [ linuxKernel.packages.linux_6_5.rtl8821ce ];
+  boot.blacklistedKernelModules = [ "rtw88_8821ce" ];
 }
