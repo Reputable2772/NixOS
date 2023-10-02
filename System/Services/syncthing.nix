@@ -24,10 +24,6 @@
           path = "/home/wickedwizard/Documents/Important Files";
           devices = [ "Redmi S2" ];
         };
-        "Location" = {
-          path = "/home/wickedwizard/Documents/Location";
-          devices = [ "Redmi S2" ];
-        };
         "Magisk" = {
           path = "/home/wickedwizard/Documents/Magisk";
           devices = [ "Redmi S2" ];
