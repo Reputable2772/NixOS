@@ -18,6 +18,7 @@
 
   imports = [
     ./Programs
+    ./Services
   ];
 
   home.stateVersion = "23.05";

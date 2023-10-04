@@ -59,7 +59,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
+      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
       show-blocklisted-apps = true;
       use-default-output-device = true;
     };
@@ -141,7 +141,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
+      last-panel = "applications";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -182,8 +182,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" ];
-      show-banners = true;
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" ];
+      show-banners = false;
       show-in-lock-screen = true;
     };
 
@@ -201,6 +201,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/ca-desrt-dconf-editor" = {
       application-id = "ca.desrt.dconf-editor.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/chromium-browser" = {
+      application-id = "chromium-browser.desktop";
     };
 
     "org/gnome/desktop/notifications/application/codium" = {
@@ -304,7 +308,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {
-      numlock-state = false;
+      numlock-state = true;
     };
 
     "org/gnome/desktop/peripherals/mouse" = {
@@ -334,7 +338,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/session" = {
-      idle-delay = mkUint32 120;
+      idle-delay = mkUint32 60;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
@@ -363,7 +367,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 1.0473856209150327 0.7108585858585859 ];
+      window-ratio = mkTuple [ 1.047386 0.710859 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -544,7 +548,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [ ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
       '' ''
         {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
       '' ];
@@ -558,7 +562,6 @@ with lib.hm.gvariant;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
-      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -693,7 +696,7 @@ with lib.hm.gvariant;
     "org/gtk/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
-      show-hidden = true;
+      show-hidden = false;
       show-size-column = true;
       show-type-column = true;
       sidebar-width = 188;
@@ -701,7 +704,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 30 26 ];
+      window-position = mkTuple [ 0 140 ];
       window-size = mkTuple [ 1203 902 ];
     };
 

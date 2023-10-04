@@ -4,10 +4,6 @@
     lazygit
   ];
 
-  # services.gnome.gnome-online-accounts.enable = lib.mkForce false;
-  # services.gnome.gnome-keyring.enable = lib.mkForce false;
-  # programs.seahorse.enable = lib.mkForce false;
-
   programs.git = {
     enable = true;
     userEmail = "coding.exhibiting@slmails.com";
