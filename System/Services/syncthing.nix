@@ -16,6 +16,10 @@
           path = "/home/wickedwizard/Documents/Aegis";
           devices = [ "Redmi S2" ];
         };
+        "Backups" = {
+          path = "/home/wickedwizard/Documents/Android/Backups";
+          devices = [ "Redmi S2" ];
+        };
         "Books" = {
           path = "/home/wickedwizard/Documents/Books";
           devices = [ "Redmi S2" ];
@@ -25,7 +29,7 @@
           devices = [ "Redmi S2" ];
         };
         "Magisk" = {
-          path = "/home/wickedwizard/Documents/Magisk";
+          path = "/home/wickedwizard/Documents/Android/Magisk";
           devices = [ "Redmi S2" ];
         };
         "Joplin" = {

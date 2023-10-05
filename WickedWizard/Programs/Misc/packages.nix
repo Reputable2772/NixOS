@@ -11,7 +11,6 @@
     rmtrash
     rclone
     appimage-run
-    restic
     gnome-podcasts
     podman-compose
 

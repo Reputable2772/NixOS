@@ -59,7 +59,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
       show-blocklisted-apps = true;
       use-default-output-device = true;
     };
@@ -93,6 +93,13 @@ with lib.hm.gvariant;
       window-width = 800;
     };
 
+    "org/gnome/Disks/benchmark" = {
+      do-write = false;
+      num-access-samples = 10;
+      num-samples = 100;
+      sample-size-mib = 10;
+    };
+
     "org/gnome/Fractal" = {
       main-window-state-height = 1010;
       main-window-state-maximized = true;
@@ -103,6 +110,12 @@ with lib.hm.gvariant;
 
     "org/gnome/GWeather4" = {
       temperature-unit = "centigrade";
+    };
+
+    "org/gnome/Podcasts" = {
+      persist-window-geometry-height = 640;
+      persist-window-geometry-maximized = true;
+      persist-window-geometry-width = 860;
     };
 
     "org/gnome/TextEditor" = {
@@ -141,7 +154,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "applications";
+      last-panel = "default-apps";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -182,7 +195,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" ];
       show-banners = false;
       show-in-lock-screen = true;
     };
@@ -277,6 +290,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
       application-id = "org.gnome.Nautilus.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-podcasts" = {
+      application-id = "org.gnome.Podcasts.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-settings" = {
@@ -548,7 +565,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [ ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
       '' ''
         {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
       '' ];

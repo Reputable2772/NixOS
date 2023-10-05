@@ -5,5 +5,6 @@
     ./syncthing.nix
     ./fwupd.nix
     ./xserver.nix
+    ./restic.nix
   ];
 }

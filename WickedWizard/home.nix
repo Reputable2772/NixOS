@@ -5,6 +5,11 @@
 
   xdg.mimeApps = {
     enable = true;
+    associations.added = {
+      "x-scheme-handler/sms" = "org.gnome.Shell.Extensions.GSConnect.desktop";
+      "x-scheme-handler/tel" = "org.gnome.Shell.Extensions.GSConnect.desktop";
+      "image/jpeg" = "org.gnome.eog.desktop";
+    };
     defaultApplications = {
       "application/pdf" = "org.gnome.Evince.desktop";
       "application/zip" = "org.gnome.FileRoller.desktop";
