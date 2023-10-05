@@ -59,7 +59,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
+      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
       show-blocklisted-apps = true;
       use-default-output-device = true;
     };
@@ -72,6 +72,10 @@ with lib.hm.gvariant;
 
     "org/freedesktop/folks" = {
       primary-store = "eds:05eaed4a46fe4e16938eadee7aa85957e6f379ac";
+    };
+
+    "org/freedesktop/tracker/miner/files" = {
+      index-single-directories = [ "&DOWNLOAD" ];
     };
 
     "org/gnome/Connections" = {
@@ -147,6 +151,10 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 768 600 ];
     };
 
+    "org/gnome/clocks" = {
+      timers = "@aa{sv} []";
+    };
+
     "org/gnome/clocks/state/window" = {
       maximized = false;
       panel-id = "alarm";
@@ -154,7 +162,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "default-apps";
+      last-panel = "search";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -349,7 +357,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
-      disabled = [ "org.gnome.Settings.desktop" ];
+      disabled = [];
       enabled = [ "org.gnome.Weather.desktop" ];
       sort-order = [ "org.gnome.Nautilus.desktop" "org.gnome.Documents.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" ];
     };
@@ -565,7 +573,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [ ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
       '' ''
         {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
       '' ];
@@ -574,11 +582,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 2;
+      indicator-position-max = 3;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
+      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -590,7 +599,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
-      devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" ];
+      devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" "0a585d73_e9e9_4945_be32_27baf898f2ba" ];
       enabled = true;
       id = "43515925-5fe7-495b-adb0-7ad321ef7803";
       name = "nixos";
@@ -721,7 +730,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 0 140 ];
+      window-position = mkTuple [ 30 26 ];
       window-size = mkTuple [ 1203 902 ];
     };
 

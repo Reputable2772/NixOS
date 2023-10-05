@@ -7,9 +7,11 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "beeper"
-    # "obsidian"
     "spotify"
     "skypeforlinux"
+    "steam"
+    "steam-original"
+    "steam-run"
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {

@@ -43,7 +43,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "skypeforlinux" "gnome-power-panel" "librewolf" "firefox" "org-gnome-shell-extensions-gsconnect" ];
+      application-children = [ "skypeforlinux" "gnome-power-panel" "librewolf" "firefox" "org-gnome-shell-extensions-gsconnect" "com-github-eneshecan-whatsappforlinux" ];
+    };
+
+    "org/gnome/desktop/notifications/application/com-github-eneshecan-whatsappforlinux" = {
+      application-id = "com.github.eneshecan.WhatsAppForLinux.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
