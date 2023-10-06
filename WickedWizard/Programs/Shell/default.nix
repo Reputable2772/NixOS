@@ -2,7 +2,8 @@
   imports = [
     ./autojump.nix
     ./bash.nix
-    ./zsh.nix
     ./git.nix
+    ./packages.nix
+    ./zsh.nix
   ];
 }
