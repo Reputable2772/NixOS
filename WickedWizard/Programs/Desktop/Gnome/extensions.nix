@@ -4,6 +4,7 @@
     clipboard-indicator
     gsconnect
     bluetooth-battery
+    system-monitor
     gamemode
     caffeine
   ];

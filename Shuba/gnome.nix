@@ -106,7 +106,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
-      devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" "0a585d73_e9e9_4945_be32_27baf898f2ba" ];
+      devices = [];
       enabled = true;
       id = "e85dd225-d8c6-4d05-be70-ee7a8aa34f1a";
       name = "nixos";

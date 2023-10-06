@@ -58,16 +58,37 @@ with lib.hm.gvariant;
       use-default-input-device = true;
     };
 
+    "com/github/wwmm/easyeffects/streaminputs/rnnoise/0" = {
+      enable-vad = false;
+    };
+
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
       show-blocklisted-apps = true;
       use-default-output-device = true;
+    };
+
+    "com/usebottles/bottles" = {
+      show-sandbox-warning = false;
+      startup-view = "page_list";
+      window-height = 1048;
+      window-width = 1920;
     };
 
     "de/haeckerfelix/Fragments" = {
       client-last-connection = "00000000-0000-0000-0000-000000000000";
       window-height = 700;
       window-width = 900;
+    };
+
+    "net/sapples/LiveCaptions" = {
+      active-model = "/nix/store/ikbam9k4kjw51hjbp5asxhivhgr2bc7s-april-english-dev-01110_en.april";
+      benchmark = 1.578947;
+      fade-text = true;
+      filter-profanity = false;
+      filter-slurs = false;
+      microphone = false;
+      text-uppercase = false;
     };
 
     "org/freedesktop/folks" = {
@@ -162,7 +183,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "search";
+      last-panel = "keyboard";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -203,8 +224,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" ];
-      show-banners = false;
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" ];
+      show-banners = true;
       show-in-lock-screen = true;
     };
 
@@ -234,6 +255,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/com-obsproject-studio" = {
       application-id = "com.obsproject.Studio.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/com-usebottles-bottles" = {
+      application-id = "com.usebottles.bottles.desktop";
     };
 
     "org/gnome/desktop/notifications/application/de-haeckerfelix-fragments" = {
@@ -326,6 +351,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/spotify" = {
       application-id = "spotify.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/steam" = {
+      application-id = "steam.desktop";
     };
 
     "org/gnome/desktop/notifications/application/thunderbird" = {
@@ -532,7 +561,7 @@ with lib.hm.gvariant;
       calculator = [ "Calculator" ];
       control-center = [ "<Super>s" ];
       custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
-      mic-mute = [ "F4" ];
+      mic-mute = [ "F8" ];
       next = [ "AudioNext" ];
       play = [ "AudioPlay" ];
       previous = [ "AudioPrev" ];
@@ -573,7 +602,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [ ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
       '' ''
         {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
       '' ];
@@ -587,7 +616,8 @@ with lib.hm.gvariant;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
-      toggle-state = false;
+      toggle-state = true;
+      user-enabled = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -599,7 +629,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
-      devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" "0a585d73_e9e9_4945_be32_27baf898f2ba" ];
+      devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" ];
       enabled = true;
       id = "43515925-5fe7-495b-adb0-7ad321ef7803";
       name = "nixos";
