@@ -5,10 +5,6 @@
       isDefault = true;
       name = "default";
       path = "../../Documents/Browsers/Firefox/";
-      search = {
-        default = "DuckDuckGo";
-        force = true;
-      };
     };
   };
 
