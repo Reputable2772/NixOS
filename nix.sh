@@ -22,7 +22,7 @@ rm -rf ./wickedwizard.dconf ./wickedwizard.conf
 rm -rf ./shuba.dconf ./shuba.conf
 
 echo "Actually builiding"
-rm -rf /home/wickedwizard/Documents/Browsers/Firefox/search.json.mozlz4 /home/wickedwizard/.config/mimeapps.list
+rm -rf /home/wickedwizard/.config/mimeapps.list
 sudo nixos-rebuild switch --flake .#nixos
 
 echo "Changelog"
