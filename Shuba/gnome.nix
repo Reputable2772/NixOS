@@ -106,7 +106,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
-      devices = [ ];
+      devices = [];
       enabled = true;
       id = "e85dd225-d8c6-4d05-be70-ee7a8aa34f1a";
       name = "nixos";
@@ -162,7 +162,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [ ];
+      locations = [];
     };
 
     "org/gnome/tweaks" = {
