@@ -4,8 +4,11 @@
     clipboard-indicator
     gsconnect
     bluetooth-battery
-    system-monitor
+    vitals
+    custom-accent-colors
+    rounded-window-corners
     gamemode
     caffeine
+    just-perfection
   ];
 }

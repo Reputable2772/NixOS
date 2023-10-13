@@ -27,8 +27,10 @@ with lib.hm.gvariant;
     };
 
     "com/github/GradienceTeam/Gradience" = {
+      enabled-plugins = [ "firefox_gnome_theme" ];
       first-run = false;
       last-opened-version = "0.4.1";
+      user-flatpak-theming-gtk3 = true;
       user-flatpak-theming-gtk4 = true;
       window-fullscreen = false;
       window-height = 700;
@@ -89,13 +91,17 @@ with lib.hm.gvariant;
       window-width = 900;
     };
 
+    "io/github/lainsce/Khronos" = {
+      schema-version = 1;
+    };
+
     "net/sapples/LiveCaptions" = {
       active-model = "/nix/store/ikbam9k4kjw51hjbp5asxhivhgr2bc7s-april-english-dev-01110_en.april";
       benchmark = 1.578947;
       fade-text = true;
       filter-profanity = false;
       filter-slurs = false;
-      microphone = false;
+      microphone = true;
       text-uppercase = false;
     };
 
@@ -162,17 +168,22 @@ with lib.hm.gvariant;
       locations = "[<(uint32 2, <('Bangalore', 'VOBG', true, [(0.22601989378717041, 1.3555659188172149)], [(0.22631101470640302, 1.3537937114947398)])>)>]";
     };
 
+    "org/gnome/baobab/ui" = {
+      is-maximized = false;
+      window-size = mkTuple [ 960 600 ];
+    };
+
     "org/gnome/calculator" = {
       accuracy = 9;
       angle-units = "degrees";
       base = 10;
-      button-mode = "basic";
+      button-mode = "financial";
       number-format = "automatic";
       show-thousands = false;
       show-zeroes = false;
-      source-currency = "";
+      source-currency = "EUR";
       source-units = "degree";
-      target-currency = "";
+      target-currency = "INR";
       target-units = "radian";
       word-size = 64;
     };
@@ -194,7 +205,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "sound";
+      last-panel = "network";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -219,6 +230,10 @@ with lib.hm.gvariant;
       translate = true;
     };
 
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
+    };
+
     "org/gnome/desktop/input-sources" = {
       show-all-sources = true;
       sources = [ (mkTuple [ "xkb" "us" ]) ];
@@ -235,8 +250,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" ];
-      show-banners = true;
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" ];
+      show-banners = false;
       show-in-lock-screen = true;
     };
 
@@ -262,6 +277,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/codium" = {
       application-id = "codium.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/com-github-gradienceteam-gradience" = {
+      application-id = "com.github.GradienceTeam.Gradience.desktop";
     };
 
     "org/gnome/desktop/notifications/application/com-obsproject-studio" = {
@@ -418,11 +437,16 @@ with lib.hm.gvariant;
       show-desktop = [ "<Super>d" ];
       switch-applications = [];
       switch-applications-backward = [];
+      switch-input-source = [ "<Alt>Shift_L" ];
       switch-to-workspace-left = [ "<Control><Super>Left" ];
       switch-to-workspace-right = [ "<Control><Super>Right" ];
       switch-windows = [ "<Alt>Tab" ];
       switch-windows-backward = [ "<Shift><Alt>Tab" ];
       toggle-fullscreen = [ "F11" ];
+    };
+
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "appmenu:minimize,maximize,close";
     };
 
     "org/gnome/evince/default" = {
@@ -597,10 +621,10 @@ with lib.hm.gvariant;
 
     "org/gnome/shell" = {
       app-picker-layout = "[{'waydroid.com.android.inputmethod.latin.desktop': <{'position': <0>}>, 'org.gnome.Contacts.desktop': <{'position': <1>}>, 'org.gnome.Weather.desktop': <{'position': <2>}>, 'org.gnome.clocks.desktop': <{'position': <3>}>, 'org.gnome.Maps.desktop': <{'position': <4>}>, 'beeper.desktop': <{'position': <5>}>, 'bitwarden.desktop': <{'position': <6>}>, 'waydroid.org.lineageos.jelly.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'waydroid.com.android.calculator2.desktop': <{'position': <9>}>, 'waydroid.org.lineageos.etar.desktop': <{'position': <10>}>, 'org.gnome.Settings.desktop': <{'position': <11>}>, 'gnome-system-monitor.desktop': <{'position': <12>}>, 'calibre-gui.desktop': <{'position': <13>}>, 'waydroid.com.android.camera2.desktop': <{'position': <14>}>, 'waydroid.com.android.deskclock.desktop': <{'position': <15>}>, 'org.gnome.Characters.desktop': <{'position': <16>}>, 'yelp.desktop': <{'position': <17>}>, 'waydroid.com.android.contacts.desktop': <{'position': <18>}>, 'calibre-ebook-edit.desktop': <{'position': <19>}>, 'org.gnome.font-viewer.desktop': <{'position': <20>}>, 'calibre-ebook-viewer.desktop': <{'position': <21>}>, 'com.github.wwmm.easyeffects.desktop': <{'position': <22>}>, 'org.gnome.Extensions.desktop': <{'position': <23>}>}, {'waydroid.com.android.documentsui.desktop': <{'position': <0>}>, 'firefox.desktop': <{'position': <1>}>, 'org.flameshot.Flameshot.desktop': <{'position': <2>}>, 'waydroid.com.android.gallery3d.desktop': <{'position': <3>}>, 'com.github.GradienceTeam.Gradience.desktop': <{'position': <4>}>, 'kitty.desktop': <{'position': <5>}>, 'kvantummanager.desktop': <{'position': <6>}>, 'librewolf.desktop': <{'position': <7>}>, 'calibre-lrfviewer.desktop': <{'position': <8>}>, 'waydroid.org.lineageos.eleven.desktop': <{'position': <9>}>, 'nheko.desktop': <{'position': <10>}>, 'nixos-manual.desktop': <{'position': <11>}>, 'com.obsproject.Studio.desktop': <{'position': <12>}>, 'obsidian.desktop': <{'position': <13>}>, 'qt5ct.desktop': <{'position': <14>}>, 'qt6ct.desktop': <{'position': <15>}>, 'waydroid.org.lineageos.recorder.desktop': <{'position': <16>}>, 'schildichat-desktop.desktop': <{'position': <17>}>, 'waydroid.com.android.settings.desktop': <{'position': <18>}>, 'spotify.desktop': <{'position': <19>}>, 'org.gnome.TextEditor.desktop': <{'position': <20>}>, 'vlc.desktop': <{'position': <21>}>, 'codium.desktop': <{'position': <22>}>, 'Waydroid.desktop': <{'position': <23>}>}, {'org.gnome.FileRoller.desktop': <{'position': <0>}>, 'org.gnome.Connections.desktop': <{'position': <1>}>, 'org.gnome.Console.desktop': <{'position': <2>}>, 'org.gnome.baobab.desktop': <{'position': <3>}>, 'org.gnome.DiskUtility.desktop': <{'position': <4>}>, 'org.gnome.Evince.desktop': <{'position': <5>}>, 'org.gnome.eog.desktop': <{'position': <6>}>, 'org.gnome.Logs.desktop': <{'position': <7>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <8>}>}]";
-      command-history = [ "r" "restart" "reload" ];
+      command-history = [ "r" "restart" "reload" "lg" ];
       disable-user-extensions = false;
-      disabled-extensions = [];
-      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "gsconnect@andyholmes.github.io" "user-theme@gnome-shell-extensions.gcampax.github.com" "caffeine@patapon.info" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" ];
+      disabled-extensions = [ "custom-accent-colors@demiskp" ];
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "gsconnect@andyholmes.github.io" "caffeine@patapon.info" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" "Vitals@CoreCoding.com" "user-theme@gnome-shell-extensions.gcampax.github.com" ];
       favorite-apps = [ "librewolf.desktop" "firefox.desktop" "@joplinapp-desktop.desktop" "kitty.desktop" "beeper.desktop" "schildichat-desktop.desktop" "spotify.desktop" "codium.desktop" "bitwarden.desktop" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "44.4";
@@ -626,13 +650,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 3;
+      indicator-position-max = 2;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
       toggle-state = false;
-      user-enabled = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -641,6 +664,13 @@ with lib.hm.gvariant;
       notify-on-copy = false;
       prev-entry = [ "<Shift><Control><Alt>z" ];
       toggle-menu = [ "<Shift><Control><Alt>a" ];
+    };
+
+    "org/gnome/shell/extensions/custom-accent-colors" = {
+      accent-color = "green";
+      theme-flatpak = false;
+      theme-gtk3 = false;
+      theme-shell = false;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
@@ -717,6 +747,15 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 783 440 ];
     };
 
+    "org/gnome/shell/extensions/rounded-window-corners" = {
+      custom-rounded-corner-settings = "@a{sv} {}";
+      enable-preferences-entry = true;
+      global-rounded-corner-settings = "{'padding': <{'left': <uint32 1>, 'right': <uint32 1>, 'top': <uint32 1>, 'bottom': <uint32 1>}>, 'keep_rounded_corners': <{'maximized': <false>, 'fullscreen': <false>}>, 'border_radius': <uint32 12>, 'smoothing': <uint32 0>}";
+      settings-version = mkUint32 5;
+      skip-libhandy-app = true;
+      tweak-kitty-terminal = true;
+    };
+
     "org/gnome/shell/extensions/system-monitor" = {
       battery-display = false;
       center-display = false;
@@ -736,6 +775,13 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/user-theme" = {
       name = "";
+    };
+
+    "org/gnome/shell/extensions/vitals" = {
+      battery-slot = 1;
+      hot-sensors = [ "_processor_usage_" "_memory_usage_" "_temperature_nvme_composite_" "__network-rx_max__" "_temperature_amdgpu_edge_" ];
+      include-static-info = false;
+      show-battery = true;
     };
 
     "org/gnome/shell/keybindings" = {
@@ -762,6 +808,11 @@ with lib.hm.gvariant;
       show-extensions-notice = false;
     };
 
+    "org/gtk/gtk4/settings/color-chooser" = {
+      custom-colors = [ (mkTuple [ 0.5333333611488342 0.7529411911964417 0.8156862854957581 1.0 ]) ];
+      selected-color = mkTuple [ true 0.18039216101169586 0.7607843279838562 0.4941176474094391 1.0 ];
+    };
+
     "org/gtk/gtk4/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
@@ -784,7 +835,7 @@ with lib.hm.gvariant;
     "org/gtk/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
-      show-hidden = false;
+      show-hidden = true;
       show-size-column = true;
       show-type-column = true;
       sidebar-width = 188;

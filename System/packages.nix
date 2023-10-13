@@ -4,4 +4,6 @@
     curl
     nano
   ];
+
+  environment.pathsToLink = [ "/share/Kvantum" ];
 }

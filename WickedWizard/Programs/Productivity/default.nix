@@ -2,5 +2,6 @@
   imports = [
     ./newsflash.nix
     ./joplin.nix
+    ./task-timer.nix
   ];
 }

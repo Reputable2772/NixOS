@@ -36,6 +36,7 @@
               inputs.nur.overlay
               (import ./Overlays/prismlauncher.nix)
               (import ./Overlays/dconf2nix.nix)
+              (import ./Overlays/rssguard.nix)
             ];
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

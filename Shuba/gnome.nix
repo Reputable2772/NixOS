@@ -54,6 +54,10 @@ with lib.hm.gvariant;
       application-id = "firefox.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/gnome-network-panel" = {
+      application-id = "gnome-network-panel.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
       application-id = "gnome-power-panel.desktop";
     };

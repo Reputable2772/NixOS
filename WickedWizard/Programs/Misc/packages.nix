@@ -12,6 +12,7 @@
 
     protonvpn-cli
     libreoffice-qt
+    conky
     android-tools
 
     nur.repos.mikilio.xwaylandvideobridge

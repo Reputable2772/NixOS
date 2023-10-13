@@ -12,8 +12,10 @@
       eamodio.gitlens
       pkief.material-icon-theme
       jnoortheen.nix-ide
+      editorconfig.editorconfig
       rust-lang.rust-analyzer
       arcticicestudio.nord-visual-studio-code
+      mkhl.direnv
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
         name = "indent-rainbow";
