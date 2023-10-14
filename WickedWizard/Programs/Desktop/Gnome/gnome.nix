@@ -242,6 +242,7 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      enable-animations = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
       gtk-theme = "Nordic-darker";
@@ -650,12 +651,11 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 2;
+      indicator-position-max = 3;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
-      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -747,6 +747,45 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 783 440 ];
     };
 
+    "org/gnome/shell/extensions/just-perfection" = {
+      accessibility-menu = true;
+      activities-button = true;
+      animation = 4;
+      app-menu = true;
+      app-menu-icon = true;
+      app-menu-label = true;
+      background-menu = true;
+      clock-menu = true;
+      clock-menu-position = 0;
+      clock-menu-position-offset = 0;
+      controls-manager-spacing-size = 0;
+      dash = true;
+      dash-icon-size = 0;
+      double-super-to-appgrid = true;
+      keyboard-layout = false;
+      osd = true;
+      panel = true;
+      panel-icon-size = 10;
+      panel-in-overview = true;
+      panel-size = 25;
+      quick-settings = true;
+      ripple-box = true;
+      search = true;
+      show-apps-button = true;
+      startup-status = 1;
+      theme = false;
+      window-demands-attention-focus = false;
+      window-picker-icon = true;
+      window-preview-caption = true;
+      window-preview-close-button = true;
+      workspace = true;
+      workspace-background-corner-size = 0;
+      workspace-peek = true;
+      workspace-popup = true;
+      workspace-wrap-around = true;
+      workspaces-in-app-grid = true;
+    };
+
     "org/gnome/shell/extensions/rounded-window-corners" = {
       custom-rounded-corner-settings = "@a{sv} {}";
       enable-preferences-entry = true;
@@ -809,8 +848,8 @@ with lib.hm.gvariant;
     };
 
     "org/gtk/gtk4/settings/color-chooser" = {
-      custom-colors = [ (mkTuple [ 0.5333333611488342 0.7529411911964417 0.8156862854957581 1.0 ]) ];
-      selected-color = mkTuple [ true 0.18039216101169586 0.7607843279838562 0.4941176474094391 1.0 ];
+      custom-colors = [ (mkTuple [ 0.533333 0.752941 0.815686 1.0 ]) ];
+      selected-color = mkTuple [ true 0.180392 0.760784 0.494118 1.0 ];
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {

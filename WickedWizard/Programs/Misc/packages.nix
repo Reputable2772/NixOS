@@ -3,13 +3,12 @@
     calibre
     gocryptfs
     libsForQt5.kdenlive
-    ungoogled-chromium
     rclone
     appimage-run
     gnome-podcasts
     podman-compose
     bottles
-
+    flatpak
     protonvpn-cli
     libreoffice-qt
     conky
