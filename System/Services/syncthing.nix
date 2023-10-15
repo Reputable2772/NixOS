@@ -28,12 +28,16 @@
           path = "/home/wickedwizard/Documents/Important Files";
           devices = [ "Redmi S2" ];
         };
+        "Joplin" = {
+          path = "/home/wickedwizard/Documents/Joplin";
+          devices = [ "Redmi S2" ];
+        };
         "Magisk" = {
           path = "/home/wickedwizard/Documents/Android/Magisk";
           devices = [ "Redmi S2" ];
         };
-        "Joplin" = {
-          path = "/home/wickedwizard/Documents/Joplin";
+        "Pictures" = {
+          path = "/home/wickedwizard/Documents/Pictures/Phone";
           devices = [ "Redmi S2" ];
         };
         "SIM Backup" = {
