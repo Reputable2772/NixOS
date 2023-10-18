@@ -1,0 +1,14 @@
+diff --git a/resources/misc/cryptor.desktop b/resources/misc/cryptor.desktop
+index 960321d..807bc6e 100644
+--- a/resources/misc/cryptor.desktop
++++ b/resources/misc/cryptor.desktop
+@@ -2,7 +2,7 @@
+ Terminal=false
+ Name=cryptor
+ Type=Application
+-Categories=Utility;TrayIcon;
+-Exec=/usr/bin/cryptor
++Categories=Utility;
++Exec=cryptor
+ Icon=gtk-dialog-authentication
+ Comment=Simple GUI application for gocryptfs
