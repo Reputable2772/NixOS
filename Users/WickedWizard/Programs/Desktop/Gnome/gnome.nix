@@ -208,13 +208,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/clocks" = {
-      timers = "@aa{sv} []";
+      timers = "[{'duration': <60>, 'name': <''>}]";
     };
 
     "org/gnome/clocks/state/window" = {
       maximized = false;
-      panel-id = "alarm";
-      size = mkTuple [ 870 690 ];
+      panel-id = "timer";
+      size = mkTuple [ 389 478 ];
     };
 
     "org/gnome/control-center" = {
@@ -271,7 +271,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" ];
       show-banners = false;
       show-in-lock-screen = true;
     };
@@ -358,6 +358,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-gnome-characters" = {
       application-id = "org.gnome.Characters.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-clocks" = {
+      application-id = "org.gnome.clocks.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-console" = {
@@ -485,7 +489,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.981513 0.710214 ];
+      window-ratio = mkTuple [ 0.9809849999834545 0.7102812281318307 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -675,7 +679,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 1;
+      indicator-position-max = 2;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
@@ -907,7 +911,7 @@ with lib.hm.gvariant;
       sidebar-width = 188;
       sort-column = "name";
       sort-directories-first = false;
-      sort-order = "ascending";
+      sort-order = "descending";
       type-format = "category";
       window-position = mkTuple [ 30 26 ];
       window-size = mkTuple [ 1203 902 ];
