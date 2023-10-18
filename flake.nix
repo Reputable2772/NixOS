@@ -29,27 +29,21 @@
         system = "x86_64-linux";
         modules = [
           nur.nixosModules.nur
-          ./configuration.nix
           home-manager.nixosModules.home-manager
+          ./System/NixOS
           {
-            nixpkgs.overlays = [
-              inputs.nur.overlay
-              (import ./Overlays/prismlauncher.nix)
-              (import ./Overlays/dconf2nix.nix)
-              (import ./Overlays/rssguard.nix)
-            ];
+            nixpkgs.overlays = [ nur.overlay ] ++ (import ./Overlays);
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.wickedwizard = {
-              imports = [ ./WickedWizard/home.nix ];
-              _module.args.nur = { inherit nur; };
+            home-manager.users = {
+              wickedwizard = {
+                imports = [ ./Users/WickedWizard/home.nix ];
+                # _module.args.nur = { inherit nur; };
+              };
+              shuba = import ./Users/Shuba/home.nix;
             };
-            home-manager.users.shuba = import ./Shuba/home.nix;
           }
         ];
-        specialArgs = {
-          inherit inputs;
-        };
       };
     };
   };
