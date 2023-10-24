@@ -8,7 +8,7 @@
     gnomeExtensions.gsconnect
     gnomeExtensions.clipboard-indicator
     librewolf
-    libreoffice-qt
+    libreoffice
     whatsapp-for-linux
     skypeforlinux
   ];

@@ -5,6 +5,166 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "app/drey/Planner/ui" = {
+      active-view = "task_view";
+    };
+
+    "app/drey/Planner/views/gantt-view/assigned-to" = {
+      order = 8;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/complete" = {
+      order = 9;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/cost" = {
+      order = 7;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/duration" = {
+      order = 5;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/finish" = {
+      order = 3;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/name" = {
+      order = 1;
+      visible = true;
+      width = 100;
+    };
+
+    "app/drey/Planner/views/gantt-view/slack" = {
+      order = 6;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/start" = {
+      order = 2;
+      visible = false;
+      width = 0;
+    };
+
+    "app/drey/Planner/views/gantt-view/wbs" = {
+      order = 0;
+      visible = true;
+      width = 50;
+    };
+
+    "app/drey/Planner/views/gantt-view/work" = {
+      order = 4;
+      visible = true;
+      width = 98;
+    };
+
+    "app/drey/Planner/views/resource-view/cost" = {
+      order = 5;
+      visible = true;
+      width = 1340;
+    };
+
+    "app/drey/Planner/views/resource-view/email" = {
+      order = 4;
+      visible = true;
+      width = 150;
+    };
+
+    "app/drey/Planner/views/resource-view/group" = {
+      order = 3;
+      visible = true;
+      width = 56;
+    };
+
+    "app/drey/Planner/views/resource-view/name" = {
+      order = 0;
+      visible = true;
+      width = 150;
+    };
+
+    "app/drey/Planner/views/resource-view/short-name" = {
+      order = 1;
+      visible = true;
+      width = 92;
+    };
+
+    "app/drey/Planner/views/resource-view/type" = {
+      order = 2;
+      visible = true;
+      width = 46;
+    };
+
+    "app/drey/Planner/views/task-view/assigned-to" = {
+      order = 8;
+      visible = true;
+      width = 94;
+    };
+
+    "app/drey/Planner/views/task-view/complete" = {
+      order = 9;
+      visible = true;
+      width = 1166;
+    };
+
+    "app/drey/Planner/views/task-view/cost" = {
+      order = 7;
+      visible = true;
+      width = 70;
+    };
+
+    "app/drey/Planner/views/task-view/duration" = {
+      order = 5;
+      visible = true;
+      width = 74;
+    };
+
+    "app/drey/Planner/views/task-view/finish" = {
+      order = 3;
+      visible = true;
+      width = 70;
+    };
+
+    "app/drey/Planner/views/task-view/name" = {
+      order = 1;
+      visible = true;
+      width = 100;
+    };
+
+    "app/drey/Planner/views/task-view/slack" = {
+      order = 6;
+      visible = true;
+      width = 70;
+    };
+
+    "app/drey/Planner/views/task-view/start" = {
+      order = 2;
+      visible = true;
+      width = 70;
+    };
+
+    "app/drey/Planner/views/task-view/wbs" = {
+      order = 0;
+      visible = true;
+      width = 50;
+    };
+
+    "app/drey/Planner/views/task-view/work" = {
+      order = 4;
+      visible = true;
+      width = 70;
+    };
+
     "apps/seahorse/listing" = {
       keyrings-selected = [ "secret-service:///org/freedesktop/secrets/collection/login" ];
     };
@@ -36,6 +196,12 @@ with lib.hm.gvariant;
       window-height = 700;
       window-maximized = false;
       window-width = 1000;
+    };
+
+    "com/github/tenderowl/frog" = {
+      active-language = "eng";
+      window-height = 482;
+      window-width = 502;
     };
 
     "com/github/wwmm/easyeffects" = {
@@ -93,6 +259,15 @@ with lib.hm.gvariant;
 
     "hu/kramo/Cartridges" = {
       bottles-location = "/home/wickedwizard/.local/share/bottles";
+      cover-launches-game = true;
+      flatpak = false;
+      heroic = false;
+      high-quality-images = true;
+      itch = false;
+      legendary = false;
+      lutris = false;
+      remove-missing = true;
+      retroarch = false;
       sgdb = false;
       sgdb-prefer = false;
       steam-location = "/home/wickedwizard/.steam/steam";
@@ -102,6 +277,16 @@ with lib.hm.gvariant;
       is-maximized = true;
       sort-mode = "a-z";
       steam-limiter-tokens-history = "[1697385301.9968245, 1697385327.5313468, 1697385327.5377128, 1697385327.545093, 1697385327.5489328]";
+    };
+
+    "io/github/alainm23/planify" = {
+      appearance = "Dark";
+      dark-mode = true;
+      inbox-project-id = "9546866322";
+      local-inbox-project-id = "9546866322";
+      system-appearance = false;
+      version = "4.1.1";
+      window-maximized = false;
     };
 
     "io/github/lainsce/Khronos" = {
@@ -218,7 +403,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "search";
+      last-panel = "network";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -271,7 +456,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" "signal-desktop" "org-gnome-todo" "io-github-mrvladus-list" "org-gnome-software" ];
       show-banners = false;
       show-in-lock-screen = true;
     };
@@ -330,6 +515,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/io-github-martinrotter-rssguard" = {
       application-id = "io.github.martinrotter.rssguard.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/io-github-mrvladus-list" = {
+      application-id = "io.github.mrvladus.List.desktop";
     };
 
     "org/gnome/desktop/notifications/application/io-gitlab-news-flash-newsflash" = {
@@ -396,8 +585,16 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Shell.Extensions.GSConnect.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-software" = {
+      application-id = "org.gnome.Software.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-texteditor" = {
       application-id = "org.gnome.TextEditor.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-todo" = {
+      application-id = "org.gnome.Todo.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-telegram-desktop" = {
@@ -406,6 +603,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/schildichat-desktop" = {
       application-id = "schildichat-desktop.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/signal-desktop" = {
+      application-id = "signal-desktop.desktop";
     };
 
     "org/gnome/desktop/notifications/application/spotify" = {
@@ -489,7 +690,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.9809849999834545 0.7102812281318307 ];
+      window-ratio = mkTuple [ 0.9810606060606061 0.7107843137254902 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -499,6 +700,7 @@ with lib.hm.gvariant;
     "org/gnome/evolution" = {
       default-address-book = "05eaed4a46fe4e16938eadee7aa85957e6f379ac";
       default-calendar = "3e01427c011feac5c9644676fb52bd9dc1478282";
+      default-task-list = "system-task-list";
       version = "3.48.4";
     };
 
@@ -588,6 +790,10 @@ with lib.hm.gvariant;
       restore-shortcuts = [];
     };
 
+    "org/gnome/nautilus/compression" = {
+      default-compression-format = "7z";
+    };
+
     "org/gnome/nautilus/icon-view" = {
       default-zoom-level = "small";
     };
@@ -653,7 +859,7 @@ with lib.hm.gvariant;
       command-history = [ "r" "restart" "reload" "lg" ];
       disable-user-extensions = false;
       disabled-extensions = [ "custom-accent-colors@demiskp" ];
-      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" "Vitals@CoreCoding.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "gsconnect@andyholmes.github.io" "just-perfection-desktop@just-perfection" ];
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" "Vitals@CoreCoding.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "gsconnect@andyholmes.github.io" "just-perfection-desktop@just-perfection" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" ];
       favorite-apps = [ "librewolf.desktop" "firefox.desktop" "@joplinapp-desktop.desktop" "kitty.desktop" "beeper.desktop" "schildichat-desktop.desktop" "spotify.desktop" "codium.desktop" "bitwarden.desktop" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "44.4";
@@ -668,6 +874,10 @@ with lib.hm.gvariant;
       legacy-tray-enabled = true;
     };
 
+    "org/gnome/shell/extensions/auto-move-windows" = {
+      application-list = [ "spotify.desktop:2" "kitty.desktop:2" "@joplinapp-desktop.desktop:1" "io.github.lainsce.Khronos.desktop:1" ];
+    };
+
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [ ''
         {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
@@ -679,7 +889,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 2;
+      indicator-position-max = 1;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
@@ -777,44 +987,45 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/just-perfection" = {
-      accessibility-menu = false;
-      activities-button = true;
-      animation = 4;
+      accessibility-menu = true;
+      activities-button = false;
+      animation = 1;
       app-menu = false;
       app-menu-icon = true;
-      app-menu-label = true;
+      app-menu-label = false;
       background-menu = true;
       clock-menu = true;
       clock-menu-position = 2;
-      clock-menu-position-offset = 9;
-      controls-manager-spacing-size = 1;
+      clock-menu-position-offset = 0;
+      controls-manager-spacing-size = 0;
       dash = true;
       dash-app-running = true;
-      dash-icon-size = 40;
+      dash-icon-size = 0;
       double-super-to-appgrid = true;
       keyboard-layout = true;
       osd = true;
+      overlay-key = true;
       panel = true;
-      panel-icon-size = 15;
+      panel-icon-size = 0;
       panel-in-overview = true;
-      panel-size = 30;
+      panel-size = 0;
       quick-settings = true;
       ripple-box = true;
-      search = false;
-      show-apps-button = false;
+      search = true;
+      show-apps-button = true;
       startup-status = 1;
       theme = false;
-      window-demands-attention-focus = true;
-      window-picker-icon = false;
+      window-demands-attention-focus = false;
+      window-picker-icon = true;
       window-preview-caption = true;
       window-preview-close-button = true;
-      workspace = false;
+      workspace = true;
       workspace-background-corner-size = 0;
-      workspace-peek = false;
+      workspace-peek = true;
       workspace-popup = true;
-      workspace-switcher-should-show = true;
+      workspace-switcher-should-show = false;
       workspace-wrap-around = true;
-      workspaces-in-app-grid = false;
+      workspaces-in-app-grid = true;
     };
 
     "org/gnome/shell/extensions/rounded-window-corners" = {
@@ -870,8 +1081,18 @@ with lib.hm.gvariant;
       locations = [];
     };
 
+    "org/gnome/software" = {
+      first-run = false;
+      show-only-free-apps = true;
+    };
+
     "org/gnome/system/location" = {
       enabled = false;
+    };
+
+    "org/gnome/todo" = {
+      default-provider = "local";
+      window-maximized = true;
     };
 
     "org/gnome/tweaks" = {
@@ -911,7 +1132,7 @@ with lib.hm.gvariant;
       sidebar-width = 188;
       sort-column = "name";
       sort-directories-first = false;
-      sort-order = "descending";
+      sort-order = "ascending";
       type-format = "category";
       window-position = mkTuple [ 30 26 ];
       window-size = mkTuple [ 1203 902 ];
