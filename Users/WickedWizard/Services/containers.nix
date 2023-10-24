@@ -9,11 +9,11 @@
         ExecStop = "/run/current-system/sw/bin/bash /home/wickedwizard/Documents/NixOS/Users/WickedWizard/Services/logout.sh";
       };
       Install = {
-        WantedBy = [ "xdg-desktop-autostart.target" ];
+        WantedBy = [ "graphical-session.target" ];
       };
       Unit = {
         Description = "Podman Services";
-        After = [ "graphical-session-post.target" ];
+        After = [ "graphical-session-pre.target" ];
       };
     };
   };
