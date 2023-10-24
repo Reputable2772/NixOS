@@ -1,9 +1,10 @@
 { config, pkgs, ... }: {
   imports = [
-    ./pipewire.nix
-    ./syncthing.nix
+    ./flatpak.nix
     ./fwupd.nix
-    ./xserver.nix
+    ./pipewire.nix
     ./restic.nix
+    ./syncthing.nix
+    ./xserver.nix
   ];
 }
