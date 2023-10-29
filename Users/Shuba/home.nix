@@ -9,8 +9,12 @@
     gnomeExtensions.clipboard-indicator
     librewolf
     libreoffice
+    vlc
+    quickemu
+    deluge-gtk
     whatsapp-for-linux
     skypeforlinux
+    kitty
   ];
 
   xdg.configFile."autostart/skypeforlinux.desktop".source = "${pkgs.skypeforlinux}/share/applications/skypeforlinux.desktop";

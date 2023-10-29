@@ -16,16 +16,12 @@
           path = "${config.users.users.wickedwizard.home}/Documents/Aegis";
           devices = [ "Redmi S2" ];
         };
-        "Backups" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Android/Backups";
-          devices = [ "Redmi S2" ];
-        };
         "Books" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Books";
           devices = [ "Redmi S2" ];
         };
         "Important Files" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Important Files";
+          path = "${config.users.users.wickedwizard.home}/Documents/Important-Files";
           devices = [ "Redmi S2" ];
         };
         "Joplin" = {

@@ -1,7 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 {
   home.username = "wickedwizard";
   home.homeDirectory = "/home/wickedwizard";
+
+  home.packages = with pkgs; [ quickemu ];
 
   xdg.mimeApps = {
     enable = true;

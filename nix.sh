@@ -23,7 +23,7 @@ rm -rf ./shuba.dconf ./shuba.conf
 
 echo "Actually builiding"
 rm -rf $HOME/.config/mimeapps.list
-sudo nixos-rebuild switch --flake .#nixos
+sudo nixos-rebuild switch --flake .#hp-laptop
 
 echo "Changelog"
 nix profile diff-closures --profile /nix/var/nix/profiles/system

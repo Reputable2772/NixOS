@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-channel.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
   };
 
   nixConfig = {
@@ -25,26 +26,29 @@
   outputs = { self, nixpkgs, home-manager, nur, ... }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     nixosConfigurations = {
-      "nixos" = nixpkgs.lib.nixosSystem {
+      "hp-laptop" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nur.nixosModules.nur
           home-manager.nixosModules.home-manager
-          ./System/NixOS
+          ./System/HP-Laptop
           {
             nixpkgs.overlays = [ nur.overlay ] ++ (import ./Overlays);
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users = {
-              wickedwizard = {
-                imports = [ ./Users/WickedWizard/home.nix ];
-                # _module.args.nur = { inherit nur; };
-              };
+              wickedwizard = import ./Users/WickedWizard/home.nix;
               shuba = import ./Users/Shuba/home.nix;
             };
           }
         ];
+        specialArgs = {
+          inherit inputs;
+        };
       };
+    };
+    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+      nativeBuildInputs = with nixpkgs.legacyPackages.x86_64-linux; [ commitlint pre-commit ];
     };
   };
 }

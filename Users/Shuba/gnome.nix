@@ -49,6 +49,7 @@ with lib.hm.gvariant;
       color-scheme = "prefer-dark";
       font-antialiasing = "grayscale";
       font-hinting = "slight";
+      show-battery-percentage = true;
     };
 
     "org/gnome/desktop/notifications" = {
@@ -57,6 +58,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/com-github-eneshecan-whatsappforlinux" = {
       application-id = "com.github.eneshecan.WhatsAppForLinux.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/deluge" = {
+      application-id = "deluge.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
@@ -93,6 +98,20 @@ with lib.hm.gvariant;
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/gnome-system-monitor" = {
+      current-tab = "resources";
+      maximized = false;
+      network-total-in-bits = false;
+      show-dependencies = false;
+      show-whose-processes = "user";
+      window-state = mkTuple [ 700 500 26 23 ];
+    };
+
+    "org/gnome/gnome-system-monitor/disktreenew" = {
+      col-6-visible = true;
+      col-6-width = 0;
     };
 
     "org/gnome/nautilus/preferences" = {
@@ -175,7 +194,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [];
+      locations = [ ];
+    };
+
+    "org/gnome/software" = {
+      check-timestamp = mkInt64 1698410422;
+      first-run = false;
+      flatpak-purge-timestamp = mkInt64 1698416641;
     };
 
     "org/gnome/tweaks" = {
