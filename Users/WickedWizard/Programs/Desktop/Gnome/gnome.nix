@@ -5,205 +5,6 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
-    "app/drey/Planner/ui" = {
-      active-view = "task_view";
-    };
-
-    "app/drey/Planner/views/gantt-view/assigned-to" = {
-      order = 8;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/complete" = {
-      order = 9;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/cost" = {
-      order = 7;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/duration" = {
-      order = 5;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/finish" = {
-      order = 3;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/name" = {
-      order = 1;
-      visible = true;
-      width = 100;
-    };
-
-    "app/drey/Planner/views/gantt-view/slack" = {
-      order = 6;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/start" = {
-      order = 2;
-      visible = false;
-      width = 0;
-    };
-
-    "app/drey/Planner/views/gantt-view/wbs" = {
-      order = 0;
-      visible = true;
-      width = 50;
-    };
-
-    "app/drey/Planner/views/gantt-view/work" = {
-      order = 4;
-      visible = true;
-      width = 98;
-    };
-
-    "app/drey/Planner/views/resource-view/cost" = {
-      order = 5;
-      visible = true;
-      width = 1340;
-    };
-
-    "app/drey/Planner/views/resource-view/email" = {
-      order = 4;
-      visible = true;
-      width = 150;
-    };
-
-    "app/drey/Planner/views/resource-view/group" = {
-      order = 3;
-      visible = true;
-      width = 56;
-    };
-
-    "app/drey/Planner/views/resource-view/name" = {
-      order = 0;
-      visible = true;
-      width = 150;
-    };
-
-    "app/drey/Planner/views/resource-view/short-name" = {
-      order = 1;
-      visible = true;
-      width = 92;
-    };
-
-    "app/drey/Planner/views/resource-view/type" = {
-      order = 2;
-      visible = true;
-      width = 46;
-    };
-
-    "app/drey/Planner/views/task-view/assigned-to" = {
-      order = 8;
-      visible = true;
-      width = 94;
-    };
-
-    "app/drey/Planner/views/task-view/complete" = {
-      order = 9;
-      visible = true;
-      width = 1166;
-    };
-
-    "app/drey/Planner/views/task-view/cost" = {
-      order = 7;
-      visible = true;
-      width = 70;
-    };
-
-    "app/drey/Planner/views/task-view/duration" = {
-      order = 5;
-      visible = true;
-      width = 74;
-    };
-
-    "app/drey/Planner/views/task-view/finish" = {
-      order = 3;
-      visible = true;
-      width = 70;
-    };
-
-    "app/drey/Planner/views/task-view/name" = {
-      order = 1;
-      visible = true;
-      width = 100;
-    };
-
-    "app/drey/Planner/views/task-view/slack" = {
-      order = 6;
-      visible = true;
-      width = 70;
-    };
-
-    "app/drey/Planner/views/task-view/start" = {
-      order = 2;
-      visible = true;
-      width = 70;
-    };
-
-    "app/drey/Planner/views/task-view/wbs" = {
-      order = 0;
-      visible = true;
-      width = 50;
-    };
-
-    "app/drey/Planner/views/task-view/work" = {
-      order = 4;
-      visible = true;
-      width = 70;
-    };
-
-    "apps/seahorse/listing" = {
-      keyrings-selected = [ "secret-service:///org/freedesktop/secrets/collection/login" ];
-    };
-
-    "apps/seahorse/windows/key-manager" = {
-      height = 1010;
-      width = 1920;
-    };
-
-    "ca/desrt/dconf-editor" = {
-      saved-pathbar-path = "/org/gnome/shell/extensions/bluetooth_battery_indicator/devices";
-      saved-view = "/";
-      window-height = 500;
-      window-is-maximized = true;
-      window-width = 540;
-    };
-
-    "com/belmoussaoui/Obfuscate" = {
-      is-maximized = true;
-    };
-
-    "com/github/GradienceTeam/Gradience" = {
-      enabled-plugins = [ "firefox_gnome_theme" ];
-      first-run = false;
-      last-opened-version = "0.4.1";
-      user-flatpak-theming-gtk3 = true;
-      user-flatpak-theming-gtk4 = true;
-      window-fullscreen = false;
-      window-height = 700;
-      window-maximized = false;
-      window-width = 1000;
-    };
-
-    "com/github/tenderowl/frog" = {
-      active-language = "eng";
-      window-height = 482;
-      window-width = 502;
-    };
-
     "com/github/wwmm/easyeffects" = {
       last-used-input-preset = "Presets";
       last-used-output-preset = "Presets";
@@ -244,49 +45,15 @@ with lib.hm.gvariant;
       harmonics = 8.5;
     };
 
+    "com/github/wwmm/easyeffects/streamoutputs/stereotools/0" = {
+      softclip = true;
+    };
+
     "com/usebottles/bottles" = {
       show-sandbox-warning = false;
       startup-view = "page_list";
       window-height = 1048;
       window-width = 1920;
-    };
-
-    "de/haeckerfelix/Fragments" = {
-      client-last-connection = "00000000-0000-0000-0000-000000000000";
-      window-height = 700;
-      window-width = 900;
-    };
-
-    "hu/kramo/Cartridges" = {
-      bottles-location = "/home/wickedwizard/.local/share/bottles";
-      cover-launches-game = true;
-      flatpak = false;
-      heroic = false;
-      high-quality-images = true;
-      itch = false;
-      legendary = false;
-      lutris = false;
-      remove-missing = true;
-      retroarch = false;
-      sgdb = false;
-      sgdb-prefer = false;
-      steam-location = "/home/wickedwizard/.steam/steam";
-    };
-
-    "hu/kramo/Cartridges/State" = {
-      is-maximized = true;
-      sort-mode = "a-z";
-      steam-limiter-tokens-history = "[1697385301.9968245, 1697385327.5313468, 1697385327.5377128, 1697385327.545093, 1697385327.5489328]";
-    };
-
-    "io/github/alainm23/planify" = {
-      appearance = "Dark";
-      dark-mode = true;
-      inbox-project-id = "9546866322";
-      local-inbox-project-id = "9546866322";
-      system-appearance = false;
-      version = "4.1.1";
-      window-maximized = false;
     };
 
     "io/github/lainsce/Khronos" = {
@@ -301,10 +68,6 @@ with lib.hm.gvariant;
       filter-slurs = false;
       microphone = true;
       text-uppercase = false;
-    };
-
-    "org/freedesktop/folks" = {
-      primary-store = "eds:05eaed4a46fe4e16938eadee7aa85957e6f379ac";
     };
 
     "org/freedesktop/tracker/miner/files" = {
@@ -458,6 +221,7 @@ with lib.hm.gvariant;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
       gtk-theme = "Nordic-darker";
+      icon-theme = "MoreWaita";
       locate-pointer = false;
       show-battery-percentage = true;
     };

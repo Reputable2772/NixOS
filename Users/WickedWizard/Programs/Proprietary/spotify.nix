@@ -1,7 +1,8 @@
 { config, pkgs, spicetify-nix, ... }:
 let
   spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
-in {
+in
+{
   imports = [
     spicetify-nix.homeManagerModule
   ];

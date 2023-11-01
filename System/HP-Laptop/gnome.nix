@@ -8,6 +8,7 @@
     gnome-music
     geary
     epiphany
+    gnome-software
     totem
     tali
     iagno
