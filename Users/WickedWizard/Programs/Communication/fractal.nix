@@ -1,3 +1,3 @@
 { config, pkgs, ... }: {
-  home.packages = with pkgs; [ fractal-next ];
+  home.packages = with pkgs; [ fractal-next  ];
 }
