@@ -244,33 +244,10 @@ with lib.hm.gvariant;
       harmonics = 8.5;
     };
 
-    "com/usebottles/bottles" = {
-      show-sandbox-warning = false;
-      startup-view = "page_list";
-      window-height = 1048;
-      window-width = 1920;
-    };
-
     "de/haeckerfelix/Fragments" = {
       client-last-connection = "00000000-0000-0000-0000-000000000000";
       window-height = 700;
       window-width = 900;
-    };
-
-    "hu/kramo/Cartridges" = {
-      bottles-location = "/home/wickedwizard/.local/share/bottles";
-      cover-launches-game = true;
-      flatpak = false;
-      heroic = false;
-      high-quality-images = true;
-      itch = false;
-      legendary = false;
-      lutris = false;
-      remove-missing = true;
-      retroarch = false;
-      sgdb = false;
-      sgdb-prefer = false;
-      steam-location = "/home/wickedwizard/.steam/steam";
     };
 
     "hu/kramo/Cartridges/State" = {
@@ -410,7 +387,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "search";
+      last-panel = "wifi";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -705,7 +682,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.9803921568627451 0.7095418242959226 ];
+      window-ratio = mkTuple [ 0.980392 0.709542 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -910,7 +887,7 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [
         ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
         ''
         ''
           {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
@@ -921,7 +898,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 2;
+      indicator-position-max = 1;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
@@ -1115,9 +1092,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/software" = {
-      check-timestamp = mkInt64 1698549759;
+      check-timestamp = mkInt64 1698632368;
       first-run = false;
-      flatpak-purge-timestamp = mkInt64 1698556951;
+      flatpak-purge-timestamp = mkInt64 1698673050;
       show-only-free-apps = true;
     };
 

@@ -4,5 +4,6 @@
     ./easyeffects.nix
     ./gpg.nix
     ./flameshot.nix
+    ./opensnitch.nix
   ];
 }

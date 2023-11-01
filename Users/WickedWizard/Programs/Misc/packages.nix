@@ -3,14 +3,10 @@
     appimage-run
     conky
     gocryptfs
-    rclone
 
     nur.repos.mikilio.xwaylandvideobridge
 
     deluge-gtk
     livecaptions
-
-    # fragments
-    # textpieces
   ];
 }

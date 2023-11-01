@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
   imports = [
-    ./prismlauncher.nix
+    ./bottles.nix
   ];
 }

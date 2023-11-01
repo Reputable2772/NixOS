@@ -2,6 +2,7 @@
   imports = [
     ./flatpak.nix
     ./fwupd.nix
+    ./opensnitch.nix
     ./pipewire.nix
     ./restic.nix
     ./syncthing.nix
