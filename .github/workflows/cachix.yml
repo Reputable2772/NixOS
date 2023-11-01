@@ -15,4 +15,3 @@ jobs:
         name: fractal-rust
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - run: nix-build "<nixpkgs>" -A fractal-next
-    - run: nix-shell --run "echo Done :D"
