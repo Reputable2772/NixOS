@@ -4,6 +4,6 @@
     ./filen.nix
     ./kitty.nix
     ./protonvpn.nix
-    # ./rclone.nix
+    ./rclone.nix
   ];
 }

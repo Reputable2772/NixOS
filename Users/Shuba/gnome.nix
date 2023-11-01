@@ -14,6 +14,28 @@ with lib.hm.gvariant;
       width = 600;
     };
 
+    "com/github/wwmm/easyeffects" = {
+      last-used-input-preset = "Presets";
+      last-used-output-preset = "Presets";
+      window-fullscreen = false;
+      window-height = 429;
+      window-maximized = true;
+      window-width = 702;
+    };
+
+    "com/github/wwmm/easyeffects/streaminputs" = {
+      input-device = "alsa_input.pci-0000_04_00.6.analog-stereo";
+      plugins = [ "rnnoise#0" ];
+    };
+
+    "com/github/wwmm/easyeffects/streaminputs/rnnoise/0" = {
+      enable-vad = true;
+    };
+
+    "com/github/wwmm/easyeffects/streamoutputs" = {
+      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+    };
+
     "org/gnome/Console" = {
       last-window-size = mkTuple [ 652 481 ];
     };

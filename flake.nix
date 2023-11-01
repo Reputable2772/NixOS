@@ -7,7 +7,7 @@
       url = "github:nix-community/home-manager/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-channel.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
   nixConfig = {
@@ -23,7 +23,7 @@
     ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, spicetify-nix, ... }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     nixosConfigurations = {
       "hp-laptop" = nixpkgs.lib.nixosSystem {
@@ -34,17 +34,19 @@
           ./System/HP-Laptop
           {
             nixpkgs.overlays = [ nur.overlay ] ++ (import ./Overlays);
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users = {
-              wickedwizard = import ./Users/WickedWizard/home.nix;
-              shuba = import ./Users/Shuba/home.nix;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users = {
+                wickedwizard = import ./Users/WickedWizard/home.nix;
+                shuba = import ./Users/Shuba/home.nix;
+              };
+              extraSpecialArgs = {
+                inherit spicetify-nix;
+              };
             };
           }
         ];
-        specialArgs = {
-          inherit inputs;
-        };
       };
     };
     devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {

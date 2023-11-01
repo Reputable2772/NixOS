@@ -176,7 +176,7 @@ with lib.hm.gvariant;
 
     "ca/desrt/dconf-editor" = {
       saved-pathbar-path = "/org/gnome/shell/extensions/bluetooth_battery_indicator/devices";
-      saved-view = "/org/gnome/shell/extensions/bluetooth_battery_indicator/devices";
+      saved-view = "/";
       window-height = 500;
       window-is-maximized = true;
       window-width = 540;
@@ -232,7 +232,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
       plugins = [ "bass_enhancer#0" ];
       show-blocklisted-apps = true;
       use-default-output-device = true;
@@ -244,10 +244,33 @@ with lib.hm.gvariant;
       harmonics = 8.5;
     };
 
+    "com/usebottles/bottles" = {
+      show-sandbox-warning = false;
+      startup-view = "page_list";
+      window-height = 1048;
+      window-width = 1920;
+    };
+
     "de/haeckerfelix/Fragments" = {
       client-last-connection = "00000000-0000-0000-0000-000000000000";
       window-height = 700;
       window-width = 900;
+    };
+
+    "hu/kramo/Cartridges" = {
+      bottles-location = "/home/wickedwizard/.local/share/bottles";
+      cover-launches-game = true;
+      flatpak = false;
+      heroic = false;
+      high-quality-images = true;
+      itch = false;
+      legendary = false;
+      lutris = false;
+      remove-missing = true;
+      retroarch = false;
+      sgdb = false;
+      sgdb-prefer = false;
+      steam-location = "/home/wickedwizard/.steam/steam";
     };
 
     "hu/kramo/Cartridges/State" = {
@@ -499,6 +522,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
       application-id = "gnome-power-panel.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/impress" = {
+      application-id = "impress.desktop";
     };
 
     "org/gnome/desktop/notifications/application/io-github-martinrotter-rssguard" = {
@@ -898,7 +925,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 1;
+      indicator-position-max = 2;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
@@ -1092,9 +1119,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/software" = {
-      check-timestamp = mkInt64 1698632368;
+      check-timestamp = mkInt64 1698808537;
       first-run = false;
-      flatpak-purge-timestamp = mkInt64 1698673050;
+      flatpak-purge-timestamp = mkInt64 1698816180;
       show-only-free-apps = true;
     };
 

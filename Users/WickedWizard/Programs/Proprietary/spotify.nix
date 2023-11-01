@@ -1,7 +1,22 @@
-{ config, pkgs, ... }: {
-  home.packages = with pkgs; [
-    nur.repos.nltch.spotify-adblock
+{ config, pkgs, spicetify-nix, ... }:
+let
+  spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
+in {
+  imports = [
+    spicetify-nix.homeManagerModule
   ];
 
-  xdg.configFile."autostart/spotify-adblock.desktop".source = "${pkgs.nur.repos.nltch.spotify-adblock}/share/applications/spotify.desktop";
+  programs.spicetify = {
+    enable = true;
+    theme = spicePkgs.themes.Nord;
+
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      fullAppDisplay
+      hidePodcasts
+      shuffle
+    ];
+  };
+
+  xdg.configFile."autostart/spicetify.desktop".source = "${pkgs.spotify}/share/applications/spotify.desktop";
 }

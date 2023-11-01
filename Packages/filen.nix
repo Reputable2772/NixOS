@@ -1,4 +1,9 @@
-{ config, pkgs, appimageTools, fetchurl }: appimageTools.wrapType1 {
+{ config
+, pkgs
+, lib
+, appimageTools
+, fetchurl
+}: appimageTools.wrapType2 {
   pname = "filen";
   version = "latest";
 
