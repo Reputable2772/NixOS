@@ -7,9 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
-    - name: Rename file
-    - run: mv ./Overlays/default.nix ./Overlays/default.nix.test
+    # - name: Rename file
+    # - run: mv ./Overlays/default.nix ./Overlays/default.nix.test
 
     - uses: cachix/install-nix-action@v20
       with:
