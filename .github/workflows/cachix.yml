@@ -1,4 +1,4 @@
-name: "Build and Push"
+name: "Cachix"
 on:
   pull_request:
   push:
@@ -29,7 +29,6 @@ jobs:
       with:
         name: dconf2nix-latest
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN_DCONF }}'
-    - run: ls ${{ github.workspace }}/Overlays
     - run: mv ${{ github.workspace }}/Overlays/default.nix ${{ github.workspace }}/Overlays/default.nix.test
     - run: nix-build "<nixpkgs>" -A dconf2nix
     - run: mv ${{ github.workspace }}/Overlays/default.nix.test ${{ github.workspace }}/Overlays/default.nix
