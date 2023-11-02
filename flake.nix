@@ -21,6 +21,7 @@
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "fractal-next.cachix.org-1:ptJEIB1fu2bsh2s+NmtyPWEJD7arXg9HnAfWv2+5XVc="
+      "dconf2nix-latest.cachix.org-1:Xx1w9t1L6DC8J/mAQwwj9gCzKw/IBFj4KNU62ofjU6k="
     ];
   };
 
