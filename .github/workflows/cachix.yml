@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    # - name: Rename file
-    # - run: mv ./Overlays/default.nix ./Overlays/default.nix.test
 
     - uses: cachix/install-nix-action@v20
       with:
@@ -16,10 +14,13 @@ jobs:
     - uses: cachix/cachix-action@v12
       with:
         name: fractal-next
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - run: env && ls ${{ github.workspace }}
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN_FRACTAL }}'
     - run: nix-build "<nixpkgs>" -A fractal-next
 
-    # - name: Rename file
-    # - run: mv ./Overlays/default.nix.test ./Overlays/default.nix
+    - uses: cachix/cachix-action@v12
+      with:
+        name: dconf2nix-latest
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN_DCONF }}'
+    - run: nix-build "<nixpkgs>" -A dconf2nix
+
 
