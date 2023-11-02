@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
-    # ./fractal.nix
+    ./fractal.nix
     ./schildichat.nix
     ./signal.nix
   ];
