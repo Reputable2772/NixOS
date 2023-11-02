@@ -21,6 +21,6 @@ jobs:
     - run: env
     - run: nix-build "<nixpkgs>" -A fractal-next
 
-    - name: Rename file
-    - run: mv ./Overlays/default.nix.test ./Overlays/default.nix
+    # - name: Rename file
+    # - run: mv ./Overlays/default.nix.test ./Overlays/default.nix
 
