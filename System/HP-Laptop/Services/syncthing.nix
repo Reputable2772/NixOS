@@ -12,8 +12,8 @@
         "Redmi S2" = { id = "FVKBTJS-3KMPR7D-2CXVBPR-F5HUD5E-7E2KJAT-ZABMG6E-4RK3CK6-H5OOMQP"; };
       };
       folders = {
-        "Aegis" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Aegis";
+        "Backups" = {
+          path = "${config.users.users.wickedwizard.home}/Documents/Android/Backups";
           devices = [ "Redmi S2" ];
         };
         "Books" = {
@@ -36,16 +36,12 @@
           path = "${config.users.users.wickedwizard.home}/Documents/Pictures/Phone";
           devices = [ "Redmi S2" ];
         };
-        "SIM Backup" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/SIM Backup";
-          devices = [ "Redmi S2" ];
-        };
-        "Signal" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Signal";
-          devices = [ "Redmi S2" ];
-        };
         "Study Materials" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Study Materials";
+          devices = [ "Redmi S2" ];
+        };
+        "Tasker" = {
+          path = "${config.users.users.wickedwizard.home}/Documents/Android/Tasker";
           devices = [ "Redmi S2" ];
         };
         "Torrents" = {
