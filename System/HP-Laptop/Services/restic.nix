@@ -1,9 +1,6 @@
 { config, pkgs, ... }: {
   services.restic.backups = {
     localBackup = {
-      exclude = [
-        "${config.users.users.wickedwizard.home}/Documents/Photos/*"
-      ];
       paths = [
         "${config.users.users.wickedwizard.home}/Documents/"
       ];
