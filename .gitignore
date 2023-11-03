@@ -1,1 +1,6 @@
+# direnv files are unnecessary
 .direnv
+
+# dconf files
+/*.conf
+/*.dconf
