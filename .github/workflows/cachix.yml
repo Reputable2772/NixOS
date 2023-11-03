@@ -33,4 +33,18 @@ jobs:
     - run: nix-build "<nixpkgs>" -A dconf2nix
     - run: mv ${{ github.workspace }}/Overlays/default.nix.test ${{ github.workspace }}/Overlays/default.nix
 
+  prismlauncher:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
 
+    - uses: cachix/install-nix-action@v20
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable:nixpkgs-overlays=${{ github.workspace }}/Overlays
+    - uses: cachix/cachix-action@v12
+      with:
+        name: prismlauncher-qt5-cracked
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN_PRISMLAUNCHER }}'
+    - run: mv ${{ github.workspace }}/Overlays/default.nix ${{ github.workspace }}/Overlays/default.nix.test
+    - run: nix-build "<nixpkgs>" -A prismlauncher-qt5
+    - run: mv ${{ github.workspace }}/Overlays/default.nix.test ${{ github.workspace }}/Overlays/default.nix
