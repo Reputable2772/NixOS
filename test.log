@@ -1,0 +1,282 @@
+these 2 derivations will be built:
+  /nix/store/8bj0k30cksaa3w36nkq24jybifcfcbam-prismlauncher-unwrapped-7.2.drv
+  /nix/store/p9awmwpzparphicp3dbfm7qc8zj3mkm0-prismlauncher-7.2.drv
+these 56 paths will be fetched (26.86 MiB download, 106.26 MiB unpacked):
+  /nix/store/fj1ib96311hvdlmfrpzvh4xpmjinz76d-acl-2.3.1
+  /nix/store/fn3afg4dl4h1393r3r0cgm9v1vnl31dj-attr-2.5.1
+  /nix/store/a8w67q55l14fn4p47gbn804m6pwwhxr9-bash-5.2-p15
+  /nix/store/5hbsnmsn539y455f945j9gndr2xf7g3g-bash-interactive-5.2-p15
+  /nix/store/1xmx06ngwlmngr7nfchd362glkpbmx5m-bzip2-1.0.8
+  /nix/store/vy7mj1armsjslrhg1jsrlyiwjr6bs2lz-bzip2-1.0.8-bin
+  /nix/store/a11xjid75vfphjchijm6zz3jx9q02d7g-canonicalize-jar
+  /nix/store/hzyj75a34w5ag0n399c6xha6j3gn07jm-canonicalize-jars-hook
+  /nix/store/yi235g10sp8jx939zpfli0s74154ph3v-cmake-3.26.4
+  /nix/store/08pwl8wzcdxx7n9mqxsd6yd0vqz502r4-coreutils-9.3
+  /nix/store/hf63gz8rg11jcik57s2wy7n7k0rkbw13-curl-8.3.0
+  /nix/store/748w3j7bh9z7g8kdvmwx71dhik49v0dp-dbus-1.14.8-lib
+  /nix/store/rzi5rf66m26fc10pmf1azdaz474a6by1-extra-cmake-modules-5.110.0
+  /nix/store/889gxnm36paqr5xx3iniipznm6w10vzq-filesystem-1.5.12
+  /nix/store/qhm0cwqsnp89d041ia54zkq98fifllf2-gamemode-1.7
+  /nix/store/9j834zsg3hd6wl3xxrd3v8wj5z2j73hf-gamemode-1.7-dev
+  /nix/store/fvba5dv37h14hxsm6ngw3zfw1fr176xg-gamemode-1.7-lib
+  /nix/store/z23qmfjaj5p50n3iki7zkjjgjzia16v1-gcc-12.3.0-lib
+  /nix/store/nwd6qsll0j2mjaybb4npp0jii91hdv2a-gcc-12.3.0-libgcc
+  /nix/store/2gm7g0n8k905iljg97spk7nzx7cdhzc3-getent-glibc-2.37-8
+  /nix/store/k9hqdfd53mj5fqh8shfirfalqmpclj1v-glibc-2.37-8-getent
+  /nix/store/3qk109pi7bgwdzdb52rayslq4qr2p75s-gmp-with-cxx-6.3.0
+  /nix/store/jj8spcxc51wpbz4k9khq3jkdzbn48hkm-gnugrep-3.11
+  /nix/store/5wcpz7xazrhphs731w5p6hl2yq0p5s4l-gzip-1.13
+  /nix/store/vsaj79ckyk2m8chrqkbq06pa43k2y4i0-kbd-2.6.2
+  /nix/store/qj0186km3l70dzcnm4dvx7jfyq2s0wwk-kexec-tools-2.0.26
+  /nix/store/yk6cafs0v9f0iq8ms13fx6fyky71c2mb-kmod-30
+  /nix/store/hhyzdrff4knqkhxavsxvmfds7ya085lf-kmod-30-lib
+  /nix/store/91c61sy9kk4x6c3jrcy3323zadpj7ca3-libX11-1.8.6
+  /nix/store/0wgb4bn90s9hyq1z5jc6arvrn7nvlr5c-libXau-1.0.11
+  /nix/store/1zq72h9sn4vhij2glk9x3vz6ay52qwnz-libXdmcp-1.1.4
+  /nix/store/n5zcpwhng2grf1nbxw4jglw5dd853b81-libcap-2.69-lib
+  /nix/store/zqgd6pfc97rs05k4qjm00hhx6pvnijma-libseccomp-2.5.4-lib
+  /nix/store/f1kgm4qng9nzvmiarbv67rgkjs35vlfa-libxcb-1.15
+  /nix/store/jqm104hhd4240s1h8ffgfahfg2v0r9an-libxcrypt-4.4.36
+  /nix/store/fb8bjjna4k0k8kqwwhcc712s188rv5hi-ncurses-6.4
+  /nix/store/ilgv1hna6y3cdsbi3vq87gvp7jpy6sqp-ninja-1.11.1
+  /nix/store/8r5mvzxrk55wpzr1aalpv923nvv014vg-pcre2-10.42
+  /nix/store/qrmhindh6dy623v30m5m630x3131vb8q-pkg-config-0.29.2
+  /nix/store/5daca24rn22c65ff25lc6z0g0imfphvr-pkg-config-wrapper-0.29.2
+  /nix/store/q31a9ywqvr3sx9621pcpp407v3ff7fhh-quazip-1.4-dev
+  /nix/store/1whgmzx5gif5sbakdg0c9jlr561x33c2-readline-8.2p1
+  /nix/store/gclk0z9rrpcdp0g1679j2432xq5d4ps2-rhash-1.4.4
+  /nix/store/47wscvrcfi57rl0nq006yfxw6q7l52q7-source
+  /nix/store/5qvhy3p3n2m1xx8396amgxr0l47sc310-source
+  /nix/store/qrqhqkv69j13rillwqkn68f1y3k3bdl4-systemd-minimal-254.3
+  /nix/store/ijyv2s16bgjbyvzkpv1d87lrzhmjwhfq-util-linux-minimal-2.39.2-lib
+  /nix/store/ng4ipy4c74kbzwmm7vq1h2m1v68702hp-util-linux-minimal-2.39.2-login
+  /nix/store/5823802z534gl0v97cs6kcw368qz17i3-util-linux-minimal-2.39.2-mount
+  /nix/store/kmvn4jblm4rlib7vibvz189mqmrp1rm2-util-linux-minimal-2.39.2-swap
+  /nix/store/ipkw126nafbh34d5648b57xkmch81pr8-xz-5.4.4
+  /nix/store/5r888mlrrq9g61v1rb77895rz073i90i-xz-5.4.4-bin
+  /nix/store/r77zgzm8a4086678daxvwja7ivcz1d7l-zip-3.0
+  /nix/store/zbii4zfdyqch24ccpwcdnihfmv8mdfmm-zlib-1.3
+  /nix/store/z91h35v0s3nkxfhbkknlr16zqyhyv8fk-zstd-1.5.5
+  /nix/store/6a1h8q9q7zdfgb94cscp4qjhycsb2cr9-zstd-1.5.5-bin
+copying path '/nix/store/889gxnm36paqr5xx3iniipznm6w10vzq-filesystem-1.5.12' from 'https://cache.nixos.org'...
+copying path '/nix/store/47wscvrcfi57rl0nq006yfxw6q7l52q7-source' from 'https://cache.nixos.org'...
+copying path '/nix/store/5qvhy3p3n2m1xx8396amgxr0l47sc310-source' from 'https://cache.nixos.org'...
+copying path '/nix/store/ilgv1hna6y3cdsbi3vq87gvp7jpy6sqp-ninja-1.11.1' from 'https://cache.nixos.org'...
+copying path '/nix/store/q31a9ywqvr3sx9621pcpp407v3ff7fhh-quazip-1.4-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/hf63gz8rg11jcik57s2wy7n7k0rkbw13-curl-8.3.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/gclk0z9rrpcdp0g1679j2432xq5d4ps2-rhash-1.4.4' from 'https://cache.nixos.org'...
+copying path '/nix/store/qrmhindh6dy623v30m5m630x3131vb8q-pkg-config-0.29.2' from 'https://cache.nixos.org'...
+copying path '/nix/store/r77zgzm8a4086678daxvwja7ivcz1d7l-zip-3.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/fn3afg4dl4h1393r3r0cgm9v1vnl31dj-attr-2.5.1' from 'https://cache.nixos.org'...
+copying path '/nix/store/a8w67q55l14fn4p47gbn804m6pwwhxr9-bash-5.2-p15' from 'https://cache.nixos.org'...
+copying path '/nix/store/n5zcpwhng2grf1nbxw4jglw5dd853b81-libcap-2.69-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/zqgd6pfc97rs05k4qjm00hhx6pvnijma-libseccomp-2.5.4-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/jqm104hhd4240s1h8ffgfahfg2v0r9an-libxcrypt-4.4.36' from 'https://cache.nixos.org'...
+copying path '/nix/store/ijyv2s16bgjbyvzkpv1d87lrzhmjwhfq-util-linux-minimal-2.39.2-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/1xmx06ngwlmngr7nfchd362glkpbmx5m-bzip2-1.0.8' from 'https://cache.nixos.org'...
+copying path '/nix/store/nwd6qsll0j2mjaybb4npp0jii91hdv2a-gcc-12.3.0-libgcc' from 'https://cache.nixos.org'...
+copying path '/nix/store/k9hqdfd53mj5fqh8shfirfalqmpclj1v-glibc-2.37-8-getent' from 'https://cache.nixos.org'...
+copying path '/nix/store/0wgb4bn90s9hyq1z5jc6arvrn7nvlr5c-libXau-1.0.11' from 'https://cache.nixos.org'...
+copying path '/nix/store/1zq72h9sn4vhij2glk9x3vz6ay52qwnz-libXdmcp-1.1.4' from 'https://cache.nixos.org'...
+copying path '/nix/store/fb8bjjna4k0k8kqwwhcc712s188rv5hi-ncurses-6.4' from 'https://cache.nixos.org'...
+copying path '/nix/store/8r5mvzxrk55wpzr1aalpv923nvv014vg-pcre2-10.42' from 'https://cache.nixos.org'...
+copying path '/nix/store/vy7mj1armsjslrhg1jsrlyiwjr6bs2lz-bzip2-1.0.8-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/ng4ipy4c74kbzwmm7vq1h2m1v68702hp-util-linux-minimal-2.39.2-login' from 'https://cache.nixos.org'...
+copying path '/nix/store/ipkw126nafbh34d5648b57xkmch81pr8-xz-5.4.4' from 'https://cache.nixos.org'...
+copying path '/nix/store/z23qmfjaj5p50n3iki7zkjjgjzia16v1-gcc-12.3.0-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/yi235g10sp8jx939zpfli0s74154ph3v-cmake-3.26.4' from 'https://cache.nixos.org'...
+copying path '/nix/store/2gm7g0n8k905iljg97spk7nzx7cdhzc3-getent-glibc-2.37-8' from 'https://cache.nixos.org'...
+copying path '/nix/store/zbii4zfdyqch24ccpwcdnihfmv8mdfmm-zlib-1.3' from 'https://cache.nixos.org'...
+copying path '/nix/store/5823802z534gl0v97cs6kcw368qz17i3-util-linux-minimal-2.39.2-mount' from 'https://cache.nixos.org'...
+copying path '/nix/store/kmvn4jblm4rlib7vibvz189mqmrp1rm2-util-linux-minimal-2.39.2-swap' from 'https://cache.nixos.org'...
+copying path '/nix/store/jj8spcxc51wpbz4k9khq3jkdzbn48hkm-gnugrep-3.11' from 'https://cache.nixos.org'...
+copying path '/nix/store/qj0186km3l70dzcnm4dvx7jfyq2s0wwk-kexec-tools-2.0.26' from 'https://cache.nixos.org'...
+copying path '/nix/store/fj1ib96311hvdlmfrpzvh4xpmjinz76d-acl-2.3.1' from 'https://cache.nixos.org'...
+copying path '/nix/store/f1kgm4qng9nzvmiarbv67rgkjs35vlfa-libxcb-1.15' from 'https://cache.nixos.org'...
+copying path '/nix/store/5daca24rn22c65ff25lc6z0g0imfphvr-pkg-config-wrapper-0.29.2' from 'https://cache.nixos.org'...
+copying path '/nix/store/a11xjid75vfphjchijm6zz3jx9q02d7g-canonicalize-jar' from 'https://cache.nixos.org'...
+copying path '/nix/store/1whgmzx5gif5sbakdg0c9jlr561x33c2-readline-8.2p1' from 'https://cache.nixos.org'...
+copying path '/nix/store/91c61sy9kk4x6c3jrcy3323zadpj7ca3-libX11-1.8.6' from 'https://cache.nixos.org'...
+copying path '/nix/store/5wcpz7xazrhphs731w5p6hl2yq0p5s4l-gzip-1.13' from 'https://cache.nixos.org'...
+copying path '/nix/store/3qk109pi7bgwdzdb52rayslq4qr2p75s-gmp-with-cxx-6.3.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/z91h35v0s3nkxfhbkknlr16zqyhyv8fk-zstd-1.5.5' from 'https://cache.nixos.org'...
+copying path '/nix/store/hzyj75a34w5ag0n399c6xha6j3gn07jm-canonicalize-jars-hook' from 'https://cache.nixos.org'...
+copying path '/nix/store/5hbsnmsn539y455f945j9gndr2xf7g3g-bash-interactive-5.2-p15' from 'https://cache.nixos.org'...
+copying path '/nix/store/08pwl8wzcdxx7n9mqxsd6yd0vqz502r4-coreutils-9.3' from 'https://cache.nixos.org'...
+copying path '/nix/store/5r888mlrrq9g61v1rb77895rz073i90i-xz-5.4.4-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/yk6cafs0v9f0iq8ms13fx6fyky71c2mb-kmod-30' from 'https://cache.nixos.org'...
+copying path '/nix/store/6a1h8q9q7zdfgb94cscp4qjhycsb2cr9-zstd-1.5.5-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/hhyzdrff4knqkhxavsxvmfds7ya085lf-kmod-30-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/vsaj79ckyk2m8chrqkbq06pa43k2y4i0-kbd-2.6.2' from 'https://cache.nixos.org'...
+copying path '/nix/store/qrqhqkv69j13rillwqkn68f1y3k3bdl4-systemd-minimal-254.3' from 'https://cache.nixos.org'...
+copying path '/nix/store/rzi5rf66m26fc10pmf1azdaz474a6by1-extra-cmake-modules-5.110.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/748w3j7bh9z7g8kdvmwx71dhik49v0dp-dbus-1.14.8-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/fvba5dv37h14hxsm6ngw3zfw1fr176xg-gamemode-1.7-lib' from 'https://cache.nixos.org'...
+copying path '/nix/store/qhm0cwqsnp89d041ia54zkq98fifllf2-gamemode-1.7' from 'https://cache.nixos.org'...
+copying path '/nix/store/9j834zsg3hd6wl3xxrd3v8wj5z2j73hf-gamemode-1.7-dev' from 'https://cache.nixos.org'...
+building '/nix/store/8bj0k30cksaa3w36nkq24jybifcfcbam-prismlauncher-unwrapped-7.2.drv'...
+qtPreHook
+unpacking sources
+unpacking source archive /nix/store/5qvhy3p3n2m1xx8396amgxr0l47sc310-source
+source root is source
+patching sources
+applying patch /nix/store/rx7yakppgdjsj71pk1bq0jnjqk4ic08w-0001-launcher-translations-explicitly-convert-QVector-ite.patch
+patching file launcher/translations/TranslationsModel.cpp
+applying patch /nix/store/p4xz03fnxf4a7llvx3iwjbm5zhfd8896-prismlauncher-qt5-crack.patch
+patching file launcher/ui/pages/global/AccountListPage.cpp
+updateAutotoolsGnuConfigScriptsPhase
+configuring
+fixing cmake files...
+cmake flags: -GNinja -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LOCALEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/doc/Launcher -DCMAKE_INSTALL_INFODIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/man -DCMAKE_INSTALL_OLDINCLUDEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/include -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/include -DCMAKE_INSTALL_SBINDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib -DCMAKE_POLICY_DEFAULT_CMP0025=NEW -DCMAKE_OSX_SYSROOT= -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_STRIP=/nix/store/18bs92p6yf6w2wwxhbplgx02y6anq092-gcc-wrapper-12.3.0/bin/strip -DCMAKE_RANLIB=/nix/store/18bs92p6yf6w2wwxhbplgx02y6anq092-gcc-wrapper-12.3.0/bin/ranlib -DCMAKE_AR=/nix/store/18bs92p6yf6w2wwxhbplgx02y6anq092-gcc-wrapper-12.3.0/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2 -DLauncher_BUILD_PLATFORM=nixpkgs -DLauncher_QT_VERSION_MAJOR=5 -DKDE_INSTALL_EXECROOTDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2 -DKDE_INSTALL_BINDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/bin -DKDE_INSTALL_SBINDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/sbin -DKDE_INSTALL_LIBDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib -DKDE_INSTALL_LIBEXECDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/libexec -DKDE_INSTALL_CMAKEPACKAGEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib/cmake -DKDE_INSTALL_INCLUDEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/include -DKDE_INSTALL_LOCALSTATEDIR=/var -DKDE_INSTALL_DATAROOTDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share -DKDE_INSTALL_DATADIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share -DKDE_INSTALL_DOCBUNDLEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/doc/HTML -DKDE_INSTALL_KCFGDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/config.kcfg -DKDE_INSTALL_KCONFUPDATEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/kconf_update -DKDE_INSTALL_KSERVICES5DIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/kservices5 -DKDE_INSTALL_KSERVICETYPES5DIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/kservicetypes5 -DKDE_INSTALL_KXMLGUI5DIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/kxmlgui5 -DKDE_INSTALL_KNOTIFY5RCDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/knotifications5 -DKDE_INSTALL_ICONDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/icons -DKDE_INSTALL_LOCALEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/locale -DKDE_INSTALL_SOUNDDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/sounds -DKDE_INSTALL_TEMPLATEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/templates -DKDE_INSTALL_WALLPAPERDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/wallpapers -DKDE_INSTALL_APPDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/applications -DKDE_INSTALL_DESKTOPDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/desktop-directories -DKDE_INSTALL_MIMEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/mime/packages -DKDE_INSTALL_METAINFODIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/appdata -DKDE_INSTALL_MANDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/man -DKDE_INSTALL_INFODIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/info -DKDE_INSTALL_DBUSDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/dbus-1 -DKDE_INSTALL_DBUSINTERFACEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/dbus-1/interfaces -DKDE_INSTALL_DBUSSERVICEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/dbus-1/services -DKDE_INSTALL_DBUSSYSTEMSERVICEDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/share/dbus-1/system-services -DKDE_INSTALL_SYSCONFDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/etc -DKDE_INSTALL_CONFDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/etc/xdg -DKDE_INSTALL_AUTOSTARTDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/etc/xdg/autostart -DKDE_INSTALL_QTPLUGINDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib/qt-5.15.10/plugins -DKDE_INSTALL_PLUGINDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib/qt-5.15.10/plugins -DKDE_INSTALL_QMLDIR=/nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2/lib/qt-5.15.10/qml 
+-- The C compiler identification is GNU 12.3.0
+-- The CXX compiler identification is GNU 12.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /nix/store/18bs92p6yf6w2wwxhbplgx02y6anq092-gcc-wrapper-12.3.0/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/18bs92p6yf6w2wwxhbplgx02y6anq092-gcc-wrapper-12.3.0/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Git commit: GITDIR-NOTFOUND
+-- Git tag: GIT-NOTFOUND
+-- Git refspec: GITDIR-NOTFOUND
+-- Found PkgConfig: /nix/store/5daca24rn22c65ff25lc6z0g0imfphvr-pkg-config-wrapper-0.29.2/bin/pkg-config (found version "0.29.2") 
+-- Checking for one of the modules 'scdoc'
+Installing in /nix/store/asdm7yl6s4yzfp45bld36jb2jv7b7ha1-prismlauncher-unwrapped-7.2. Run /build/source/build/prefix.sh to set the environment for Launcher.
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+-- Found Java: /nix/store/18zhcj8n3n2rnz46s0pl7y1ny0gff8c9-openjdk-17.0.7+7/bin/java (found suitable version "17.0.7", minimum required is "1.7") found components: Development 
+-- Using system zlib
+-- Using system QuaZip
+-- Using system tomlplusplus
+-- Using system cmark
+-- Using system ghc_filesystem
+-- Configuring done (6.3s)
+-- Generating done (0.2s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_EXPORT_NO_PACKAGE_REGISTRY
+    CMAKE_INSTALL_DOCDIR
+    CMAKE_INSTALL_OLDINCLUDEDIR
+    CMAKE_POLICY_DEFAULT_CMP0025
+
+
+-- Build files have been written to: /build/source/build
+cmake: enabled parallel building
+cmake: enabled parallel installing
+building
+build flags: -j8
+[1/473] Automatic MOC for target nbt++
+[2/473] Automatic MOC for target systeminfo
+[3/473] Automatic MOC for target Launcher_rainbow
+[4/473] Automatic MOC for target gamemode
+[5/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/nbt++_autogen/mocs_compilation.cpp.o
+[6/473] Automatic MOC for target LocalPeer
+[7/473] Automatic MOC for target Katabasis
+[8/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/endian_str.cpp.o
+[9/473] Building Java objects for JavaCheck.jar
+warning: [options] bootstrap class path not set in conjunction with -source 7
+warning: [options] source value 7 is obsolete and will be removed in a future release
+warning: [options] target value 7 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+4 warnings
+[10/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/tag_string.cpp.o
+[11/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/tag_compound.cpp.o
+[12/473] Building Java objects for NewLaunch.jar
+warning: [options] bootstrap class path not set in conjunction with -source 7
+warning: [options] source value 7 is obsolete and will be removed in a future release
+warning: [options] target value 7 is obsolete and will be removed in a future release
+warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+org/prismlauncher/launcher/impl/legacy/LegacyFrame.java:57: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+import java.applet.Applet;
+                  ^
+net/minecraft/Launcher.java:57: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+import java.applet.Applet;
+                  ^
+net/minecraft/Launcher.java:58: warning: [removal] AppletStub in java.applet has been deprecated and marked for removal
+import java.applet.AppletStub;
+                  ^
+org/prismlauncher/utils/ReflectionUtils.java:57: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+import java.applet.Applet;
+                  ^
+org/prismlauncher/launcher/impl/legacy/LegacyFrame.java:83: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+    public LegacyFrame(String title, Applet applet) {
+                                     ^
+net/minecraft/Launcher.java:73: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+public final class Launcher extends Applet implements AppletStub {
+                                    ^
+net/minecraft/Launcher.java:73: warning: [removal] AppletStub in java.applet has been deprecated and marked for removal
+public final class Launcher extends Applet implements AppletStub {
+                                                      ^
+net/minecraft/Launcher.java:79: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+    private Applet wrappedApplet;
+            ^
+net/minecraft/Launcher.java:83: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+    public Launcher(Applet applet) {
+                    ^
+net/minecraft/Launcher.java:87: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+    public Launcher(Applet applet, URL documentBase) {
+                    ^
+net/minecraft/Launcher.java:110: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+    public void replace(Applet applet) {
+                        ^
+org/prismlauncher/utils/ReflectionUtils.java:79: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+    public static Applet createAppletClass(String clazz) throws Throwable {
+                  ^
+org/prismlauncher/utils/ReflectionUtils.java:83: warning: [removal] Applet in java.applet has been deprecated and marked for removal
+        return (Applet) appletConstructor.invoke();
+                ^
+17 warnings
+[13/473] Building CXX object libraries/systeminfo/CMakeFiles/systeminfo.dir/systeminfo_autogen/mocs_compilation.cpp.o
+[14/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/io/stream_writer.cpp.o
+[15/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/io/stream_reader.cpp.o
+[16/473] Generating CMakeFiles/NewLaunch.dir/java_class_filelist
+[17/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/value_initializer.cpp.o
+[18/473] Generating CMakeFiles/JavaCheck.dir/java_class_filelist
+[19/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/value.cpp.o
+[20/473] Building CXX object libraries/rainbow/CMakeFiles/Launcher_rainbow.dir/Launcher_rainbow_autogen/mocs_compilation.cpp.o
+[21/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/tag.cpp.o
+[22/473] Creating Java archive NewLaunch.jar
+[23/473] Creating Java archive JavaCheck.jar
+[24/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/tag_list.cpp.o
+[25/473] Building CXX object libraries/libnbtplusplus/CMakeFiles/nbt++.dir/src/text/json_formatter.cpp.o
+[26/473] Linking CXX static library libraries/libnbtplusplus/libnbt++.a
+[27/473] Building CXX object libraries/LocalPeer/CMakeFiles/LocalPeer.dir/src/LockedFile.cpp.o
+[28/473] Building CXX object libraries/LocalPeer/CMakeFiles/LocalPeer.dir/LocalPeer_autogen/mocs_compilation.cpp.o
+[29/473] Building CXX object libraries/systeminfo/CMakeFiles/systeminfo.dir/src/sys_unix.cpp.o
+[30/473] Building CXX object libraries/systeminfo/CMakeFiles/systeminfo.dir/src/distroutils.cpp.o
+[31/473] Linking CXX static library libraries/systeminfo/libsysteminfo.a
+[32/473] Building CXX object libraries/rainbow/CMakeFiles/Launcher_rainbow.dir/src/rainbow.cpp.o
+[33/473] Building CXX object libraries/LocalPeer/CMakeFiles/LocalPeer.dir/src/LocalPeer.cpp.o
+[34/473] Linking CXX static library libraries/rainbow/libLauncher_rainbow.a
+[35/473] Building CXX object libraries/gamemode/CMakeFiles/gamemode.dir/gamemode_autogen/mocs_compilation.cpp.o
+[36/473] Linking CXX static library libraries/gamemode/libgamemode.a
+[37/473] Automatic MOC for target Launcher_murmur2
+[38/473] Building CXX object libraries/murmur2/CMakeFiles/Launcher_murmur2.dir/Launcher_murmur2_autogen/mocs_compilation.cpp.o
+[39/473] Building CXX object libraries/LocalPeer/CMakeFiles/LocalPeer.dir/src/LockedFile_unix.cpp.o
+[40/473] Linking CXX static library libraries/LocalPeer/libLocalPeer.a
+[41/473] Automatic MOC for target qdcss
+[42/473] Building CXX object libraries/qdcss/CMakeFiles/qdcss.dir/qdcss_autogen/mocs_compilation.cpp.o
+[43/473] Building CXX object libraries/katabasis/CMakeFiles/Katabasis.dir/src/JsonResponse.cpp.o
+[44/473] Automatic MOC for target BuildConfig
+[45/473] Building CXX object libraries/katabasis/CMakeFiles/Katabasis.dir/Katabasis_autogen/mocs_compilation.cpp.o
+[46/473] Building CXX object buildconfig/CMakeFiles/BuildConfig.dir/BuildConfig_autogen/mocs_compilation.cpp.o
+[47/473] Building CXX object libraries/murmur2/CMakeFiles/Launcher_murmur2.dir/src/MurmurHash2.cpp.o
+[48/473] Linking CXX static library libraries/murmur2/libLauncher_murmur2.a
+[49/473] Building CXX object libraries/katabasis/CMakeFiles/Katabasis.dir/src/PollServer.cpp.o
+[50/473] Building CXX object libraries/katabasis/CMakeFiles/Katabasis.dir/KatabasisLogging.cpp.o
+[51/473] Building CXX object libraries/katabasis/CMakeFiles/Katabasis.dir/src/Reply.cpp.o
+[52/473] Building CXX object libraries/qdcss/CMakeFiles/qdcss.dir/src/qdcss.cpp.o
+[53/473] Linking CXX static library libraries/qdcss/libqdcss.a
+[54/473] Building CXX object buildconfig/CMakeFiles/BuildConfig.dir/BuildConfig.cpp.o
+[55/473] Linking CXX static library buildconfig/libBuildConfig.a
+[56/473] Building CXX object libraries/katabasis/CMakeFiles/Katabasis.dir/src/DeviceFlow.cpp.o
+[57/473] Linking CXX static library libraries/katabasis/libKatabasis.a
