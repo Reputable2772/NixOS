@@ -33,7 +33,7 @@
           devices = [ "Redmi S2" ];
         };
         "Pictures" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Pictures/Phone";
+          path = "${config.users.users.wickedwizard.home}/Documents/Photos/Phone";
           devices = [ "Redmi S2" ];
         };
         "Study Materials" = {
