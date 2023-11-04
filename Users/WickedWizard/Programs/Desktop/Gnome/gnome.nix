@@ -6,11 +6,20 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "ca/desrt/dconf-editor" = {
-      saved-pathbar-path = "/org/gnome/clocks/alarms";
-      saved-view = "/org/gnome/clocks/alarms";
+      saved-pathbar-path = "/org/gnome/epiphany/search-engine-providers";
+      saved-view = "/org/gnome/";
       window-height = 500;
       window-is-maximized = false;
       window-width = 540;
+    };
+
+    "com/github/GradienceTeam/Gradience" = {
+      first-run = false;
+      last-opened-version = "0.4.1";
+      window-fullscreen = false;
+      window-height = 700;
+      window-maximized = true;
+      window-width = 1000;
     };
 
     "com/github/wwmm/easyeffects" = {
@@ -41,7 +50,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
       plugins = [ "bass_enhancer#0" ];
       show-blocklisted-apps = true;
       use-default-output-device = true;
@@ -234,7 +243,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" "signal-desktop" "org-gnome-todo" "io-github-mrvladus-list" "org-gnome-software" "deluge" "org-gnome-baobab" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" "signal-desktop" "org-gnome-todo" "io-github-mrvladus-list" "org-gnome-software" "deluge" "org-gnome-baobab" "org-gnome-fractal" ];
       show-banners = false;
       show-in-lock-screen = true;
     };
@@ -477,11 +486,6 @@ with lib.hm.gvariant;
       button-layout = "appmenu:minimize,maximize,close";
     };
 
-    "org/gnome/epiphany/state" = {
-      is-maximized = true;
-      window-size = mkTuple [ 1920 1048 ];
-    };
-
     "org/gnome/evince/default" = {
       continuous = true;
       dual-page = false;
@@ -493,7 +497,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.980392 0.709542 ];
+      window-ratio = mkTuple [ 0.9803921568627451 0.7095959595959596 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -698,7 +702,7 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [
         ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
         ''
         ''
           {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
@@ -709,7 +713,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 1;
+      indicator-position-max = 3;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
