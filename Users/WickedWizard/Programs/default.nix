@@ -1,5 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
+    ./Backup
     ./Browsers
     ./Communication
     ./Desktop
