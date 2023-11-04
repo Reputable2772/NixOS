@@ -6,7 +6,7 @@ echo "Formatting and checking files."
 nix fmt
 nix flake check
 
-if [ -n "$1" ] then
+if [ -n "$1" ]; then
 	echo "Dumping DConf"
 	dconf dump / > wickedwizard.dconf
 	sudo -u shuba dconf dump / > shuba.dconf

@@ -448,7 +448,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
-      disabled = [];
+      disabled = [ ];
       enabled = [ "org.gnome.Weather.desktop" ];
       sort-order = [ "org.gnome.Nautilus.desktop" "org.gnome.Documents.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" ];
     };
@@ -458,13 +458,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      cycle-windows = [];
-      cycle-windows-backward = [];
+      cycle-windows = [ ];
+      cycle-windows-backward = [ ];
       move-to-workspace-left = [ "<Control><Super>Up" ];
       move-to-workspace-right = [ "<Control><Super>Down" ];
       show-desktop = [ "<Super>d" ];
-      switch-applications = [];
-      switch-applications-backward = [];
+      switch-applications = [ ];
+      switch-applications-backward = [ ];
       switch-input-source = [ "<Alt>Shift_L" ];
       switch-to-workspace-left = [ "<Control><Super>Left" ];
       switch-to-workspace-right = [ "<Control><Super>Right" ];
@@ -604,7 +604,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts = [];
+      restore-shortcuts = [ ];
     };
 
     "org/gnome/nautilus/compression" = {
@@ -696,11 +696,14 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
-      devices = [ ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
-      '' ''
-        {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
-      '' ];
+      devices = [
+        ''
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        ''
+        ''
+          {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
+        ''
+      ];
       hide-indicator = true;
       interval = 1;
     };
@@ -885,8 +888,8 @@ with lib.hm.gvariant;
     "org/gnome/shell/keybindings" = {
       screenshot = [ "<Alt>Print" ];
       screenshot-window = [ "<Shift>Print" ];
-      show-screenshot-ui = [];
-      toggle-overview = [];
+      show-screenshot-ui = [ ];
+      toggle-overview = [ ];
     };
 
     "org/gnome/shell/weather" = {
@@ -895,7 +898,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [];
+      locations = [ ];
     };
 
     "org/gnome/software" = {

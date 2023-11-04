@@ -46,5 +46,6 @@ jobs:
         name: prismlauncher-cracked
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN_PRISMLAUNCHER }}'
     - run: mv ${{ github.workspace }}/Overlays/default.nix ${{ github.workspace }}/Overlays/default.nix.test
+	- run: echo $NIX_PATH
     - run: nix-build "<nixpkgs>" -A prismlauncher-qt5
     - run: mv ${{ github.workspace }}/Overlays/default.nix.test ${{ github.workspace }}/Overlays/default.nix
