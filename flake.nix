@@ -3,10 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-    home-manager = {
-      url = "github:nix-community/home-manager/";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager/";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
@@ -52,7 +49,7 @@
       };
     };
     devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-      nativeBuildInputs = with nixpkgs.legacyPackages.x86_64-linux; [ commitlint pre-commit ];
+      nativeBuildInputs = with nixpkgs.legacyPackages.x86_64-linux; [ pre-commit ];
     };
   };
 }
