@@ -27,3 +27,6 @@ jobs:
 
     - name: "Build System"
       run: nix build .#nixosConfigurations.hp-laptop.config.system.build.toplevel --accept-flake-config --print-build-logs
+
+    - name: "storage"
+      run: "du -sh /; du -sh /nix/store"
