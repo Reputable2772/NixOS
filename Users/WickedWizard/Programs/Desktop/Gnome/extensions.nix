@@ -4,8 +4,6 @@
     bluetooth-battery
     caffeine
     clipboard-indicator
-    custom-accent-colors
-    gamemode
     gsconnect
     just-perfection
     rounded-window-corners

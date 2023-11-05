@@ -50,7 +50,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
+      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
       plugins = [ "bass_enhancer#0" ];
       show-blocklisted-apps = true;
       use-default-output-device = true;
@@ -497,7 +497,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.9803921568627451 0.7095959595959596 ];
+      window-ratio = mkTuple [ 0.9802083333333333 0.7092592592592593 ];
     };
 
     "org/gnome/evolution-data-server" = {
@@ -680,7 +680,7 @@ with lib.hm.gvariant;
       command-history = [ "r" "restart" "reload" "lg" ];
       disable-user-extensions = false;
       disabled-extensions = [ "custom-accent-colors@demiskp" ];
-      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" "Vitals@CoreCoding.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "gsconnect@andyholmes.github.io" "just-perfection-desktop@just-perfection" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" ];
+      enabled-extensions = [ "appindicatorsupport@rgcjonas.gmail.com" "clipboard-indicator@tudmotu.com" "caffeine@patapon.info" "screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com" "bluetooth-battery@michalw.github.com" "Vitals@CoreCoding.com" "user-theme@gnome-shell-extensions.gcampax.github.com" "gsconnect@andyholmes.github.io" "just-perfection-desktop@just-perfection" "launch-new-instance@gnome-shell-extensions.gcampax.github.com" "rounded-window-corners@yilozt" ];
       favorite-apps = [ "librewolf.desktop" "firefox.desktop" "@joplinapp-desktop.desktop" "kitty.desktop" "beeper.desktop" "schildichat-desktop.desktop" "spotify.desktop" "codium.desktop" "bitwarden.desktop" ];
       last-selected-power-profile = "power-saver";
       welcome-dialog-last-shown-version = "44.4";
@@ -702,7 +702,10 @@ with lib.hm.gvariant;
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
       devices = [
         ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+          {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
+        ''
+        ''
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
         ''
         ''
           {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
@@ -718,6 +721,8 @@ with lib.hm.gvariant;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
+      toggle-state = false;
+      user-enabled = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -827,6 +832,7 @@ with lib.hm.gvariant;
       dash-icon-size = 0;
       double-super-to-appgrid = true;
       keyboard-layout = true;
+      notification-banner-position = 0;
       osd = true;
       overlay-key = true;
       panel = true;
@@ -884,7 +890,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/vitals" = {
       battery-slot = 1;
-      hot-sensors = [ "_processor_usage_" "_memory_usage_" "__network-rx_max__" "_temperature_amdgpu_edge_" ];
+      hot-sensors = [ "_processor_usage_" "_memory_usage_" "_temperature_amdgpu_edge_" "__network-tx_max__" "__network-rx_max__" ];
       include-static-info = false;
       show-battery = true;
     };
@@ -960,7 +966,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 30 26 ];
+      window-position = mkTuple [ 358 87 ];
       window-size = mkTuple [ 1203 902 ];
     };
 

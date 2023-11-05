@@ -2,10 +2,6 @@
 
 set -e
 
-echo "Formatting and checking files."
-nix fmt
-nix flake check
-
 if [ -n "$1" ]; then
 	echo "Dumping DConf"
 	dconf dump / > wickedwizard.dconf
@@ -17,13 +13,18 @@ if [ -n "$1" ]; then
 	rm -rf ./wickedwizard.dconf
 	rm -rf ./shuba.dconf
 
-	echo "DConf2Nix"
 	dconf2nix -i wickedwizard.conf -o ./Users/WickedWizard/Programs/Desktop/Gnome/gnome.nix
 	dconf2nix -i shuba.conf -o ./Users/Shuba/gnome.nix
 
 	rm -rf ./wickedwizard.conf
 	rm -rf ./shuba.conf
+
+	exit
 fi
+
+echo "Formatting and checking files."
+nix fmt
+nix flake check
 
 echo "Actually builiding"
 rm -rf $HOME/.config/mimeapps.list
