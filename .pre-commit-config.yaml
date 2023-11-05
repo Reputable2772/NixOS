@@ -1,0 +1,10 @@
+default_stages:
+  - commit
+repos:
+  - hooks:
+      - entry: nix fmt
+        files: \.nix
+        id: nixpkgs-fmt
+        language: system
+        name: Format
+    repo: local
