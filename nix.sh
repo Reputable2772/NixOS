@@ -1,9 +1,20 @@
-#!bash
+#! /usr/bin/env bash
 
-set -e
+set +x
 
-if [ -n "$1" ]; then
-	echo "Dumping DConf"
+build() {
+	echo "Builiding"
+	rm -rf $HOME/.config/mimeapps.list
+	sudo nixos-rebuild switch --flake .#hp-laptop
+}
+
+changelog() {
+	echo "Changelog"
+	nix profile diff-closures --profile /nix/var/nix/profiles/system
+}
+
+dconf() {
+	echo "DConf"
 	dconf dump / > wickedwizard.dconf
 	sudo -u shuba dconf dump / > shuba.dconf
 
@@ -18,17 +29,23 @@ if [ -n "$1" ]; then
 
 	rm -rf ./wickedwizard.conf
 	rm -rf ./shuba.conf
+}
 
-	exit
-fi
+format() {
+	echo "Formatting files."
+	nix fmt
+	nix flake check
+}
 
-echo "Formatting and checking files."
-nix fmt
-nix flake check
-
-echo "Actually builiding"
-rm -rf $HOME/.config/mimeapps.list
-sudo nixos-rebuild switch --flake .#hp-laptop
-
-echo "Changelog"
-nix profile diff-closures --profile /nix/var/nix/profiles/system
+case $1 in
+	"build")
+		build;;
+	"changelog")
+		changelog;;
+	"dconf")
+		dconf;;
+	"fmt")
+		format;;
+	*)
+    echo "Invalid option. Expected 'build', 'changelog', 'dconf' or 'fmt'";;
+esac

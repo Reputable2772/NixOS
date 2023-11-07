@@ -2,7 +2,7 @@ default_stages:
   - commit
 repos:
   - hooks:
-      - entry: nix fmt
+      - entry: ./nix.sh fmt
         files: \.nix
         id: nixpkgs-fmt
         language: system
