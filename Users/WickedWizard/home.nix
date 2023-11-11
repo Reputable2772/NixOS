@@ -3,8 +3,6 @@
   home.username = "wickedwizard";
   home.homeDirectory = "/home/wickedwizard";
 
-  home.packages = with pkgs; [ quickemu ];
-
   xdg.mimeApps = {
     enable = true;
     associations.added = {
