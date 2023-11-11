@@ -10,9 +10,9 @@
         After = [ "network-online.target" ];
         Wants = [ "network-online.target" ];
       };
-      Timer = {
-        OnUnitActiveSec = "18h";
-      };
+      # Timer = {
+      #   OnUnitActiveSec = "18h";
+      # };
     };
   };
 }
