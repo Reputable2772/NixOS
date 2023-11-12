@@ -13,6 +13,11 @@ changelog() {
 	nix profile diff-closures --profile /nix/var/nix/profiles/system
 }
 
+check() {
+	echo "Checking Flake config"
+	nix flake check
+}
+
 dconf() {
 	echo "DConf"
 	dconf dump / > wickedwizard.dconf
@@ -42,10 +47,12 @@ case $1 in
 		build;;
 	"changelog")
 		changelog;;
+	"check")
+		check;;
 	"dconf")
 		dconf;;
 	"fmt")
 		format;;
 	*)
-    echo "Invalid option. Expected 'build', 'changelog', 'dconf' or 'fmt'";;
+    echo "Invalid option. Expected 'build', 'changelog', 'check', 'dconf' or 'fmt'";;
 esac

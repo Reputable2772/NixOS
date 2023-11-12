@@ -4,7 +4,12 @@ repos:
   - hooks:
       - entry: ./nix.sh fmt
         files: \.nix
-        id: nixpkgs-fmt
+        id: flake-fmt
         language: system
         name: Format
+      - entry: ./nix.sh check
+        files: \.nix
+        id: system-check
+        language: system
+        name: Check
     repo: local
