@@ -4,6 +4,7 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "beeper-latest"
+    "discord"
     "spotify"
     "skypeforlinux"
     "steam"
