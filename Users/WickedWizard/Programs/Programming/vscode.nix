@@ -11,6 +11,7 @@
       esbenp.prettier-vscode
       dbaeumer.vscode-eslint
       eamodio.gitlens
+      github.vscode-github-actions
       pkief.material-icon-theme
       jnoortheen.nix-ide
       editorconfig.editorconfig
