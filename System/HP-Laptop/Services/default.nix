@@ -5,9 +5,9 @@
     ./mysql.nix
     ./opensnitch.nix
     ./pipewire.nix
-    # ./restic.nix
     ./syncthing.nix
     ./tlp.nix
+    ./touchpad.nix
     ./xserver.nix
   ];
 }
