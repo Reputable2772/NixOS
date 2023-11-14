@@ -1,6 +1,9 @@
 { config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
+    autocd = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
     initExtra = ''
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
