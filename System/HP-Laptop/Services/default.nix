@@ -7,7 +7,7 @@
     ./pipewire.nix
     ./syncthing.nix
     ./tlp.nix
-    ./touchpad.nix
+    # ./touchpad.nix
     ./xserver.nix
   ];
 }
