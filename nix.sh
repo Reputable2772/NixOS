@@ -39,7 +39,6 @@ dconf() {
 format() {
 	echo "Formatting files."
 	nix fmt
-	nix flake check
 }
 
 case $1 in
@@ -51,7 +50,7 @@ case $1 in
 		check;;
 	"dconf")
 		dconf;;
-	"fmt")
+	"format")
 		format;;
 	*)
     echo "Invalid option. Expected 'build', 'changelog', 'check', 'dconf' or 'fmt'";;
