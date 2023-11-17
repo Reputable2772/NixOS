@@ -13,6 +13,7 @@
     quickemu
     deluge-gtk
     whatsapp-for-linux
+    signal-desktop
     skypeforlinux
     kitty
     easyeffects
