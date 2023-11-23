@@ -3,9 +3,9 @@
     appindicator
     bluetooth-battery
     caffeine
-    clipboard-indicator
     gsconnect
     just-perfection
+    pano
     rounded-window-corners
     vitals
   ];
