@@ -4,7 +4,7 @@
     conky
     gocryptfs
 
-    nur.repos.mikilio.xwaylandvideobridge
+    xwaylandvideobridge
 
     deluge-gtk
     livecaptions
