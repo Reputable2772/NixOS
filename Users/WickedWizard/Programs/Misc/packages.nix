@@ -4,6 +4,8 @@
     conky
     gocryptfs
 
+    giara
+
     xwaylandvideobridge
 
     deluge-gtk
