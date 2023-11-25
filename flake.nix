@@ -6,6 +6,7 @@
     home-manager.url = "github:nix-community/home-manager/";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     gnomeMaster.url = "github:NixOS/nixpkgs/master";
+    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
   };
 
   nixConfig = {
@@ -23,7 +24,7 @@
     ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, gnomeMaster, spicetify-nix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, gnomeMaster, spicetify-nix, flatpaks, ... }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     nixosConfigurations = {
       "hp-laptop" = nixpkgs.lib.nixosSystem {
@@ -43,7 +44,12 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users = {
-                wickedwizard = import ./Users/WickedWizard/home.nix;
+                wickedwizard = {
+                  imports = [
+                    ./Users/WickedWizard/home.nix
+                    flatpaks.homeManagerModules.default
+                  ];
+                };
                 shuba = import ./Users/Shuba/home.nix;
               };
               extraSpecialArgs = {

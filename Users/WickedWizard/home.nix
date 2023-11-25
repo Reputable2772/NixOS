@@ -34,6 +34,14 @@
     ./Services
   ];
 
+  services.flatpak = {
+    enableModule = true;
+    packages = [ "flathub:app/io.freetubeapp.FreeTube//stable" "flathub:app/com.github.alainm23.planner//stable" ];
+    remotes = {
+      "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
+    };
+  };
+
   home.stateVersion = "23.05";
   programs.home-manager.enable = true;
 }
