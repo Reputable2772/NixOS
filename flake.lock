@@ -18,6 +18,22 @@
         "type": "github"
       }
     },
+    "gnomeMaster": {
+      "locked": {
+        "lastModified": 1700888823,
+        "narHash": "sha256-Oso4VcXNBQoAwMKTX5rDMUN54+FE66SOUDcxGYPgFBk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4909f031150c9effe9f62caea1270a9a1bfd7030",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -101,6 +117,7 @@
     },
     "root": {
       "inputs": {
+        "gnomeMaster": "gnomeMaster",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
