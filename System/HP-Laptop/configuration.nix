@@ -3,7 +3,7 @@
   nix.settings.trusted-users = [ "wickedwizard" "shuba" ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "beeper-latest"
+    "beeper"
     "discord"
     "spotify"
     "skypeforlinux"
