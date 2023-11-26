@@ -3,7 +3,7 @@
     backup = {
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.lib.getExe' pkgs.restic "restic"} -r ${config.home.homeDirectory}/Backups --password-file ${config.home.homeDirectory}/Documents/Config/Backup-Key.txt backup ${config.home.homeDirectory}/Documents/; ${pkgs.lib.getExe' pkgs.rclone "rclone"} --verbose sync ${config.home.homeDirectory}/Backups backup:Backups";
+        ExecStart = "/run/current-system/sw/bin/bash /home/wickedwizard/Documents/NixOS/Users/WickedWizard/Services/backup.sh";
       };
       Unit = {
         Description = "Restic Backup";
