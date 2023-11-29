@@ -2,5 +2,5 @@
 {
   home.packages = with pkgs; [ beeper ];
 
-  xdg.configFile."autostart/beeper.desktop".text = "${pkgs.beeper}/share/applications/beeper.desktop";
+  xdg.configFile."autostart/beeper.desktop".source = "${pkgs.beeper}/share/applications/beeper.desktop";
 }
