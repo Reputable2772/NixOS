@@ -5,7 +5,6 @@
     nur.url = "github:nix-community/NUR";
     home-manager.url = "github:nix-community/home-manager/";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
-    gnomeMaster.url = "github:NixOS/nixpkgs/master";
     flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
   };
 
@@ -24,7 +23,7 @@
     ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, gnomeMaster, spicetify-nix, flatpaks, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, spicetify-nix, flatpaks, ... }@inputs: {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     nixosConfigurations = {
       "hp-laptop" = nixpkgs.lib.nixosSystem {
@@ -34,12 +33,7 @@
           home-manager.nixosModules.home-manager
           ./System/HP-Laptop
           {
-            nixpkgs.overlays = [
-              nur.overlay
-              (final: prev: {
-                gnomeExtensions = gnomeMaster.legacyPackages.x86_64-linux.gnomeExtensions;
-              })
-            ] ++ (import ./Overlays);
+            nixpkgs.overlays = [ nur.overlay ] ++ (import ./Overlays);
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
