@@ -18,6 +18,12 @@ check() {
 	nix flake check
 }
 
+ci() {
+	echo "Building system CI"
+	sudo rm -rf /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
+	nix build .#nixosConfigurations.hp-laptop.config.system.build.toplevel --print-build-logs
+}
+
 dconf() {
 	echo "DConf"
 	dconf dump / > wickedwizard.dconf
@@ -48,10 +54,12 @@ case $1 in
 		changelog;;
 	"check")
 		check;;
+	"ci")
+		ci;;
 	"dconf")
 		dconf;;
 	"format")
 		format;;
 	*)
-    echo "Invalid option. Expected 'build', 'changelog', 'check', 'dconf' or 'fmt'";;
+    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf' or 'fmt'";;
 esac
