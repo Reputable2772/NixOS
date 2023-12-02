@@ -1,3 +1,3 @@
 { config, pkgs, ... }: {
-  home.packages = with pkgs; [ libreoffice-fresh ];
+  home.packages = with pkgs; [ libreoffice-still ];
 }
