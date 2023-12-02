@@ -6,10 +6,10 @@ with lib.hm.gvariant;
 {
   dconf.settings = {
     "ca/desrt/dconf-editor" = {
-      saved-pathbar-path = "/org/gnome/epiphany/search-engine-providers";
-      saved-view = "/org/gnome/";
+      saved-pathbar-path = "/org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/keybindings";
+      saved-view = "/org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/keybindings";
       window-height = 500;
-      window-is-maximized = false;
+      window-is-maximized = true;
       window-width = 540;
     };
 
@@ -51,7 +51,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
       plugins = [ "bass_enhancer#0" ];
       show-blocklisted-apps = true;
       use-default-output-device = true;
@@ -76,6 +76,14 @@ with lib.hm.gvariant;
 
     "io/github/lainsce/Khronos" = {
       schema-version = 1;
+    };
+
+    "io/github/seadve/Kooha" = {
+      profile-id = "gif";
+      record-mic = false;
+      record-speaker = false;
+      screencast-restore-token = "27797ad8-9dc2-4b92-984c-4dd10aaed345";
+      show-pointer = false;
     };
 
     "net/sapples/LiveCaptions" = {
@@ -155,6 +163,9 @@ with lib.hm.gvariant;
 
     "org/gnome/Weather" = {
       locations = "[<(uint32 2, <('Bangalore', 'VOBG', true, [(0.22601989378717041, 1.3555659188172149)], [(0.22631101470640302, 1.3537937114947398)])>)>]";
+      window-height = 416;
+      window-maximized = true;
+      window-width = 992;
     };
 
     "org/gnome/baobab/ui" = {
@@ -180,6 +191,8 @@ with lib.hm.gvariant;
       source-units = "degree";
       target-currency = "DZD";
       target-units = "radian";
+      window-maximized = true;
+      window-size = mkTuple [ 680 584 ];
       word-size = 64;
     };
 
@@ -190,7 +203,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "background";
+      last-panel = "power";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -244,7 +257,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" "signal-desktop" "org-gnome-todo" "io-github-mrvladus-list" "org-gnome-software" "deluge" "org-gnome-baobab" "org-gnome-fractal" ];
+      application-children = [ "org-gnome-shell-extensions-gsconnect" "librewolf" "firefox" "beeper" "gnome-power-panel" "obsidian" "com-obsproject-studio" "spotify" "org-flameshot-flameshot" "gnome-network-panel" "schildichat-desktop" "org-gnome-texteditor" "org-gnome-console" "codium" "org-gnome-maps" "org-gnome-evince" "kitty" "org-gnome-eog" "org-gnome-characters" "org-gnome-nautilus" "ca-desrt-dconf-editor" "io-gitlab-news-flash-newsflash" "bitwarden" "-joplinapp-desktop" "de-haeckerfelix-fragments" "mullvadbrowser" "org-gnome-settings" "thunderbird" "org-telegram-desktop" "chromium-browser" "org-gnome-podcasts" "steam" "com-usebottles-bottles" "vlc" "com-github-gradienceteam-gradience" "io-github-martinrotter-rssguard" "org-gnome-clocks" "signal-desktop" "org-gnome-todo" "io-github-mrvladus-list" "org-gnome-software" "deluge" "org-gnome-baobab" "org-gnome-fractal" "org-gnome-evolution-alarm-notify" "calibre-gui" "discord" "com-github-vladimiry-electronmail" ];
       show-banners = false;
       show-in-lock-screen = true;
     };
@@ -269,6 +282,10 @@ with lib.hm.gvariant;
       application-id = "ca.desrt.dconf-editor.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/calibre-gui" = {
+      application-id = "calibre-gui.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/chromium-browser" = {
       application-id = "chromium-browser.desktop";
     };
@@ -281,8 +298,16 @@ with lib.hm.gvariant;
       application-id = "com.github.GradienceTeam.Gradience.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/com-github-vladimiry-electronmail" = {
+      application-id = "com.github.vladimiry.ElectronMail.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/com-obsproject-studio" = {
       application-id = "com.obsproject.Studio.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/com-ranfdev-notify" = {
+      application-id = "com.ranfdev.Notify.desktop";
     };
 
     "org/gnome/desktop/notifications/application/com-usebottles-bottles" = {
@@ -377,8 +402,16 @@ with lib.hm.gvariant;
       application-id = "org.gnome.eog.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-epiphany" = {
+      application-id = "org.gnome.Epiphany.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-evince" = {
       application-id = "org.gnome.Evince.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify" = {
+      application-id = "org.gnome.Evolution-alarm-notify.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-fileroller" = {
@@ -503,22 +536,32 @@ with lib.hm.gvariant;
       button-layout = "appmenu:minimize,maximize,close";
     };
 
+    "org/gnome/epiphany/web" = {
+      enable-mouse-gestures = true;
+      enable-user-js = false;
+    };
+
     "org/gnome/evince/default" = {
       continuous = true;
       dual-page = false;
-      dual-page-odd-left = false;
+      dual-page-odd-left = true;
       enable-spellchecking = true;
       fullscreen = false;
       inverted-colors = true;
       show-sidebar = true;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
-      sizing-mode = "automatic";
-      window-ratio = mkTuple [ 0.980208 0.709259 ];
+      sizing-mode = "fit-width";
+      window-ratio = mkTuple [ 0.9798657718120806 0.661520190023753 ];
+      zoom = 1.0726802115185157;
     };
 
     "org/gnome/evolution-data-server" = {
       migrated = true;
+    };
+
+    "org/gnome/evolution-data-server/calendar" = {
+      reminders-past = [ "4e68caa2d3b1640cdfdcf5cdd894444912b501bb16319b6eda4320acf59aeef48817e9678373bf39t20231202170147520017014752001701475200BEGIN:VTODOrDTSTAMP:20231201T165057ZrUID:842789900856251318rSEQUENCE:2rCREATED:20231125T152810ZrLAST-MODIFIED:20231201T123520ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rX-MOZ-LASTACK:20231130T113327ZrDUE;VALUE=DATE:20231202rDTSTART;VALUE=DATE:20231202rX-EVOLUTION-CALDAV-ETAG:4430d5d07e255364b5238a5f79d1ddb0rRECURRENCE-ID;VALUE=DATE:20231202rDTEND;VALUE=DATE:20231202rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:16319b6eda4320acf59aeef48817e9678373bf39rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d17147839f94903f2fc903eb37fa48717afecf323t20231202170147520017014752001701475200BEGIN:VTODOrDTSTAMP:20231201T165057ZrUID:842789900856251318rSEQUENCE:2rCREATED:20231125T152810ZrLAST-MODIFIED:20231201T123520ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rX-MOZ-LASTACK:20231130T113327ZrDUE;VALUE=DATE:20231202rDTSTART;VALUE=DATE:20231202rX-EVOLUTION-CALDAV-ETAG:4430d5d07e255364b5238a5f79d1ddb0rRECURRENCE-ID;VALUE=DATE:20231202rDTEND;VALUE=DATE:20231202rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:17147839f94903f2fc903eb37fa48717afecf323rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89dc61c7eb19ca3b8d33ec3d95df4c2e2cac97db466t20231201170138880017013888001701388800BEGIN:VTODOrDTSTAMP:20231128T123021ZrUID:842789900856251318rSEQUENCE:1rCREATED:20231125T152810ZrLAST-MODIFIED:20231128T113535ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rX-MOZ-LASTACK:20231127T123014ZrDUE;VALUE=DATE:20231128rDTSTART;VALUE=DATE:20231201rX-EVOLUTION-CALDAV-ETAG:92efbe174abeeb64672a5d37d2dfb4c6rRECURRENCE-ID;VALUE=DATE:20231201rDTEND;VALUE=DATE:20231201rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:c61c7eb19ca3b8d33ec3d95df4c2e2cac97db466rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb7b35e4a129bba6aad44d1bdbe261a64bbd6982d6t20231201170138880017013888001701388800BEGIN:VTODOrDTSTAMP:20231128T123021ZrUID:842789900856251318rSEQUENCE:1rCREATED:20231125T152810ZrLAST-MODIFIED:20231128T113535ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rX-MOZ-LASTACK:20231127T123014ZrDUE;VALUE=DATE:20231128rDTSTART;VALUE=DATE:20231201rX-EVOLUTION-CALDAV-ETAG:92efbe174abeeb64672a5d37d2dfb4c6rRECURRENCE-ID;VALUE=DATE:20231201rDTEND;VALUE=DATE:20231201rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:7b35e4a129bba6aad44d1bdbe261a64bbd6982d6rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d4d5b36b5167c4c68d8f40a37af8585feed3ed723t20231130T203000170135640117013564001701356401BEGIN:VTODOrDTSTAMP:20231129T150306ZrUID:1294331700948191936rSEQUENCE:6rCREATED:20231025T155852ZrLAST-MODIFIED:20231129T150212ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231130T203001rDTSTART;TZID=Asia/Kolkata:20231130T203000rX-EVOLUTION-CALDAV-ETAG:4cd088e4a04af8bff1cfd1a77165a933rRECURRENCE-ID;TZID=Asia/Kolkata:20231130T203000rDTEND;TZID=Asia/Kolkata:20231130T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:26c05d41d6598d5b924d6ab0e9477e28a8d7fe73rEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4d5b36b5167c4c68d8f40a37af8585feed3ed723rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d26c05d41d6598d5b924d6ab0e9477e28a8d7fe73t20231130T203000170135640017013564001701356401BEGIN:VTODOrDTSTAMP:20231129T150306ZrUID:1294331700948191936rSEQUENCE:6rCREATED:20231025T155852ZrLAST-MODIFIED:20231129T150212ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231130T203001rDTSTART;TZID=Asia/Kolkata:20231130T203000rX-EVOLUTION-CALDAV-ETAG:4cd088e4a04af8bff1cfd1a77165a933rRECURRENCE-ID;TZID=Asia/Kolkata:20231130T203000rDTEND;TZID=Asia/Kolkata:20231130T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:26c05d41d6598d5b924d6ab0e9477e28a8d7fe73rEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4d5b36b5167c4c68d8f40a37af8585feed3ed723rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89dc61c7eb19ca3b8d33ec3d95df4c2e2cac97db466t20231130170130240017013024001701302400BEGIN:VTODOrDTSTAMP:20231128T123021ZrUID:842789900856251318rSEQUENCE:1rCREATED:20231125T152810ZrLAST-MODIFIED:20231128T113535ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rX-MOZ-LASTACK:20231127T123014ZrDUE;VALUE=DATE:20231128rDTSTART;VALUE=DATE:20231130rX-EVOLUTION-CALDAV-ETAG:92efbe174abeeb64672a5d37d2dfb4c6rRECURRENCE-ID;VALUE=DATE:20231130rDTEND;VALUE=DATE:20231130rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:c61c7eb19ca3b8d33ec3d95df4c2e2cac97db466rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb454ed52d9c9d5f272de345a23d59f0af1185dd96t20231130T203000170135640117013564001701356401BEGIN:VTODOrDTSTAMP:20231129T150306ZrUID:1294331700948191936rSEQUENCE:6rCREATED:20231025T155852ZrLAST-MODIFIED:20231129T150212ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231130T203001rDTSTART;TZID=Asia/Kolkata:20231130T203000rX-EVOLUTION-CALDAV-ETAG:4cd088e4a04af8bff1cfd1a77165a933rRECURRENCE-ID;TZID=Asia/Kolkata:20231130T203000rDTEND;TZID=Asia/Kolkata:20231130T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:789116227320cdcf9e3e69e5afa9a85f08b26d8drEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:454ed52d9c9d5f272de345a23d59f0af1185dd96rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb789116227320cdcf9e3e69e5afa9a85f08b26d8dt20231130T203000170135640017013564001701356401BEGIN:VTODOrDTSTAMP:20231129T150306ZrUID:1294331700948191936rSEQUENCE:6rCREATED:20231025T155852ZrLAST-MODIFIED:20231129T150212ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231130T203001rDTSTART;TZID=Asia/Kolkata:20231130T203000rX-EVOLUTION-CALDAV-ETAG:4cd088e4a04af8bff1cfd1a77165a933rRECURRENCE-ID;TZID=Asia/Kolkata:20231130T203000rDTEND;TZID=Asia/Kolkata:20231130T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:789116227320cdcf9e3e69e5afa9a85f08b26d8drEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:454ed52d9c9d5f272de345a23d59f0af1185dd96rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb7b35e4a129bba6aad44d1bdbe261a64bbd6982d6t20231130170130240017013024001701302400BEGIN:VTODOrDTSTAMP:20231128T123021ZrUID:842789900856251318rSEQUENCE:1rCREATED:20231125T152810ZrLAST-MODIFIED:20231128T113535ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rX-MOZ-LASTACK:20231127T123014ZrDUE;VALUE=DATE:20231128rDTSTART;VALUE=DATE:20231130rX-EVOLUTION-CALDAV-ETAG:92efbe174abeeb64672a5d37d2dfb4c6rRECURRENCE-ID;VALUE=DATE:20231130rDTEND;VALUE=DATE:20231130rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:7b35e4a129bba6aad44d1bdbe261a64bbd6982d6rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb98577e565c077fbc29a8011ea391dddd44fdd8c6t20231128170112960017011296001701129600BEGIN:VTODOrDTSTAMP:20231125T152811ZrUID:842789900856251318rCREATED:20231125T152810ZrLAST-MODIFIED:20231125T152810ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rDUE;VALUE=DATE:20231127rDTSTART;VALUE=DATE:20231128rX-EVOLUTION-CALDAV-ETAG:c2432bbcf250deff5a0137454bd44bc2rRECURRENCE-ID;VALUE=DATE:20231128rDTEND;VALUE=DATE:20231128rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:98577e565c077fbc29a8011ea391dddd44fdd8c6rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d0403ff351ae5eee0bf5200dcb489e546734c9ca5t20231128170112960017011296001701129600BEGIN:VTODOrDTSTAMP:20231125T152811ZrUID:842789900856251318rCREATED:20231125T152810ZrLAST-MODIFIED:20231125T152810ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rDUE;VALUE=DATE:20231127rDTSTART;VALUE=DATE:20231128rX-EVOLUTION-CALDAV-ETAG:c2432bbcf250deff5a0137454bd44bc2rRECURRENCE-ID;VALUE=DATE:20231128rDTEND;VALUE=DATE:20231128rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:0403ff351ae5eee0bf5200dcb489e546734c9ca5rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb98577e565c077fbc29a8011ea391dddd44fdd8c6t20231127170104320017010432001701043200BEGIN:VTODOrDTSTAMP:20231125T152811ZrUID:842789900856251318rCREATED:20231125T152810ZrLAST-MODIFIED:20231125T152810ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rDUE;VALUE=DATE:20231127rDTSTART;VALUE=DATE:20231127rX-EVOLUTION-CALDAV-ETAG:c2432bbcf250deff5a0137454bd44bc2rRECURRENCE-ID;VALUE=DATE:20231127rDTEND;VALUE=DATE:20231127rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:98577e565c077fbc29a8011ea391dddd44fdd8c6rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d0403ff351ae5eee0bf5200dcb489e546734c9ca5t20231127170104320017010432001701043200BEGIN:VTODOrDTSTAMP:20231125T152811ZrUID:842789900856251318rCREATED:20231125T152810ZrLAST-MODIFIED:20231125T152810ZrSUMMARY:CLAT Admit CardrDESCRIPTION:CLAT Admit Card PrintoutrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765955rDUE;VALUE=DATE:20231127rDTSTART;VALUE=DATE:20231127rX-EVOLUTION-CALDAV-ETAG:c2432bbcf250deff5a0137454bd44bc2rRECURRENCE-ID;VALUE=DATE:20231127rDTEND;VALUE=DATE:20231127rBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:0403ff351ae5eee0bf5200dcb489e546734c9ca5rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bbfa41a7c2cb13627b436636073101b4ec9217e09bt20231125T000000170093250117008506001700932501BEGIN:VTODOrDTSTAMP:20231125T152600ZrUID:495525802399598198rCREATED:20231125T152600ZrLAST-MODIFIED:20231125T152600ZrSUMMARY:NSErDESCRIPTION:Prepare bag for NSErPRIORITY:1rSTATUS:NEEDS-ACTIONrX-APPLE-SORT-ORDER:719765957rDUE;TZID=Asia/Kolkata:20231125T224501rDTSTART;TZID=Asia/Kolkata:20231125T000000rX-EVOLUTION-CALDAV-ETAG:f09e4fac291eb7442fda1797439fb35brBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:fa41a7c2cb13627b436636073101b4ec9217e09brEND:VALARMrEND:VTODOr" ];
     };
 
     "org/gnome/evolution" = {
@@ -614,6 +657,7 @@ with lib.hm.gvariant;
     "org/gnome/maps" = {
       last-viewed-location = [ 12.950596 77.710161 ];
       map-type = "MapsStreetSource";
+      show-scale = false;
       transportation-type = "pedestrian";
       window-maximized = true;
       zoom-level = 19;
@@ -664,6 +708,10 @@ with lib.hm.gvariant;
       ignore-phase2-ca-cert = false;
     };
 
+    "org/gnome/portal/filechooser/kitty" = {
+      last-folder-path = "/home/wickedwizard/Mounted/Important-Files/Exams";
+    };
+
     "org/gnome/power-manager" = {
       info-history-graph-points = false;
       info-history-graph-smooth = false;
@@ -675,7 +723,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/color" = {
-      night-light-enabled = false;
+      night-light-enabled = true;
       night-light-last-coordinates = mkTuple [ 12.963584 77.5855 ];
     };
 
@@ -703,7 +751,6 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell" = {
-      app-picker-layout = "[{'waydroid.com.android.inputmethod.latin.desktop': <{'position': <0>}>, 'org.gnome.Contacts.desktop': <{'position': <1>}>, 'org.gnome.Weather.desktop': <{'position': <2>}>, 'org.gnome.clocks.desktop': <{'position': <3>}>, 'org.gnome.Maps.desktop': <{'position': <4>}>, 'beeper.desktop': <{'position': <5>}>, 'bitwarden.desktop': <{'position': <6>}>, 'waydroid.org.lineageos.jelly.desktop': <{'position': <7>}>, 'org.gnome.Calculator.desktop': <{'position': <8>}>, 'waydroid.com.android.calculator2.desktop': <{'position': <9>}>, 'waydroid.org.lineageos.etar.desktop': <{'position': <10>}>, 'org.gnome.Settings.desktop': <{'position': <11>}>, 'gnome-system-monitor.desktop': <{'position': <12>}>, 'calibre-gui.desktop': <{'position': <13>}>, 'waydroid.com.android.camera2.desktop': <{'position': <14>}>, 'waydroid.com.android.deskclock.desktop': <{'position': <15>}>, 'org.gnome.Characters.desktop': <{'position': <16>}>, 'yelp.desktop': <{'position': <17>}>, 'waydroid.com.android.contacts.desktop': <{'position': <18>}>, 'calibre-ebook-edit.desktop': <{'position': <19>}>, 'org.gnome.font-viewer.desktop': <{'position': <20>}>, 'calibre-ebook-viewer.desktop': <{'position': <21>}>, 'com.github.wwmm.easyeffects.desktop': <{'position': <22>}>, 'org.gnome.Extensions.desktop': <{'position': <23>}>}, {'waydroid.com.android.documentsui.desktop': <{'position': <0>}>, 'firefox.desktop': <{'position': <1>}>, 'org.flameshot.Flameshot.desktop': <{'position': <2>}>, 'waydroid.com.android.gallery3d.desktop': <{'position': <3>}>, 'com.github.GradienceTeam.Gradience.desktop': <{'position': <4>}>, 'kitty.desktop': <{'position': <5>}>, 'kvantummanager.desktop': <{'position': <6>}>, 'librewolf.desktop': <{'position': <7>}>, 'calibre-lrfviewer.desktop': <{'position': <8>}>, 'waydroid.org.lineageos.eleven.desktop': <{'position': <9>}>, 'nheko.desktop': <{'position': <10>}>, 'nixos-manual.desktop': <{'position': <11>}>, 'com.obsproject.Studio.desktop': <{'position': <12>}>, 'obsidian.desktop': <{'position': <13>}>, 'qt5ct.desktop': <{'position': <14>}>, 'qt6ct.desktop': <{'position': <15>}>, 'waydroid.org.lineageos.recorder.desktop': <{'position': <16>}>, 'schildichat-desktop.desktop': <{'position': <17>}>, 'waydroid.com.android.settings.desktop': <{'position': <18>}>, 'spotify.desktop': <{'position': <19>}>, 'org.gnome.TextEditor.desktop': <{'position': <20>}>, 'vlc.desktop': <{'position': <21>}>, 'codium.desktop': <{'position': <22>}>, 'Waydroid.desktop': <{'position': <23>}>}, {'org.gnome.FileRoller.desktop': <{'position': <0>}>, 'org.gnome.Connections.desktop': <{'position': <1>}>, 'org.gnome.Console.desktop': <{'position': <2>}>, 'org.gnome.baobab.desktop': <{'position': <3>}>, 'org.gnome.DiskUtility.desktop': <{'position': <4>}>, 'org.gnome.Evince.desktop': <{'position': <5>}>, 'org.gnome.eog.desktop': <{'position': <6>}>, 'org.gnome.Logs.desktop': <{'position': <7>}>, 'org.gnome.seahorse.Application.desktop': <{'position': <8>}>}]";
       command-history = [ "r" "restart" "reload" "lg" ];
       disable-user-extensions = false;
       disabled-extensions = [ "custom-accent-colors@demiskp" "light-style@gnome-shell-extensions.gcampax.github.com" ];
@@ -739,11 +786,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 2;
+      indicator-position-max = 1;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
+      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -796,7 +844,10 @@ with lib.hm.gvariant;
       certificate-pem = "-----BEGIN CERTIFICATE-----MIIDHzCCAgegAwIBAgIBATANBgkqhkiG9w0BAQsFADBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwHhcNMjIwODE1MTgzMDAwWhcNMzIwODE1MTgzMDAwWjBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkPj4moAadNTwmMiPy82yssvmIbjc/pnz5tuoLHZfh1vheHvURhEatThiFC8hbwMfB047yXbK6HO41ZavuysDml+okcm3PBvKZjZTyXhCQRPCu6B+VNWn0XwOnmSLlXTkkwVFxN0QAHUi2+mp4+0scHa/Q1Ux7GMQ79LXgxUsewEA42rZk4P9hyHmDwFUr3sVVLh0NwUBC97oIHyHbxdvVZepABT8sqXBvf+HIVGrEsxh+HTpqfNzAT4G+fTesOC0N8eJPdjQmxdHynXSphXipWwI92xSWUJGergjR6zA0v6fq5L4rs0ZwDaSjhqcZu8CWt2S7ACQQK1B38jsgnwPzAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAHtRq93nLHQAotvnKwjuuyVzhBAexwwGrkmR1CUJ0ad/9kp9whgzqEJwAtn7Aa2mdjtd+A3omHazEG53AOYnU7hCj3FR7F7suIos2OkJSl6NX5ZBt1l47tWJyVOMEooh5YuSlFUGppyPEQuCksJFM/yaE4cxxeExSVKQ42sVKMt29sad7BwGdv7x/pZ6792ug8AP90VLdQgvhXRbHHHLtU+W0YZoqEWtoEg4bSVT0NY3hgoSXAIxgdiOaWMhrAJCIKrsrrrfQ14xJe0Dvb8tb6/gaM84p3jajNGIeTG9g/PzUzimgdE1rPMOIzycikrKn9ADXBCVDxv/tVqA/9ameAY=-----END CERTIFICATE-----";
       disabled-plugins = [ "photo" ];
       incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
-      keybindings = "@a{ss} {}";
+      # keybindings = {
+      #   clipboardPull = "<Shift><Super>Z";
+      #   clipboardPush = "<Shift><Super>X";
+      # };
       last-connection = "lan://192.168.0.103:1716";
       name = "Redmi S2";
       outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
@@ -819,7 +870,7 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/notification" = {
       applications = ''
-        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"calibre":{"iconName":"calibre-gui","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Telegram Desktop":{"iconName":"telegram","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Easy Effects":{"iconName":"com.github.wwmm.easyeffects","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Fractal":{"iconName":"org.gnome.Fractal","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true},"NewsFlash":{"iconName":"io.gitlab.news_flash.NewsFlash","enabled":true},"Spotify":{"iconName":"","enabled":true},"Beeper":{"iconName":"","enabled":true},"Fragments":{"iconName":"folder-download-symbolic","enabled":true},"SchildiChat":{"iconName":"","enabled":true},"Deluge":{"iconName":"deluge","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true}}
+        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"calibre":{"iconName":"calibre-gui","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Telegram Desktop":{"iconName":"telegram","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Easy Effects":{"iconName":"com.github.wwmm.easyeffects","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Fractal":{"iconName":"org.gnome.Fractal","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true},"NewsFlash":{"iconName":"io.gitlab.news_flash.NewsFlash","enabled":true},"Spotify":{"iconName":"","enabled":true},"Beeper":{"iconName":"","enabled":true},"Fragments":{"iconName":"folder-download-symbolic","enabled":true},"SchildiChat":{"iconName":"","enabled":true},"Deluge":{"iconName":"deluge","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"flameshot":{"iconName":"","enabled":true},"Flameshot":{"iconName":"flameshot","enabled":true},"Firefox":{"iconName":"","enabled":true},"Planner":{"iconName":"com.github.alainm23.planner","enabled":true},"Notify":{"iconName":"com.ranfdev.Notify","enabled":true}}
       '';
     };
 
@@ -881,7 +932,13 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/pano" = {
       history-length = 500;
+      item-size = 200;
+      keep-search-entry = false;
       open-links-in-browser = true;
+      play-audio-on-copy = false;
+      send-notification-on-copy = false;
+      show-indicator = false;
+      sync-primary = true;
     };
 
     "org/gnome/shell/extensions/quick-settings-tweaks" = {
@@ -919,8 +976,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/vitals" = {
+      alphabetize = true;
       battery-slot = 1;
-      hot-sensors = [ "_processor_usage_" "_memory_usage_" "_temperature_amdgpu_edge_" "__network-tx_max__" "__network-rx_max__" ];
+      hot-sensors = [ "_processor_usage_" "_memory_usage_" "_temperature_amdgpu_edge_" "__network-rx_max__" "__network-tx_max__" ];
       include-static-info = false;
       show-battery = true;
     };
@@ -988,15 +1046,15 @@ with lib.hm.gvariant;
     "org/gtk/settings/file-chooser" = {
       date-format = "regular";
       location-mode = "path-bar";
-      show-hidden = true;
+      show-hidden = false;
       show-size-column = true;
       show-type-column = true;
-      sidebar-width = 188;
-      sort-column = "name";
+      sidebar-width = 212;
+      sort-column = "modified";
       sort-directories-first = false;
-      sort-order = "ascending";
+      sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 358 87 ];
+      window-position = mkTuple [ 30 26 ];
       window-size = mkTuple [ 1203 902 ];
     };
 

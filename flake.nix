@@ -1,11 +1,11 @@
 {
   description = "Nix Flakes for my System.";
   inputs = {
+    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
+    home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nur.url = "github:nix-community/NUR";
-    home-manager.url = "github:nix-community/home-manager";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
-    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
   };
 
   nixConfig = {
