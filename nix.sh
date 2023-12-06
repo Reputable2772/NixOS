@@ -5,7 +5,7 @@ set -e
 build() {
 	echo "Builiding"
 	rm -rf $HOME/.config/mimeapps.list
-	sudo nixos-rebuild switch --flake .#hp-laptop
+	sudo nixos-rebuild switch --flake .#hp-laptop |& nom
 }
 
 changelog() {
