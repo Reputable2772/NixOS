@@ -14,7 +14,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/GradienceTeam/Gradience" = {
-      enabled-plugins = [ "firefox_gnome_theme" ];
+      enabled-plugins = [ ];
       first-run = false;
       last-opened-version = "0.4.1";
       window-fullscreen = false;
@@ -203,8 +203,25 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "power";
+      last-panel = "background";
       window-state = mkTuple [ 980 640 true ];
+    };
+
+    "org/gnome/desktop/a11y" = {
+      always-show-universal-access-status = false;
+    };
+
+    "org/gnome/desktop/a11y/applications" = {
+      screen-magnifier-enabled = false;
+    };
+
+    "org/gnome/desktop/a11y/interface" = {
+      high-contrast = false;
+    };
+
+    "org/gnome/desktop/a11y/keyboard" = {
+      mousekeys-enable = false;
+      togglekeys-enable = false;
     };
 
     "org/gnome/desktop/a11y/magnifier" = {
@@ -229,6 +246,9 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/background" = {
+      picture-options = "zoom";
+      picture-uri = "file:///home/wickedwizard/.config/background";
+      picture-uri-dark = "file:///home/wickedwizard/.config/background";
       show-desktop-icons = true;
     };
 
@@ -254,6 +274,7 @@ with lib.hm.gvariant;
       icon-theme = "MoreWaita";
       locate-pointer = false;
       show-battery-percentage = true;
+      toolkit-accessibility = false;
     };
 
     "org/gnome/desktop/notifications" = {
@@ -330,6 +351,10 @@ with lib.hm.gvariant;
       application-id = "draw.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/electron-mail" = {
+      application-id = "electron-mail.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/firefox" = {
       application-id = "firefox.desktop";
     };
@@ -344,6 +369,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/impress" = {
       application-id = "impress.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/io-freetubeapp-freetube" = {
+      application-id = "io.freetubeapp.FreeTube.desktop";
     };
 
     "org/gnome/desktop/notifications/application/io-github-martinrotter-rssguard" = {
@@ -507,7 +536,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
-      disabled = [];
+      disabled = [ ];
       enabled = [ "org.gnome.Weather.desktop" ];
       sort-order = [ "org.gnome.Nautilus.desktop" "org.gnome.Documents.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" ];
     };
@@ -517,13 +546,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      cycle-windows = [];
-      cycle-windows-backward = [];
+      cycle-windows = [ ];
+      cycle-windows-backward = [ ];
       move-to-workspace-left = [ "<Control><Super>Up" ];
       move-to-workspace-right = [ "<Control><Super>Down" ];
       show-desktop = [ "<Super>d" ];
-      switch-applications = [];
-      switch-applications-backward = [];
+      switch-applications = [ ];
+      switch-applications-backward = [ ];
       switch-input-source = [ "<Alt>Shift_L" ];
       switch-to-workspace-left = [ "<Control><Super>Left" ];
       switch-to-workspace-right = [ "<Control><Super>Right" ];
@@ -552,8 +581,8 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "fit-width";
-      window-ratio = mkTuple [ 0.9798657718120806 0.661520190023753 ];
-      zoom = 1.0726802115185157;
+      window-ratio = mkTuple [ 0.979866 0.66152 ];
+      zoom = 1.07268;
     };
 
     "org/gnome/evolution-data-server" = {
@@ -669,7 +698,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts = [];
+      restore-shortcuts = [ ];
     };
 
     "org/gnome/nautilus/compression" = {
@@ -742,7 +771,7 @@ with lib.hm.gvariant;
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "Print";
-      command = "flameshot gui";
+      command = "/home/wickedwizard/Documents/NixOS/flameshot.sh";
       name = "Screenshot";
     };
 
@@ -774,24 +803,27 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
-      devices = [ ''
-        {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
-      '' ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
-      '' ''
-        {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
-      '' ];
+      devices = [
+        ''
+          {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
+        ''
+        ''
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        ''
+        ''
+          {"name":"test","alias":"test","isConnected":false,"isPaired":false,"mac":"test","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","active":true,"icon":"audio-headphones-symbolic"}
+        ''
+      ];
       hide-indicator = true;
       interval = 1;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 1;
+      indicator-position-max = 2;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
-      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
@@ -844,10 +876,6 @@ with lib.hm.gvariant;
       certificate-pem = "-----BEGIN CERTIFICATE-----MIIDHzCCAgegAwIBAgIBATANBgkqhkiG9w0BAQsFADBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwHhcNMjIwODE1MTgzMDAwWhcNMzIwODE1MTgzMDAwWjBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkPj4moAadNTwmMiPy82yssvmIbjc/pnz5tuoLHZfh1vheHvURhEatThiFC8hbwMfB047yXbK6HO41ZavuysDml+okcm3PBvKZjZTyXhCQRPCu6B+VNWn0XwOnmSLlXTkkwVFxN0QAHUi2+mp4+0scHa/Q1Ux7GMQ79LXgxUsewEA42rZk4P9hyHmDwFUr3sVVLh0NwUBC97oIHyHbxdvVZepABT8sqXBvf+HIVGrEsxh+HTpqfNzAT4G+fTesOC0N8eJPdjQmxdHynXSphXipWwI92xSWUJGergjR6zA0v6fq5L4rs0ZwDaSjhqcZu8CWt2S7ACQQK1B38jsgnwPzAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAHtRq93nLHQAotvnKwjuuyVzhBAexwwGrkmR1CUJ0ad/9kp9whgzqEJwAtn7Aa2mdjtd+A3omHazEG53AOYnU7hCj3FR7F7suIos2OkJSl6NX5ZBt1l47tWJyVOMEooh5YuSlFUGppyPEQuCksJFM/yaE4cxxeExSVKQ42sVKMt29sad7BwGdv7x/pZ6792ug8AP90VLdQgvhXRbHHHLtU+W0YZoqEWtoEg4bSVT0NY3hgoSXAIxgdiOaWMhrAJCIKrsrrrfQ14xJe0Dvb8tb6/gaM84p3jajNGIeTG9g/PzUzimgdE1rPMOIzycikrKn9ADXBCVDxv/tVqA/9ameAY=-----END CERTIFICATE-----";
       disabled-plugins = [ "photo" ];
       incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
-      # keybindings = {
-      #   clipboardPull = "<Shift><Super>Z";
-      #   clipboardPush = "<Shift><Super>X";
-      # };
       last-connection = "lan://192.168.0.103:1716";
       name = "Redmi S2";
       outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
@@ -986,8 +1014,8 @@ with lib.hm.gvariant;
     "org/gnome/shell/keybindings" = {
       screenshot = [ "<Alt>Print" ];
       screenshot-window = [ "<Shift>Print" ];
-      show-screenshot-ui = [];
-      toggle-overview = [];
+      show-screenshot-ui = [ ];
+      toggle-overview = [ ];
     };
 
     "org/gnome/shell/weather" = {
@@ -996,7 +1024,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [];
+      locations = [ ];
     };
 
     "org/gnome/software" = {

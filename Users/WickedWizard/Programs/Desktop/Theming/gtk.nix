@@ -32,8 +32,10 @@
         @define-color headerbar_border_color rgb(59,66,82);
         @define-color headerbar_backdrop_color @window_bg_color;
         @define-color headerbar_shade_color rgb(59,66,82);
-        @define-color sidebar_bg_color rgb(46,52,64);
-        @define-color sidebar_backdrop_color rgb(46,52,64);
+        @define-color sidebar_bg_color @window_bg_color;
+        @define-color sidebar_fg_color @window_fg_color;
+        @define-color sidebar_border_color @window_bg_color;
+        @define-color sidebar_backdrop_color @window_bg_color;
         @define-color card_bg_color rgb(46,52,64);
         @define-color card_fg_color rgb(236,239,244);
         @define-color card_shade_color rgb(59,66,82);

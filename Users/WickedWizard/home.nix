@@ -39,7 +39,6 @@
     packages = [
       "flathub:app/io.freetubeapp.FreeTube//stable"
       "flathub:app/com.ranfdev.Notify//stable"
-      "flathub:app/com.github.vladimiry.ElectronMail//stable"
       "flathub:app/com.github.alainm23.planner//stable"
     ];
     remotes = {
