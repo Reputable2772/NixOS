@@ -20,6 +20,10 @@
           path = "${config.users.users.wickedwizard.home}/Documents/Books";
           devices = [ "Redmi S2" ];
         };
+        "Captures" = {
+          path = "${config.users.users.wickedwizard.home}/Documents/Android/Captures";
+          devices = [ "Redmi S2" ];
+        };
         "Important Files" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Important-Files";
           devices = [ "Redmi S2" ];
