@@ -5,16 +5,16 @@
   home.packages = with pkgs; [
     firefox
     gnomeExtensions.appindicator
-    gnomeExtensions.gsconnect
-    gnomeExtensions.clipboard-indicator
-    librewolf
+    # gnomeExtensions.gsconnect
+    # gnomeExtensions.clipboard-indicator
+    # librewolf
     # libreoffice
     vlc
     quickemu
-    deluge-gtk
+    # deluge-gtk
     whatsapp-for-linux
     signal-desktop
-    skypeforlinux
+    # skypeforlinux
     kitty
     easyeffects
   ];
