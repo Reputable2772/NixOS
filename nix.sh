@@ -24,22 +24,21 @@ ci() {
 	nix build .#nixosConfigurations.hp-laptop.config.system.build.toplevel --accept-flake-config |& nix-shell -p nix-output-monitor --command nom
 }
 
-dconf() {
-	echo "DConf"
-	dconf dump / > wickedwizard.dconf
-	sudo -u shuba dconf dump / > shuba.dconf
+dconf_nix() {
+	echo "Dumping."
+	dconf dump / | tee wickedwizard.dconf
+	sudo -u shuba dconf dump / | tee shuba.dconf
 
-	sed -e 's/\\n//g' wickedwizard.dconf > wickedwizard.conf
-	sed -e 's/\\n//g' shuba.dconf > shuba.conf
+	echo "Escaping special characters."
+	sed -e 's/\\n//g' wickedwizard.dconf | tee wickedwizard.conf
+	sed -e 's/\\n//g' shuba.dconf | tee shuba.conf
 
-	rm -rf ./wickedwizard.dconf
-	rm -rf ./shuba.dconf
-
+	echo "Nixifying dconf"
 	dconf2nix -i wickedwizard.conf -o ./Users/WickedWizard/Programs/Desktop/Gnome/gnome.nix
 	dconf2nix -i shuba.conf -o ./Users/Shuba/gnome.nix
 
-	rm -rf ./wickedwizard.conf
-	rm -rf ./shuba.conf
+	echo "Deleting files"
+	rm -rf *.conf *.dconf
 }
 
 format() {
@@ -57,9 +56,9 @@ case $1 in
 	"ci")
 		ci;;
 	"dconf")
-		dconf;;
+		dconf_nix;;
 	"format")
 		format;;
 	*)
-    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf' or 'fmt'";;
+    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf' or 'format'";;
 esac
