@@ -21,7 +21,7 @@ check() {
 ci() {
 	echo "Building system CI"
 	sudo rm -rf /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
-	nix build .#nixosConfigurations.hp-laptop.config.system.build.toplevel --accept-flake-config --print-build-logs
+	nix build .#nixosConfigurations.hp-laptop.config.system.build.toplevel --accept-flake-config |& nix-shell -p nix-output-monitor --command nom
 }
 
 dconf() {
