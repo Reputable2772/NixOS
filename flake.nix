@@ -4,7 +4,7 @@
     flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
     home-manager.url = "github:nix-community/home-manager";
     nix-alien.url = "github:thiagokokada/nix-alien";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
@@ -24,40 +24,24 @@
     ];
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, spicetify-nix, flatpaks, nix-alien, ... }@inputs:
-    let system = "x86_64-linux"; in {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+  outputs = { self, nixpkgs, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      formatter.${system} = pkgs.nixpkgs-fmt;
       nixosConfigurations = {
         "hp-laptop" = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [
-            nur.nixosModules.nur
-            home-manager.nixosModules.home-manager
-            ./System/HP-Laptop
-            {
-              nixpkgs.overlays = [ nur.overlay ] ++ (import ./Overlays);
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users = {
-                  wickedwizard = {
-                    imports = [
-                      ./Users/WickedWizard/home.nix
-                      flatpaks.homeManagerModules.default
-                    ];
-                  };
-                  shuba = import ./Users/Shuba/home.nix;
-                };
-                extraSpecialArgs = {
-                  inherit spicetify-nix nix-alien self system;
-                };
-              };
-            }
-          ];
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./System/HP-Laptop ];
         };
       };
-      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-        nativeBuildInputs = with nixpkgs.legacyPackages.x86_64-linux; [ pre-commit ];
+      devShells.${system}.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [ pre-commit ];
       };
     };
 }

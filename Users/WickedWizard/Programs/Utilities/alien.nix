@@ -1,5 +1,5 @@
-{ config, pkgs, self, system, ... }: {
-  home.packages = with self.inputs.nix-alien.packages.${system}; [
+{ config, pkgs, inputs, ... }: {
+  home.packages = with inputs.nix-alien.packages.${pkgs.system}; [
     nix-alien
   ];
 }

@@ -1,5 +1,6 @@
-{ config, pkgs, spicetify-nix, ... }:
+{ config, pkgs, inputs, ... }:
 let
+  inherit (inputs) spicetify-nix;
   spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
 in
 {
