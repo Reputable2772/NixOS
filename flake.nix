@@ -13,14 +13,14 @@
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       "https://cache.nixos.org/"
-      "https://wickedwizard-nixos.cachix.org"
+      "https://spearman4157.cachix.org"
     ];
     extra-substituters = [
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "wickedwizard-nixos.cachix.org-1:Kg+kktoDEBmy9jEt9P2x7asKGAKmbBElwdkU0IYNwHg="
+      "spearman4157.cachix.org-1:C5rIS9uufmlsdRIe9dEHSZVjxo9g8se+gjMdIeeEYfk="
     ];
   };
 
