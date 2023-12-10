@@ -20,6 +20,7 @@
     interfaces.wlo1.allowedTCPPorts = [ 8384 22000 443 80 ]; # Syncthing, Caddy
     interfaces.wlo1.allowedUDPPorts = [ 22000 21027 443 80 ]; # Syncthing
   };
-  networking.hostName = "nixos";
+
+  networking.hostName = "hp-laptop";
   networking.networkmanager.enable = true;
 }
