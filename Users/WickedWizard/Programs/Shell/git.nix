@@ -6,7 +6,7 @@
 
   programs.git = {
     enable = true;
-    userEmail = "coding.exhibiting@slmails.com";
+    userEmail = "153411261+Reputable2772@users.noreply.github.com";
     userName = "Reputable2722";
     signing = {
       key = "360FB6CAACDE33E0";
