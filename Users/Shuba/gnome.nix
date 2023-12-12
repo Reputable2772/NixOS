@@ -114,6 +114,14 @@ with lib.hm.gvariant;
       numlock-state = true;
     };
 
+    "org/gnome/desktop/peripherals/mouse" = {
+      accel-profile = "flat";
+    };
+
+    "org/gnome/desktop/peripherals/touchpad" = {
+      two-finger-scrolling-enabled = true;
+    };
+
     "org/gnome/desktop/search-providers" = {
       sort-order = [ "org.gnome.Contacts.desktop" "org.gnome.Documents.desktop" "org.gnome.Nautilus.desktop" ];
     };
@@ -216,7 +224,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [ ];
+      locations = [];
     };
 
     "org/gnome/software" = {
