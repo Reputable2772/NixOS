@@ -8,12 +8,14 @@
     enable = true;
     userEmail = "153411261+Reputable2772@users.noreply.github.com";
     userName = "Reputable2722";
-    signing = {
-      key = "360FB6CAACDE33E0";
-      signByDefault = true;
-    };
     extraConfig = {
-      credential.helper = "/run/current-system/sw/bin/git-credential-libsecret";
+      gpg = {
+        format = "ssh";
+      };
+    };
+    signing = {
+      key = "/home/wickedwizard/Documents/Dotfiles/Scripts/SSH/id_rsa.pub";
+      signByDefault = true;
     };
   };
 }
