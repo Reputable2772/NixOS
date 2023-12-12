@@ -11,7 +11,7 @@
     extraConfig = {
       gpg = {
         format = "ssh";
-        ssh.allowedSignersFile = "HOME/.config/git/allowed_signers";
+        ssh.allowedSignersFile = "/home/wickedwizard/.config/git/allowed_signers";
       };
     };
     signing = {
