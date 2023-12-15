@@ -5,6 +5,7 @@
     ./boot.nix
     ./configuration.nix
     ./gnome.nix
+    ./insecure.nix
     ./networking.nix
     ./packages.nix
     ./sudo.nix
