@@ -3,5 +3,6 @@
     ./extensions.nix
     ./gnome.nix
     ./packages.nix
+    ./services.nix
   ];
 }
