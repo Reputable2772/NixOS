@@ -6,8 +6,7 @@
     enable = true;
     mutableExtensionsDir = false;
     extensions = with pkgs.vscode-extensions; [
-      # Building breaks for some reason.
-      # ms-python.python
+      ms-python.python
       esbenp.prettier-vscode
       dbaeumer.vscode-eslint
       eamodio.gitlens
