@@ -5,6 +5,22 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "apps/seahorse" = {
+      server-auto-publish = false;
+      server-auto-retrieve = false;
+      server-publish-to = "";
+    };
+
+    "apps/seahorse/listing" = {
+      item-filter = "any";
+      keyrings-selected = [ "openssh:///home/wickedwizard/.ssh" ];
+    };
+
+    "apps/seahorse/windows/key-manager" = {
+      height = 1001;
+      width = 1920;
+    };
+
     "ca/desrt/dconf-editor" = {
       saved-pathbar-path = "/org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/keybindings";
       saved-view = "/org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/keybindings";
@@ -80,6 +96,10 @@ with lib.hm.gvariant;
     "org/freedesktop/tracker/miner/files" = {
       index-recursive-directories = [ "&DESKTOP" "&DOCUMENTS" ];
       index-single-directories = [ "&DOWNLOAD" ];
+    };
+
+    "org/gnome/Connections" = {
+      first-run = false;
     };
 
     "org/gnome/Contacts" = {
@@ -200,15 +220,15 @@ with lib.hm.gvariant;
       enable-animations = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-      gtk-theme = "Nordic-darker";
-      icon-theme = "MoreWaita";
+      gtk-theme = "Adwaita-dark";
+      icon-theme = "Adwaita";
       locate-pointer = false;
       show-battery-percentage = true;
       toolkit-accessibility = false;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "io-gitlab-news-flash-newsflash" "org-flameshot-flameshot" "beeper" "gnome-power-panel" "org-gnome-shell-extensions-gsconnect" "librewolf" "org-gnome-evolution-alarm-notify" "com-obsproject-studio" "org-gnome-evince" "codium" "electron-mail" "-joplinapp-desktop" "firefox" "spotify" ];
+      application-children = [ "io-gitlab-news-flash-newsflash" "org-flameshot-flameshot" "beeper" "gnome-power-panel" "org-gnome-shell-extensions-gsconnect" "librewolf" "org-gnome-evolution-alarm-notify" "com-obsproject-studio" "org-gnome-evince" "codium" "electron-mail" "-joplinapp-desktop" "firefox" "spotify" "org-gnome-fractal" "bitwarden" ];
       show-banners = false;
     };
 
@@ -220,6 +240,14 @@ with lib.hm.gvariant;
       application-id = "beeper.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/bitwarden" = {
+      application-id = "bitwarden.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/chromium-browser" = {
+      application-id = "chromium-browser.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/codium" = {
       application-id = "codium.desktop";
     };
@@ -228,12 +256,20 @@ with lib.hm.gvariant;
       application-id = "com.obsproject.Studio.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/deluge" = {
+      application-id = "deluge.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/electron-mail" = {
       application-id = "electron-mail.desktop";
     };
 
     "org/gnome/desktop/notifications/application/firefox" = {
       application-id = "firefox.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/gnome-network-panel" = {
+      application-id = "gnome-network-panel.desktop";
     };
 
     "org/gnome/desktop/notifications/application/gnome-power-panel" = {
@@ -258,6 +294,10 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/notifications/application/org-gnome-evolution-alarm-notify" = {
       application-id = "org.gnome.Evolution-alarm-notify.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-fractal" = {
+      application-id = "org.gnome.Fractal.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect" = {
@@ -290,6 +330,13 @@ with lib.hm.gvariant;
       disable-microphone = true;
       old-files-age = mkUint32 30;
       recent-files-max-age = -1;
+    };
+
+    "org/gnome/desktop/remote-desktop/rdp" = {
+      enable = true;
+      tls-cert = "/home/wickedwizard/.local/share/gnome-remote-desktop/rdp-tls.crt";
+      tls-key = "/home/wickedwizard/.local/share/gnome-remote-desktop/rdp-tls.key";
+      view-only = false;
     };
 
     "org/gnome/desktop/search-providers" = {
@@ -447,7 +494,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/settings-daemon/plugins/color" = {
-      night-light-enabled = true;
+      night-light-enabled = false;
       night-light-last-coordinates = mkTuple [ 12.963584 77.5855 ];
     };
 
@@ -512,7 +559,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 3;
+      indicator-position-max = 2;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
@@ -651,7 +698,7 @@ with lib.hm.gvariant;
       play-audio-on-copy = false;
       send-notification-on-copy = false;
       show-indicator = false;
-      sync-primary = true;
+      sync-primary = false;
     };
 
     "org/gnome/shell/extensions/quick-settings-tweaks" = {
@@ -684,6 +731,10 @@ with lib.hm.gvariant;
       swap-style = "digit";
     };
 
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "";
+    };
+
     "org/gnome/shell/extensions/vitals" = {
       alphabetize = true;
       battery-slot = 1;
@@ -713,6 +764,10 @@ with lib.hm.gvariant;
       first-run = false;
       flatpak-purge-timestamp = mkInt64 1698816180;
       show-only-free-apps = true;
+    };
+
+    "org/gnome/tweaks" = {
+      show-extensions-notice = false;
     };
 
     "org/gtk/gtk4/settings/color-chooser" = {
@@ -750,7 +805,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 30 26 ];
+      window-position = mkTuple [ 26 23 ];
       window-size = mkTuple [ 1203 902 ];
     };
 
