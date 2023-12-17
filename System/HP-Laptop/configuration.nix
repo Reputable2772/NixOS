@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   nix.settings.trusted-users = [ "wickedwizard" "shuba" ];
 
@@ -37,6 +37,8 @@
     dates = "daily";
     options = "--delete-older-than 2d";
   };
+
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   imports = [
     ../configuration.nix
