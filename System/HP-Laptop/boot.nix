@@ -10,4 +10,7 @@
   };
   boot.extraModulePackages = with pkgs.linuxKernel.packages; [ linux_zen.rtl8821ce ];
   boot.blacklistedKernelModules = [ "rtw88_8821ce" ];
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.useOSProber = true;
 }
