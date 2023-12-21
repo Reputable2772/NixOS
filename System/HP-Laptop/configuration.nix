@@ -1,6 +1,6 @@
 { config, pkgs, inputs, ... }:
 {
-  nix.settings.trusted-users = [ "wickedwizard" "shuba" ];
+  nix.settings.trusted-users = [ "wickedwizard" ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "beeper"
@@ -23,13 +23,6 @@
     description = "WickedWizard";
     extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
-  };
-
-  users.users.shuba = {
-    isNormalUser = true;
-    home = "/home/shuba";
-    description = "Shuba";
-    extraGroups = [ "networkmanager" ];
   };
 
   nix.gc = {

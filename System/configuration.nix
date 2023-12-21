@@ -20,7 +20,6 @@ in
               flatpaks.homeManagerModules.default
             ];
           };
-          shuba = import ../Users/Shuba/home.nix;
         };
         extraSpecialArgs = {
           inherit inputs;

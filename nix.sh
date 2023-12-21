@@ -27,15 +27,12 @@ ci() {
 dconf_nix() {
 	echo "Dumping."
 	dconf dump / | tee wickedwizard.dconf
-	sudo -u shuba dconf dump / | tee shuba.dconf
 
 	echo "Escaping special characters."
 	sed -e 's/\\n//g' wickedwizard.dconf | tee wickedwizard.conf
-	sed -e 's/\\n//g' shuba.dconf | tee shuba.conf
 
 	echo "Nixifying dconf"
 	dconf2nix -i wickedwizard.conf -o ./Users/WickedWizard/Programs/Desktop/Gnome/gnome.nix
-	dconf2nix -i shuba.conf -o ./Users/Shuba/gnome.nix
 
 	echo "Deleting files"
 	rm -rf *.conf *.dconf
