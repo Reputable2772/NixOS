@@ -8,5 +8,7 @@
 
     deluge-gtk
     livecaptions
+
+    authenticator
   ];
 }
