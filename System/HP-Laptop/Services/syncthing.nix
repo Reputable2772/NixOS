@@ -5,7 +5,7 @@
     enable = true;
     user = "wickedwizard";
     systemService = true;
-    dataDir = "${config.users.users.wickedwizard.home}/Documents";
+    dataDir = "${config.users.users.wickedwizard.home}/Documents/Config/Syncthing/data";
     configDir = "${config.users.users.wickedwizard.home}/Documents/Config/Syncthing";
     settings = {
       devices = {
