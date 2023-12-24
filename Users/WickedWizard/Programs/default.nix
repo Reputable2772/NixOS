@@ -3,6 +3,7 @@
     ./Backup
     ./Browsers
     ./Communication
+    ./Compatibility
     ./Desktop
     ./Games
     ./Media
