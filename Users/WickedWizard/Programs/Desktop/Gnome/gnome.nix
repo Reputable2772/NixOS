@@ -264,12 +264,13 @@ with lib.hm.gvariant;
       color-scheme = "prefer-dark";
       cursor-theme = "Nordic-cursors";
       enable-animations = true;
-      font-antialiasing = "grayscale";
-      font-hinting = "slight";
-      gtk-theme = "adw-gtk3";
+      font-antialiasing = "rgba";
+      font-hinting = "full";
+      gtk-theme = "adw-gtk3-dark";
       icon-theme = "MoreWaita";
       locate-pointer = false;
       show-battery-percentage = true;
+      text-scaling-factor = 1.0;
       toolkit-accessibility = false;
     };
 

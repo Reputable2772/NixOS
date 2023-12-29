@@ -1,6 +1,5 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
-    gradience
     adw-gtk3
   ];
 
@@ -103,7 +102,7 @@
       '';
     };
     theme = {
-      name = "adw-gtk3";
+      name = "adw-gtk3-dark";
     };
     iconTheme = {
       name = "MoreWaita";
