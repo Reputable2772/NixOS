@@ -35,9 +35,10 @@ in
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-older-than 2d";
+      options = "--delete-generations --delete-older-than 2d";
     };
     settings.experimental-features = [ "flakes" "nix-command" ];
+    registry.nixpkgs.flake = inputs.nixpkgs;
   };
 
   system.stateVersion = "23.05";

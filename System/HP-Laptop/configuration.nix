@@ -24,14 +24,6 @@
     shell = pkgs.zsh;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 2d";
-  };
-
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
-
   imports = [
     ../configuration.nix
   ];
