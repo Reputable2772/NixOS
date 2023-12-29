@@ -29,8 +29,15 @@ with lib.hm.gvariant;
       window-width = 540;
     };
 
+    "com/belmoussaoui/Authenticator" = {
+      is-maximized = true;
+      keyrings-migrated = true;
+      window-height = 600;
+      window-width = 720;
+    };
+
     "com/github/GradienceTeam/Gradience" = {
-      enabled-plugins = [ ];
+      enabled-plugins = [];
       first-run = false;
       last-opened-version = "0.4.1";
       window-fullscreen = false;
@@ -39,9 +46,24 @@ with lib.hm.gvariant;
       window-width = 1000;
     };
 
+    "com/github/marhkb/Pods" = {
+      color-scheme = "dark";
+      is-maximized = true;
+      last-used-connection = "9a12e140-1f81-48ca-9568-74d3a4448ea6";
+      last-used-view = "containers";
+      prune-all-images = true;
+      prune-external-images = true;
+      show-intermediate-images = false;
+      show-only-running-containers = false;
+      text-view-font-scale = 1.0;
+      window-height = 400;
+      window-width = 600;
+    };
+
     "com/github/wwmm/easyeffects" = {
       last-used-input-preset = "Presets";
       last-used-output-preset = "Presets";
+      process-all-inputs = true;
       process-all-outputs = false;
       shutdown-on-window-close = true;
       window-fullscreen = false;
@@ -83,6 +105,11 @@ with lib.hm.gvariant;
       softclip = true;
     };
 
+    "com/usebottles/bottles" = {
+      window-height = 1048;
+      window-width = 1920;
+    };
+
     "net/sapples/LiveCaptions" = {
       active-model = "/nix/store/ikbam9k4kjw51hjbp5asxhivhgr2bc7s-april-english-dev-01110_en.april";
       benchmark = 1.578947;
@@ -91,6 +118,10 @@ with lib.hm.gvariant;
       filter-slurs = false;
       microphone = true;
       text-uppercase = false;
+    };
+
+    "org/freedesktop/folks" = {
+      primary-store = "eds:05eaed4a46fe4e16938eadee7aa85957e6f379ac";
     };
 
     "org/freedesktop/tracker/miner/files" = {
@@ -129,6 +160,13 @@ with lib.hm.gvariant;
 
     "org/gnome/GWeather4" = {
       temperature-unit = "centigrade";
+    };
+
+    "org/gnome/Snapshot" = {
+      is-maximized = true;
+      show-composition-guidelines = false;
+      window-height = 640;
+      window-width = 800;
     };
 
     "org/gnome/TextEditor" = {
@@ -173,8 +211,14 @@ with lib.hm.gvariant;
       window-size = mkTuple [ 768 600 ];
     };
 
+    "org/gnome/clocks/state/window" = {
+      maximized = false;
+      panel-id = "world";
+      size = mkTuple [ 870 690 ];
+    };
+
     "org/gnome/control-center" = {
-      last-panel = "background";
+      last-panel = "bluetooth";
       window-state = mkTuple [ 980 640 true ];
     };
 
@@ -199,6 +243,8 @@ with lib.hm.gvariant;
       picture-options = "zoom";
       picture-uri = "file:///home/wickedwizard/.config/background";
       picture-uri-dark = "file:///home/wickedwizard/.config/background";
+      primary-color = "#3a4ba0";
+      secondary-color = "#2f302f";
       show-desktop-icons = true;
     };
 
@@ -220,15 +266,15 @@ with lib.hm.gvariant;
       enable-animations = true;
       font-antialiasing = "grayscale";
       font-hinting = "slight";
-      gtk-theme = "Adwaita-dark";
-      icon-theme = "Adwaita";
+      gtk-theme = "adw-gtk3";
+      icon-theme = "MoreWaita";
       locate-pointer = false;
       show-battery-percentage = true;
       toolkit-accessibility = false;
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "io-gitlab-news-flash-newsflash" "org-flameshot-flameshot" "beeper" "gnome-power-panel" "org-gnome-shell-extensions-gsconnect" "librewolf" "org-gnome-evolution-alarm-notify" "com-obsproject-studio" "org-gnome-evince" "codium" "electron-mail" "-joplinapp-desktop" "firefox" "spotify" "org-gnome-fractal" "bitwarden" ];
+      application-children = [ "io-gitlab-news-flash-newsflash" "org-flameshot-flameshot" "beeper" "gnome-power-panel" "org-gnome-shell-extensions-gsconnect" "librewolf" "org-gnome-evolution-alarm-notify" "com-obsproject-studio" "org-gnome-evince" "codium" "electron-mail" "-joplinapp-desktop" "firefox" "spotify" "org-gnome-fractal" "bitwarden" "org-gnome-nautilus" "com-github-gradienceteam-gradience" ];
       show-banners = false;
     };
 
@@ -252,12 +298,28 @@ with lib.hm.gvariant;
       application-id = "codium.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/com-github-gradienceteam-gradience" = {
+      application-id = "com.github.GradienceTeam.Gradience.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/com-github-wwmm-easyeffects" = {
+      application-id = "com.github.wwmm.easyeffects.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/com-obsproject-studio" = {
       application-id = "com.obsproject.Studio.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/com-ranfdev-notify" = {
+      application-id = "com.ranfdev.Notify.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/deluge" = {
       application-id = "deluge.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/discord" = {
+      application-id = "discord.desktop";
     };
 
     "org/gnome/desktop/notifications/application/electron-mail" = {
@@ -276,8 +338,16 @@ with lib.hm.gvariant;
       application-id = "gnome-power-panel.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/io-freetubeapp-freetube" = {
+      application-id = "io.freetubeapp.FreeTube.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/io-gitlab-news-flash-newsflash" = {
       application-id = "io.gitlab.news_flash.NewsFlash.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/kitty" = {
+      application-id = "kitty.desktop";
     };
 
     "org/gnome/desktop/notifications/application/librewolf" = {
@@ -296,16 +366,36 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Evolution-alarm-notify.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-fileroller" = {
+      application-id = "org.gnome.FileRoller.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-fractal" = {
       application-id = "org.gnome.Fractal.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-gnome-nautilus" = {
+      application-id = "org.gnome.Nautilus.desktop";
     };
 
     "org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect" = {
       application-id = "org.gnome.Shell.Extensions.GSConnect.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-qbittorrent-qbittorrent" = {
+      application-id = "org.qbittorrent.qBittorrent.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/org-telegram-desktop" = {
+      application-id = "org.telegram.desktop.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/spotify" = {
       application-id = "spotify.desktop";
+    };
+
+    "org/gnome/desktop/notifications/application/steam" = {
+      application-id = "steam.desktop";
     };
 
     "org/gnome/desktop/peripherals/keyboard" = {
@@ -339,8 +429,16 @@ with lib.hm.gvariant;
       view-only = false;
     };
 
+    "org/gnome/desktop/screensaver" = {
+      color-shading-type = "solid";
+      picture-options = "zoom";
+      picture-uri = "file:///nix/store/xax2fz0mcj3vg0nzw5l523gf6rlzcii8-simple-blue-2016-02-19/share/backgrounds/nixos/nix-wallpaper-simple-blue.png";
+      primary-color = "#3a4ba0";
+      secondary-color = "#2f302f";
+    };
+
     "org/gnome/desktop/search-providers" = {
-      disabled = [ ];
+      disabled = [];
       enabled = [ "org.gnome.Weather.desktop" ];
       sort-order = [ "org.gnome.Nautilus.desktop" "org.gnome.Documents.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" ];
     };
@@ -350,13 +448,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      cycle-windows = [ ];
-      cycle-windows-backward = [ ];
+      cycle-windows = [];
+      cycle-windows-backward = [];
       move-to-workspace-left = [ "<Control><Super>Up" ];
       move-to-workspace-right = [ "<Control><Super>Down" ];
       show-desktop = [ "<Super>d" ];
-      switch-applications = [ ];
-      switch-applications-backward = [ ];
+      switch-applications = [];
+      switch-applications-backward = [];
       switch-input-source = [ "<Alt>Shift_L" ];
       switch-to-workspace-left = [ "<Control><Super>Left" ];
       switch-to-workspace-right = [ "<Control><Super>Right" ];
@@ -389,7 +487,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/evolution-data-server/calendar" = {
-      reminders-past = [ "4e68caa2d3b1640cdfdcf5cdd894444912b501bbf6f33ebbd7593b0bd839b7b7ff34901ddfd0090dt20231210T203000170222040117022204001702220401BEGIN:VTODOrDTSTAMP:20231209T165353ZrUID:1294331700948191936rSEQUENCE:14rCREATED:20231025T155852ZrLAST-MODIFIED:20231209T165341ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231210T203001rDTSTART;TZID=Asia/Kolkata:20231210T203000rX-EVOLUTION-CALDAV-ETAG:6697a73b5bba3f991f27c138225ea80crRECURRENCE-ID;TZID=Asia/Kolkata:20231210T203000rDTEND;TZID=Asia/Kolkata:20231210T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:3ce4958a486cd072ce95e7c748b1ef894b372214rEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:f6f33ebbd7593b0bd839b7b7ff34901ddfd0090drEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb3ce4958a486cd072ce95e7c748b1ef894b372214t20231210T203000170222040017022204001702220401BEGIN:VTODOrDTSTAMP:20231209T165353ZrUID:1294331700948191936rSEQUENCE:14rCREATED:20231025T155852ZrLAST-MODIFIED:20231209T165341ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231210T203001rDTSTART;TZID=Asia/Kolkata:20231210T203000rX-EVOLUTION-CALDAV-ETAG:6697a73b5bba3f991f27c138225ea80crRECURRENCE-ID;TZID=Asia/Kolkata:20231210T203000rDTEND;TZID=Asia/Kolkata:20231210T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:3ce4958a486cd072ce95e7c748b1ef894b372214rEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:f6f33ebbd7593b0bd839b7b7ff34901ddfd0090drEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d310aaf0a642b4fb732f3257f41d957907022b4a5t20231210T203000170222040117022204001702220401BEGIN:VTODOrDTSTAMP:20231209T165353ZrUID:1294331700948191936rSEQUENCE:14rCREATED:20231025T155852ZrLAST-MODIFIED:20231209T165341ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231210T203001rDTSTART;TZID=Asia/Kolkata:20231210T203000rX-EVOLUTION-CALDAV-ETAG:6697a73b5bba3f991f27c138225ea80crRECURRENCE-ID;TZID=Asia/Kolkata:20231210T203000rDTEND;TZID=Asia/Kolkata:20231210T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:f9e9d50362280530b1f8bc40478d136a342fea08rEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:310aaf0a642b4fb732f3257f41d957907022b4a5rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89df9e9d50362280530b1f8bc40478d136a342fea08t20231210T203000170222040017022204001702220401BEGIN:VTODOrDTSTAMP:20231209T165353ZrUID:1294331700948191936rSEQUENCE:14rCREATED:20231025T155852ZrLAST-MODIFIED:20231209T165341ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:NEEDS-ACTIONrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231210T203001rDTSTART;TZID=Asia/Kolkata:20231210T203000rX-EVOLUTION-CALDAV-ETAG:6697a73b5bba3f991f27c138225ea80crRECURRENCE-ID;TZID=Asia/Kolkata:20231210T203000rDTEND;TZID=Asia/Kolkata:20231210T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:f9e9d50362280530b1f8bc40478d136a342fea08rEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:310aaf0a642b4fb732f3257f41d957907022b4a5rEND:VALARMrEND:VTODOr" ];
+      reminders-past = [ "4e68caa2d3b1640cdfdcf5cdd894444912b501bb4c02bd1ca962da8df9f62c7ba87ad5a31366a196t20231229T203000170386200117038620001703862001BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20231229T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20231229T203000rDTEND;TZID=Asia/Kolkata:20231229T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d4c02bd1ca962da8df9f62c7ba87ad5a31366a196t20231229T203000170386200117038620001703862001BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20231229T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20231229T203000rDTEND;TZID=Asia/Kolkata:20231229T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb68b55f8ee84060a2cab6f43defae203deabbb3bct20231229T203000170386200017038620001703862001BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20231229T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20231229T203000rDTEND;TZID=Asia/Kolkata:20231229T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d68b55f8ee84060a2cab6f43defae203deabbb3bct20231229T203000170386200017038620001703862001BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20231229T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20231229T203000rDTEND;TZID=Asia/Kolkata:20231229T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" ];
+    };
+
+    "org/gnome/evolution" = {
+      default-address-book = "05eaed4a46fe4e16938eadee7aa85957e6f379ac";
+      default-calendar = "53bdb9fd191cf5643cccf8b4f867cdb3e4ba490b";
     };
 
     "org/gnome/file-roller/dialogs/extract" = {
@@ -440,7 +543,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts = [ ];
+      restore-shortcuts = [];
     };
 
     "org/gnome/nautilus/compression" = {
@@ -479,8 +582,16 @@ with lib.hm.gvariant;
       ignore-phase2-ca-cert = false;
     };
 
+    "org/gnome/portal/filechooser/beeper" = {
+      last-folder-path = "/home/wickedwizard/Documents/Study Materials/12th/CBSE/Assignments/Computer";
+    };
+
     "org/gnome/portal/filechooser/kitty" = {
       last-folder-path = "/home/wickedwizard/Mounted/Important-Files/Exams";
+    };
+
+    "org/gnome/portal/filechooser/org/qbittorrent/qBittorrent" = {
+      last-folder-path = "/home/wickedwizard/Downloads/qBittorrent";
     };
 
     "org/gnome/power-manager" = {
@@ -546,25 +657,23 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
-      devices = [
-        ''
-          {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
-        ''
-        ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
-        ''
-      ];
+      devices = [ ''
+        {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
+      '' ''
+        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+      '' ];
       hide-indicator = true;
       interval = 1;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 2;
+      indicator-position-max = 3;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
-      toggle-state = false;
+      toggle-state = true;
+      user-enabled = true;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
@@ -638,6 +747,10 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d/plugin/telephony" = {
       ringing-pause = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/messaging" = {
+      window-maximized = true;
     };
 
     "org/gnome/shell/extensions/gsconnect/preferences" = {
@@ -746,8 +859,8 @@ with lib.hm.gvariant;
     "org/gnome/shell/keybindings" = {
       screenshot = [ "<Alt>Print" ];
       screenshot-window = [ "<Shift>Print" ];
-      show-screenshot-ui = [ ];
-      toggle-overview = [ ];
+      show-screenshot-ui = [];
+      toggle-overview = [];
     };
 
     "org/gnome/shell/weather" = {
@@ -756,7 +869,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [ ];
+      locations = [];
     };
 
     "org/gnome/software" = {
@@ -773,6 +886,10 @@ with lib.hm.gvariant;
     "org/gtk/gtk4/settings/color-chooser" = {
       custom-colors = [ (mkTuple [ 0.533333 0.752941 0.815686 1.0 ]) ];
       selected-color = mkTuple [ true 0.180392 0.760784 0.494118 1.0 ];
+    };
+
+    "org/gtk/gtk4/settings/emoji-chooser" = {
+      recent-emoji = [ (mkTuple [ (mkTuple [ [ (mkUint32 128579) ] "upside-down face" [ "face" "upside-down" ] (mkUint32 0) ]) (mkUint32 0) ]) ];
     };
 
     "org/gtk/gtk4/settings/file-chooser" = {
@@ -805,7 +922,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 26 23 ];
+      window-position = mkTuple [ 35 32 ];
       window-size = mkTuple [ 1203 902 ];
     };
 

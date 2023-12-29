@@ -8,6 +8,13 @@
     enable = true;
     gtk4 = {
       extraCss = ''
+        /*
+        Generated with Gradience
+
+        Issues caused by theming should be reported to Gradience repository, and not to upstream
+
+        https://github.com/GradienceTeam/Gradience
+        */
         @define-color accent_color rgb(136,192,208);
         @define-color accent_bg_color rgb(136,192,208);
         @define-color accent_fg_color rgb(46,52,64);
@@ -41,10 +48,6 @@
         @define-color popover_fg_color rgb(236,239,244);
         @define-color shade_color rgb(59,66,82);
         @define-color scrollbar_outline_color rgb(229,233,240);
-        @define-color sidebar_bg_color @window_bg_color;
-        @define-color sidebar_fg_color @window_fg_color;
-        @define-color sidebar_border_color @window_bg_color;
-        @define-color sidebar_backdrop_color @window_fg_color;
         @define-color blue_1 #99c1f1;
         @define-color blue_2 #62a0ea;
         @define-color blue_3 #3584e4;
@@ -90,11 +93,17 @@
         @define-color dark_3 #3d3846;
         @define-color dark_4 #241f31;
         @define-color dark_5 #000000;
+        @define-color sidebar_bg_color @window_bg_color;
+        @define-color sidebar_fg_color @window_fg_color;
+        @define-color sidebar_border_color @window_bg_color;
+        @define-color sidebar_backdrop_color @window_bg_color;
+        .navigation-sidebar {
+          background-color: rgb(46,52,64);
+        }
       '';
     };
     theme = {
-      name = "Nordic-darker";
-      package = pkgs.nordic;
+      name = "adw-gtk3";
     };
     iconTheme = {
       name = "MoreWaita";
