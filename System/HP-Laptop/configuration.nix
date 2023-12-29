@@ -6,7 +6,6 @@
     "beeper"
     "discord"
     "spotify"
-    "skypeforlinux"
     "steam"
     "steam-original"
     "steam-run"
