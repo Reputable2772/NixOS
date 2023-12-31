@@ -591,10 +591,6 @@ with lib.hm.gvariant;
       last-folder-path = "/home/wickedwizard/Mounted/Important-Files/Exams";
     };
 
-    "org/gnome/portal/filechooser/org/qbittorrent/qBittorrent" = {
-      last-folder-path = "/home/wickedwizard/Downloads/qBittorrent";
-    };
-
     "org/gnome/power-manager" = {
       info-history-graph-points = false;
       info-history-graph-smooth = false;
