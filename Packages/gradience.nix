@@ -10,6 +10,7 @@
 , desktop-file-utils
 , gettext
 , librsvg
+, git
 , blueprint-compiler
 , python3Packages
 , sassc
@@ -30,7 +31,8 @@ python3Packages.buildPythonApplication rec {
     repo = "Gradience";
     # See https://github.com/GradienceTeam/Gradience/releases/tag/0.4.1-patch1
     rev = "c878099d15a5488c5d6b4bc6dbb1a283a3032da0";
-    sha256 = "sha256-VXzCNVo0E2aAZKj5NoVxlVaqm1D5emsiWa2ezJb3yCo=";
+    sha256 = "sha256-+CWx4RIFxwHuHSOWPZSlx9MzCwbePpB7FnAdnYaDdig=";
+    fetchSubmodules = true;
   };
 
   format = "other";
@@ -40,6 +42,7 @@ python3Packages.buildPythonApplication rec {
     appstream-glib
     blueprint-compiler
     desktop-file-utils
+    git
     gettext
     glib
     gobject-introspection
