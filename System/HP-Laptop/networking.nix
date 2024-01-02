@@ -29,8 +29,9 @@
     dnssec = "true";
     domains = [ "~." ];
     extraConfig = ''
-      DNSOverTLS=opportunistic
+      DNSOverTLS=true
       MulticastDNS=resolve
+      DNSStubListenerExtra=192.168.0.102
     '';
     llmnr = "true";
   };
