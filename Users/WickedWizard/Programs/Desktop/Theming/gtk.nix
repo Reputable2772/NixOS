@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
   gradience = pkgs.callPackage ../../../../../Packages/gradience.nix { };
-in {
+in
+{
   home.packages = with pkgs; [
     adw-gtk3
     gradience
