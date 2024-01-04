@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
   imports = [
     ./bitwarden.nix
-    ./picard.nix
+    ./feishin.nix
     ./podman.nix
   ];
 }
