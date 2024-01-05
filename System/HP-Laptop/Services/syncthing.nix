@@ -52,10 +52,6 @@
           path = "${config.users.users.wickedwizard.home}/Documents/Android/Tasker";
           devices = [ "Redmi S2" ];
         };
-        "Torrents" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Torrents";
-          devices = [ "Redmi S2" ];
-        };
       };
     };
   };
