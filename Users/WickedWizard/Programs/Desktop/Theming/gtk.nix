@@ -8,15 +8,15 @@ in
     gradience
   ];
 
-  gtk = {
-    enable = true;
-    gtk4.extraCss = builtins.readFile ./CSS/gtk4.css;
-    gtk3.extraCss = builtins.readFile ./CSS/gtk4.css;
-    iconTheme = {
-      name = "MoreWaita";
-      package = pkgs.nur.repos.federicoschonborn.morewaita;
-    };
-  };
+  # gtk = {
+  #   enable = true;
+  #   gtk4.extraCss = builtins.readFile ./CSS/gtk4.css;
+  #   gtk3.extraCss = builtins.readFile ./CSS/gtk4.css;
+  #   iconTheme = {
+  #     name = "MoreWaita";
+  #     package = pkgs.nur.repos.federicoschonborn.morewaita;
+  #   };
+  # };
 
   dconf.settings."org/gnome/desktop/interface" = {
     gtk-theme = "adw-gtk3-dark";
