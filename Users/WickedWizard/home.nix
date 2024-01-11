@@ -67,7 +67,7 @@
       "image/x-portable-anymap" = "org.gnome.Loupe.desktop";
       "image/x-qoi" = "org.gnome.Loupe.desktop";
       "image/svg+xml" = "org.gnome.Loupe.desktop";
-      "image/svg+xml-compressed"=  "org.gnome.Loupe.desktop";
+      "image/svg+xml-compressed" = "org.gnome.Loupe.desktop";
       "image/avif" = "org.gnome.Loupe.desktop";
       "image/heic" = "org.gnome.Loupe.desktop";
       "image/jxl" = "org.gnome.Loupe.desktop";

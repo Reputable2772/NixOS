@@ -228,7 +228,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "power";
+      last-panel = "keyboard";
       window-state = mkTuple [ 980 640 false ];
     };
 
@@ -402,6 +402,10 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Shell.Extensions.GSConnect.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-texteditor" = {
+      application-id = "org.gnome.TextEditor.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-qbittorrent-qbittorrent" = {
       application-id = "org.qbittorrent.qBittorrent.desktop";
     };
@@ -498,7 +502,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "fit-width";
-      window-ratio = mkTuple [ 1.6134453781512605 1.2446555819477434 ];
+      window-ratio = mkTuple [ 1.613445 1.244656 ];
       zoom = 1.07268;
     };
 
@@ -644,7 +648,7 @@ with lib.hm.gvariant;
     "org/gnome/settings-daemon/plugins/media-keys" = {
       calculator = [ "Calculator" ];
       control-center = [ "<Super>s" ];
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" ];
       mic-mute = [ "F8" ];
       next = [ "AudioNext" ];
       play = [ "AudioPlay" ];
@@ -658,6 +662,12 @@ with lib.hm.gvariant;
       binding = "Print";
       command = "/home/wickedwizard/Documents/NixOS/flameshot.sh";
       name = "Screenshot";
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Control>Print";
+      command = "/home/wickedwizard/Documents/NixOS/ocr.sh";
+      name = "OCR";
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -695,7 +705,7 @@ with lib.hm.gvariant;
           {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
         ''
         ''
-          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
         ''
       ];
       hide-indicator = true;
@@ -739,6 +749,15 @@ with lib.hm.gvariant;
 
     "org/gnome/shell/extensions/gsconnect/device/0a585d73_e9e9_4945_be32_27baf898f2ba/plugin/share" = {
       receive-directory = "/home/wickedwizard/Downloads";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/caac29bb_5a02_48a3_a66e_3efa49013ffc" = {
+      incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
+      last-connection = "lan://192.168.0.101:1716";
+      name = "Galaxy J6+";
+      outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
+      supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
+      type = "phone";
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d" = {

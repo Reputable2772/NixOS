@@ -1,5 +1,9 @@
 { config, pkgs, ... }: {
-  home.packages = with pkgs; [ flameshot ];
+  home.packages = with pkgs; [
+    flameshot
+    tesseract
+    wl-clipboard
+  ];
 
   services.flameshot = {
     enable = true;
