@@ -277,7 +277,7 @@ with lib.hm.gvariant;
       font-antialiasing = "rgba";
       font-hinting = "full";
       gtk-theme = "adw-gtk3-dark";
-      icon-theme = "Adwaita";
+      icon-theme = "MoreWaita";
       locate-pointer = false;
       show-battery-percentage = true;
       text-scaling-factor = 1.0;
