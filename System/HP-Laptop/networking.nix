@@ -12,9 +12,9 @@
       ++ [ 443 80 ] # Caddy
       ++ [ 61851 ]; # qBittorrent
     allowedUDPPorts =
-    [ 22000 21027 ] # Syncthing
-    ++ [ 443 80 ] # Caddy
-    ++ [ 61851 ]; # qBittorrent
+      [ 22000 21027 ] # Syncthing
+      ++ [ 443 80 ] # Caddy
+      ++ [ 61851 ]; # qBittorrent
     logRefusedPackets = true;
   };
 
