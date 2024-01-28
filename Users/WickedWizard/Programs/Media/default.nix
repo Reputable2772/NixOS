@@ -3,6 +3,6 @@
     ./calibre.nix
     ./obs-studio.nix
     ./vlc.nix
-    ./kodi.nix
+    # ./kodi.nix
   ];
 }
