@@ -4,6 +4,5 @@
     ./kitty.nix
     ./protonvpn.nix
     ./power-manager.nix
-    ./qbittorrent.nix
   ];
 }

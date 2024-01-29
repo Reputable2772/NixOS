@@ -5,10 +5,6 @@
     gocryptfs
 
     xwaylandvideobridge
-
-    deluge-gtk
-    livecaptions
-
     authenticator
   ];
 }
