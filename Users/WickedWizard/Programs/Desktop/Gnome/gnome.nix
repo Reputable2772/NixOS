@@ -37,7 +37,7 @@ with lib.hm.gvariant;
     };
 
     "com/github/GradienceTeam/Gradience" = {
-      enabled-plugins = [];
+      enabled-plugins = [ ];
       first-run = false;
       last-opened-version = "0.4.1";
       window-fullscreen = false;
@@ -90,8 +90,8 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      blocklist = [];
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      blocklist = [ ];
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
       plugins = [ "bass_enhancer#0" ];
       show-blocklisted-apps = true;
       use-default-output-device = true;
@@ -229,8 +229,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/control-center" = {
-      last-panel = "keyboard";
-      window-state = mkTuple [ 980 640 false ];
+      last-panel = "wifi";
+      window-state = mkTuple [ 980 640 true ];
     };
 
     "org/gnome/desktop/app-folders" = {
@@ -403,6 +403,10 @@ with lib.hm.gvariant;
       application-id = "org.gnome.Nautilus.desktop";
     };
 
+    "org/gnome/desktop/notifications/application/org-gnome-settings" = {
+      application-id = "org.gnome.Settings.desktop";
+    };
+
     "org/gnome/desktop/notifications/application/org-gnome-shell-extensions-gsconnect" = {
       application-id = "org.gnome.Shell.Extensions.GSConnect.desktop";
     };
@@ -471,7 +475,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/search-providers" = {
-      disabled = [];
+      disabled = [ ];
       enabled = [ "org.gnome.Weather.desktop" ];
       sort-order = [ "org.gnome.Nautilus.desktop" "org.gnome.Documents.desktop" "org.gnome.Contacts.desktop" "org.gnome.Calculator.desktop" "org.gnome.Calendar.desktop" "org.gnome.Characters.desktop" "org.gnome.clocks.desktop" "org.gnome.seahorse.Application.desktop" "org.gnome.Settings.desktop" ];
     };
@@ -481,13 +485,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      cycle-windows = [];
-      cycle-windows-backward = [];
+      cycle-windows = [ ];
+      cycle-windows-backward = [ ];
       move-to-workspace-left = [ "<Control><Super>Up" ];
       move-to-workspace-right = [ "<Control><Super>Down" ];
       show-desktop = [ "<Super>d" ];
-      switch-applications = [];
-      switch-applications-backward = [];
+      switch-applications = [ ];
+      switch-applications-backward = [ ];
       switch-input-source = [ "<Alt>Shift_L" ];
       switch-to-workspace-left = [ "<Control><Super>Left" ];
       switch-to-workspace-right = [ "<Control><Super>Right" ];
@@ -505,16 +509,16 @@ with lib.hm.gvariant;
     "org/gnome/evince/default" = {
       continuous = true;
       dual-page = false;
-      dual-page-odd-left = true;
+      dual-page-odd-left = false;
       enable-spellchecking = true;
       fullscreen = false;
-      inverted-colors = false;
-      show-sidebar = false;
+      inverted-colors = true;
+      show-sidebar = true;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
-      sizing-mode = "fit-width";
-      window-ratio = mkTuple [ 1.613445 1.244656 ];
-      zoom = 1.07268;
+      sizing-mode = "automatic";
+      window-ratio = mkTuple [ 1.6143790849673203 0.24494949494949494 ];
+      zoom = 0.5600770350377915;
     };
 
     "org/gnome/evolution-data-server" = {
@@ -522,7 +526,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/evolution-data-server/calendar" = {
-      reminders-past = [ "4e68caa2d3b1640cdfdcf5cdd894444912b501bb4c02bd1ca962da8df9f62c7ba87ad5a31366a196t20240107T203000170463960117046396001704639601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240107T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240107T203000rDTEND;TZID=Asia/Kolkata:20240107T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d4c02bd1ca962da8df9f62c7ba87ad5a31366a196t20240107T203000170463960117046396001704639601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240107T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240107T203000rDTEND;TZID=Asia/Kolkata:20240107T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb68b55f8ee84060a2cab6f43defae203deabbb3bct20240107T203000170463960017046396001704639601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240107T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240107T203000rDTEND;TZID=Asia/Kolkata:20240107T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d68b55f8ee84060a2cab6f43defae203deabbb3bct20240107T203000170463960017046396001704639601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240107T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240107T203000rDTEND;TZID=Asia/Kolkata:20240107T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" ];
+      reminders-past = [ "4e68caa2d3b1640cdfdcf5cdd894444912b501bb4c02bd1ca962da8df9f62c7ba87ad5a31366a196t20240122T203000170593560117059356001705935601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240122T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240122T203000rDTEND;TZID=Asia/Kolkata:20240122T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d4c02bd1ca962da8df9f62c7ba87ad5a31366a196t20240122T203000170593560117059356001705935601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240122T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240122T203000rDTEND;TZID=Asia/Kolkata:20240122T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "4e68caa2d3b1640cdfdcf5cdd894444912b501bb68b55f8ee84060a2cab6f43defae203deabbb3bct20240122T203000170593560017059356001705935601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240122T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240122T203000rDTEND;TZID=Asia/Kolkata:20240122T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" "16669dd59a5baadbcec39840a104bcdf72a3b89d68b55f8ee84060a2cab6f43defae203deabbb3bct20240122T203000170593560017059356001705935601BEGIN:VTODOrDTSTAMP:20231215T150356ZrUID:1294331700948191936rSEQUENCE:17rCREATED:20231025T155852ZrLAST-MODIFIED:20231217T035729ZrSUMMARY:Take Tab from SmallyrPRIORITY:1rSTATUS:COMPLETEDrRRULE:FREQ=DAILYrX-APPLE-SORT-ORDER:719765958rDUE;TZID=Asia/Kolkata:20231216T203001rDTSTART;TZID=Asia/Kolkata:20240122T203000rPERCENT-COMPLETE:100rCOMPLETED:20231217T000000ZrX-EVOLUTION-CALDAV-ETAG:54e34cb0cf96e7a9b29b57f7d2ce8ae5rRECURRENCE-ID;TZID=Asia/Kolkata:20240122T203000rDTEND;TZID=Asia/Kolkata:20240122T203001rBEGIN:VALARMrTRIGGER;RELATED=START:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:68b55f8ee84060a2cab6f43defae203deabbb3bcrEND:VALARMrBEGIN:VALARMrTRIGGER;RELATED=END:PT0SrACTION:DISPLAYrDESCRIPTION:Default Tasks.org descriptionrX-EVOLUTION-ALARM-UID:4c02bd1ca962da8df9f62c7ba87ad5a31366a196rEND:VALARMrEND:VTODOr" ];
     };
 
     "org/gnome/evolution" = {
@@ -578,7 +582,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter/wayland/keybindings" = {
-      restore-shortcuts = [];
+      restore-shortcuts = [ ];
     };
 
     "org/gnome/nautilus/compression" = {
@@ -693,25 +697,29 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/bluetooth_battery_indicator" = {
-      devices = [ ''
-        {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
-      '' ''
-        {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":false,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
-      '' ];
+      devices = [
+        ''
+          {"name":"Redmi S2","alias":"Redmi S2","isConnected":false,"isPaired":true,"mac":"08:25:25:A0:40:49","isDefault":false,"defaultIcon":"phone"}
+        ''
+        ''
+          {"name":"Boult Audio Probass","alias":"Boult Audio Probass","isConnected":true,"isPaired":true,"mac":"41:42:4C:5C:BB:63","isDefault":false,"defaultIcon":"audio-headset","percentageSource":"upower","icon":"audio-headphones-symbolic","active":true}
+        ''
+      ];
       hide-indicator = true;
       interval = 1;
     };
 
     "org/gnome/shell/extensions/caffeine" = {
-      indicator-position-max = 1;
+      indicator-position-max = 2;
       restore-state = false;
       show-indicator = "only-active";
       show-notifications = false;
       toggle-shortcut = [ "<Shift><Control><Alt>c" ];
+      toggle-state = false;
     };
 
     "org/gnome/shell/extensions/gsconnect" = {
-      devices = [ "d78abea8_98dc_4f3b_9b34_102ef2b16e5d" ];
+      devices = [ "9e744f80_c5dc_4789_896d_0da157ad91ea" ];
       enabled = true;
       id = "43515925-5fe7-495b-adb0-7ad321ef7803";
       name = "nixos";
@@ -741,6 +749,50 @@ with lib.hm.gvariant;
       receive-directory = "/home/wickedwizard/Downloads";
     };
 
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea" = {
+      certificate-pem = "-----BEGIN CERTIFICATE-----MIIBlDCCATmgAwIBAgIBATAKBggqhkjOPQQDBDBTMS0wKwYDVQQDDCQ5ZTc0NGY4MF9jNWRjXzQ3ODlfODk2ZF8wZGExNTdhZDkxZWExFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwHhcNMjMwMTIwMTgzMDAwWhcNMzMwMTIwMTgzMDAwWjBTMS0wKwYDVQQDDCQ5ZTc0NGY4MF9jNWRjXzQ3ODlfODk2ZF8wZGExNTdhZDkxZWExFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARl3dQxoPFrWYyO3tMJiTA0+FKxM2LyPlHOycEtZ2XVWBy3iP2xmrJ8gMPe6hevsFtvbU717wmLqxNFSrhQo+jkMAoGCCqGSM49BAMEA0kAMEYCIQD3tgp90hPjFgyYO175IfcrQ0Wut2vfSqxQj//aqDE5sgIhALccTk4ETjutpxaq+om4BjESOJiN8w/fpCIbJE/gLH31-----END CERTIFICATE-----";
+      incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
+      keybindings = "@a{ss} {}";
+      last-connection = "lan://192.168.0.101:1716";
+      name = "Redmi Y2";
+      outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
+      paired = true;
+      supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
+      type = "phone";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea/plugin/battery" = {
+      custom-battery-notification = true;
+      custom-battery-notification-value = mkUint32 80;
+      full-battery-notification = true;
+      send-statistics = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea/plugin/clipboard" = {
+      receive-content = true;
+      send-content = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea/plugin/notification" = {
+      applications = ''
+        {"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"calibre":{"iconName":"calibre-gui","enabled":true},"Bottles":{"iconName":"com.usebottles.bottles","enabled":true},"Telegram Desktop":{"iconName":"telegram","enabled":true},"Planner":{"iconName":"com.github.alainm23.planner","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Deluge":{"iconName":"deluge","enabled":true},"Easy Effects":{"iconName":"com.github.wwmm.easyeffects","enabled":true},"Notify":{"iconName":"com.ranfdev.Notify","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Fractal":{"iconName":"org.gnome.Fractal","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true},"NewsFlash":{"iconName":"io.gitlab.news_flash.NewsFlash","enabled":true}}
+      '';
+      send-notifications = false;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea/plugin/share" = {
+      receive-directory = "/home/wickedwizard/Downloads";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea/plugin/sms" = {
+      legacy-sms = true;
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea/plugin/telephony" = {
+      ringing-pause = true;
+      ringing-volume = "lower";
+    };
+
     "org/gnome/shell/extensions/gsconnect/device/caac29bb_5a02_48a3_a66e_3efa49013ffc" = {
       incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
       last-connection = "lan://192.168.0.101:1716";
@@ -751,13 +803,12 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/gsconnect/device/d78abea8_98dc_4f3b_9b34_102ef2b16e5d" = {
-      certificate-pem = "-----BEGIN CERTIFICATE-----MIIDHzCCAgegAwIBAgIBATANBgkqhkiG9w0BAQsFADBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwHhcNMjIwODE1MTgzMDAwWhcNMzIwODE1MTgzMDAwWjBTMS0wKwYDVQQDDCRkNzhhYmVhOF85OGRjXzRmM2JfOWIzNF8xMDJlZjJiMTZlNWQxFDASBgNVBAsMC0tERSBDb25uZWN0MQwwCgYDVQQKDANLREUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCkPj4moAadNTwmMiPy82yssvmIbjc/pnz5tuoLHZfh1vheHvURhEatThiFC8hbwMfB047yXbK6HO41ZavuysDml+okcm3PBvKZjZTyXhCQRPCu6B+VNWn0XwOnmSLlXTkkwVFxN0QAHUi2+mp4+0scHa/Q1Ux7GMQ79LXgxUsewEA42rZk4P9hyHmDwFUr3sVVLh0NwUBC97oIHyHbxdvVZepABT8sqXBvf+HIVGrEsxh+HTpqfNzAT4G+fTesOC0N8eJPdjQmxdHynXSphXipWwI92xSWUJGergjR6zA0v6fq5L4rs0ZwDaSjhqcZu8CWt2S7ACQQK1B38jsgnwPzAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAHtRq93nLHQAotvnKwjuuyVzhBAexwwGrkmR1CUJ0ad/9kp9whgzqEJwAtn7Aa2mdjtd+A3omHazEG53AOYnU7hCj3FR7F7suIos2OkJSl6NX5ZBt1l47tWJyVOMEooh5YuSlFUGppyPEQuCksJFM/yaE4cxxeExSVKQ42sVKMt29sad7BwGdv7x/pZ6792ug8AP90VLdQgvhXRbHHHLtU+W0YZoqEWtoEg4bSVT0NY3hgoSXAIxgdiOaWMhrAJCIKrsrrrfQ14xJe0Dvb8tb6/gaM84p3jajNGIeTG9g/PzUzimgdE1rPMOIzycikrKn9ADXBCVDxv/tVqA/9ameAY=-----END CERTIFICATE-----";
       disabled-plugins = [ "photo" ];
       incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
       last-connection = "lan://192.168.0.103:1716";
       name = "Redmi S2";
       outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
-      paired = true;
+      paired = false;
       supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
       type = "phone";
     };
@@ -860,7 +911,7 @@ with lib.hm.gvariant;
       paste-on-select = false;
       play-audio-on-copy = false;
       send-notification-on-copy = false;
-      show-indicator = false;
+      show-indicator = true;
       sync-primary = false;
     };
 
@@ -909,8 +960,8 @@ with lib.hm.gvariant;
     "org/gnome/shell/keybindings" = {
       screenshot = [ "<Alt>Print" ];
       screenshot-window = [ "<Shift>Print" ];
-      show-screenshot-ui = [];
-      toggle-overview = [];
+      show-screenshot-ui = [ ];
+      toggle-overview = [ ];
     };
 
     "org/gnome/shell/weather" = {
@@ -919,7 +970,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [];
+      locations = [ ];
     };
 
     "org/gnome/software" = {
@@ -972,7 +1023,7 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 35 32 ];
+      window-position = mkTuple [ 358 81 ];
       window-size = mkTuple [ 1203 902 ];
     };
 

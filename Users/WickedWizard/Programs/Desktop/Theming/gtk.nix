@@ -1,7 +1,4 @@
 { config, pkgs, ... }:
-let
-  gradience = pkgs.callPackage ../../../../../Packages/gradience.nix { };
-in
 {
   home.packages = with pkgs; [
     adw-gtk3
@@ -10,8 +7,8 @@ in
 
   gtk = {
     enable = true;
-    gtk4.extraCss = builtins.readFile ./CSS/gtk4.css;
-    gtk3.extraCss = builtins.readFile ./CSS/gtk4.css;
+    # gtk4.extraCss = builtins.readFile ./CSS/gtk4.css;
+    # gtk3.extraCss = builtins.readFile ./CSS/gtk4.css;
     iconTheme = {
       name = "MoreWaita";
       package = pkgs.nur.repos.federicoschonborn.morewaita;
