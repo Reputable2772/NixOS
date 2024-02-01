@@ -44,10 +44,6 @@
           path = "${config.users.users.wickedwizard.home}/Documents/Study Materials";
           devices = [ "Redmi S2" ];
         };
-        "Tarb" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Android/sdcard";
-          devices = [ "Redmi S2" ];
-        };
         "Tasker" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Android/Tasker";
           devices = [ "Redmi S2" ];
