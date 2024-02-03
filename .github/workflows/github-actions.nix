@@ -1,11 +1,11 @@
 { pkgs ? import <nixpkgs> {
-  overlays = import ./Overlays;
+  overlays = import ../../Overlays;
 } }:
 let
-  filen = import ./Packages/filen.nix;
-  firefox-theme = import ./Packages/firefox-gnome-theme.nix;
+  filen = pkgs.callPackage ../../Packages/filen.nix { };
+  firefox-theme = pkgs.callPackage ../../Packages/firefox-gnome-theme.nix { };
 in pkgs.mkShell {
-  buildInputs = with pkgs; [
+  nativeBuildInputs = with pkgs; [
     filen
     firefox-theme
     prismlauncher-qt5-unwrapped
