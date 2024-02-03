@@ -1,6 +1,16 @@
 ## Only configure devices and folders here. Configure rest through web interface.
 
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+let
+  defaultConfig = {
+    devices = [ "Redmi S2" ];
+    versioning = {
+      type = "trashcan";
+      params.cleanoutDays = "1000";
+    };
+  };
+in
+{
   services.syncthing = {
     enable = true;
     user = "wickedwizard";
@@ -14,40 +24,31 @@
       folders = {
         "Backups" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Android/Backups";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Books" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Books";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Captures" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Android/Captures";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Important Files" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Important-Files";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Joplin" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Joplin";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Magisk" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Android/Magisk";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Pictures" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Photos/Phone";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Study Materials" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Study Materials";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
         "Tasker" = {
           path = "${config.users.users.wickedwizard.home}/Documents/Android/Tasker";
-          devices = [ "Redmi S2" ];
-        };
+        } // defaultConfig;
       };
     };
   };
