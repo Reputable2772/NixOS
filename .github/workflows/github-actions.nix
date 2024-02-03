@@ -5,7 +5,7 @@ let
   filen = import ./Packages/filen.nix;
   firefox-theme = import ./Packages/firefox-gnome-theme.nix;
 in pkgs.mkShell {
-  buildInputs = [
+  buildInputs = with pkgs; [
     filen
     firefox-theme
     prismlauncher-qt5-unwrapped
