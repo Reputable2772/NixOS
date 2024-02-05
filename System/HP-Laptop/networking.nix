@@ -8,12 +8,13 @@
       { from = 1714; to = 1764; } # KDE Connect
     ];
     allowedTCPPorts =
-      [ 22000 ] # Syncthing
-      ++ [ 443 80 ] # Caddy
+      [ 53 ] # DNS
+      ++ [ 80 443 ] # Caddy
+      ++ [ 22000 ] # Syncthing
       ++ [ 61851 ]; # qBittorrent
     allowedUDPPorts =
-      [ 22000 21027 ] # Syncthing
-      ++ [ 443 80 ] # Caddy
+      [ 80 443 ] # Caddy
+      ++ [ 22000 21027 ] # Syncthing
       ++ [ 61851 ]; # qBittorrent
     logRefusedPackets = true;
   };
@@ -28,7 +29,7 @@
     extraConfig = ''
       DNSOverTLS=true
       MulticastDNS=resolve
-      DNSStubListenerExtra=192.168.0.102
+      DNSStubListenerExtra=0.0.0.0
     '';
     llmnr = "true";
   };
