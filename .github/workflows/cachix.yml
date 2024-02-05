@@ -22,5 +22,6 @@ jobs:
         name: spearman4157
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-    - name: "Build CI"
-      run: ./nix.sh ci
+    - run: cachix watch-exec mycache -- ./nix.sh ci
+    # - name: "Build CI"
+    #   run: ./nix.sh ci
