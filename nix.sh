@@ -21,7 +21,7 @@ check() {
 ci() {
 	echo "Building system CI"
 	sudo rm -rf /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
-	nix-instantiate .github/workflows/github-actions.nix
+	nix-build .github/workflows/github-actions.nix
 }
 
 dconf_nix() {
