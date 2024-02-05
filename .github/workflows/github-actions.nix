@@ -8,7 +8,7 @@ in pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     filen
     firefox-theme
-    prismlauncher-qt5-unwrapped
+    prismlauncher-qt5
     dconf2nix
   ];
 }
