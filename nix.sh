@@ -4,7 +4,6 @@ set -e
 
 build() {
 	echo "Builiding"
-	rm -rf $HOME/.config/mimeapps.list
 	sudo nixos-rebuild switch --flake .#hp-laptop
 }
 
@@ -19,7 +18,6 @@ check() {
 }
 
 ci() {
-	echo "Building system CI"
 	sudo rm -rf /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
 	nix-build .github/workflows/github-actions.nix
 }
