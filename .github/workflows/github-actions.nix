@@ -10,5 +10,6 @@ in pkgs.mkShell {
     firefox-theme
     prismlauncher-qt5
     dconf2nix
+    linuxKernel.packages.linux_zen.rtl8821ce
   ];
 }
