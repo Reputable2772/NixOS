@@ -10,4 +10,5 @@
   };
   # boot.extraModulePackages = with pkgs.linuxKernel.packages; [ linux_zen.rtl8821ce ];
   # boot.blacklistedKernelModules = [ "rtw88_8821ce" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
 }
