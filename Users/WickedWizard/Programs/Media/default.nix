@@ -1,8 +1,9 @@
 { config, pkgs, ... }: {
   imports = [
     ./calibre.nix
-    ./obs-studio.nix
-    ./vlc.nix
     # ./kodi.nix
+    ./obs-studio.nix
+    ./spotube.nix
+    ./vlc.nix
   ];
 }
