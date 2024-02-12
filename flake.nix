@@ -7,6 +7,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   nixConfig = {
@@ -24,7 +25,7 @@
     ];
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, pre-commit-hooks, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -41,7 +42,12 @@
         };
       };
       devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ pre-commit ];
+        shellHook = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+          };
+        };
       };
     };
 }

@@ -4,3 +4,4 @@
 # dconf files
 /*.conf
 /*.dconf
+/.pre-commit-config.yaml
