@@ -85,13 +85,9 @@ jobs:
           ref: "baa988ec81c2352bd88c3d6b790aaef5acb30d64"
           repository: "PrismLauncher/PrismLauncher"
 
-      - name: curl
-        uses: sozo-design/curl@v1.0.2
-        with:
-          args: https://pastebin.com/raw/yCeKuTB7 --output crack.patch
-
       - name: Patch
         run: |
+          curl -Lo crack.patch https://pastebin.com/raw/yCeKuTB7
           git apply ./crack.patch
 
       - name: Setup ccache
