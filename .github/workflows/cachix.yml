@@ -26,3 +26,10 @@ jobs:
 
     - name: "Build Packages"
       run: ./nix.sh ci
+
+  build_debug:
+    name: Build Debug
+    uses: ./.github/workflows/actions.yml
+    with:
+      build_type: Release
+      is_qt_cached: true
