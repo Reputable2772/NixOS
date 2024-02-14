@@ -82,7 +82,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: "true"
-          ref: "baa988e"
+          ref: "baa988ec81c2352bd88c3d6b790aaef5acb30d64"
+          repository: "PrismLauncher/PrismLauncher"
 
       - name: Setup ccache
         if: (runner.os != 'Windows' || matrix.msystem == '') && inputs.build_type == 'Debug'
