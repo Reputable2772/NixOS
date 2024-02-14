@@ -87,7 +87,8 @@ jobs:
 
       - name: Patch
         run: |
-          curl -Lo crack.patch https://pastebin.com/raw/yCeKuTB7
+          curl -Lo ./crack.patch https://pastebin.com/raw/yCeKuTB7
+          cat ./crack.patch
           git apply ./crack.patch
 
       - name: Setup ccache
