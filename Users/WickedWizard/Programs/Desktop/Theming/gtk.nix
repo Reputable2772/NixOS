@@ -16,6 +16,9 @@
   };
 
   dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+    cursor-theme = "Nordic-cursors";
     gtk-theme = "adw-gtk3-dark";
+    icon-theme = "MoreWaita";
   };
 }
