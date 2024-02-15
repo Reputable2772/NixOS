@@ -42,12 +42,17 @@
         };
       };
       devShells.${system}.default = pkgs.mkShell {
-        shellHook = pre-commit-hooks.lib.${system}.run {
+        inherit (pre-commit-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
             nixpkgs-fmt.enable = true;
+            check = {
+              enable = true;
+              name = "Check Nix Flake";
+              entry = "./nix.sh check";
+            };
           };
-        };
+        }) shellHook;
       };
     };
 }
