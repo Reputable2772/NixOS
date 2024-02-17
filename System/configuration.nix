@@ -5,7 +5,9 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
+  # TODO: Fix this.
   # inputs.nixpkgs.overlays = (inputs.nixpkgs.overlays or [])  ++ import ../Overlays;
+  # nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   nix = {
     gc = {
@@ -17,7 +19,6 @@
       auto-optimise-store = true;
       trusted-users = [ "root" "@wheel" ];
     };
-    # registry.nixpkgs.flake = inputs.nixpkgs;
   };
 
   system.stateVersion = "23.05";

@@ -8,6 +8,7 @@
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    nix-ld-rs.url = "github:nix-community/nix-ld-rs";
   };
 
   nixConfig = {
