@@ -8,12 +8,10 @@
     "LIBVA_DRIVER_NAME" = "radeonsi";
   };
 
-  nixpkgs.config.allowUnfree = true;
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   hardware = {
     cpu.amd.updateMicrocode = true;
-    enableAllFirmware = true;
     opengl = {
       enable = true;
       driSupport = true;

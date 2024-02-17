@@ -12,13 +12,13 @@ in
     "steam-run"
   ];
   nixpkgs.overlays = [ nur.overlay ] ++ import ../../Overlays;
+  nix.registry.nixpkgs.flake = nixpkgs;
 
   # Needs to be set here or else shell won't work
   programs.zsh.enable = true;
   # Shell autocomplete
   environment.pathsToLink = [ "/share/zsh" ];
 
-  nix.settings.trusted-users = [ "wickedwizard" ];
   users.users.wickedwizard = {
     isNormalUser = true;
     home = "/home/wickedwizard";
