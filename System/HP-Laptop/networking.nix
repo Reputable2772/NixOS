@@ -39,13 +39,17 @@
 
   services.resolved = {
     enable = true;
-    dnssec = "true";
+    dnssec = "false";
+    llmnr = "true";
     domains = [ "~." ];
+    fallbackDns = [
+      "8.8.8.8"
+      "2001:4860:4860::8844"
+    ];
     extraConfig = ''
       DNSOverTLS=true
       MulticastDNS=resolve
       DNSStubListenerExtra=0.0.0.0
     '';
-    llmnr = "true";
   };
 }
