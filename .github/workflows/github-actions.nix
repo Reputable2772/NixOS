@@ -1,6 +1,7 @@
 { pkgs ? import <nixpkgs> {
-  overlays = import ../../Overlays;
-} }:
+    overlays = import ../../Overlays;
+  }
+}:
 let
   filen = pkgs.callPackage ../../Packages/filen.nix { };
   firefox-theme = pkgs.callPackage ../../Packages/firefox-gnome-theme.nix { };

@@ -31,8 +31,6 @@ ci() {
 	done
 
 	mv ./Overlays/default.nix.test ./Overlays/default.nix
-
-	# nix-build .github/workflows/github-actions.nix
 }
 
 clean() {
