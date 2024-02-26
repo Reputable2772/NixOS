@@ -27,7 +27,7 @@ ci() {
 	mv ./Overlays/default.nix ./Overlays/default.nix.test
 
 	for overlay in ./Overlays/*.nix; do
-		nix-build -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; callPackage $overlay {}"
+		nix-build -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; callPackage $(echo $overlay | cut -d '/' -f3 <<< "$s" | cut -d '.' -f1 <<< "$s") {}"
 	done
 
 	mv ./Overlays/default.nix.test ./Overlays/default.nix
