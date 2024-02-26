@@ -19,7 +19,7 @@ jobs:
     - uses: DeterminateSystems/magic-nix-cache-action@v2
 
     - name: "Build Packages"
-      run: ./nix.sh ci
+      run: bash ./nix.sh ci
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
