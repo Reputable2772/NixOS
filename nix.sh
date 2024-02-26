@@ -19,7 +19,26 @@ check() {
 
 ci() {
 	sudo rm -rf /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
-	nix-build .github/workflows/github-actions.nix
+
+	for package in ./Packages/*.nix; do
+		nix-build -E "with import <nixpkgs> {}; callPackage $package {}"
+	done
+
+	mv ./Overlays/default.nix ./Overlays/default.nix.test
+
+	for overlay in ./Overlays/*.nix; do
+		nix-build -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; callPackage $overlay {}"
+	done
+
+	mv ./Overlays/default.nix.test ./Overlays/default.nix
+
+	# nix-build .github/workflows/github-actions.nix
+}
+
+clean() {
+	sudo nix-collect-garbage --delete-old
+	nix-collect-garbage --delete-old
+	sudo nixos-rebuild boot --flake .#hp-laptop
 }
 
 dconf_nix() {
@@ -50,6 +69,8 @@ case $1 in
 		check;;
 	"ci")
 		ci;;
+	"clean")
+		clean;;
 	"dconf")
 		dconf_nix;;
 	"format")
