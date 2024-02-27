@@ -26,6 +26,8 @@ ci() {
 
 	mv ./Overlays/default.nix ./Overlays/default.nix.test
 
+	echo "Nix Path: $NIX_PATH"
+
 	for overlay in ./Overlays/*.nix; do
 		nix-build -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; $(basename -s ".nix" $overlay)"
 	done
