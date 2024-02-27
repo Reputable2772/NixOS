@@ -1,14 +1,9 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [ rnix-lsp ];
-
+{ pkgs, inputs, ... }: {
   programs.vscode = {
     package = pkgs.vscodium;
     enable = true;
     mutableExtensionsDir = false;
-    extensions = with pkgs.vscode-extensions; [
-      ms-python.python
-      esbenp.prettier-vscode
-      dbaeumer.vscode-eslint
+    extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
       eamodio.gitlens
       github.vscode-github-actions
       pkief.material-icon-theme
@@ -17,17 +12,10 @@
       rust-lang.rust-analyzer
       arcticicestudio.nord-visual-studio-code
       mkhl.direnv
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "indent-rainbow";
-        publisher = "oderwat";
-        version = "8.3.1";
-        sha256 = "sha256-dOicya0B2sriTcDSdCyhtp0Mcx5b6TUaFKVb0YU3jUc=";
-      }
+      oderwat.indent-rainbow
     ];
     userSettings = {
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "rnix-lsp";
+      "editor.minimap.enabled" = false;
       "explorer.confirmDragAndDrop" = false;
       "workbench.colorTheme" = "Nord";
       "workbench.iconTheme" = "material-icon-theme";
