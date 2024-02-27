@@ -11,7 +11,7 @@
     # gtk3.extraCss = builtins.readFile ./CSS/gtk4.css;
     iconTheme = {
       name = "MoreWaita";
-      package = pkgs.nur.repos.federicoschonborn.morewaita;
+      package = pkgs.morewaita-icon-theme;
     };
   };
 
