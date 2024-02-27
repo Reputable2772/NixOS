@@ -81,11 +81,7 @@
 
   services.flatpak = {
     enableModule = true;
-    packages = [
-      "flathub:app/io.freetubeapp.FreeTube//stable"
-      "flathub:app/com.ranfdev.Notify//stable"
-      "flathub:app/com.github.alainm23.planner//stable"
-    ];
+    # packages = [];
     remotes = {
       "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";
     };
