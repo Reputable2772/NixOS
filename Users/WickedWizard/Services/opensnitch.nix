@@ -1,3 +1,3 @@
-{ config, pkgs, ... }: {
-  services.opensnitch-ui.enable = true;
+{
+  services.opensnitch-ui.enable = false;
 }

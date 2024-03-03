@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     adw-gtk3
@@ -15,10 +15,13 @@
     };
   };
 
-  dconf.settings."org/gnome/desktop/interface" = {
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface" = {
     color-scheme = "prefer-dark";
     cursor-theme = "Nordic-cursors";
     gtk-theme = "adw-gtk3-dark";
     icon-theme = "MoreWaita";
+  };
   };
 }

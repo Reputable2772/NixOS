@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   inherit (inputs) nur home-manager flatpaks nixpkgs;
 in
@@ -23,7 +23,8 @@ in
     isNormalUser = true;
     home = "/home/wickedwizard";
     description = "WickedWizard";
-    extraGroups = [ "wheel" "networkmanager" ];
+    # Fixes https://github.com/GPUOpen-Drivers/AMDVLK/issues/310
+    extraGroups = [ "wheel" "networkmanager" "input" "video" "render" ];
     shell = pkgs.zsh;
   };
 

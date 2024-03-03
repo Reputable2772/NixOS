@@ -1,6 +1,6 @@
 ## Only configure devices and folders here. Configure rest through web interface.
 
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   defaultConfig = {
     devices = [ "Redmi S2" ];

@@ -1,6 +1,6 @@
-{ config, pkgs, ... }: {
+{ lib, ... }: {
   powerManagement.enable = true;
-  services.power-profiles-daemon.enable = pkgs.lib.mkForce false;
+  services.power-profiles-daemon.enable = lib.mkForce false;
 
   services.tlp = {
     enable = true;

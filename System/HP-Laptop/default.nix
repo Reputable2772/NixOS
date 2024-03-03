@@ -1,10 +1,11 @@
-{ pkgs, config, lib, ... }: {
+{ ... }: {
   imports = [
     ./Hardware
     ./Services
     ./boot.nix
     ./configuration.nix
     ./gnome.nix
+    ./hyprland.nix
     ./insecure.nix
     ./networking.nix
     ./packages.nix

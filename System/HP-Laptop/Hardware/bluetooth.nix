@@ -1,8 +1,12 @@
-{ config, pkgs, ... }: {
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
-      KernelExperimental = true;
+{ ... }: {
+  hardware.bluetooth = {
+    enable = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+        KernelExperimental = true;
+      };
     };
   };
 }

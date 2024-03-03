@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs.gnomeExtensions; [
     appindicator
     bluetooth-battery

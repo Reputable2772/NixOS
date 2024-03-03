@@ -1,0 +1,7 @@
+Gnome Keyring
+VSCode Workspace
+development nix files
+AGS
+Hyprland
+GPU issues
+Restructuring

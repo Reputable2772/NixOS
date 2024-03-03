@@ -4,7 +4,7 @@ set -e
 
 build() {
 	echo "Builiding"
-	sudo nixos-rebuild switch --flake .#hp-laptop
+	sudo nixos-rebuild switch --flake .#$(hostname)
 }
 
 changelog() {
@@ -38,7 +38,7 @@ ci() {
 clean() {
 	sudo nix-collect-garbage --delete-old
 	nix-collect-garbage --delete-old
-	sudo nixos-rebuild boot --flake .#hp-laptop
+	# sudo nixos-rebuild boot --flake .#hp-laptop
 }
 
 dconf_nix() {
