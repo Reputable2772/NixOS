@@ -1,9 +1,10 @@
-{ ... }: {
+{
   imports = [
     ./avahi.nix
     ./flatpak.nix
     ./fwupd.nix
     ./keyring.nix
+    ./media.nix
     ./opensnitch.nix
     ./pipewire.nix
     ./ssh.nix
