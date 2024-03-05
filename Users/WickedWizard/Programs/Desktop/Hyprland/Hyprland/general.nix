@@ -1,12 +1,17 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ dex ];
+  home.packages = with pkgs; [
+    dex
+    polkit-kde-agent
+  ];
 
   wayland.windowManager.hyprland = {
     enable = true;
+    xwayland.enable = true;
     settings = {
       exec-once = [
-        "playerctld"
-        "dex -a"
+        "${pkgs.playerctl}/bin/playerctld daemon"
+        "${pkgs.dex}/bin/dex --autostart"
+        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
       ];
 
       general = {
