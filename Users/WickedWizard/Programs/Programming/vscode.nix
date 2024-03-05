@@ -1,4 +1,6 @@
 { pkgs, inputs, ... }: {
+  home.packages = with pkgs; [ rnix-lsp ];
+
   programs.vscode = {
     package = pkgs.vscodium;
     enable = true;
@@ -11,6 +13,7 @@
       arcticicestudio.nord-visual-studio-code
       mkhl.direnv
       oderwat.indent-rainbow
+      jnoortheen.nix-ide
     ];
     userSettings = {
       "editor.minimap.enabled" = false;
