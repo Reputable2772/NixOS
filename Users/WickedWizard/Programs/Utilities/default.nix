@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{
   imports = [
     ./alien.nix
     ./evince.nix
