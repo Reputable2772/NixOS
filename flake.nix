@@ -8,10 +8,9 @@
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    nix-ld-rs.url = "github:nix-community/nix-ld-rs";
-    ags.url = "github:Aylur/ags";
-    matugen.url = "github:InioX/matugen";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    matugen.url = "github:InioX/matugen";
+    ags.url = "github:Aylur/ags";
   };
 
   nixConfig = {

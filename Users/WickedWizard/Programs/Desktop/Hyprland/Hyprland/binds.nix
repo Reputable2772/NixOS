@@ -10,10 +10,17 @@
     bind =
       let
         num = [ 1 2 3 4 5 6 7 8 9 ];
+        e = "exec, ags -b hypr";
       in
       [
         # AGS
         "SUPER CTRL SHIFT, R, exec, ags -q; ags"
+        "SUPER, R,       ${e} -t applauncher"
+        "SUPER, Tab,     ${e} -t overview"
+        ", XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
+        ", XF86Launch4,   ${e} -r 'recorder.start()'"
+        ", Print, exec, flameshot gui"
+        "SHIFT, Print, flameshot screen"
         # "SUPER CTRL, Tab , exec, ags toggle-window overview"
         # ", XF86PowerOff, exec, ags toggle-window powermenu"
         # "SUPER, R, exec, ags toggle-window applauncher"
@@ -56,7 +63,7 @@
         "SUPER CTRL, E, movetoworkspace, empty"
 
         # Misc
-        "SUPER, R, exec, rofi -show drun"
+        # "SUPER, R, exec, rofi -show drun"
         "CTRL ALT, Delete, exit"
         "CTRL SHIFT, Q, killactive"
         "ALT, F, togglefloating"
