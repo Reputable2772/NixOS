@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     dex
-    polkit-kde-agent
+    polkit_gnome
   ];
 
   wayland.windowManager.hyprland = {
@@ -11,7 +11,7 @@
       exec-once = [
         "${pkgs.playerctl}/bin/playerctld daemon"
         "${pkgs.dex}/bin/dex --autostart"
-        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       ];
 
       general = {
