@@ -3,7 +3,10 @@
   home.packages = with pkgs; [
     flameshot
     tesseract
+
+    # Flameshot doesn't detect them otherwise
     wl-clipboard
+    grim
   ];
 
   services.flameshot = {
