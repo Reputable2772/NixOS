@@ -1,4 +1,4 @@
-{ ... }: {
+{
   #     extraConfig = ''
   #     # AGS
   # # bind  = , XF86Launch1, exec,
