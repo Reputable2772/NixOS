@@ -1,6 +1,6 @@
 {
   wayland.windowManager.hyprland.settings = {
-    windowruleev2 = [
+    windowrulev2 = [
       "opacity 0.0 override 0.0 override,class:^(xwaylandvideobridge)$"
       "noanim,class:^(xwaylandvideobridge)$"
       "noinitialfocus,class:^(xwaylandvideobridge)$"
