@@ -55,6 +55,11 @@ dconf_nix() {
 	rm -rf *.conf *.dconf
 }
 
+depends() {
+	echo "The nix derivation depends on $1 because: "
+	NIXPKGS_ALLOW_INSECURE=1 nix why-depends --impure --derivation .#nixosConfigurations.$(hostname).config.system.build.toplevel .#nixosConfigurations.$(hostname).pkgs.$1
+}
+
 format() {
 	echo "Formatting files."
 	nix fmt
@@ -75,6 +80,8 @@ case $1 in
 		dconf_nix;;
 	"format")
 		format;;
+	"why-depends")
+		depends $2;;
 	*)
-    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf' or 'format'";;
+    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format' or 'why-depends'";;
 esac
