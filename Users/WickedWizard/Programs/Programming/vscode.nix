@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  home.packages = with pkgs; [ rnix-lsp ];
+  # home.packages = with pkgs; [ nixd-next ];
 
   programs.vscode = {
     package = pkgs.vscodium;
