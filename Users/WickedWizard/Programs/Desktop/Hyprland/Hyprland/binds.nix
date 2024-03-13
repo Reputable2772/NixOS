@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     playerctl
     brightnessctl
+    libnotify
   ];
 
   # TODO: Write AGS script to pick default settings from xdg
@@ -20,7 +21,8 @@
         ", XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
         ", XF86Launch4,   ${e} -r 'recorder.start()'"
         ", Print, exec, flameshot gui"
-        "SHIFT, Print, flameshot screen"
+        "SHIFT, Print, exec, flameshot screen"
+        "SUPER SHIFT, Print, exec, flameshot gui --raw | tesseract stdin stdout | wl-copy && notify-send \"OCR copied!\""
         # "SUPER CTRL, Tab , exec, ags toggle-window overview"
         # ", XF86PowerOff, exec, ags toggle-window powermenu"
         # "SUPER, R, exec, ags toggle-window applauncher"

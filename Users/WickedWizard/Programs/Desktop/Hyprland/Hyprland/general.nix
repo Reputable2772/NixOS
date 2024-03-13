@@ -47,8 +47,9 @@
         repeat_rate = 25;
         repeat_delay = 269;
         accel_profile = "flat";
-        # force_no_accel = true;
+        force_no_accel = false;
         sensitivity = 1.0;
+        numlock_by_default = true;
 
         touchpad = {
           scroll_factor = 0.8;
