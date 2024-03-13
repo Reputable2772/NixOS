@@ -68,7 +68,7 @@ const options = mkOptions(OPTIONS, {
             start: opt<BarWidget[]>([
                 "launcher",
                 "workspaces",
-                "taskbar",
+                // "taskbar",
                 "expander",
                 "messages",
             ]),
@@ -122,8 +122,8 @@ const options = mkOptions(OPTIONS, {
         },
         systray: {
             ignore: opt([
-                "KDE Connect Indicator",
-                "spotify-client",
+                // "KDE Connect Indicator",
+                // "spotify-client",
             ]),
         },
         media: {
