@@ -5,6 +5,7 @@
     ./fwupd.nix
     ./keyring.nix
     ./media.nix
+    ./networking.nix
     ./opensnitch.nix
     ./pipewire.nix
     ./ssh.nix

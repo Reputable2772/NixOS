@@ -14,6 +14,7 @@
     cpu.amd.updateMicrocode = true;
     opengl = {
       enable = true;
+      setLdLibraryPath = true;
 
       # Vulkan
       driSupport = true;

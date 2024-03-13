@@ -9,4 +9,6 @@
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     xdgOpenUsePortal = true;
   };
+
+  environment.systemPackages = with pkgs; [ xdg-utils ];
 }

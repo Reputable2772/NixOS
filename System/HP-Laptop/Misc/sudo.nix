@@ -1,4 +1,4 @@
-{ ... }: {
+{
   security.sudo = {
     execWheelOnly = true;
     configFile = ''
