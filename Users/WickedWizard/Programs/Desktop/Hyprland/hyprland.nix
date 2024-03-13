@@ -2,12 +2,6 @@
   #     extraConfig = ''
   #     # AGS
   # # bind  = , XF86Launch1, exec,
-
-  # # playerctl
-  # #bindl=,XF86AudioPrev,exec,playerctl --player playerctld previous
-  # #bindl=,XF86AudioNext,exec,playerctl --player playerctld next
-  # #bindl=,XF86AudioPlay,exec,playerctl --player playerctld play-pause
-
   # # Laptop
   # bindle = , XF86MonBrightnessUp,     exec, ags  -r "brightness.screen += 0.05; indicator.display()"
   # bindle = , XF86MonBrightnessDown,   exec, ags  -r "brightness.screen -= 0.05; indicator.display()"
@@ -29,14 +23,6 @@
   # SUPER, A, exec, wofi
 
   # # Bindings
-  # CTRL ALT, Delete, exit
-  # CTRL_SHIFT, Q, killactive
-  # ALT, F, togglefloating
-  # SUPER, F, fullscreen
-  # SUPER, O, fakefullscreen
-  # SUPER, P, pseudo,
-  # SUPER SHIFT, P, togglesplit
-  # SUPER_CTRL, P, pin
 
   # # Tabbed
   # bind= SUPER, g, togglegroup
