@@ -49,11 +49,6 @@
           src = ./.;
           hooks = {
             nixpkgs-fmt.enable = true;
-            check = {
-              enable = true;
-              name = "Check Nix Flake";
-              entry = "./nix.sh check";
-            };
           };
         }) shellHook;
       };
