@@ -29,7 +29,7 @@ ci() {
 	echo "Nix Path: $NIX_PATH"
 
 	for overlay in ./Overlays/*.nix; do
-		NIXPKGS_ALLOW_UNFREE=1 nix-build --impure -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; callPackage $(basename -s ".nix" $overlay) {}"
+		NIXPKGS_ALLOW_UNFREE=1 nix-build --impure -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; $(basename -s ".nix" $overlay)"
 	done
 
 	mv ./Overlays/default.nix.test ./Overlays/default.nix
