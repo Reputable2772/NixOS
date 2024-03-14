@@ -1,7 +1,0 @@
-Themes that work with GTK3, GTK4, Electron, Qt4, Qt5, Qt6.
-
-Not Wayland -
-Spotify (Electron), VSCode (Electron), Beeper (Electron), SchildiChat (Electron), Bitwarden (Electron), VLC (Qt4), Flameshot (Qt5)
-
-Not GTK
-OBS Studio (Qt6), Calibre (Qt6)
