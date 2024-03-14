@@ -1,8 +1,9 @@
-name: "Packages"
+name: "Flake Update"
 
 on:
-  pull_request:
-  push:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
 
 jobs:
   build-system:
@@ -17,6 +18,9 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
 
     - uses: DeterminateSystems/magic-nix-cache-action@v2
+
+    - name: "Update Nix Flake"
+      run: nix flake update
 
     - name: "Build Packages"
       run: bash ./nix.sh ci
