@@ -12,7 +12,7 @@
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-generations --delete-older-than 2d";
+      options = "--delete-old --delete-older-than 2d";
     };
     settings = {
       auto-optimise-store = true;
