@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./calibre.nix
     # ./kodi.nix

@@ -1,5 +1,4 @@
-{ pkgs
-, lib
+{ lib
 , appimageTools
 , makeDesktopItem
 , fetchurl

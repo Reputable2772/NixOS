@@ -1,3 +1,3 @@
-{ ... }: {
+{
   services.avahi.enable = false;
 }

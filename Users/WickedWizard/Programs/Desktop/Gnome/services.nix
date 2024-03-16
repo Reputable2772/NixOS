@@ -1,4 +1,4 @@
-{ ... }: {
+{
   services.gnome-keyring.enable = true;
 
   home.sessionVariables = {
