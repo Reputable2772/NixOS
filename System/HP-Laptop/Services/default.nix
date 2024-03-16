@@ -1,13 +1,12 @@
 {
   imports = [
     ./avahi.nix
-    ./flatpak.nix
     ./fwupd.nix
     ./keyring.nix
-    ./media.nix
     ./networking.nix
     ./opensnitch.nix
     ./pipewire.nix
+    ./removable-media.nix
     ./ssh.nix
     ./syncthing.nix
     ./tlp.nix
