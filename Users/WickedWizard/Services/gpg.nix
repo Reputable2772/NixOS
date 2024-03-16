@@ -4,7 +4,8 @@
     homedir = "${config.home.homeDirectory}/Documents/Config/GPG/";
   };
   services.gpg-agent = {
-    enable = true;
-    pinentryFlavor = "gnome3";
+    enable = false;
+    enableSshSupport = true;
+    pinentryPackage = "gnome3";
   };
 }

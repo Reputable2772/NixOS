@@ -1,7 +1,6 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     appimage-run
-    conky
     gocryptfs
 
     xwaylandvideobridge

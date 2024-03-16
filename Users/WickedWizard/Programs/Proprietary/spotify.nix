@@ -20,5 +20,5 @@ in
     ];
   };
 
-  xdg.configFile."autostart/spicetify.desktop".source = "${pkgs.spotify}/share/applications/spotify.desktop";
+  # xdg.configFile."autostart/spicetify.desktop".source = "${pkgs.spotify}/share/applications/spotify.desktop";
 }
