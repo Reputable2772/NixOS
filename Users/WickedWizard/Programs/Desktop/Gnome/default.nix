@@ -1,9 +1,9 @@
+{ lib, osConfig, ... }:
 {
   imports = [
-    ./extensions.nix
+    ../../../../../Modules/Home-Manager/gnome.nix
     ./gnome.nix
-    ./nautilus.nix
-    ./packages.nix
-    ./services.nix
-  ];
+  ]
+  ++ lib.optional osConfig.services.xserver.desktopManager.gnome.enable ./settings.nix
+  ++ lib.optional (!osConfig.services.xserver.desktopManager.gnome.enable) ./dconf.nix;
 }

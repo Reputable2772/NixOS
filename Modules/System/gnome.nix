@@ -38,7 +38,6 @@ in
     services.xserver = {
       enable = true;
       desktopManager.gnome.enable = cfg.enable;
-      # TODO: Add options for this.
     };
 
     environment.gnome.excludePackages = cfg.excludePackages;
