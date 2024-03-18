@@ -1,9 +1,7 @@
 {
   description = "Nix Flakes for my System.";
   inputs = {
-    flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
     home-manager.url = "github:nix-community/home-manager";
-    nix-alien.url = "github:thiagokokada/nix-alien";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
@@ -47,7 +45,7 @@
       devShells.${system}.default = pkgs.mkShell {
         shellHook = pkgs.lib.strings.concatStrings [
           # Fixes https://github.com/direnv/direnv/issues/73
-          "export_alias codium 'codium --profile Nix $@'"
+          # "export_alias codium 'codium --profile Nix $@'"
           "\n"
           (pre-commit-hooks.lib.${system}.run {
             src = ./.;
