@@ -3,12 +3,11 @@
   home.packages = with pkgs; [ dconf2nix ];
 
   programs.gnome = {
-    enable = true;
+    enable = false;
     extensions = with pkgs.gnomeExtensions; [
       appindicator
       bluetooth-battery
       caffeine
-      gsconnect
       just-perfection
       pano
       rounded-window-corners
