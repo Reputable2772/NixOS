@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  inherit (inputs) nur home-manager flatpaks nixpkgs;
+  inherit (inputs) nur home-manager nixpkgs;
 in
 {
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
@@ -35,7 +35,6 @@ in
       wickedwizard = {
         imports = [
           ../../Users/WickedWizard/home.nix
-          flatpaks.homeManagerModules.default
         ];
       };
     };

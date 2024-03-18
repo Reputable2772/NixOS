@@ -1,6 +1,11 @@
 { pkgs, inputs, ... }: {
   home.packages = with pkgs; [ nil ];
 
+  # All VSCode related issues
+  # https://github.com/nix-community/home-manager/issues/3822
+  # https://github.com/NixOS/nixpkgs/issues/261205
+  # https://github.com/NixOS/nixpkgs/issues/218031
+
   programs.vscode = {
     package = pkgs.vscodium;
     enable = true;
