@@ -49,7 +49,19 @@ dconf_nix() {
 	sed -e 's/\\n//g' wickedwizard.dconf | tee wickedwizard.conf
 
 	echo "Nixifying dconf"
-	dconf2nix -i wickedwizard.conf -o ./Users/WickedWizard/Programs/Desktop/Gnome/gnome.nix
+
+	file="./Users/WickedWizard/Programs/Desktop/Gnome/dconf.nix"
+	gnome_file="./Users/WickedWizard/Programs/Desktop/Gnome/gnome.nix"
+
+	if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
+		echo "Gnome Desktop Environment Found!"
+		output_file=$gnome_file
+	else
+		echo "Found $XDG_CURRENT_DESKTOP"
+		output_file=$file
+	fi
+
+	dconf2nix -i wickedwizard.conf -o $output_file
 
 	echo "Deleting files"
 	rm -rf *.conf *.dconf

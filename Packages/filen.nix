@@ -17,7 +17,7 @@ let
     categories = [ "Applications" ];
   });
 in
-appimageTools.wrapType2 rec {
+appimageTools.wrapType2 {
   pname = "filen";
   version = "latest";
 

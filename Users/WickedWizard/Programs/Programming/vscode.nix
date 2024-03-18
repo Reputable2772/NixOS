@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  home.packages = with pkgs; [ nixd-next ];
+  home.packages = with pkgs; [ nil ];
 
   programs.vscode = {
     package = pkgs.vscodium;
@@ -14,6 +14,7 @@
       mkhl.direnv
       oderwat.indent-rainbow
       jnoortheen.nix-ide
+      usernamehw.errorlens
     ];
     userSettings = {
       "editor.minimap.enabled" = false;
