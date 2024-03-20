@@ -41,6 +41,8 @@
       "image/avif" = "org.gnome.Loupe.desktop";
       "image/heic" = "org.gnome.Loupe.desktop";
       "image/jxl" = "org.gnome.Loupe.desktop";
+
+      "inode/directory" = "thunar.desktop";
     };
   };
 
