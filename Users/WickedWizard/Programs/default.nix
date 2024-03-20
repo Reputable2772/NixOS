@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./Backup
     ./Browsers
@@ -15,7 +15,5 @@
     ./Selfhosted
     ./Shell
     ./Utilities
-
-    ./android.nix
   ];
 }
