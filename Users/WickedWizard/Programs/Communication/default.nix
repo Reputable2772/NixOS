@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./fractal.nix
     ./konversation.nix
