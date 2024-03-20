@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  home.packages = with pkgs; [ nil ];
+  home.packages = with pkgs; [ nixd ];
 
   # All VSCode related issues
   # https://github.com/nix-community/home-manager/issues/3822
@@ -9,7 +9,6 @@
   programs.vscode = {
     package = pkgs.vscodium;
     enable = true;
-    mutableExtensionsDir = false;
     extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
       eamodio.gitlens
       github.vscode-github-actions
