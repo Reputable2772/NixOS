@@ -1,15 +1,15 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
+{ config, lib, pkgs, ... }: {
+  home.packages = lib.mkIf (config.wayland.windowManager.hyprland.enable) (with pkgs; [
     dex
     polkit_gnome
-  ];
+    wl-clipboard
+  ]);
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
     settings = {
       exec-once = [
-        "${pkgs.playerctl}/bin/playerctld daemon"
         "${pkgs.dex}/bin/dex --autostart"
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       ];

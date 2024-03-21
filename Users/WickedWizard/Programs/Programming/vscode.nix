@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  home.packages = with pkgs; [ nixd ];
+  home.packages = with pkgs; [ nixd nil ];
 
   # All VSCode related issues
   # https://github.com/nix-community/home-manager/issues/3822

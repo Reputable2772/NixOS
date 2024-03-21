@@ -1,9 +1,8 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    playerctl
+{ config, lib, pkgs, ... }: {
+  home.packages = lib.mkIf (config.wayland.windowManager.hyprland.enable) (with pkgs; [
     brightnessctl
     libnotify
-  ];
+  ]);
 
   # TODO: Write AGS script to pick default settings from xdg
 
