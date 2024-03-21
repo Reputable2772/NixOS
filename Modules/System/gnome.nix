@@ -36,7 +36,7 @@ in
 
   config = {
     services.xserver = {
-      enable = true;
+      enable = mkDefault true;
       desktopManager.gnome.enable = cfg.enable;
     };
 

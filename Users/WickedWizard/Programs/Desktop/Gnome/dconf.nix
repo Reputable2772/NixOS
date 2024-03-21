@@ -15,6 +15,10 @@ with lib.hm.gvariant;
       width = 1878;
     };
 
+    "com/belmoussaoui/Authenticator" = {
+      keyrings-migrated = true;
+    };
+
     "com/github/wwmm/easyeffects" = {
       last-used-input-preset = "Presets";
       last-used-output-preset = "Presets";
@@ -32,6 +36,17 @@ with lib.hm.gvariant;
       output-device = "bluez_output.41_42_4C_5C_BB_63.1";
     };
 
+    "de/schmidhuberj/tubefeeder" = {
+      is-maximized = true;
+      player = "mpv";
+      window-height = 650;
+      window-width = 850;
+    };
+
+    "io/github/lainsce/Khronos" = {
+      schema-version = 1;
+    };
+
     "org/gnome/Fractal/Stable" = {
       current-session = "7ecb27dd-f8c4-400c-8956-2d488cac633d";
       is-maximized = true;
@@ -41,11 +56,19 @@ with lib.hm.gvariant;
       window-width = 763;
     };
 
+    "org/gnome/control-center" = {
+      last-panel = "power";
+      window-state = mkTuple [ 980 640 true ];
+    };
+
     "org/gnome/desktop/interface" = {
+      clock-show-weekday = false;
       color-scheme = "prefer-dark";
       cursor-theme = "Nordic-cursors";
+      font-antialiasing = "grayscale";
+      font-hinting = "slight";
       gtk-theme = "adw-gtk3-dark";
-      icon-theme = "MoreWaita";
+      icon-theme = "Adwaita";
     };
 
     "org/gnome/desktop/notifications/application/com-belmoussaoui-authenticator" = {
@@ -60,6 +83,11 @@ with lib.hm.gvariant;
       application-id = "vlc.desktop";
     };
 
+    "org/gnome/desktop/peripherals/touchpad" = {
+      tap-to-click = false;
+      two-finger-scrolling-enabled = true;
+    };
+
     "org/gnome/evince/default" = {
       continuous = true;
       dual-page = false;
@@ -71,8 +99,8 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 132;
       sizing-mode = "fit-width";
-      window-ratio = mkTuple [ 1.615126050420168 0.25771971496437057 ];
-      zoom = 1.1182024759006512;
+      window-ratio = mkTuple [ 1.615126 0.25772 ];
+      zoom = 1.118202;
     };
 
     "org/gnome/file-roller/dialogs/extract" = {
@@ -111,6 +139,26 @@ with lib.hm.gvariant;
 
     "org/gnome/portal/filechooser/org/gnome/Settings" = {
       last-folder-path = "/home/wickedwizard/Documents/Applications/Containers/Lidarr";
+    };
+
+    "org/gnome/shell/extensions/gsconnect" = {
+      devices = [ "9e744f80_c5dc_4789_896d_0da157ad91ea" ];
+      id = "78f577aa-968b-4376-b114-65cb48753f9b";
+      name = "hp-laptop";
+    };
+
+    "org/gnome/shell/extensions/gsconnect/device/9e744f80_c5dc_4789_896d_0da157ad91ea" = {
+      incoming-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.contacts.request_all_uids_timestamps" "kdeconnect.contacts.request_vcards_by_uid" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.action" "kdeconnect.notification.reply" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.runcommand" "kdeconnect.sftp.request" "kdeconnect.share.request" "kdeconnect.share.request.update" "kdeconnect.sms.request" "kdeconnect.sms.request_attachment" "kdeconnect.sms.request_conversation" "kdeconnect.sms.request_conversations" "kdeconnect.systemvolume" "kdeconnect.telephony.request" "kdeconnect.telephony.request_mute" ];
+      last-connection = "lan://192.168.0.103:1716";
+      name = "Redmi Y2";
+      outgoing-capabilities = [ "kdeconnect.battery" "kdeconnect.bigscreen.stt" "kdeconnect.clipboard" "kdeconnect.clipboard.connect" "kdeconnect.connectivity_report" "kdeconnect.contacts.response_uids_timestamps" "kdeconnect.contacts.response_vcards" "kdeconnect.findmyphone.request" "kdeconnect.mousepad.echo" "kdeconnect.mousepad.keyboardstate" "kdeconnect.mousepad.request" "kdeconnect.mpris" "kdeconnect.mpris.request" "kdeconnect.notification" "kdeconnect.notification.request" "kdeconnect.ping" "kdeconnect.presenter" "kdeconnect.runcommand.request" "kdeconnect.sftp" "kdeconnect.share.request" "kdeconnect.sms.attachment_file" "kdeconnect.sms.messages" "kdeconnect.systemvolume.request" "kdeconnect.telephony" ];
+      paired = false;
+      supported-plugins = [ "battery" "clipboard" "connectivity_report" "contacts" "findmyphone" "mousepad" "mpris" "notification" "ping" "presenter" "runcommand" "sftp" "share" "sms" "systemvolume" "telephony" ];
+      type = "phone";
+    };
+
+    "org/gnome/tweaks" = {
+      show-extensions-notice = false;
     };
 
     "org/gtk/gtk4/settings/emoji-chooser" = {

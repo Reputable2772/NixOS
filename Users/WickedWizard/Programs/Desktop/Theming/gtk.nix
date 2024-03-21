@@ -10,8 +10,8 @@
     # gtk4.extraCss = builtins.readFile ./CSS/gtk4.css;
     # gtk3.extraCss = builtins.readFile ./CSS/gtk4.css;
     iconTheme = {
-      name = "MoreWaita";
-      package = pkgs.morewaita-icon-theme;
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
     };
   };
 
@@ -21,7 +21,7 @@
       color-scheme = lib.mkForce "prefer-dark";
       cursor-theme = lib.mkForce "Nordic-cursors";
       gtk-theme = lib.mkForce "adw-gtk3-dark";
-      icon-theme = lib.mkForce "MoreWaita";
+      icon-theme = lib.mkForce "Adwaita";
     };
   };
 }

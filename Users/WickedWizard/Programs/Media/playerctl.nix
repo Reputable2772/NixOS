@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ playerctl ];
 
-  xdg.configFile."autostart/playerctd.desktop".source = ''
+  xdg.configFile."autostart/playerctd.desktop".text = ''
     [Desktop Entry]
     Version=1.0
     Name=playerctld

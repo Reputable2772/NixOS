@@ -4,5 +4,6 @@
     ./kde-connect.nix
     ./libreoffice.nix
     ./newsflash.nix
+    ./screenshot.nix
   ];
 }
