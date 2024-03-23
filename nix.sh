@@ -3,6 +3,9 @@
 set -e
 
 build() {
+	echo "Copying non-declarative files"
+	cp ~/.config/mimeapps.list ~/Documents/Config/mimeapps.list
+
 	echo "Builiding"
 	sudo nixos-rebuild switch --flake .#$(hostname)
 }
