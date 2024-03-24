@@ -7,6 +7,9 @@
       noto-fonts-emoji
       liberation_ttf
       font-awesome
+
+      # added for wofi
+      udev-gothic-nf
     ];
   };
 }

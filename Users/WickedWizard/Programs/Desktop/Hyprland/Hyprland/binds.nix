@@ -4,37 +4,21 @@
     libnotify
   ]);
 
-  # TODO: Write AGS script to pick default settings from xdg
-
   wayland.windowManager.hyprland.settings = {
     bind =
       let
         num = [ 1 2 3 4 5 6 7 8 9 ];
-        e = "exec, ags -b hypr";
       in
       [
         # AGS
         "SUPER CTRL SHIFT, R, exec, ags -q; ags"
-        "SUPER, R,       ${e} -t applauncher"
-        "SUPER, Tab,     ${e} -t overview"
-        ", XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
-        ", XF86Launch4,   ${e} -r 'recorder.start()'"
-        ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-        # "SHIFT, Print, exec, flameshot screen"
-        "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" \"tmp.png\" && tesseract-ocr \"tmp.png\" - | wl-copy && rm \"tmp.png\" && notify-send \"OCR copied!\""
-        # "SUPER CTRL, Tab , exec, ags toggle-window overview"
-        # ", XF86PowerOff, exec, ags toggle-window powermenu"
-        # "SUPER, R, exec, ags toggle-window applauncher"
-        # "SUPER, N, exec, ags toggle-window dashboard"
-        # "SUPER, M, exec, ags toggle-window quicksettings"
-
-        # Recording
-        # "SUPER SHIFT, Print, exec, ags -r \"recorder.start()\""
-        # ", Print, exec, ags  run-js \"recorder.screenshot()\""
-        # "SHIFT, Print, exec, ags run-js \"recorder.screenshot(true)\""
-        "SUPER, Return, exec, kitty"
 
         # Applications
+        ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+        "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" \"tmp.png\" && tesseract-ocr \"tmp.png\" - | wl-copy && rm \"tmp.png\" && notify-send \"OCR copied!\""
+        "SUPER, Return, exec, kitty"
+        "SUPER, R, exec, rofi -show run"
+        "SUPER, A, exec, rofi -show drun"
         "SUPER, B, exec, librewolf"
         "SUPER, V, exec, firefox"
         "SUPER, E, exec, thunar"
