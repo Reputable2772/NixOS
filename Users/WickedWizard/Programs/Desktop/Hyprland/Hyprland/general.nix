@@ -10,8 +10,9 @@
     xwayland.enable = true;
     settings = {
       exec-once = [
-        "${pkgs.dex}/bin/dex --autostart"
+        "${pkgs.waybar}/bin/waybar"
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "sleep 5 && ${pkgs.dex}/bin/dex --autostart"
       ];
 
       general = {

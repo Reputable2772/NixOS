@@ -1,7 +1,7 @@
 {
   imports = [
-    ./ags.nix
     ./Hyprland
     ./rofi.nix
+    ./waybar.nix
   ];
 }

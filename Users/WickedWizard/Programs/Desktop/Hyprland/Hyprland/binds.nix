@@ -10,9 +10,6 @@
         num = [ 1 2 3 4 5 6 7 8 9 ];
       in
       [
-        # AGS
-        "SUPER CTRL SHIFT, R, exec, ags -q; ags"
-
         # Applications
         ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
         "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" \"tmp.png\" && tesseract-ocr \"tmp.png\" - | wl-copy && rm \"tmp.png\" && notify-send \"OCR copied!\""
