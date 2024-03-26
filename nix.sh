@@ -1,10 +1,14 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 set -e
 
 build() {
 	echo "Copying non-declarative files"
-	cp ~/.config/mimeapps.list ~/Documents/Config/mimeapps.list
+
+	# If file is not a symlink, then copy it over if it is new.
+	if [[ ! -L "$HOME/.config/mimeapps.list" ]]; then
+		cp -pu "$HOME/.config/mimeapps.list" "$HOME/Documents/Config/mimeapps.list"
+	fi
 
 	echo "Builiding"
 	sudo nixos-rebuild switch --flake .#$(hostname)
