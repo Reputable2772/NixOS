@@ -18,6 +18,8 @@ in
       xdgOpenUsePortal = true;
     };
 
+    environment.systemPackages = mkIf cfg.enable [ pkgs.xdg-utils ];
+
     # Thunar
     programs.thunar = {
       enable = cfg.enable;
