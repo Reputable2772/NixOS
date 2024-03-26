@@ -2,7 +2,6 @@
   home.packages = lib.mkIf (config.wayland.windowManager.hyprland.enable) (with pkgs; [
     dex
     polkit_gnome
-    wl-clipboard
   ]);
 
   wayland.windowManager.hyprland = {
@@ -10,7 +9,6 @@
     xwayland.enable = true;
     settings = {
       exec-once = [
-        "${pkgs.waybar}/bin/waybar"
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "sleep 5 && ${pkgs.dex}/bin/dex --autostart"
       ];

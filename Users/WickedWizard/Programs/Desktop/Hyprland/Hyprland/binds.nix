@@ -14,8 +14,6 @@
         ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
         "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" \"tmp.png\" && tesseract-ocr \"tmp.png\" - | wl-copy && rm \"tmp.png\" && notify-send \"OCR copied!\""
         "SUPER, Return, exec, kitty"
-        "SUPER, R, exec, rofi -show run"
-        "SUPER, A, exec, rofi -show drun"
         "SUPER, B, exec, librewolf"
         "SUPER, V, exec, firefox"
         "SUPER, E, exec, thunar"
@@ -45,7 +43,6 @@
         "SUPER CTRL, E, movetoworkspace, empty"
 
         # Misc
-        # "SUPER, R, exec, rofi -show drun"
         "CTRL ALT, Delete, exit"
         "CTRL SHIFT, Q, killactive"
         "ALT, F, togglefloating"
