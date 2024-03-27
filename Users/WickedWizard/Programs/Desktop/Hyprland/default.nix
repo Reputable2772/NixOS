@@ -2,8 +2,8 @@
   imports = [
     ./Hyprland
 
-    # ./cliphist.nix
+    ./copyq.nix
     ./rofi.nix
-    # ./waybar.nix
+    ./waybar.nix
   ];
 }
