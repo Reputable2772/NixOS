@@ -1,7 +1,10 @@
 { pkgs, ... }: {
   programs.kitty = {
     enable = true;
-    shellIntegration = { enableZshIntegration = true; mode = "no-cursor"; };
+    shellIntegration = {
+      enableZshIntegration = true;
+      mode = "no-cursor";
+    };
     font = {
       name = "SauceCodePro Nerd Font";
       size = 14;
@@ -9,7 +12,7 @@
     keybindings = {
       "ctrl+alt+c" = "copy_ansi_to_clipboard";
     };
-    theme = "Nord";
+    theme = "Catppuccin-Mocha";
     settings = {
       update_check_interval = 0;
       hide_window_decorations = "yes";
