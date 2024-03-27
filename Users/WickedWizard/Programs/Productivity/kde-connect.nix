@@ -9,4 +9,5 @@
   ];
 
   xdg.configFile."autostart/kdeconnectd.desktop".source = "${pkgs.kdePackages.kdeconnect-kde}/share/applications/org.kde.kdeconnect.daemon.desktop";
+  xdg.configFile."autostart/kdeconnect-indicator.desktop".source = "${pkgs.kdePackages.kdeconnect-kde}/share/applications/org.kde.kdeconnect.nonplasma.desktop";
 }
