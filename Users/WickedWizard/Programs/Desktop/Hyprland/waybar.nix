@@ -140,7 +140,7 @@ let
       critical-threshold = 85;
       format = "{temperatureC}°C ";
       format-critical = "{temperatureF}°F ";
-      thermal-zone = 1;
+      hwmon-path = "/sys/class/hwmon/hwmon4/temp1_input";
     };
     backlight = {
       format = "{percent}% {icon}";
