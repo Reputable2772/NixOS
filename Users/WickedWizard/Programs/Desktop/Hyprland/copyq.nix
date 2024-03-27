@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ copyq ];
+  home.packages = with pkgs; [
+    copyq
+    wl-clipboard
+  ];
 
   wayland.windowManager.hyprland.settings = {
     exec-once = [
