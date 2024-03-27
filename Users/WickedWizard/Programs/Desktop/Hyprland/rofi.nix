@@ -22,4 +22,11 @@ in
       hash = "sha256-+Lyh5Cmd4wdHqx+FuJ8LV2HPpFj4JKT6wCu1xGcLpVg=";
     };
   };
+
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "SUPER, R, exec, rofi -show run"
+      "SUPER, A, exec, rofi -show drun"
+    ];
+  };
 }

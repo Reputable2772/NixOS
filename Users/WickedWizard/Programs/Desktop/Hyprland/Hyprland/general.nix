@@ -10,7 +10,7 @@
     settings = {
       exec-once = [
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-        "sleep 5 && ${pkgs.dex}/bin/dex --autostart"
+        "sleep 10 && ${pkgs.dex}/bin/dex --autostart"
       ];
 
       general = {

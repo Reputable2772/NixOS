@@ -1,5 +1,5 @@
 # Inspiration https://github.com/Srinath10X/catppuccin-waybar/
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   waybar = {
     exclusive = true;
@@ -353,24 +353,24 @@ let
   hyprland = config.wayland.windowManager.hyprland;
 in
 {
+  home.packages = lib.mkIf (hyprland.enable) [ pkgs.waybar ];
+
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       "${pkgs.waybar}/bin/waybar"
     ];
-    bind = [
-      "SUPER, R, exec, rofi -show run"
-      "SUPER, A, exec, rofi -show drun"
-    ];
   };
 
-  programs.waybar = {
-    enable = true;
-    style = waybar_css;
-  };
-
-  xdg.configFile.waybar = {
-    enable = hyprland.enable;
-    target = "waybar/config";
-    text = builtins.toJSON waybar;
+  xdg.configFile = {
+    waybar = {
+      enable = hyprland.enable;
+      target = "waybar/config";
+      text = builtins.toJSON waybar;
+    };
+    style = {
+      enable = hyprland.enable;
+      target = "waybar/style.css";
+      text = waybar_css;
+    };
   };
 }
