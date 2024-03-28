@@ -9,7 +9,7 @@
       "${pkgs.copyq}/bin/copyq"
     ];
     bind = [
-      "SUPER, C, exec, copyq menu"
+      "SUPER, C, exec, copyq toggle"
     ];
     windowrule = [
       "float, copyq"
