@@ -8,6 +8,10 @@ with lib.hm.gvariant;
     "com/github/wwmm/easyeffects" = {
       last-used-input-preset = "Presets";
       last-used-output-preset = "Presets";
+      window-fullscreen = false;
+      window-height = 519;
+      window-maximized = true;
+      window-width = 960;
     };
 
     "com/github/wwmm/easyeffects/streaminputs" = {
@@ -15,7 +19,8 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/streamoutputs" = {
-      output-device = "alsa_output.pci-0000_04_00.6.analog-stereo";
+      blocklist = [ ];
+      output-device = "bluez_output.41_42_4C_5C_BB_63.1";
     };
 
     "org/gnome/Fractal/Stable" = {
@@ -29,6 +34,7 @@ with lib.hm.gvariant;
 
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+      cursor-size = 16;
       cursor-theme = "Nordic-cursors";
       font-antialiasing = "grayscale";
       font-hinting = "slight";
@@ -47,7 +53,7 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 194;
       sizing-mode = "fit-width";
-      window-ratio = mkTuple [ 0.9803921568627451 0.7575757575757576 ];
+      window-ratio = mkTuple [ 0.980392 0.757576 ];
     };
 
     "org/gnome/file-roller/listing" = {
@@ -78,5 +84,6 @@ with lib.hm.gvariant;
       window-position = mkTuple [ 0 0 ];
       window-size = mkTuple [ 1231 902 ];
     };
+
   };
 }
