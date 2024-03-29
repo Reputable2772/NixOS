@@ -1,6 +1,7 @@
 {
   imports = [
-    ./gtk.nix
-    ./qt.nix
+    ./cursors.nix
+    ./icons.nix
+    ./themes.nix
   ];
 }
