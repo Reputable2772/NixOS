@@ -1,8 +1,4 @@
 { pkgs, ... }: {
-  imports = [
-    ../../../Modules/System/gnome.nix
-  ];
-
   programs.gnome = {
     enable = false;
     excludePackages = (with pkgs; [

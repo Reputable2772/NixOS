@@ -1,6 +1,5 @@
 {
   imports = [
-    ./fwupd.nix
     ./gdm.nix
     ./keyring.nix
     ./networking.nix

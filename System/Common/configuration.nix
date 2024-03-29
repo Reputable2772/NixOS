@@ -1,12 +1,11 @@
-{
+{ inputs, ... }: {
   time.timeZone = "Asia/Kolkata";
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
   # TODO: Fix this.
-  # inputs.nixpkgs.overlays = (inputs.nixpkgs.overlays or [])  ++ import ../Overlays;
-  # nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   nix = {
     gc = {

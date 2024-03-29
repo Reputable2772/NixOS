@@ -15,6 +15,8 @@
   imports = [
     ./Programs
     ./Services
+
+    ../../Modules/Home-Manager
   ];
 
   programs.home-manager.enable = true;
