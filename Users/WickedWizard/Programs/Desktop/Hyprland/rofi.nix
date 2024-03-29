@@ -3,7 +3,7 @@ let
   hyprland = config.wayland.windowManager.hyprland;
 in
 {
-  home.packages = lib.mkIf hyprland.enable [ pkgs.rofi ];
+  home.packages = lib.mkIf hyprland.enable [ pkgs.rofi-wayland ];
 
   home.file.rofi_theme = {
     enable = hyprland.enable;
@@ -27,6 +27,9 @@ in
     bind = [
       "SUPER, R, exec, rofi -show run"
       "SUPER, A, exec, rofi -show drun"
+    ];
+    layerrule = [
+      "blur,rofi"
     ];
   };
 }
