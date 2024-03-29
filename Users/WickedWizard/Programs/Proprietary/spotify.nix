@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 let
   inherit (inputs) spicetify-nix;
   spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
@@ -10,9 +10,11 @@ in
 
   programs.spicetify = {
     enable = true;
-    theme = spicePkgs.themes.Nord;
+    theme = spicePkgs.themes.catppuccin;
+    colorScheme = "mocha";
 
     enabledExtensions = with spicePkgs.extensions; [
+      autoVolume
       adblock
       fullAppDisplay
       hidePodcasts
@@ -20,5 +22,5 @@ in
     ];
   };
 
-  # xdg.configFile."autostart/spicetify.desktop".source = "${pkgs.spotify}/share/applications/spotify.desktop";
+  xdg.configFile."autostart/spicetify.desktop".source = "${pkgs.spotify}/share/applications/spotify.desktop";
 }
