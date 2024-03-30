@@ -1,5 +1,4 @@
 # Inspiration https://github.com/Srinath10X/catppuccin-waybar/
-{ config, pkgs, lib, ... }:
 let
   waybar = {
     exclusive = true;
@@ -9,7 +8,7 @@ let
     mod = "dock";
     passthrough = false;
     position = "top";
-    modules-left = [ "hyprland/workspaces" "privacy" ];
+    modules-left = [ "hyprland/workspaces" "privacy" "custom/pomodoro" ];
     modules-center = [ "mpris" "clock" "gamemode" ];
     modules-right = [ "tray" "wireplumber" "network" "bluetooth" "temperature" "backlight" "battery" ];
     "hyprland/workspaces" = {
@@ -42,6 +41,15 @@ let
         }
       ];
       transition-duration = 250;
+    };
+    "custom/pomodoro" = {
+      exec = "uairctl fetch '{name} - {time}'";
+      tooltip = false;
+      format = " {}";
+      on-click = "uairctl toggle";
+      on-click-middle = "uairctl prev";
+      on-click-right = "uairctl next";
+      interval = 1;
     };
     mpris = {
       format = "{player_icon} {title}";
@@ -174,12 +182,6 @@ let
       ];
       interval = 1;
     };
-    "custom/dunst" = {
-      exec = "~/.config/waybar/scripts/dunst.sh";
-      on-click = "dunstctl set-paused toggle";
-      restart-interval = 1;
-      return-type = "json";
-    };
     "hyprland/window" = {
       format = "{}";
     };
@@ -187,52 +189,52 @@ let
 
   waybar_css = ''
     * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-weight: bold;
-    font-size: 16px;
-    min-height: 0;
+      border: none;
+      border-radius: 0;
+      font-family: "JetBrainsMono Nerd Font";
+      font-weight: bold;
+      font-size: 16px;
+      min-height: 0;
     }
 
     window#waybar {
-    background: rgba(21, 18, 27, 0);
-    background: #1e1e2e;
-    color: #cdd6f4;
+      background: rgba(21, 18, 27, 0);
+      background: #1e1e2e;
+      color: #cdd6f4;
     }
 
     tooltip {
-    background: #1e1e2e;
-    border-radius: 10px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #11111b;
+      background: #1e1e2e;
+      border-radius: 10px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: #11111b;
     }
 
     #workspaces button {
-    padding: 5px;
-    color: #b4befe;
+      padding: 5px;
+      color: #b4befe;
     }
 
     #workspaces button.active {
-    color: #a6adc8;
-    color: #94e2d5;
+      color: #a6adc8;
+      color: #94e2d5;
     }
 
     #workspaces button.focused {
-    color: #a6adc8;
-    background: #eba0ac;
+      color: #a6adc8;
+      background: #eba0ac;
     }
 
     #workspaces button.urgent {
-    color: #11111b;
-    background: #a6e3a1;
-    border-radius: 10px;
+      color: #11111b;
+      background: #a6e3a1;
+      border-radius: 10px;
     }
 
     #workspaces button:hover {
-    background: #313244;
-    color: #cdd6f4;
+      background: #313244;
+      color: #cdd6f4;
     }
 
     #window,
@@ -246,131 +248,130 @@ let
     #workspaces,
     #tray,
     #mpris,
+    #custom-pomodoro,
     #wireplumber,
     #backlight,
     #gamemode,
-    #wireplumber.microphone,
-    #custom-launch_wofi {
-    background: #1e1e2e;
-    background: #313244;
-    opacity: 0.8;
-    padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-radius: 10px 10px 10px 10px;
-    border: 1px solid #181825;
+    #wireplumber.microphone {
+      background: #1e1e2e;
+      background: #313244;
+      opacity: 0.8;
+      padding: 0px 10px;
+      margin: 3px 0px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border-radius: 10px 10px 10px 10px;
+      border: 1px solid #181825;
     }
 
     #temperature.critical {
-    color: #eba0ac;
+      color: #eba0ac;
     }
 
     /* #privacy-item.screenshare,
-    #privacy-item.audio-in,
-    #privacy-item.audio-out {
-    border-radius: 0px;
-    border-left: none;
-    border-right: none;
-    } */
+        #privacy-item.audio-in,
+        #privacy-item.audio-out {
+        border-radius: 0px;
+        border-left: none;
+        border-right: none;
+        } */
 
     /* #tray {
-    border-radius: 10px;
-    margin-right: 15px;
-    } */
+        border-radius: 10px;
+        margin-right: 15px;
+        } */
 
     #workspaces {
-    background: #1e1e2e;
-    background: #313244;
-    border-radius: 15px;
-    margin-left: 10px;
-    padding-right: 0px;
-    padding-left: 5px;
+      background: #1e1e2e;
+      background: #313244;
+      border-radius: 15px;
+      margin-left: 10px;
+      padding-right: 0px;
+      padding-left: 5px;
     }
 
     #window {
-    border-radius: 15px;
-    margin-left: 40px;
-    margin-right: 40px;
+      border-radius: 15px;
+      margin-left: 40px;
+      margin-right: 40px;
     }
 
     #clock {
-    color: #fab387;
-    border-radius: 15px;
-    margin-right: 10px;
-    padding: 0 15px;
-    border-right: 0px;
+      color: #fab387;
+      border-radius: 15px;
+      margin-right: 10px;
+      padding: 0 15px;
+      border-right: 0px;
     }
 
     #network {
-    color: #f9e2af;
-    border-radius: 0px 15px 15px 0px;
-    border-left: 0px;
-    border-right: 0px;
-    padding-right: 17px;
-    margin-right: 10px;
+      color: #f9e2af;
+      border-radius: 0px 15px 15px 0px;
+      border-left: 0px;
+      border-right: 0px;
+      padding-right: 17px;
+      margin-right: 10px;
     }
 
-    #bluetooth, #gamemode, #backlight {
-    color: #89b4fa;
+    #bluetooth,
+    #gamemode,
+    #backlight {
+      color: #89b4fa;
     }
 
     #wireplumber {
-    color: #89b4fa;
-    /* border-left: 0px; */
-    /* border-right: 0px; */
-    /* padding-left: 17px; */
-    border-radius: 15px 15px 15px 15px;
+      color: #89b4fa;
+      /* border-left: 0px; */
+      /* border-right: 0px; */
+      /* padding-left: 17px; */
+      border-radius: 15px 15px 15px 15px;
     }
 
     #wireplumber.microphone {
-    color: #cba6f7;
-    /* border-left: 0px; */
-    /* border-right: 0px; */
-    border-radius: 15px 15px 15px 15px;
-    /* margin-right: 10px; */
+      color: #cba6f7;
+      /* border-left: 0px; */
+      /* border-right: 0px; */
+      border-radius: 15px 15px 15px 15px;
+      /* margin-right: 10px; */
     }
 
     #battery {
-    color: #a6e3a1;
-    /* border-radius: 10px; */
-    margin-right: 10px;
-    padding: 0 15px;
-    /* border-right: 0px; */
-    /* border-left: 0px; */
-    }
-
-    #custom-launch_wofi {
-    /* border-radius: 15px; */
-    color: #89b4fa;
-    /* margin-left: 10px; */
-    /* padding-right: 10px; */
-    /* padding-left: 15px; */
-    /* border-right: 0px; */
+      color: #a6e3a1;
+      /* border-radius: 10px; */
+      margin-right: 10px;
+      padding: 0 15px;
+      /* border-right: 0px; */
+      /* border-left: 0px; */
     }
   '';
-
-  hyprland = config.wayland.windowManager.hyprland;
 in
 {
-  home.packages = lib.mkIf (hyprland.enable) [ pkgs.waybar ];
 
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [
-      "${pkgs.waybar}/bin/waybar"
-    ];
+  programs.waybar = {
+    enable = true;
+    settings = {
+      mainBar = waybar;
+    };
+    style = waybar_css;
+    systemd.enable = true;
   };
 
-  xdg.configFile = {
-    waybar = {
-      enable = hyprland.enable;
-      target = "waybar/config";
-      text = builtins.toJSON waybar;
-    };
-    style = {
-      enable = hyprland.enable;
-      target = "waybar/style.css";
-      text = waybar_css;
-    };
-  };
+  # wayland.windowManager.hyprland.settings = {
+  #   exec-once = [
+  #     "${lib.getExe pkgs.waybar}"
+  #   ];
+  # };
+
+  # xdg.configFile = {
+  #   waybar = {
+  #     enable = hyprland.enable;
+  #     target = "waybar/config";
+  #     text = builtins.toJSON waybar;
+  #   };
+  #   style = {
+  #     enable = hyprland.enable;
+  #     target = "waybar/style.css";
+  #     text = waybar_css;
+  #   };
+  # };
 }
