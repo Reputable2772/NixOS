@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [
     copyq
     wl-clipboard
@@ -6,7 +6,7 @@
 
   wayland.windowManager.hyprland.settings = {
     exec-once = [
-      "${pkgs.copyq}/bin/copyq"
+      "${lib.getExe pkgs.copyq}"
     ];
     bind = [
       "SUPER, C, exec, copyq toggle"
