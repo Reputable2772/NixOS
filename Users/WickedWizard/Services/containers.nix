@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{
   systemd.user.services = {
     podman-login = {
       Service = {
