@@ -25,5 +25,5 @@
     };
   };
 
-  xdg.configFile."autostart/kitty.desktop".source = "${pkgs.kitty}/share/applications/kitty.desktop";
+  programs.autostart.autostartFiles = [ "${pkgs.kitty}/share/applications/kitty.desktop" ];
 }

@@ -3,5 +3,5 @@
     vesktop
   ];
 
-  # xdg.configFile."autostart/discord.desktop".source = "${pkgs.discord}/share/applications/discord.desktop";
+  # programs.autostart.autostartPackages = with pkgs; [ vesktop ];
 }

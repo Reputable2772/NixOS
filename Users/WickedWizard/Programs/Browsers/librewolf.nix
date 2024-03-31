@@ -9,5 +9,5 @@
     };
   };
 
-  # xdg.configFile."autostart/librewolf.desktop".source = "${pkgs.librewolf}/share/applications/librewolf.desktop";
+  # programs.autostart.autostartPackages = with pkgs; [ librewolf ];
 }

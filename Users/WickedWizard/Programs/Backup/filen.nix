@@ -1,7 +1,9 @@
 { pkgs, ... }:
-let filen = pkgs.callPackage ../../../../Packages/filen.nix { };
-in {
-  home.packages = with pkgs; [ filen ];
+let
+  filen = pkgs.callPackage ../../../../Packages/filen.nix { };
+in
+{
+  home.packages = [ filen ];
 
-  xdg.configFile."autostart/filen.desktop".text = "${filen}/share/applications/filen.desktop";
+  programs.autostart.autostartPackages = [ filen ];
 }

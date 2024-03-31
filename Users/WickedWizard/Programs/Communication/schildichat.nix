@@ -1,5 +1,5 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ schildichat-desktop ];
 
-  # xdg.configFile."autostart/schildichat.desktop".source = "${pkgs.schildichat-desktop}/share/applications/schildichat-desktop.desktop";
+  # programs.autostart.autostartPackages = with pkgs; [ schildichat-desktop ];
 }

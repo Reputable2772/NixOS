@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   home = {
     username = "wickedwizard";
     homeDirectory = "/home/wickedwizard";
@@ -20,4 +20,5 @@
   ];
 
   programs.home-manager.enable = true;
+  programs.autostart.enable = true;
 }

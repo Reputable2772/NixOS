@@ -22,5 +22,5 @@ in
     ];
   };
 
-  xdg.configFile."autostart/spicetify.desktop".source = "${pkgs.spotify}/share/applications/spotify.desktop";
+  programs.autostart.autostartPackages = with pkgs; [ spotify ];
 }

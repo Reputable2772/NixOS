@@ -11,14 +11,37 @@ in
     (bool cond gnome.pomodoro uair)
   ];
 
-  xdg.configFile.pomodoro = {
-    enable = true;
-    target = "autostart/pomodoro.desktop";
-    source = bool cond "${pkgs.gnome.pomodoro}/share/applications/org.gnome.Pomodoro.desktop" (pkgs.makeDesktopItem {
-      name = "Uair";
-      exec = "uair %u";
-      desktopName = "Uair";
-      categories = [ "Applications" ];
-    });
+  programs.autostart.autostartPackages = [
+    (bool cond pkgs.gnome.pomodoro (
+      pkgs.makeDesktopItem {
+        name = "Uair";
+        exec = "uair %u";
+        desktopName = "pomodoro";
+        categories = [ "Applications" ];
+      }
+    ))
+  ];
+
+  xdg.configFile = {
+    uair_config = {
+      enable = bool cond false true;
+      target = "uair/uair.toml";
+      text = ''
+        [defaults]
+        format = "{time}\n"
+
+        [[sessions]]
+        id = "work"
+        name = "Work"
+        duration = "45m"
+        command = "notify-send 'Work Done!'"
+
+        [[sessions]]
+        id = "rest"
+        name = "Rest"
+        duration = "5m"
+        command = "notify-send 'Rest Done!'"
+      '';
+    };
   };
 }

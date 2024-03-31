@@ -1,8 +1,8 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     joplin
     joplin-desktop
   ];
 
-  xdg.configFile."autostart/joplin-desktop.desktop".source = "${pkgs.joplin-desktop}/share/applications/@joplinapp-desktop.desktop";
+  programs.autostart.autostartPackages = with pkgs; [ joplin-desktop ];
 }

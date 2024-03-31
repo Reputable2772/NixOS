@@ -3,7 +3,7 @@ let
   firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix { };
 in
 {
-  home.packages = with pkgs; [ firefox-gnome-theme ];
+  home.packages = [ firefox-gnome-theme ];
   programs.firefox = {
     enable = true;
     profiles."default" = {
@@ -20,5 +20,5 @@ in
     };
   };
 
-  # xdg.configFile."autostart/firefox.desktop".source = "${pkgs.firefox}/share/applications/firefox.desktop";
+  # programs.autostart.autostartPackages = with pkgs; [ firefox ];
 }
