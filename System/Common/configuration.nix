@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ pkgs, inputs, ... }: {
   time.timeZone = "Asia/Kolkata";
 
   hardware.pulseaudio.enable = false;
@@ -21,5 +21,13 @@
   };
 
   system.stateVersion = "23.05";
+
+  # Fixes https://discourse.nixos.org/t/cve-2024-3094-malicious-code-in-xz-5-6-0-and-5-6-1-tarballs/42405
+  system.replaceRuntimeDependencies = [
+    {
+      original = pkgs.xz;
+      replacement = inputs.nixpkgs-staging-next.legacyPackages.${pkgs.system}.xz;
+    }
+  ];
 }
 

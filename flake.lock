@@ -177,6 +177,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-staging-next": {
+      "locked": {
+        "lastModified": 1711886467,
+        "narHash": "sha256-SlFKwR7nezdfq9RN8hjOgqGjfK21npRoyi4P0BmcZUw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b4bf622e464f47c69fefb43746c531044b630d59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "staging-next",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1684570954,
@@ -283,6 +299,7 @@
         "home-manager": "home-manager",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-staging-next": "nixpkgs-staging-next",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
         "spicetify-nix": "spicetify-nix"
