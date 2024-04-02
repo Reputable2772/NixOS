@@ -11,8 +11,6 @@
       in
       [
         # Applications
-        ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-        "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" \"tmp.png\" && tesseract-ocr \"tmp.png\" - | wl-copy && rm \"tmp.png\" && notify-send \"OCR copied!\""
         "SUPER, Return, exec, kitty"
         "SUPER, B, exec, librewolf"
         "SUPER, V, exec, firefox"

@@ -1,15 +1,16 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  hyprland = config.wayland.windowManager.hyprland.enable;
+in
 {
-  home.packages = (with pkgs; [ tesseract ]) ++ (if (config.wayland.windowManager.hyprland.enable) then
-    (with pkgs; [
-      grim
-      slurp
-      swappy
-    ])
-  else (with pkgs; [ flameshot ]));
+  home.packages = (with pkgs; [ tesseract ]) ++ (lib.optionals hyprland (with pkgs; [
+    grim
+    slurp
+    swappy
+  ]));
 
   services.flameshot = {
-    enable = !config.wayland.windowManager.hyprland.enable;
+    enable = !hyprland;
     settings = {
       General = {
         autoCloseIdleDaemon = true;
@@ -26,16 +27,27 @@
     };
   };
 
-  xdg.configFile."swappy/config".text = ''
-    [Default]
-    save_dir=$HOME/Pictures/Screenshots
-    save_filename_format=swappy-%Y%m%d-%H%M%S.png
-    show_panel=true
-    line_size=5
-    text_size=20
-    text_font=sans-serif
-    paint_mode=brush
-    early_exit=true
-    fill_shape=false
-  '';
+  xdg.configFile = {
+    swappy_config = {
+      enable = hyprland;
+      target = "swappy/config";
+      text = ''
+        [Default]
+        save_dir=$HOME/Pictures/Screenshots
+        save_filename_format=swappy-%Y%m%d-%H%M%S.png
+        show_panel=true
+        line_size=5
+        text_size=20
+        text_font=sans-serif
+        paint_mode=brush
+        early_exit=true
+        fill_shape=false
+      '';
+    };
+  };
+
+  wayland.windowManager.hyprland.settings.bind = [
+    ", Print, exec, grim -g $(slurp) - | swappy -f -"
+    "SUPER SHIFT, Print, exec, grim -g $(slurp) /tmp/tmp.png && tesseract -l eng /tmp/tmp.png - | wl-copy && rm /tmp/tmp.png && notify-send \"OCR copied!\""
+  ];
 }
