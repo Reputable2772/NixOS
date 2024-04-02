@@ -18,4 +18,12 @@ in
     enable = config.wayland.windowManager.hyprland.enable;
     settings = (fromINI file) // { };
   };
+
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "CTRL SUPER, N, exec, dunstctl close-all"
+      "SUPER, N, exec, dunstctl history-pop"
+      "CTRL SUPER, D, exec, dunstctl set-paused toggle"
+    ];
+  };
 }
