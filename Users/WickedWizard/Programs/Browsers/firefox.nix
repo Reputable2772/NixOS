@@ -21,4 +21,8 @@ in
   };
 
   # programs.autostart.autostartPackages = with pkgs; [ firefox ];
+
+  wayland.windowManager.hyprland.settings.bind = [
+    "SUPER, V, exec, firefox"
+  ];
 }

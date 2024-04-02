@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   programs.librewolf = {
     enable = true;
     settings = {
@@ -10,4 +10,8 @@
   };
 
   # programs.autostart.autostartPackages = with pkgs; [ librewolf ];
+
+  wayland.windowManager.hyprland.settings.bind = [
+    "SUPER, B, exec, librewolf"
+  ];
 }

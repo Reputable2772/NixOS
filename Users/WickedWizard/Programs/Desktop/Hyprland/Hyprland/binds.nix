@@ -11,9 +11,6 @@
       in
       [
         # Applications
-        "SUPER, Return, exec, kitty"
-        "SUPER, B, exec, librewolf"
-        "SUPER, V, exec, firefox"
         "SUPER, E, exec, thunar"
 
         # Focus Shift
