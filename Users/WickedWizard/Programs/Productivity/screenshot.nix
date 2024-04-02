@@ -47,7 +47,7 @@ in
   };
 
   wayland.windowManager.hyprland.settings.bind = [
-    ", Print, exec, grim -g $(slurp) - | swappy -f -"
+    ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
     "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" /tmp/tmp.png && tesseract -l eng /tmp/tmp.png - | wl-copy && rm /tmp/tmp.png && notify-send \"OCR copied!\""
   ];
 }
