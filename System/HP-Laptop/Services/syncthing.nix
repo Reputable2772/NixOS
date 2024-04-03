@@ -2,8 +2,10 @@
 
 { config, ... }:
 let
-  defaultConfig = {
-    devices = [ "Redmi S2" ];
+  documents = "${config.users.users.wickedwizard.home}/Documents";
+  conf = path: {
+    inherit path;
+    devices = [ "default" ];
     versioning = {
       type = "trashcan";
       params.cleanoutDays = "1000";
@@ -15,40 +17,23 @@ in
     enable = true;
     user = "wickedwizard";
     systemService = true;
-    dataDir = "${config.users.users.wickedwizard.home}/Documents/Config/Syncthing/data";
-    configDir = "${config.users.users.wickedwizard.home}/Documents/Config/Syncthing";
+    dataDir = "${documents}/Config/Syncthing/data";
+    configDir = "${documents}/Config/Syncthing";
     settings = {
-      devices = {
-        "Redmi S2" = { id = "FVKBTJS-3KMPR7D-2CXVBPR-F5HUD5E-7E2KJAT-ZABMG6E-4RK3CK6-H5OOMQP"; };
+      devices = rec {
+        Redmi = { id = "FVKBTJS-3KMPR7D-2CXVBPR-F5HUD5E-7E2KJAT-ZABMG6E-4RK3CK6-H5OOMQP"; };
+        default = Redmi;
       };
       folders = {
-        "Backups" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Android/Backups";
-        } // defaultConfig;
-        "Books" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Books";
-        } // defaultConfig;
-        "Captures" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Android/Captures";
-        } // defaultConfig;
-        "Important Files" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Important-Files";
-        } // defaultConfig;
-        "Joplin" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Joplin";
-        } // defaultConfig;
-        "Magisk" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Android/Magisk";
-        } // defaultConfig;
-        "Pictures" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Photos/Phone";
-        } // defaultConfig;
-        "Study Materials" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Study Materials";
-        } // defaultConfig;
-        "Tasker" = {
-          path = "${config.users.users.wickedwizard.home}/Documents/Android/Tasker";
-        } // defaultConfig;
+        "Backups" = conf "${documents}/Android/Backups";
+        "Captures" = conf "${documents}/Android/Captures";
+        "Magisk" = conf "${documents}/Android/Magisk";
+        "Tasker" = conf "${documents}/Android/Tasker";
+        "Books" = conf "${documents}/Books";
+        "Important Files" = conf "${documents}/Important-Files";
+        "Joplin" = conf "${documents}/Joplin";
+        "Pictures" = conf "${documents}/Photos/Phone";
+        "Study Materials" = conf "${documents}/Study Materials";
       };
     };
   };
