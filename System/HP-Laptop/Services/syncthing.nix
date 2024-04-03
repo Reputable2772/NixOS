@@ -26,7 +26,6 @@ in
       };
       folders = {
         "Backups" = conf "${documents}/Android/Backups";
-        "Captures" = conf "${documents}/Android/Captures";
         "Magisk" = conf "${documents}/Android/Magisk";
         "Tasker" = conf "${documents}/Android/Tasker";
         "Books" = conf "${documents}/Books";
