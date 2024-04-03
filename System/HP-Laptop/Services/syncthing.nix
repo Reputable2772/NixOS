@@ -30,7 +30,6 @@ in
         "Books" = conf "${documents}/Books";
         "Important Files" = conf "${documents}/Important-Files";
         "Joplin" = conf "${documents}/Joplin";
-        "Pictures" = conf "${documents}/Photos/Phone";
         "Study Materials" = conf "${documents}/Study Materials";
       };
     };
