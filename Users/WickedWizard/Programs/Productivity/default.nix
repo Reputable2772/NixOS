@@ -6,5 +6,6 @@
     ./newsflash.nix
     ./pomodoro.nix
     ./screenshot.nix
+    ./thunderbird.nix
   ];
 }
