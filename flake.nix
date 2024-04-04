@@ -42,6 +42,11 @@
         };
       };
       devShells.${system}.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          curl
+          jq
+          hydra-check
+        ];
         shellHook = pkgs.lib.strings.concatStrings [
           # Fixes https://github.com/direnv/direnv/issues/73
           # "export_alias codium 'codium --profile Nix $@'"

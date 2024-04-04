@@ -84,6 +84,22 @@ format() {
 	nix fmt
 }
 
+last_unbroken() {
+	# Taken from here # https://discourse.nixos.org/t/how-to-get-the-latest-unbroken-commit-for-a-broken-package-from-hydra/26354
+
+	package=$1
+	hydraURL=$(hydra-check --json "$package" | jq ".\"$package\" | .[0].build_url" -r)
+
+	echo "Hydra URL: $hydraURL"
+
+	evalID=$(curl -sH 'Accept: application/json' "$hydraURL" | jq '.jobsetevals | .[0]')
+	eval=$(curl -sH 'Accept: application/json' https://hydra.nixos.org/eval/"$evalID")
+	rev=$(echo "$eval" | jq '.jobsetevalinputs.nixpkgs.revision')
+	evalDate=$(date --date @"$(echo "$eval" | jq '.timestamp')")
+
+	echo "Last working Nixpkgs Revision: $rev, evaluated at $evalDate"
+}
+
 case $1 in
 	"build")
 		build;;
@@ -101,6 +117,8 @@ case $1 in
 		format;;
 	"why-depends")
 		depends $2;;
+	"last-unbroken")
+		last_unbroken $2;;
 	*)
-    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format' or 'why-depends'";;
+    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'why-depends' or 'last-unbroken'";;
 esac
