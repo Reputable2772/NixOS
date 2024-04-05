@@ -12,4 +12,6 @@
     StartWithLastProfile=1
     Version=2
   '';
+
+  programs.autostart.autostartPackages = with pkgs; [ thunderbird ];
 }
