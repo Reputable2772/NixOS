@@ -1,11 +1,11 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [ thunderbird ];
 
   home.file.".thunderbird/profiles.ini".text = ''
     [Profile0]
     Name=Thunderbird
     IsRelative=0
-    Path=/home/wickedwizard/Documents/Browsers/Thunderbird
+    Path=${config.home.homeDirectory}/Documents/Browsers/Thunderbird
     Default=1
 
     [General]
