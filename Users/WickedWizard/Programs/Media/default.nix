@@ -1,7 +1,6 @@
 {
   imports = [
     ./calibre.nix
-    # ./kodi.nix
     ./loupe.nix
     ./obs-studio.nix
     ./playerctl.nix
