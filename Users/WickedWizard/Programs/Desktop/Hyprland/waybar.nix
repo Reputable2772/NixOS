@@ -1,4 +1,5 @@
 # Inspiration https://github.com/Srinath10X/catppuccin-waybar/
+{ lib, pkgs, ... }:
 let
   waybar = {
     exclusive = true;
@@ -353,14 +354,16 @@ in
       mainBar = waybar;
     };
     style = waybar_css;
-    systemd.enable = true;
+
+    # Fixes https://github.com/nix-community/home-manager/issues/3599
+    systemd.enable = false;
   };
 
-  # wayland.windowManager.hyprland.settings = {
-  #   exec-once = [
-  #     "${lib.getExe pkgs.waybar}"
-  #   ];
-  # };
+  wayland.windowManager.hyprland.settings = {
+    exec-once = [
+      "${lib.getExe pkgs.waybar}"
+    ];
+  };
 
   # xdg.configFile = {
   #   waybar = {
