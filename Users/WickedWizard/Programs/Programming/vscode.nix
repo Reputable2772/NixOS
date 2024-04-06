@@ -26,6 +26,7 @@
       "workbench.colorTheme" = "Nord";
       "workbench.iconTheme" = "material-icon-theme";
       "diffEditor.ignoreTrimWhitespace" = false;
+      "editor.formatOnSave" = true;
     };
   };
 
