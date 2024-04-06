@@ -1,10 +1,4 @@
 { config, ... }: {
-  home = {
-    username = "wickedwizard";
-    homeDirectory = "/home/wickedwizard";
-    stateVersion = "23.05";
-  };
-
   # Shell script added for this purpose
   xdg.configFile.mimeapps = {
     enable = true;

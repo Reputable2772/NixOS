@@ -28,20 +28,35 @@ in
     shell = pkgs.zsh;
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users = {
-      wickedwizard = {
-        imports = [
-          ../../Users/WickedWizard/home.nix
-        ];
+  home-manager =
+    let
+      homeDir = h: "/home/${h}";
+    in
+    {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      users = {
+        wickedwizard =
+          let
+            home = "wickedwizard";
+          in
+          {
+            imports = [
+              ../../Users/WickedWizard/home.nix
+              {
+                home = {
+                  username = home;
+                  homeDirectory = homeDir home;
+                  stateVersion = "23.05";
+                };
+              }
+            ];
+          };
+      };
+      extraSpecialArgs = {
+        inherit inputs;
       };
     };
-    extraSpecialArgs = {
-      inherit inputs;
-    };
-  };
 
   imports = [
     nur.nixosModules.nur
