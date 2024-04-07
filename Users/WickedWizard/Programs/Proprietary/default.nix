@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{
   imports = [
     ./beeper.nix
     ./discord.nix

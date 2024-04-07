@@ -1,8 +1,8 @@
 {
   description = "Nix Flakes for my System.";
   inputs = {
-    home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
