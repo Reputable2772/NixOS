@@ -3,14 +3,6 @@ let
   inherit (inputs) nur home-manager nixpkgs;
 in
 {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "beeper"
-    "discord"
-    "spotify"
-    "steam"
-    "steam-original"
-    "steam-run"
-  ];
   nixpkgs.overlays = [ nur.overlay ] ++ import ../../Overlays;
   nix.registry.nixpkgs.flake = nixpkgs;
 

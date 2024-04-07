@@ -5,5 +5,6 @@
     ./hyprland.nix
     ./insecure.nix
     ./packages.nix
+    ./unfree.nix
   ];
 }
