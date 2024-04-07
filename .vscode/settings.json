@@ -56,7 +56,7 @@
 					//
 					// Type: boolean
 					// Example: true
-					"autoEvalInputs": true,
+					"autoEvalInputs": false,
 					// The input name of nixpkgs for NixOS options evaluation.
 					//
 					// The options hierarchy is used to improve completion, but may cost
