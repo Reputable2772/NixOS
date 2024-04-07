@@ -7,7 +7,6 @@
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nixpkgs-staging-next.url = "github:NixOS/nixpkgs/staging-next";
   };
 
   nixConfig = {
