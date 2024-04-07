@@ -2,7 +2,6 @@
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-
       # neofetch --config $HOME/Documents/Config/neofetch.conf
     '';
     shellAliases = {
