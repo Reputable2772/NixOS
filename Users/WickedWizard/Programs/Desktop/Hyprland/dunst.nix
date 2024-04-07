@@ -9,8 +9,8 @@ let
     in
     builtins.fromJSON (builtins.readFile iniFile);
   file = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/dunst/main/src/mocha.conf";
-    hash = "sha256-JsZnAcalL8SeQSazWhbVLtSrcFWWsa9fPOG8PPenzVU=";
+    url = "https://raw.githubusercontent.com/catppuccin/dunst/main/themes/mocha.conf";
+    hash = "sha256-7bejAIpueES8pwyiyY0RcMJwaFkTBf1G1RR1EhHqvig=";
   };
 in
 {
