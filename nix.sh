@@ -76,7 +76,7 @@ dconf_nix() {
 
 depends() {
 	echo "The nix derivation depends on $1 because: "
-	NIXPKGS_ALLOW_INSECURE=1 nix why-depends --impure --derivation .#nixosConfigurations.$(hostname).config.system.build.toplevel .#nixosConfigurations.$(hostname).pkgs.$1
+	NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNFREE=1 nix why-depends --impure --derivation .#nixosConfigurations.$(hostname).config.system.build.toplevel .#nixosConfigurations.$(hostname).pkgs.$1
 }
 
 format() {
@@ -120,5 +120,5 @@ case $1 in
 	"last-unbroken")
 		last_unbroken $2;;
 	*)
-    echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'why-depends' or 'last-unbroken'";;
+		echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'why-depends' or 'last-unbroken'";;
 esac
