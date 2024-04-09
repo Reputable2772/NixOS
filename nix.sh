@@ -39,11 +39,6 @@ ci() {
 		NIXPKGS_ALLOW_UNFREE=1 nix-build -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; $(basename -s ".nix" $overlay)"
 	done
 
-	# Only temporary, a permanent solution is required.
-	for package in $(grep -oP '"\K[^"\047]+(?=["\047])' ./System/HP-Laptop/Packages/unfree.nix); do
-		NIXPKGS_ALLOW_UNFREE=1 nix-build -E "with import <nixpkgs> {}; $package"
-	done
-
 	mv ./Overlays/default.nix.test ./Overlays/default.nix
 }
 
