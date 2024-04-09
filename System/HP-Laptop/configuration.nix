@@ -1,9 +1,9 @@
 { pkgs, inputs, ... }:
 let
-  inherit (inputs) nur home-manager nixpkgs;
+  inherit (inputs) nur home-manager nixpkgs nixpkgs-wayland;
 in
 {
-  nixpkgs.overlays = [ nur.overlay ] ++ import ../../Overlays;
+  nixpkgs.overlays = [ nur.overlay nixpkgs-wayland.overlay ] ++ import ../../Overlays;
   nix.registry.nixpkgs.flake = nixpkgs;
 
   # Needs to be set here or else shell won't work
