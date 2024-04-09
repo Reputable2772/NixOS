@@ -11,9 +11,9 @@
     ./Misc
     ./Productivity
     ./Programming
-    ./Proprietary
     ./Selfhosted
     ./Shell
+    ./Unfree
     ./Utilities
   ];
 }
