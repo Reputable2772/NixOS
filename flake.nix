@@ -61,6 +61,7 @@
             src = ./.;
             hooks = {
               nixpkgs-fmt.enable = true;
+              commitizen.enable = true;
             };
           }).shellHook
         ];
