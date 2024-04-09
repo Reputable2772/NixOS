@@ -1,3 +1,0 @@
-{
-  services.opensnitch.enable = true;
-}
