@@ -11,7 +11,7 @@ build() {
 	fi
 
 	echo "Builiding"
-	sudo nixos-rebuild switch --flake .#$(hostname)
+	sudo nixos-rebuild switch --flake .
 }
 
 changelog() {

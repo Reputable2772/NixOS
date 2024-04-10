@@ -1,7 +1,7 @@
 { config, lib, ... }: {
   system.autoUpgrade = {
     enable = true;
-    flake = "\"$(readlink -f /etc/nixos)#$(hostname)\"";
+    flake = "\"$(readlink -f /etc/nixos)\"";
     flags = [
       "-L"
     ];
