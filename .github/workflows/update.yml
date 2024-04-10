@@ -23,10 +23,10 @@ jobs:
     - uses: DeterminateSystems/magic-nix-cache-action@v2
 
     - name: "Update Nix Flake"
-      run: nix flake update
+      run: nix flake update --accept-flake-config
 
     - name: "Build Packages"
-      run: nixos-rebuild build --flake .#hp-laptop
+      run: nixos-rebuild build --accept-flake-config --flake .#hp-laptop
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
