@@ -25,21 +25,23 @@ check() {
 }
 
 ci() {
-	sudo rm -rf /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
+	# large docker images
+    sudo docker image prune --all --force
 
-	for package in ./Packages/*.nix; do
-		NIXPKGS_ALLOW_UNFREE=1 nix-build -E "with import <nixpkgs> {}; callPackage $package {}"
+	# large packages
+	sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-cloud-cli google-chrome-stable firefox powershell microsoft-edge-stable
+    sudo apt-get autoremove -y
+    sudo apt-get clean
+
+	# large folders
+    sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
+
+	flake_info=$(nix flake show --json)
+
+	for pc in $(echo $flake_info | jq '.nixosConfigurations | keys[]'); do
+		echo "Building PC: $pc"
+		nix build .#nixosConfigurations."$pc".config.system.build.toplevel --accept-flake-config
 	done
-
-	mv ./Overlays/default.nix ./Overlays/default.nix.test
-
-	echo "Nix Path: $NIX_PATH"
-
-	for overlay in ./Overlays/*.nix; do
-		NIXPKGS_ALLOW_UNFREE=1 nix-build -I "$NIX_PATH:nixpkgs-overlays=$PWD/Overlays" -E "with import <nixpkgs> {}; $(basename -s ".nix" $overlay)"
-	done
-
-	mv ./Overlays/default.nix.test ./Overlays/default.nix
 }
 
 clean() {

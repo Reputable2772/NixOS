@@ -1,8 +1,8 @@
-name: "Packages"
+name: "Flake Update"
 
 on:
-  pull_request:
   push:
+  pull_request:
 
 jobs:
   build-system:
@@ -16,10 +16,8 @@ jobs:
       with:
         nix_path: nixpkgs=channel:nixos-unstable
 
-    - uses: DeterminateSystems/magic-nix-cache-action@v2
-
     - name: "Build Packages"
-      run: bash ./nix.sh ci
+      run: ./nix.sh ci
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
