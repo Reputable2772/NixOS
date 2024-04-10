@@ -84,6 +84,23 @@ format() {
 	nix fmt
 }
 
+first_time_setup() {
+	if [ "$PWD" = "/etc/nixos" ]; then
+		echo "Setup completed."
+		exit
+	fi
+
+	echo "Symlinking current directory to /etc/nixos will completely remove all the config in /etc/nixos irrecoverably. This is needed for autoUpgrade functionality."
+	echo "Hit enter to continue, or Ctrl + C to exit"
+
+	read
+
+	sudo rm -rf /etc/nixos
+	sudo ln -s "$PWD" /etc/nixos
+
+	echo "Setup completed."
+}
+
 last_unbroken() {
 	# Taken from here # https://discourse.nixos.org/t/how-to-get-the-latest-unbroken-commit-for-a-broken-package-from-hydra/26354
 
@@ -115,10 +132,12 @@ case $1 in
 		dconf_nix;;
 	"format")
 		format;;
+	"first-time-setup")
+		first_time_setup;;
 	"why-depends")
 		depends $2;;
 	"last-unbroken")
 		last_unbroken $2;;
 	*)
-		echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'why-depends' or 'last-unbroken'";;
+		echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'first-time-setup', 'why-depends' or 'last-unbroken'";;
 esac
