@@ -1,4 +1,4 @@
-name: "Flake Update"
+name: "Flake Build"
 
 on:
   push:
