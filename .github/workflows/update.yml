@@ -9,10 +9,10 @@ jobs:
   build-system:
     runs-on: ubuntu-latest
     steps:
-    - uses: easimon/maximize-build-space@v10
-      with:
-        build-mount-path: '/nix'
-        root-reserve-mb: '10240'
+    # - uses: easimon/maximize-build-space@v10
+    #   with:
+    #     build-mount-path: '/nix'
+    #     root-reserve-mb: '10240'
 
     - name: "Checkout"
       uses: actions/checkout@v3
