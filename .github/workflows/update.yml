@@ -9,6 +9,9 @@ jobs:
   build-system:
     runs-on: ubuntu-latest
     steps:
+    - name: "Free up space"
+      uses: easimon/maximize-build-space@master
+
     - name: "Checkout"
       uses: actions/checkout@v3
 
@@ -23,7 +26,7 @@ jobs:
       run: nix flake update
 
     - name: "Build Packages"
-      run: bash ./nix.sh ci
+      run: nixos-rebuild build --flake .#hp-laptop
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
