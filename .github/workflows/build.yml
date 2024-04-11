@@ -19,6 +19,12 @@ jobs:
     - name: "Build Packages"
       run: ./nix.sh ci
 
+    - name: "List Hashes"
+      run: bash cat hashes.txt
+
+    - name: "List Build"
+      run: bash cat build.txt
+
     - name: "Cachix"
       uses: cachix/cachix-action@v12
       with:
