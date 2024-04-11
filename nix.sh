@@ -66,18 +66,17 @@ ci() {
 		for outPath in $(cat $file | jq '.[].env.out'); do
 			hash=$(echo $outPath | cut -d'/' -f4 | cut -d'-' -f1)
 			if ! check $hash; then
-				name=$(echo $outPath | cut -d'/' -f4 | cut -d'-' -f2)
-				echo "No cache found for package: $name"
+				echo "No cache found for package: $outPath"
 
 				for drv in $(cat $file | jq ".[] | select(.env.out == "$outPath") | .inputDrvs | keys[]"); do
 					drv_hash=$(echo $drv | cut -d'/' -f4 | cut -d'-' -f1)
 					if ! check $drv_hash; then
+						echo "Adding inputDrv: $drv"
 						echo "$drv" >> build.txt
 					else
 						echo "$drv_hash" >> hashes.txt
 					fi
 				done
-
 			else
 				echo "$hash" >> hashes.txt
 			fi
@@ -85,8 +84,9 @@ ci() {
 	done
 
 	while read line; do
-		echo $line
-	done < bulid.txt
+		echo "Building $line"
+		nix-build $line
+	done < build.txt
 }
 
 clean() {
