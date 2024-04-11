@@ -36,11 +36,6 @@ ci() {
 	# large folders
     sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
 
-	# TODO: Loop over all the derivations, check the ones that are in cache.
-	# If not in cache, loop over its inputDrvs, and check if they are in cache and build them.
-	# Make sure to add the already cache checked paths to a file so that we don't end up spamming
-	# cache/Cachix unnecessarily.
-
 	for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
 		nix derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$pc.json"
 	done
@@ -51,12 +46,19 @@ ci() {
 			return 0
 		fi
 
-		cache=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "https://cache.nixos.org/$1.narinfo")
-		if [[ $cache != "200" ]]; then
-			return 1
-		fi
+		caches=("https://cache.nixos.org" "https://nix-community.cachix.org" "https://numtide.cachix.org" "https://nixpkgs-wayland.cachix.org" "https://spearman4157.cachix.org")
+		val=1
 
-		return 0
+		for cache in "${caches[@]}"; do
+			exists=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "$cache/$1.narinfo")
+			if [ "$exists" == "200" ]; then
+				val=0
+				echo "$1" >> hashes.txt
+				break
+			fi
+		done
+
+		return $val
 	}
 
 	for file in derivations-*.json; do
@@ -70,12 +72,8 @@ ci() {
 					if ! check $drv_hash; then
 						echo "Adding inputDrv: $drv"
 						echo "$drv" >> build.txt
-					else
-						echo "$drv_hash" >> hashes.txt
 					fi
 				done
-			else
-				echo "$hash" >> hashes.txt
 			fi
 		done
 	done
