@@ -18,14 +18,23 @@ jobs:
 
     - uses: DeterminateSystems/magic-nix-cache-action@main
 
+    - name: "Initial Space"
+      run: sudo df -h
+
     - name: "Build Packages"
       run: ./nix.sh ci
 
     - name: "List Hashes"
       run: bash cat hashes.txt
+      if: ${{ always() }}
 
     - name: "List Build"
       run: bash cat build.txt
+      if: ${{ always() }}
+
+    - name: "Initial Space"
+      run: sudo df -h
+      if: ${{ always() }}
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12

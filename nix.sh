@@ -40,6 +40,9 @@ ci() {
 		nix derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$pc.json"
 	done
 
+	touch hashes.txt
+	touch builds.txt
+
 	check() {
 		# outPath is $1
 		if [ -d "$1" ]; then
@@ -66,23 +69,30 @@ ci() {
 		return $val
 	}
 
+	loop() {
+		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
+		if ! check $hash; then
+			echo "No cache found for package: $1"
+
+			for drv in $(cat $file | jq ".[] | select(.env.out == "$1") | .inputDrvs | keys[]"); do
+				drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
+				if ! check $drv_hash; then
+					echo "Adding inputDrv: $drv"
+					echo "$drv" >> build.txt
+				fi
+			done
+		fi
+	}
+
 	for file in derivations-*.json; do
 		for outPath in $(cat $file | jq '.[].env.out'); do
-			hash=$(echo $outPath | cut -d'/' -f4 | cut -d'-' -f1)
-			if ! check $hash; then
-				echo "No cache found for package: $outPath"
-
-				for drv in $(cat $file | jq ".[] | select(.env.out == "$outPath") | .inputDrvs | keys[]"); do
-					drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
-					if ! check $drv_hash; then
-						echo "Adding inputDrv: $drv"
-						echo "$drv" >> build.txt
-					fi
-				done
-			fi
+			loop $outPath &
 		done
 	done
 
+	wait
+
+	echo "Done"
 	nix-build $(cat build.txt | tr '\n' ' ' | tr -d '"')
 }
 
