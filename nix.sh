@@ -95,7 +95,7 @@ ci() {
 
 	export -f main_loop
 	export -f drv_loop
-	export -f check
+	export -f check_cache
 
 	for file in derivations-*.json; do
 		export file
