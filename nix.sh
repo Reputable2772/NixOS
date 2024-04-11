@@ -44,7 +44,7 @@ ci() {
 	touch builds.txt
 
 	check() {
-		outPath is $1
+		# outPath is $1
 		if [ -d "$1" ]; then
 			return 0
 		fi
