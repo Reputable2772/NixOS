@@ -41,8 +41,13 @@ ci() {
 	done
 
 	check() {
-		# Hash is $1
-		if grep -Fxq "$1" hashes.txt; then
+		# outPath is $1
+		if [ -d "$1" ]; then
+			return 0
+		fi
+
+		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
+		if grep -Fxq "$hash" hashes.txt; then
 			return 0
 		fi
 
@@ -50,10 +55,10 @@ ci() {
 		val=1
 
 		for cache in "${caches[@]}"; do
-			exists=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "$cache/$1.narinfo")
+			exists=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "$cache/$hash.narinfo")
 			if [ "$exists" == "200" ]; then
 				val=0
-				echo "$1" >> hashes.txt
+				echo "$hash" >> hashes.txt
 				break
 			fi
 		done
