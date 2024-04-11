@@ -88,9 +88,7 @@ ci() {
 	export -f check
 
 	for file in derivations-*.json; do
-		for outPath in $(cat $file | jq '.[].env.out'); do
-			parallel --keep-order loop ::: $outPath
-		done
+		(cat $file | jq '.[].env.out') | parallel loop
 	done
 
 	wait
