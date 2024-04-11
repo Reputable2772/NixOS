@@ -25,29 +25,29 @@ check() {
 }
 
 ci() {
-	# large docker images
-    sudo docker image prune --all --force
+	# # large docker images
+    # sudo docker image prune --all --force
 
-	# large packages
-	sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-cloud-cli google-chrome-stable firefox powershell microsoft-edge-stable
-    sudo apt-get autoremove -y
-    sudo apt-get clean
+	# # large packages
+	# sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-cloud-cli google-chrome-stable firefox powershell microsoft-edge-stable
+    # sudo apt-get autoremove -y
+    # sudo apt-get clean
 
-	# large folders
-    sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
+	# # large folders
+    # sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
 
-	for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
-		nix --accept-flake-config derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$(echo $pc | tr -d '"').json"
-	done
+	# for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
+	# 	nix --accept-flake-config derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$(echo $pc | tr -d '"').json"
+	# done
 
-	touch hashes.txt
-	touch builds.txt
+	# touch hashes.txt
+	# touch builds.txt
 
 	check() {
 		# outPath is $1
-		if [ -d "$1" ]; then
-			return 0
-		fi
+		# if [ -d "$1" ]; then
+		# 	return 0
+		# fi
 
 		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
 		if grep -Fxq "$hash" hashes.txt; then
@@ -88,6 +88,7 @@ ci() {
 	export -f check
 
 	for file in derivations-*.json; do
+		export file
 		(cat $file | jq '.[].env.out') | parallel loop
 	done
 
