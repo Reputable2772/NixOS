@@ -94,9 +94,9 @@ ci() {
 	wait
 	echo "Done"
 
-	ls
+	cat builds.txt | tr '\n' ' ' | tr -d '"' > escaped-builds.txt
 
-	nix-build $(cat builds.txt | tr '\n' ' ' | tr -d '"')
+	nix-build $(cat escaped-builds.txt)
 }
 
 clean() {
