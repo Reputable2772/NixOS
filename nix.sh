@@ -78,7 +78,7 @@ ci() {
 				drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
 				if ! check $drv_hash; then
 					echo "Adding inputDrv: $drv"
-					echo "$drv" >> build.txt
+					echo "$drv" >> builds.txt
 				fi
 			done
 		fi
@@ -94,7 +94,9 @@ ci() {
 	wait
 	echo "Done"
 
-	nix-build $(cat build.txt | tr '\n' ' ' | tr -d '"')
+	ls
+
+	nix-build $(cat builds.txt | tr '\n' ' ' | tr -d '"')
 }
 
 clean() {
