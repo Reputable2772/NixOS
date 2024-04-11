@@ -84,15 +84,17 @@ ci() {
 		fi
 	}
 
+	N=15
 	for file in derivations-*.json; do
 		for outPath in $(cat $file | jq '.[].env.out'); do
+			((i=i%N)); ((i++==0)) && wait
 			loop $outPath &
 		done
 	done
 
+	echo "Done"
 	wait
 
-	echo "Done"
 	nix-build $(cat build.txt | tr '\n' ' ' | tr -d '"')
 }
 
