@@ -37,10 +37,13 @@ ci() {
     sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
 
 	# TODO: Loop over all the derivations, check the ones that are in cache.
-	# If not in cache, loop over its inputDrvs and build them.
-	# Do this recursively till the bottom level of the chain.
+	# If not in cache, loop over its inputDrvs, and check if they are in cache and build them.
 	# Make sure to add the already cache checked paths to a file so that we don't end up spamming
 	# cache/Cachix unnecessarily.
+
+	for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
+		nix derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$pc.json"
+	done
 
 	check() {
 		# Hash is $1
@@ -56,12 +59,6 @@ ci() {
 		return 0
 	}
 
-	rm -rf hashes.txt derivations-*.json build.txt
-
-	for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
-		nix derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$pc.json"
-	done
-
 	for file in derivations-*.json; do
 		for outPath in $(cat $file | jq '.[].env.out'); do
 			hash=$(echo $outPath | cut -d'/' -f4 | cut -d'-' -f1)
@@ -69,7 +66,7 @@ ci() {
 				echo "No cache found for package: $outPath"
 
 				for drv in $(cat $file | jq ".[] | select(.env.out == "$outPath") | .inputDrvs | keys[]"); do
-					drv_hash=$(echo $drv | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
+					drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
 					if ! check $drv_hash; then
 						echo "Adding inputDrv: $drv"
 						echo "$drv" >> build.txt
