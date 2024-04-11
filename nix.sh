@@ -69,7 +69,7 @@ ci() {
 				echo "No cache found for package: $outPath"
 
 				for drv in $(cat $file | jq ".[] | select(.env.out == "$outPath") | .inputDrvs | keys[]"); do
-					drv_hash=$(echo $drv | cut -d'/' -f4 | cut -d'-' -f1)
+					drv_hash=$(echo $drv | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
 					if ! check $drv_hash; then
 						echo "Adding inputDrv: $drv"
 						echo "$drv" >> build.txt
