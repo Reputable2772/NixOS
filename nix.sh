@@ -36,12 +36,57 @@ ci() {
 	# large folders
     sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
 
-	flake_info=$(nix flake show --json)
+	# TODO: Loop over all the derivations, check the ones that are in cache.
+	# If not in cache, loop over its inputDrvs and build them.
+	# Do this recursively till the bottom level of the chain.
+	# Make sure to add the already cache checked paths to a file so that we don't end up spamming
+	# cache/Cachix unnecessarily.
 
-	for pc in $(echo $flake_info | jq '.nixosConfigurations | keys[]'); do
-		echo "Building PC: $pc"
-		nix build .#nixosConfigurations."$pc".config.system.build.toplevel --accept-flake-config
+	check() {
+		# Hash is $1
+		if grep -Fxq "$1" hashes.txt; then
+			return 0
+		fi
+
+		cache=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "https://cache.nixos.org/$1.narinfo")
+		if [[ $cache != "200" ]]; then
+			return 1
+		fi
+
+		return 0
+	}
+
+	rm -rf hashes.txt derivations-*.json build.txt
+
+	for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
+		nix derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$pc.json"
 	done
+
+	for file in derivations-*.json; do
+		for outPath in $(cat $file | jq '.[].env.out'); do
+			hash=$(echo $outPath | cut -d'/' -f4 | cut -d'-' -f1)
+			if ! check $hash; then
+				name=$(echo $outPath | cut -d'/' -f4 | cut -d'-' -f2)
+				echo "No cache found for package: $name"
+
+				for drv in $(cat $file | jq ".[] | select(.env.out == "$outPath") | .inputDrvs | keys[]"); do
+					drv_hash=$(echo $drv | cut -d'/' -f4 | cut -d'-' -f1)
+					if ! check $drv_hash; then
+						echo "$drv" >> build.txt
+					else
+						echo "$drv_hash" >> hashes.txt
+					fi
+				done
+
+			else
+				echo "$hash" >> hashes.txt
+			fi
+		done
+	done
+
+	while read line; do
+		echo $line
+	done < bulid.txt
 }
 
 clean() {
