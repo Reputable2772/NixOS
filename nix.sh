@@ -83,10 +83,7 @@ ci() {
 		done
 	done
 
-	while read line; do
-		echo "Building $line"
-		nix-build $line
-	done < build.txt
+	nix-build $(cat build.txt | tr '\n' ' ' | tr -d '"')
 }
 
 clean() {
