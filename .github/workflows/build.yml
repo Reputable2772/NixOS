@@ -14,6 +14,9 @@ jobs:
     - name: "Install Nix"
       uses: cachix/install-nix-action@v26
 
+    - name: "Space"
+      run: sudo df -h
+
     - uses: DeterminateSystems/magic-nix-cache-action@main
 
     - name: "Build Packages"
@@ -24,6 +27,10 @@ jobs:
       with:
         name: NixOS
         path: .
+
+    - name: "Space"
+      run: sudo df -h
+      if: ${{ always() }}
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
