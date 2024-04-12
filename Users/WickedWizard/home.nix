@@ -1,10 +1,14 @@
 { config, ... }: {
   # Shell script added for this purpose
-  xdg.configFile.mimeapps = {
-    enable = true;
-    target = "mimeapps.list";
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Documents/Config/mimeapps.list";
-  };
+  xdg.configFile.mimeapps =
+    let
+      file = "${config.home.homeDirectory}/Documents/Config/mimeapps.list";
+    in
+    {
+      enable = builtins.pathExists file;
+      target = "mimeapps.list";
+      source = config.lib.file.mkOutOfStoreSymlink file;
+    };
 
   imports = [
     ./Programs
