@@ -102,7 +102,7 @@ ci() {
 	wait
 	echo "Done"
 
-	(cat builds.txt | tr -d '"') | parallel test
+	(cat builds.txt | tr -d '"') | parallel --jobs 8 test
 }
 
 clean() {
