@@ -40,69 +40,11 @@ ci() {
 		nix --accept-flake-config derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$(echo $pc | tr -d '"').json"
 	done
 
-	touch hashes.txt
-	touch builds.txt
-	mkdir logs
-
-	check_cache() {
-		# outPath is $1
-		if [ -d "$1" ]; then
-			return 0
-		fi
-
-		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
-		if grep -Fxq "$hash" hashes.txt; then
-			return 0
-		fi
-
-		caches=("https://cache.nixos.org" "https://nix-community.cachix.org" "https://numtide.cachix.org" "https://nixpkgs-wayland.cachix.org" "https://spearman4157.cachix.org")
-		val=1
-
-		for cache in "${caches[@]}"; do
-			exists=$(curl --write-out "%{http_code}\n" --silent --output /dev/null "$cache/$hash.narinfo")
-			if [ "$exists" == "200" ]; then
-				val=0
-				echo "$hash" >> hashes.txt
-				break
-			fi
-		done
-
-		return $val
-	}
-
-	test() {
-		echo "Building $1" >> "logs/$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)"
-		nix-build $1 >> "logs/$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)"
-	}
-
-	loop() {
-		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
-		if ! check_cache $hash; then
-			echo "No cache found for package: $1"
-
-			for drv in $(cat $file | jq ".[] | select(.env.out == "$1") | .inputDrvs | keys[]"); do
-				drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
-				if ! check_cache $drv_hash; then
-					echo "Adding inputDrv: $drv - From Package: $1"
-					echo "$drv" >> builds.txt
-				fi
-			done
-		fi
-	}
-
-	export -f loop
-	export -f check_cache
-	export -f test
-
 	for file in derivations-*.json; do
-		export file
-		(cat $file | jq '.[].env.out') | parallel loop
+		nix build --accept-flake-config --dry-run --verbose $(cat $file | jq '. | keys[]' | tr -d '"' | sed 's/$/^*/') &> derivations.txt
+		sed -n '/derivations will be built:/, /these /{ /derivations will be built:/! { /these /! p } }' derivations.txt | tr -d '  ' | tr '\n' ' ' | sed 's/$/^*/' > build.txt
+		nix build --accept-flake-config --verbose $(cat build.txt)
 	done
-
-	wait
-	echo "Done"
-
-	(cat builds.txt | tr -d '"') | parallel --jobs 8 test
 }
 
 clean() {
