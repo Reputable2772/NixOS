@@ -55,7 +55,7 @@
           curl
           jq
           hydra-check
-          nixpkgs-fmt
+          parallel
         ];
         shellHook = pkgs.lib.strings.concatStrings [
           # Fixes https://github.com/direnv/direnv/issues/73

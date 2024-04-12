@@ -95,9 +95,7 @@ ci() {
 	wait
 	echo "Done"
 
-	cat builds.txt | tr '\n' ' ' | tr -d '"' > escaped-builds.txt
-
-	nix-build $(cat escaped-builds.txt)
+	(cat builds.txt | tr -d '"') | parallel --keep-order nix-build
 }
 
 clean() {
