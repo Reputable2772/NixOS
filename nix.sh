@@ -69,37 +69,27 @@ ci() {
 		return $val
 	}
 
-	drv_loop() {
-		drv_hash=$(cat $file | jq ".["$1"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
-		if ! check_cache $drv_hash; then
-			echo "Adding inputDrv: $1"
-			echo "$drv" >> builds.txt
-		fi
-	}
-
-	main_loop() {
+	loop() {
 		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
 		if ! check_cache $hash; then
 			echo "No cache found for package: $1"
 
-			(cat $file | jq ".[] | select(.env.out == "$1") | .inputDrvs | keys[]") | parallel drv_loop
-			# for drv in $(cat $file | jq ".[] | select(.env.out == "$1") | .inputDrvs | keys[]"); do
-			# 	drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
-			# 	if ! check $drv_hash; then
-			# 		echo "Adding inputDrv: $drv"
-			# 		echo "$drv" >> builds.txt
-			# 	fi
-			# done
+			for drv in $(cat $file | jq ".[] | select(.env.out == "$1") | .inputDrvs | keys[]"); do
+				drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
+				if ! check_cache $drv_hash; then
+					echo "Adding inputDrv: $drv"
+					echo "$drv" >> builds.txt
+				fi
+			done
 		fi
 	}
 
-	export -f main_loop
-	export -f drv_loop
+	export -f loop
 	export -f check_cache
 
 	for file in derivations-*.json; do
 		export file
-		(cat $file | jq '.[].env.out') | parallel main_loop
+		(cat $file | jq '.[].env.out') | parallel loop
 	done
 
 	wait
