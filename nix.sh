@@ -77,7 +77,7 @@ ci() {
 			for drv in $(cat $file | jq ".[] | select(.env.out == "$1") | .inputDrvs | keys[]"); do
 				drv_hash=$(cat $file | jq ".["$drv"].env.out" | cut -d'/' -f4 | cut -d'-' -f1)
 				if ! check_cache $drv_hash; then
-					echo "Adding inputDrv: $drv"
+					echo "Adding inputDrv: $drv - From Package: $1"
 					echo "$drv" >> builds.txt
 				fi
 			done
