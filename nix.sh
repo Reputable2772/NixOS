@@ -42,6 +42,7 @@ ci() {
 
 	touch hashes.txt
 	touch builds.txt
+	mkdir logs
 
 	check_cache() {
 		# outPath is $1
@@ -69,6 +70,11 @@ ci() {
 		return $val
 	}
 
+	test() {
+		echo "Building $1" >> "logs/$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)"
+		nix-build $1 >> "logs/$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)"
+	}
+
 	loop() {
 		hash=$(echo $1 | cut -d'/' -f4 | cut -d'-' -f1)
 		if ! check_cache $hash; then
@@ -86,6 +92,7 @@ ci() {
 
 	export -f loop
 	export -f check_cache
+	export -f test
 
 	for file in derivations-*.json; do
 		export file
@@ -95,7 +102,7 @@ ci() {
 	wait
 	echo "Done"
 
-	(cat builds.txt | tr -d '"') | parallel --keep-order nix-build
+	(cat builds.txt | tr -d '"') | parallel test
 }
 
 clean() {
