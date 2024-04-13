@@ -2,9 +2,9 @@
 
 { config, ... }:
 let
-  documents = "${config.users.users.wickedwizard.home}/Documents";
-  conf = path: {
-    inherit path;
+  documents = config.programs.config_dir.config_dir;
+  conf = _path: {
+    path = "${documents}/${_path}";
     devices = [ "default" ];
     versioning = {
       type = "trashcan";
@@ -25,12 +25,12 @@ in
         default = Redmi;
       };
       folders = {
-        "Backups" = conf "${documents}/Android/Backups";
-        "Tasker" = conf "${documents}/Android/Tasker";
-        "Books" = conf "${documents}/Books";
-        "Important Files" = conf "${documents}/Important-Files";
-        "Joplin" = conf "${documents}/Joplin";
-        "Study Materials" = conf "${documents}/Study Materials";
+        "Backups" = conf "Android/Backups";
+        "Tasker" = conf "Android/Tasker";
+        "Books" = conf "Books";
+        "Important Files" = conf "Important-Files";
+        "Joplin" = conf "Joplin";
+        "Study Materials" = conf "Study Materials";
       };
     };
   };

@@ -9,6 +9,7 @@ in
     profiles."default" = {
       isDefault = true;
       name = "default";
+      # This needs to be relative since Firefox doesn't support absolute paths without the `isRelative` flag.
       path = "../../Documents/Browsers/Firefox/";
       userChrome = ''
         @import "${firefox-gnome-theme}/share/firefox-gnome-theme/userChrome.css";

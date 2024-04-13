@@ -1,4 +1,4 @@
-{
+{ osConfig, ... }: {
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -7,13 +7,13 @@
     initExtra = ''
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
-      # neofetch --config $HOME/Documents/Config/neofetch.conf
+      # neofetch --config ${osConfig.programs.config_dir.config_dir}/neofetch.conf
     '';
     syntaxHighlighting = {
       enable = true;
     };
     sessionVariables = {
-      RCLONE_CONFIG = "$HOME/Documents/Config/rclone.conf";
+      RCLONE_CONFIG = "${osConfig.programs.config_dir.config_dir}/rclone.conf";
       DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/podman/podman.sock";
     };
     shellAliases = {

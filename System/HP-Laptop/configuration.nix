@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   inherit (inputs) nur home-manager nixpkgs nixpkgs-wayland;
 in
@@ -20,35 +20,33 @@ in
     shell = pkgs.zsh;
   };
 
-  home-manager =
-    let
-      homeDir = h: "/home/${h}";
-    in
-    {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      users = {
-        wickedwizard =
-          let
-            home = "wickedwizard";
-          in
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users = {
+      wickedwizard = {
+        imports = [
+          ../../Users/WickedWizard/home.nix
           {
-            imports = [
-              ../../Users/WickedWizard/home.nix
-              {
-                home = {
-                  username = home;
-                  homeDirectory = homeDir home;
-                  stateVersion = "23.05";
-                };
-              }
-            ];
-          };
-      };
-      extraSpecialArgs = {
-        inherit inputs;
+            home = {
+              username = "wickedwizard";
+              homeDirectory = config.users.users.wickedwizard.home;
+              stateVersion = "23.05";
+            };
+          }
+        ];
       };
     };
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+  };
+
+  programs.config_dir = {
+    config_dir = "${config.users.users.wickedwizard.home}/Documents/Config";
+    browser_dir = "${config.users.users.wickedwizard.home}/Documents/Browsers";
+    self_dir = "${config.users.users.wickedwizard.home}/Documents/NixOS";
+  };
 
   imports = [
     nur.nixosModules.nur

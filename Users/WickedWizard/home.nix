@@ -1,8 +1,8 @@
-{ config, ... }: {
+{ osConfig, config, ... }: {
   # Shell script added for this purpose
   xdg.configFile.mimeapps =
     let
-      file = "${config.home.homeDirectory}/Documents/Config/mimeapps.list";
+      file = "${osConfig.programs.config_dir.config_dir}/mimeapps.list";
     in
     {
       enable = builtins.pathExists file;

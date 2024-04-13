@@ -1,12 +1,12 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.config.config_dir;
+  cfg = config.programs.config_dir;
 in
 {
-  options.config.config_dir = {
+  options.programs.config_dir = {
     config_dir = mkOption {
-      example = literalExpression "$HOME/Documents";
+      example = literalExpression "$HOME/Documents/Config";
       type = types.path;
       description = lib.mdDoc "Directory where all undeclarative config is stored.";
     };
