@@ -39,5 +39,6 @@ in
 
     # Power Profiles Daemon
     services.power-profiles-daemon.enable = cfg.enable;
+    services.upower.enable = cfg.enable;
   };
 }
