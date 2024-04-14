@@ -3,7 +3,10 @@ let
   inherit (inputs) nur home-manager nixpkgs nixpkgs-wayland;
 in
 {
-  nixpkgs.overlays = [ nur.overlay nixpkgs-wayland.overlay ] ++ import ../../Overlays;
+  nixpkgs.overlays = [
+    nur.overlay
+    nixpkgs-wayland.overlay
+  ] ++ import ../../Overlays;
   nix.registry.nixpkgs.flake = nixpkgs;
 
   # Needs to be set here or else shell won't work
@@ -42,11 +45,15 @@ in
     };
   };
 
-  programs.config_dir = {
-    config_dir = "${config.users.users.wickedwizard.home}/Documents/Config";
-    browser_dir = "${config.users.users.wickedwizard.home}/Documents/Browsers";
-    self_dir = "${config.users.users.wickedwizard.home}/Documents/NixOS";
-  };
+  programs.config_dir =
+    let
+      base = a: "${config.users.users.wickedwizard.home}/Documents/${a}";
+    in
+    {
+      config_dir = base "Config";
+      browser_dir = base "Browsers";
+      self_dir = base "NixOS";
+    };
 
   imports = [
     nur.nixosModules.nur
