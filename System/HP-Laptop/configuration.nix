@@ -56,7 +56,6 @@ in
     };
 
   imports = [
-    nur.nixosModules.nur
     home-manager.nixosModules.home-manager
 
     ../Common
