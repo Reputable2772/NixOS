@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ osConfig, pkgs, ... }:
 let
   firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix { };
 in
@@ -11,9 +11,9 @@ in
     profiles."default" = {
       isDefault = true;
       name = "default";
+      # The custom home manager module suports absolute paths
       isRelative = 0;
-      # This needs to be relative since Firefox doesn't support absolute paths without the `isRelative` flag.
-      path = "../../Documents/Browsers/Firefox/";
+      path = "${osConfig.programs.config_dir.browser_dir}/Firefox";
       userChrome = ''
         @import "${firefox-gnome-theme}/share/firefox-gnome-theme/userChrome.css";
       '';
