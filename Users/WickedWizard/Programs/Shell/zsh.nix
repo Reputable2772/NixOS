@@ -7,7 +7,6 @@
     initExtra = ''
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
-      # neofetch --config ${osConfig.programs.config_dir.config_dir}/neofetch.conf
     '';
     syntaxHighlighting = {
       enable = true;
