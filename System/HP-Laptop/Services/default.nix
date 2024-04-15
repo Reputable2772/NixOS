@@ -4,6 +4,5 @@
     ./keyring.nix
     ./networking.nix
     ./pipewire.nix
-    ./syncthing.nix
   ];
 }

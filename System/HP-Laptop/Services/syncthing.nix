@@ -2,9 +2,9 @@
 
 { config, ... }:
 let
-  documents = config.programs.config_dir.config_dir;
+  inherit (config.programs.config_dir) base_dir config_dir;
   conf = _path: {
-    path = "${documents}/${_path}";
+    path = "${base_dir}/${_path}";
     devices = [ "default" ];
     versioning = {
       type = "trashcan";
@@ -14,11 +14,11 @@ let
 in
 {
   services.syncthing = {
-    enable = true;
+    enable = false;
     user = "wickedwizard";
     systemService = true;
-    dataDir = "${documents}/Config/Syncthing/data";
-    configDir = "${documents}/Config/Syncthing";
+    dataDir = "${config_dir}/Syncthing/data";
+    configDir = "${config_dir}/Syncthing";
     settings = {
       devices = rec {
         Redmi = { id = "FVKBTJS-3KMPR7D-2CXVBPR-F5HUD5E-7E2KJAT-ZABMG6E-4RK3CK6-H5OOMQP"; };
