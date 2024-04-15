@@ -5,6 +5,11 @@ let
 in
 {
   options.programs.config_dir = {
+    base_dir = mkOption {
+      example = literalExpression "$HOME/Documents";
+      type = types.path;
+      description = lib.mdDoc "Base directory where everything is stored.";
+    };
     config_dir = mkOption {
       example = literalExpression "$HOME/Documents/Config";
       type = types.path;

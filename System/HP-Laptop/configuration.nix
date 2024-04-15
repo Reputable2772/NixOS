@@ -50,6 +50,7 @@ in
       base = a: "${config.users.users.wickedwizard.home}/Documents/${a}";
     in
     {
+      base_dir = "${config.users.users.wickedwizard.home}/Documents";
       config_dir = base "Config";
       browser_dir = base "Browsers";
       self_dir = base "NixOS";
