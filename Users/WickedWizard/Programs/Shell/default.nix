@@ -1,11 +1,10 @@
 {
   imports = [
     ./autojump.nix
-    ./bash.nix
     ./bottom.nix
+    ./common.nix
     ./fastfetch.nix
     ./git.nix
-    ./packages.nix
     ./zsh.nix
   ];
 }
