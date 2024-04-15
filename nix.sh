@@ -7,7 +7,7 @@ build() {
 
 	# If file is not a symlink, then copy it over if it is new.
 	if [[ ! -L "$HOME/.config/mimeapps.list" ]]; then
-		cp -pu "$HOME/.config/mimeapps.list" "$HOME/Documents/Config/mimeapps.list"
+		cp -pu "$HOME/.config/mimeapps.list" "$PWD/Config/mimeapps.list"
 	fi
 
 	echo "Builiding"
