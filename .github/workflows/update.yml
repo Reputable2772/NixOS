@@ -2,7 +2,7 @@ name: "Flake Update"
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,10 +18,31 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
 
     - name: "Update Nix Flake"
-      run: nix flake update --accept-flake-config
+      run: nix --accept-flake-config --show-trace --print-build-logs --verbose flake update
 
     - name: "Build Packages"
       run: bash ./nix.sh ci
+
+    - name: "Ntfy failure notifications"
+      if: failure()
+      run: |
+        curl \
+          -H "Click: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+          -d "Flake Update Github Actions has failed!" \
+          ${{ secrets.NTFY_URL }}
+
+        exit 1
+
+    - name: "Configure Git"
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+
+    - name: "Stage, Commit and Push"
+      run: |
+        git add flake.lock
+        git commit -sm "chore: update flake.lock"
+        git push origin master
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
