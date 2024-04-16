@@ -1,3 +1,5 @@
+# Taken from https://github.com/NixOS/nixpkgs/pull/243693#issuecomment-1957252695
+
 { lib
 , fetchurl
 , makeWrapper
@@ -9,8 +11,7 @@ let
   version = "2.0.24";
 
   src = fetchurl {
-    # They use an annoying system for latest version url
-    # Means package will need a hash update whenever upstream updates
+    # Package will need a hash update whenever upstream updates
     # https://github.com/FilenCloudDienste/filen-desktop/issues/208
     url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage";
     hash = "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=";
@@ -28,7 +29,8 @@ appimageTools.wrapType2 rec {
     mv $out/bin/${pname}-${version} $out/bin/${pname}
 
     source "${makeWrapper}/nix-support/setup-hook"
-    wrapProgram $out/bin/filen-desktop \
+    wrapProgram $out/bin/${pname} \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations}}" \
       --prefix LD_LIBRARY_PATH : ${libPath}
 
     install -m 444 -D ${appimageContents}/${pname}.desktop $out/share/applications/${pname}.desktop
