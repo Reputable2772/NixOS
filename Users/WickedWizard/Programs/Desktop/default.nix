@@ -3,5 +3,5 @@
     ./Gnome
     ./Theming
   ]
-  ++ lib.optional (osConfig.programs.hyprland.enable) ./Hyprland;
+  ++ lib.optional osConfig.programs.hyprland.enable ./Hyprland;
 }

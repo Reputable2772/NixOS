@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: {
-  home.packages = lib.mkIf (config.wayland.windowManager.hyprland.enable) (with pkgs; [
+  home.packages = lib.mkIf config.wayland.windowManager.hyprland.enable (with pkgs; [
     brightnessctl
     libnotify
   ]);

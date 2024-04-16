@@ -5,9 +5,9 @@ let
   accent = "Blue";
   size = "Standard";
   dark = "Dark";
-  qt_theme = (pkgs.catppuccin-kvantum.override {
+  qt_theme = pkgs.catppuccin-kvantum.override {
     inherit variant accent;
-  });
+  };
   gtk_theme = "Catppuccin-${variant}-${size}-${accent}-${dark}";
 in
 {

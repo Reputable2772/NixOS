@@ -15,7 +15,7 @@ let
 in
 {
   services.dunst = {
-    enable = config.wayland.windowManager.hyprland.enable;
+    inherit (config.wayland.windowManager.hyprland) enable;
     settings = (fromINI file) // { };
   };
 

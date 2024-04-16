@@ -3,8 +3,8 @@
   # and instead uses the one in NixOS/nixpkgs
   home.packages = with pkgs; [
     (bottles.override
-      ({
-        bottles-unwrapped = bottles-unwrapped.override ({ gamescope = inputs.nixpkgs.legacyPackages.${pkgs.system}.gamescope; });
-      }))
+      {
+        bottles-unwrapped = bottles-unwrapped.override { inherit (inputs.nixpkgs.legacyPackages.${pkgs.system}) gamescope; };
+      })
   ];
 }

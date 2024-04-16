@@ -1,12 +1,12 @@
 { config, pkgs, lib, ... }:
 let
-  hyprland = config.wayland.windowManager.hyprland;
+  inherit (config.wayland.windowManager) hyprland;
 in
 {
   home.packages = lib.mkIf hyprland.enable [ pkgs.rofi-wayland ];
 
   home.file.rofi_theme = {
-    enable = hyprland.enable;
+    inherit (hyprland) enable;
     target = ".local/share/rofi/themes/catppuccin-mocha.rasi";
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/rofi/main/basic/.local/share/rofi/themes/catppuccin-mocha.rasi";
@@ -15,7 +15,7 @@ in
   };
 
   xdg.configFile.rofi = {
-    enable = hyprland.enable;
+    inherit (hyprland) enable;
     target = "rasi/config.rasi";
     source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/rofi/main/basic/.config/rofi/config.rasi";

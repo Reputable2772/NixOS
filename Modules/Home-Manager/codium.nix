@@ -21,7 +21,7 @@ let
       inherit sources;
       name = "${profile.alias}";
       userDataDir = ".vscode/${profile.name}";
-      extensions = profile.extensions;
+      inherit (profile) extensions;
     };
   }.package;
 in
@@ -38,7 +38,7 @@ in
 
   config = mkIf cfg.enable {
     programs.vscode.enable = true;
-    home.packages = (map createPackage cfg.profiles);
+    home.packages = map createPackage cfg.profiles;
     home.activation = listToAttrs (map createActivation cfg.profiles);
   };
 }

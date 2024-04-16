@@ -8,12 +8,12 @@ in
 
   config = {
     # Fixes https://github.com/NixOS/nixpkgs/issues/189851#issuecomment-1238907955
-    systemd.user.extraConfig = mkIf (cfg.enable) ''
+    systemd.user.extraConfig = mkIf cfg.enable ''
       DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
     '';
 
     xdg.portal = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
       xdgOpenUsePortal = true;
     };
@@ -22,7 +22,7 @@ in
 
     # Thunar
     programs.thunar = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
         thunar-volman
