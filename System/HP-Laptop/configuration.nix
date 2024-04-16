@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib', ... }:
 let
   inherit (inputs) nur home-manager nixpkgs nixpkgs-wayland;
 in
@@ -41,7 +41,7 @@ in
       };
     };
     extraSpecialArgs = {
-      inherit inputs;
+      inherit inputs lib';
     };
   };
 

@@ -38,6 +38,7 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      lib' = import ./lib { inherit nixpkgs; };
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
@@ -45,7 +46,7 @@
         "hp-laptop" = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit inputs;
+            inherit inputs lib';
           };
           modules = [ ./System/HP-Laptop ];
         };
