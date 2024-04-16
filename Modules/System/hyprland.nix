@@ -6,9 +6,9 @@ in
 {
   options.programs.hyprland = { };
 
-  config = {
+  config = mkIf cfg.enable {
     # Fixes https://github.com/NixOS/nixpkgs/issues/189851#issuecomment-1238907955
-    systemd.user.extraConfig = mkIf cfg.enable ''
+    systemd.user.extraConfig = ''
       DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
     '';
 
@@ -18,7 +18,7 @@ in
       xdgOpenUsePortal = true;
     };
 
-    environment.systemPackages = mkIf cfg.enable [ pkgs.xdg-utils ];
+    environment.systemPackages = [ pkgs.xdg-utils ];
 
     # Thunar
     programs.thunar = {

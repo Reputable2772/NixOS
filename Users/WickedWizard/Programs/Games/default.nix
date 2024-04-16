@@ -4,7 +4,7 @@
     ./ludusavi.nix
     ./lutris.nix
     ./mangohud.nix
-    ./prismlauncher-qt5.nix
+    ./prismlauncher.nix
     ./xonotic.nix
   ];
 }

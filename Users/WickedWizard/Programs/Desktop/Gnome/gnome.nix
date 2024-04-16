@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
+{ osConfig, pkgs, ... }: {
   # Required even if Gnome is not installed
   home.packages = with pkgs; [ dconf2nix ];
 
   programs.gnome = {
-    enable = false;
+    enable = osConfig.services.xserver.desktopManager.gnome.enable;
     extensions = with pkgs.gnomeExtensions; [
       appindicator
       bluetooth-battery
