@@ -2,9 +2,8 @@
   services.syncthing = {
     enable = true;
     extraOptions = [
-      "--config=${osConfig.programs.config_dir.config_dir}/Syncthing"
-      "--data=${osConfig.programs.config_dir.config_dir}/Syncthing/data"
-      "--no-browser"
+      "--config=${osConfig.programs.config_dir.self_dir}/Config/Syncthing"
+      "--data=${osConfig.programs.config_dir.self_dir}/Config/Syncthing/data"
     ];
   };
 }
