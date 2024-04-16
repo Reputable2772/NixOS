@@ -20,6 +20,10 @@
     };
   };
 
+  imports = [
+    ../../Modules/System
+  ];
+
   system.stateVersion = "23.05";
 }
 

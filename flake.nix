@@ -48,7 +48,10 @@
           specialArgs = {
             inherit inputs lib';
           };
-          modules = [ ./System/HP-Laptop ];
+          modules = [
+            ./System/Common
+            ./System/HP-Laptop
+          ];
         };
       };
       devShells.${system}.default = pkgs.mkShell {

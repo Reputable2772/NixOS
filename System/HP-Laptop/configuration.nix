@@ -30,6 +30,7 @@ in
       wickedwizard = {
         imports = [
           ../../Users/WickedWizard/home.nix
+          ../../Modules/Home-Manager
           {
             home = {
               username = "wickedwizard";
@@ -58,9 +59,6 @@ in
 
   imports = [
     home-manager.nixosModules.home-manager
-
-    ../Common
-    ../../Modules/System
   ];
 }
 
