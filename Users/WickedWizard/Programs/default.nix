@@ -15,5 +15,7 @@
     ./Shell
     ./Unfree
     ./Utilities
+
+    ./secrets.nix
   ];
 }
