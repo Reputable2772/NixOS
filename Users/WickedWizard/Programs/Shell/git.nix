@@ -7,6 +7,9 @@
     signing.signByDefault = true;
     signing.key = null;
     extraConfig = {
+      core = {
+        autocrlf = "input";
+      };
       gpg = {
         format = "ssh";
         ssh.allowedSignersFile = "${osConfig.programs.config_dir.config_dir}/Git/allowed_signers";
