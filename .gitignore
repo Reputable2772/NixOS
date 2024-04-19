@@ -7,4 +7,5 @@
 /.pre-commit-config.yaml
 
 # Config folders
-/Config/Syncthing
+/Config/**/*
+!/Config/mimeapps.list
