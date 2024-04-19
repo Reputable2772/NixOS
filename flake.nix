@@ -8,7 +8,6 @@
     };
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     home-manager.url = "github:nix-community/home-manager";
-    agenix.url = "github:ryantm/agenix";
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";

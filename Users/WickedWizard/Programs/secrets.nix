@@ -1,9 +1,4 @@
-{ inputs, ... }:
 {
-  imports = [
-    inputs.agenix.homeManagerModules.default
-  ];
-
   programs.secrets = {
     secrets = {
       git = {
