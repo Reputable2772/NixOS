@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ osConfig, config, pkgs, ... }: {
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
@@ -16,5 +16,14 @@
       user.signingkey = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config.programs.secrets.secrets.git.signing);
       credential.helper = "libsecret";
     };
+  };
+
+  home.file.ssh_config = {
+    enable = true;
+    target = ".ssh/ssh_config";
+    text = ''
+      Host github.com
+        IdentityFile ${osConfig.programs.config_dir.self_dir}/Config/SSH/Git/Authentication/Authentication
+    '';
   };
 }
