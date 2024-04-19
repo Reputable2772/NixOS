@@ -42,7 +42,7 @@ ci() {
 
 	for file in derivations-*.json; do
 		nix build --accept-flake-config --dry-run --verbose $(cat $file | jq '. | keys[]' | tr -d '"' | sed 's/$/^*/') &> derivations.txt
-		sed -n '/derivations will be built:/, /these /{ /derivations will be built:/! { /these /! p } }' derivations.txt | tr -d '  ' | tr '\n' ' ' | sed 's/$/^*/' > build.txt
+		sed -n '/derivations will be built:/, /these /{ /derivations will be built:/! { /these /! p } }' derivations.txt | tr -d '  ' | sed 's/$/^*/' | tr '\n' ' ' > build.txt
 
 		echo "Building derivations:"
 		cat build.txt
