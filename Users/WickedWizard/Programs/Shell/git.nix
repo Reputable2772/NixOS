@@ -1,4 +1,4 @@
-{ osConfig, pkgs, ... }: {
+{ config, pkgs, ... }: {
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
@@ -12,9 +12,8 @@
       };
       gpg = {
         format = "ssh";
-        ssh.allowedSignersFile = "${osConfig.programs.config_dir.config_dir}/Git/allowed_signers";
       };
-      user.signingkey = "${osConfig.programs.config_dir.config_dir}/SSH/Git.pub";
+      user.signingkey = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config.programs.secrets.secrets.git.signing);
       credential.helper = "libsecret";
     };
   };
