@@ -1,4 +1,8 @@
-{ osConfig, config, pkgs, ... }: {
+{ osConfig, config, pkgs, ... }:
+let
+  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config.programs.secrets.secrets.git.signing);
+in
+{
   programs.git = {
     enable = true;
     package = pkgs.git;
@@ -12,8 +16,9 @@
       };
       gpg = {
         format = "ssh";
+        ssh.allowedSignersFile = signFile;
       };
-      user.signingkey = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config.programs.secrets.secrets.git.signing);
+      user.signingkey = builtins.readFile signFile;
     };
   };
 
