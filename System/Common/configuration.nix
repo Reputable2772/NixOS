@@ -4,10 +4,8 @@
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
-  # TODO: Fix this.
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
-
   nix = {
+    registry.nixpkgs.flake = inputs.nixpkgs;
     gc = {
       automatic = true;
       dates = "daily";

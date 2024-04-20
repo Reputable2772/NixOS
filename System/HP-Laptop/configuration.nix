@@ -1,13 +1,12 @@
 { config, pkgs, inputs, lib', ... }:
 let
-  inherit (inputs) nur home-manager nixpkgs nixpkgs-wayland;
+  inherit (inputs) nur home-manager nixpkgs-wayland;
 in
 {
   nixpkgs.overlays = [
     nur.overlay
     nixpkgs-wayland.overlay
   ] ++ import ../../Overlays;
-  nix.registry.nixpkgs.flake = nixpkgs;
 
   # Needs to be set here or else shell won't work
   programs.zsh.enable = true;
