@@ -1,33 +1,11 @@
-{ config, lib, pkgs, ... }: {
-  # Our config is symlinked to /etc/nixos, no matter where it is.
-  # nix.sh/first-time-setup takes care of it.
-
-  systemd.services.pull_flake = {
-    serviceConfig.Type = "oneshot";
-    path = with pkgs; [ git ];
-    script = ''
-      cd /etc/nixos
-      git pull --verbose --autostash --all
-    '';
-
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-  };
-
-  systemd.timers.pull_flake = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "pull_flake.service" ];
-    timerConfig = {
-      Persistent = true;
-      # Run it 10mins before, to pull flake
-      OnCalendar = "*-*-* 23:50:00 ${config.time.timeZone}";
-      Unit = "pull_flake.service";
-    };
-  };
-
+{ config, lib, ... }: {
   system.autoUpgrade = {
     enable = true;
-    flake = "\"$(readlink -f /etc/nixos)\"";
+    # This is because I consider the changes I push to Github to be stable enough for usage.
+    # Feel free to replace this with something like \"$(readlink -f /etc/nixos)\"
+    # Since /etc/nixos is already symlinked to your current config directory.
+    # Beware that you have to pull the changes from CI manually if you use the above.
+    flake = "github:Reputable2772/NixOS";
     flags = [
       "-L"
     ];
