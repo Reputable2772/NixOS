@@ -25,30 +25,8 @@ check() {
 }
 
 ci() {
-	# large docker images
-    sudo docker image prune --all --force
-
-	# large packages
-	sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-cloud-cli google-chrome-stable firefox powershell microsoft-edge-stable
-    sudo apt-get autoremove -y
-    sudo apt-get clean
-
-	# large folders
-    sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
-
 	for pc in $(nix flake show --json | jq '.nixosConfigurations | keys[]'); do
-		nix --accept-flake-config derivation show -r .#nixosConfigurations."$pc".config.system.build.toplevel | jq > "derivations-$(echo $pc | tr -d '"').json"
-	done
-
-	for file in derivations-*.json; do
-		cat $file | jq '.[].inputDrvs | keys[]' | tr -d '"' | sort | uniq | sed 's/$/^*/' > inputDrvs.txt
-		nix build --accept-flake-config --dry-run --verbose $(cat inputDrvs.txt) &> derivations.txt
-		sed -n '/derivations will be built:/, /these /{ /derivations will be built:/! { /these /! p } }' derivations.txt | tr -d '  ' | sed 's/$/^*/' | tr '\n' ' ' > build.txt
-
-		echo "Building derivations:"
-		cat build.txt
-
-		nix build --accept-flake-config --verbose $(cat build.txt)
+		nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake .#nixosConfigurations."$pc".config.system.build.toplevel
 	done
 }
 
