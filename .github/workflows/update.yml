@@ -43,7 +43,6 @@ jobs:
       if: failure()
       run: |
         curl -H "Click: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" -d "Flake Update Github Actions has failed!" ${{ secrets.NTFY_URL }} > /dev/null
-        exit 1
 
     - name: "Configure Git"
       run: |
