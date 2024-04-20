@@ -1,7 +1,7 @@
 { osConfig, config, pkgs, ... }: {
   programs.git = {
     enable = true;
-    package = pkgs.gitFull;
+    package = pkgs.git;
     userEmail = "153411261+Reputable2772@users.noreply.github.com";
     userName = "Reputable2722";
     signing.signByDefault = true;
@@ -14,7 +14,6 @@
         format = "ssh";
       };
       user.signingkey = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config.programs.secrets.secrets.git.signing);
-      credential.helper = "libsecret";
     };
   };
 
