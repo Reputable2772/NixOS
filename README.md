@@ -1,6 +1,8 @@
 # Setup
-1. Literally run `./nix.sh first-time-setup`
-2. You're done.
+1. Run `./nix.sh first-time-setup`
+2. Change the secrets to the ones you use in Users/WickedWizard/secrets.nix
+3. Change the `programs.config_dir` defined in System/HP-Laptop/configuration.nix to the values you want.
+4. You're done (hopefully!).
 
 # Resources
 
