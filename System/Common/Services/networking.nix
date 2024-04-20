@@ -11,14 +11,7 @@
       "2606:4700:4700::1111#cloudflare-dns.com"
       "2606:4700:4700::1001#cloudflare-dns.com"
     ];
-    networkmanager = {
-      enable = true;
-      extraConfig = ''
-        [connection]
-        ipv6.ip6-privacy=2
-        ipv6.addr-gen-mode=stable-privacy
-      '';
-    };
+    networkmanager.enable = true;
   };
 
   services.resolved = {
