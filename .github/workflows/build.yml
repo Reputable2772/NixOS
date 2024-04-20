@@ -11,8 +11,20 @@ jobs:
     - name: "Checkout"
       uses: actions/checkout@v3
 
+    - name: Substituters
+      run: |
+        sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/configuration.nix | xargs > trusted-public-keys.txt
+        sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/configuration.nix | xargs >> substituters.txt
+
+        echo "TRUSTED_PUBLIC_KEYS=$(cat trusted-public-keys.txt)" >> "$GITHUB_ENV"
+        echo "SUBSTITUTERS=$(cat substituters.txt)" >> "$GITHUB_ENV"
+
     - name: "Install Nix"
       uses: cachix/install-nix-action@v26
+      with:
+        extra_nix_config: |
+          trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
+          substituters = ${{ env.SUBSTITUTERS }}
 
     - name: "Cachix"
       uses: cachix/cachix-action@v12
