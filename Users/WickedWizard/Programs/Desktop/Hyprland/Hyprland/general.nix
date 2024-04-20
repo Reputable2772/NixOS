@@ -9,10 +9,6 @@
     xwayland.enable = true;
     settings = {
       exec-once = [
-        # Fixes https://github.com/NixOS/nixpkgs/issues/189851#issuecomment-1238907955
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "systemctl restart --user '*xdg*'"
-
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "sleep 10 && ${lib.getExe pkgs.dex} --autostart"
       ];
