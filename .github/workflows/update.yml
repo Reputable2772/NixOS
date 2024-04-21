@@ -34,7 +34,12 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
     - name: "Update Nix Flake"
-      run: nix --accept-flake-config --show-trace --print-build-logs --verbose flake update
+      run: nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee output.txt
+
+    - name: "Write changelog"
+      run: |
+        echo "chore: update flake.lock ($(date -I)) \n" > changelog.txt
+        grep -E "'\s\(|Updated input" output.txt >> changelog.txt
 
     - name: "Build Packages"
       run: bash ./nix.sh ci
@@ -52,5 +57,5 @@ jobs:
     - name: "Stage, Commit and Push"
       run: |
         git add flake.lock
-        git commit -sm "chore: update flake.lock"
+        git commit -sF changelog.txt
         git push origin master
