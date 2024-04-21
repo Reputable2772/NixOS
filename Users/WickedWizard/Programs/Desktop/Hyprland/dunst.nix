@@ -1,14 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib', ... }:
 let
-  fromINI = f:
-    let
-      iniFile = pkgs.runCommand "convertini"
-        {
-          nativeBuildInputs = [ pkgs.jc ];
-        } ''jc --ini < ${f} > "$out" '';
-    in
-    builtins.fromJSON (builtins.readFile iniFile);
-  file = pkgs.fetchurl {
+  catppuccin = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/dunst/main/themes/mocha.conf";
     hash = "sha256-7bejAIpueES8pwyiyY0RcMJwaFkTBf1G1RR1EhHqvig=";
   };
@@ -16,7 +8,7 @@ in
 {
   services.dunst = {
     inherit (config.wayland.windowManager.hyprland) enable;
-    settings = (fromINI file) // { };
+    settings = { } // lib'.iniToNix catppuccin;
   };
 
   wayland.windowManager.hyprland.settings = {

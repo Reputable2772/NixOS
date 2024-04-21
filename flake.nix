@@ -18,7 +18,7 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      lib' = import ./lib { inherit nixpkgs; };
+      lib' = import ./lib { inherit pkgs; };
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
