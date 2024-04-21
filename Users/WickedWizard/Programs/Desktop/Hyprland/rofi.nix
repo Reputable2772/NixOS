@@ -34,6 +34,8 @@ in
     };
   };
 
+  programs.waybar.settings.mainBar.bluetooth.on-click = "rofi-bluetooth";
+
   wayland.windowManager.hyprland.settings = {
     bind = [
       "SUPER, R, exec, rofi -show run"
