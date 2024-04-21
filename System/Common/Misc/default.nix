@@ -1,7 +1,8 @@
 {
   imports = [
     ./appimage.nix
-    ./sudo.nix
+    ./environment.nix
     ./packages.nix
+    ./sudo.nix
   ];
 }
