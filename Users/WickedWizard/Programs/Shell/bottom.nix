@@ -1,4 +1,4 @@
-{ pkgs, lib', ... }:
+{ pkgs, ... }:
 let
   catppuccin = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/mocha.toml";
@@ -12,6 +12,6 @@ in
       flags = {
         group_processes = true;
       };
-    } // lib'.iniToNix catppuccin;
+    } // builtins.fromTOML (builtins.readFile catppuccin);
   };
 }
