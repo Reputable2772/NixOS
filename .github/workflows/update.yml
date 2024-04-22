@@ -38,7 +38,7 @@ jobs:
 
     - name: "Write changelog"
       run: |
-        echo "chore: update flake.lock ($(date -I)) \n" > changelog.txt
+        echo "chore: update flake.lock ($(date -I))" > changelog.txt
         grep -E "'\s\(|Updated input" output.txt >> changelog.txt
 
     - name: "Build Packages"
