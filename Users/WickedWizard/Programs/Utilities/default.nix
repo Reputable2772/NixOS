@@ -1,6 +1,7 @@
 {
   imports = [
     ./calculator.nix
+    ./clock.nix
     ./evince.nix
     ./file-roller.nix
     ./kitty.nix
