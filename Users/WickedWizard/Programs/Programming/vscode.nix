@@ -27,6 +27,8 @@
       "explorer.confirmDragAndDrop" = false;
       "diffEditor.ignoreTrimWhitespace" = false;
       "editor.formatOnSave" = true;
+      "editor.formatOnType" = true;
+      "editor.formatOnPaste" = true;
 
       # Catppuccin
       "catppuccin.italicKeywords" = true;
