@@ -1,4 +1,4 @@
-#!bash
+#!/usr/bin/env bash
 
 cd $HOME/Documents/Applications/Containers
 
