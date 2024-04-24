@@ -1,3 +1,30 @@
+{ pkgs, lib, ... }:
+let
+  script = name: podman: sleep: extra: builtins.toString (
+    pkgs.resholve.writeScript name
+      {
+        interpreter = "${lib.getExe pkgs.bash}";
+        inputs = with pkgs; [ podman-compose coreutils ];
+        execer = [
+          "cannot:${lib.getExe pkgs.podman-compose}"
+        ];
+      }
+      ''
+        ${lib.optionalString sleep "sleep 30"}
+
+        cd $HOME/Documents/Applications/Containers
+
+        for folder in *; do
+          echo "In $folder"
+          cd $folder
+          podman-compose ${podman}
+          cd ..
+        done
+
+        ${lib.optionalString (builtins.stringLength extra > 0) extra}
+      ''
+  );
+in
 {
   systemd.user.services = {
     podman-login = {
@@ -5,8 +32,8 @@
         Type = "forking";
         Restart = "on-failure";
         RestartSec = 5;
-        ExecStart = "/run/current-system/sw/bin/bash /home/wickedwizard/Documents/NixOS/Users/WickedWizard/Services/login.sh";
-        ExecStop = "/run/current-system/sw/bin/bash /home/wickedwizard/Documents/NixOS/Users/WickedWizard/Services/logout.sh";
+        ExecStart = script "login.sh" "up -d" true "";
+        ExecStop = script "logout.sh" "down" false "";
       };
       Install = {
         WantedBy = [ "graphical-session.target" ];
