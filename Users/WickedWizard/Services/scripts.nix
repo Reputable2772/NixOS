@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   script = name: podman: sleep: extra: extra_pkgs: builtins.toString (
-    pkgs.resholve.writeScript name
+    pkgs.resholve.writeScriptBin name
       {
         interpreter = "${lib.getExe pkgs.bash}";
         inputs = with pkgs; [ podman-compose coreutils ] ++ lib.optionals (builtins.length extra_pkgs > 0) extra_pkgs;
@@ -32,10 +32,8 @@ in
         Type = "forking";
         Restart = "on-failure";
         RestartSec = 5;
-        ExecStart = script "login.sh" "up -d" true ''
-          bw
-        '' [ pkgs.bitwarden-cli pkgs.seahorse ];
-        ExecStop = script "logout.sh" "down" false "";
+        ExecStart = script "login.sh" "up -d" true "" [ ];
+        ExecStop = script "logout.sh" "down" false "" [ ];
       };
       Install = {
         WantedBy = [ "graphical-session.target" ];
