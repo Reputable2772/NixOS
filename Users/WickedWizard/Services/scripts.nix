@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ osConfig, pkgs, lib, ... }:
 let
   script = name: podman: sleep: extra: extra_pkgs: builtins.toString (
     pkgs.resholve.writeScriptBin name
@@ -32,8 +32,24 @@ in
         Type = "forking";
         Restart = "on-failure";
         RestartSec = 5;
-        ExecStart = script "login.sh" "up -d" true "" [ ];
-        ExecStop = script "logout.sh" "down" false "" [ ];
+        ExecStart = script "login.sh" "up -d" true ''
+          export BW_SESSION=$(bw unlock $(${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass) --raw)
+          for folder in $(find ${osConfig.programs.config_dir.self_dir}/Config/SSH/ -type f ! -name "*.*"); do
+            key=$(basename $folder)
+            pass=$(bw get item $key | jq ".login.password" | tr -d '"')
+            expect -c "spawn ssh-add $folder" -c "expect \"Enter passphrase\"" -c "send \"$pass\r\"" -c "expect eof"
+          done
+        ''
+          (with pkgs; [
+            bitwarden-cli
+            gnome.seahorse
+            jq
+            expect
+            findutils
+          ]);
+        ExecStop = script "logout.sh" "down" false ''
+          bw lock
+        '' [ pkgs.bitwarden-cli ];
       };
       Install = {
         WantedBy = [ "graphical-session.target" ];
