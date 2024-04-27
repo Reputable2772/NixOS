@@ -1,13 +1,13 @@
 { osConfig, pkgs, lib, ... }:
 let
-  script = name: podman: sleep: extra: extra_pkgs: builtins.toString (
-    pkgs.resholve.writeScriptBin name
+  script = name: podman: sleep: extra: extra_pkgs: extra_rules: builtins.toString (
+    pkgs.resholve.writeScript name
       {
         interpreter = "${lib.getExe pkgs.bash}";
         inputs = with pkgs; [ podman-compose coreutils ] ++ lib.optionals (builtins.length extra_pkgs > 0) extra_pkgs;
         execer = [
           "cannot:${lib.getExe pkgs.podman-compose}"
-        ];
+        ] ++ lib.optionals (builtins.length extra_rules > 0) extra_rules;
       }
       ''
         ${lib.optionalString sleep "sleep 30"}
@@ -33,7 +33,7 @@ in
         Restart = "on-failure";
         RestartSec = 5;
         ExecStart = script "login.sh" "up -d" true ''
-          export BW_SESSION=$(bw unlock $(${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass) --raw)
+          export BW_SESSION=$(bw unlock $(ssh-askpass-fullscreen) --raw)
           for folder in $(find ${osConfig.programs.config_dir.self_dir}/Config/SSH/ -type f ! -name "*.*"); do
             key=$(basename $folder)
             pass=$(bw get item $key | jq ".login.password" | tr -d '"')
@@ -42,14 +42,17 @@ in
         ''
           (with pkgs; [
             bitwarden-cli
-            gnome.seahorse
+            ssh-askpass-fullscreen
             jq
             expect
             findutils
-          ]);
+          ]) [
+          "cannot:${lib.getExe pkgs.expect}"
+          "cannot:${lib.getExe pkgs.bitwarden-cli}"
+        ];
         ExecStop = script "logout.sh" "down" false ''
           bw lock
-        '' [ pkgs.bitwarden-cli ];
+        '' [ pkgs.bitwarden-cli ] [ "cannot:${lib.getExe pkgs.bitwarden-cli}" ];
       };
       Install = {
         WantedBy = [ "graphical-session.target" ];
