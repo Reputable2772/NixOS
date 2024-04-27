@@ -1,4 +1,4 @@
-# Taken from https://github.com/NixOS/nixpkgs/pull/243693#issuecomment-1957252695
+# Taken from https://github.com/NixOS/nixpkgs/pull/243693#issuecomment-1957252695 and modified
 
 { lib
 , fetchurl
@@ -26,8 +26,6 @@ appimageTools.wrapType2 rec {
   inherit pname version src;
 
   extraInstallCommands = ''
-    mv $out/bin/${pname}-${version} $out/bin/${pname}
-
     source "${makeWrapper}/nix-support/setup-hook"
     wrapProgram $out/bin/${pname} \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations}}" \
