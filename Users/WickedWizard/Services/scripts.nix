@@ -34,6 +34,8 @@ in
         RestartSec = 5;
         ExecStart = script "login.sh" "up -d" true ''
           export BW_SESSION=$(bw unlock $(ssh-askpass-fullscreen) --raw)
+          export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
+
           for folder in $(find ${osConfig.programs.config_dir.self_dir}/Config/SSH/ -type f ! -name "*.*"); do
             key=$(basename $folder)
             pass=$(bw get item $key | jq ".login.password" | tr -d '"')
