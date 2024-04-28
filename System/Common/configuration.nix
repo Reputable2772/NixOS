@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ pkgs, inputs, ... }: {
   time.timeZone = "Asia/Kolkata";
 
   hardware.pulseaudio.enable = false;
@@ -30,6 +30,10 @@
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
     };
+    package = pkgs.nixVersions.nix_2_21;
+    extraOptions = ''
+      always-allow-substitutes = true
+    '';
   };
 
   imports = [
