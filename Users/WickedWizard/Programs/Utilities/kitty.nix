@@ -29,6 +29,5 @@
 
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, Return, exec, kitty"
-
   ];
 }
