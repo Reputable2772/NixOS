@@ -106,10 +106,6 @@ with lib.hm.gvariant;
       show-line-numbers = true;
     };
 
-    "org/gnome/Weather" = {
-      locations = [ (mkVariant [ (mkUint32 2) (mkVariant [ "Bangalore" "VOBG" true [ (mkTuple [ 0.2260198937871704 1.3555659188172149 ]) ] [ (mkTuple [ 0.22631101470640302 1.3537937114947398 ]) ] ]) ]) ];
-    };
-
     "org/gnome/calculator" = {
       accuracy = 9;
       angle-units = "degrees";
