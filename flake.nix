@@ -9,6 +9,7 @@
       url = "github:numtide/nixpkgs-unfree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix.url = "github:ryantm/agenix";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR";

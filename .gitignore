@@ -9,3 +9,4 @@
 # Config folders
 /Config/**/*
 !/Config/mimeapps.list
+!/Config/*.age
