@@ -1,6 +1,6 @@
 { osConfig, config, pkgs, ... }:
 let
-  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config.programs.secrets.secrets.git.signing);
+  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" (import ../../secrets.nix).git.signing);
 in
 {
   programs.git = {

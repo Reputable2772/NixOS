@@ -3,7 +3,5 @@
     ./autostart.nix
     ./gnome.nix
     ./shells.nix
-
-    ../Common
   ];
 }
