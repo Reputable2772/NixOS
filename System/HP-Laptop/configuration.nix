@@ -60,4 +60,3 @@ in
     home-manager.nixosModules.home-manager
   ];
 }
-
