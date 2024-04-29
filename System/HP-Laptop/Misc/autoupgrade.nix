@@ -17,4 +17,12 @@
   # Also note that this doesn't upgrade or downgrade the non-declarative files that are defined in nix.sh/build.
   systemd.services.nixos-upgrade.script =
     lib.mkForce "${config.system.build.nixos-rebuild}/bin/nixos-rebuild ${config.system.autoUpgrade.operation} ${builtins.toString config.system.autoUpgrade.flags}";
+
+  age.secrets.cachix.file = ../../../Config/Cachix.age;
+
+  services.cachix-agent = {
+    enable = true;
+    # File contains `CACHIX_AGENT_TOKEN=...`
+    credentialsFile = config.age.secrets.cachix.path;
+  };
 }
