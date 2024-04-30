@@ -27,12 +27,6 @@ jobs:
           trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ env.SUBSTITUTERS }}
 
-    - name: "Cachix"
-      uses: cachix/cachix-action@v12
-      with:
-        name: spearman4157
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
     - name: "Update Nix Flake"
       run: nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee output.txt
 
@@ -42,7 +36,9 @@ jobs:
         grep -E "'\s\(|Updated input" output.txt >> changelog.txt
 
     - name: "Build Packages"
-      run: bash ./nix.sh ci
+      run: |
+        nix shell nixpkgs#cachix github:Mic92/nix-fast-build --command bash -c "CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} CACHIX_ACTIVATE_TOKEN=${{ secrets.CACHIX_ACTIVATE_TOKEN }} ./nix.sh ci"
+
 
     - name: "Ntfy failure notifications"
       if: failure()
