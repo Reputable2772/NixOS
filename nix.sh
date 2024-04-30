@@ -40,7 +40,7 @@ ci() {
 		nix-fast-build --skip-cached --no-nom --flake .#nixosConfigurations."$pc".config.system.build.toplevel --out-link ./$(echo $pc | tr -d '"').result
 	done
 
-	cachix push ./*.result
+	ls $PWD/*.result | cachix push spearman4157
 
 	nix-fast-build .#cachix-deploy --out-link deploy.json
 
