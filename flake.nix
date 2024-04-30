@@ -19,30 +19,28 @@
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
   };
 
-  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, ... }@inputs:
+  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, self, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       lib' = import ./lib { inherit pkgs; };
-      cachix-deploy-lib = cachix-deploy-flake.lib pkgs;
-      hp-laptop = {
-        inherit system;
-        specialArgs = {
-          inherit inputs lib';
-        };
-        modules = [
-          ./System/Common
-          ./System/HP-Laptop
-        ];
-      };
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
-      cachix-deploy.${system}.default = cachix-deploy-lib.spec {
-        agents."hp-laptop" = (nixpkgs.lib.nixosSystem hp-laptop).config.system.build.toplevel;
+      cachix-deploy = (cachix-deploy-flake.lib pkgs).spec {
+        agents = pkgs.lib.attrsets.mapAttrs (name: value: value.config.system.build.toplevel) self.nixosConfigurations;
       };
       nixosConfigurations = {
-        "hp-laptop" = nixpkgs.lib.nixosSystem hp-laptop;
+        "hp-laptop" = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs lib';
+          };
+          modules = [
+            ./System/Common
+            ./System/HP-Laptop
+          ];
+        };
       };
       devShells.${system}.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
