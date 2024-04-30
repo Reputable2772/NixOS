@@ -43,7 +43,7 @@ ci() {
 	mv deploy.json- deploy.json
 
 	for result in $(cat deploy.json | jq '.agents | values[]' | tr -d '"'); do
-		ls $result | cachix push spearman4157
+		echo $result | cachix push spearman4157
 	done
 
 	echo "Displaying json file"
