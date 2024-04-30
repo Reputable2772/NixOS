@@ -46,9 +46,6 @@ ci() {
 		echo $result | cachix push spearman4157
 	done
 
-	echo "Displaying json file"
-	cat deploy.json
-
 	cachix deploy activate ./deploy.json
 }
 
