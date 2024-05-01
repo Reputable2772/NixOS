@@ -25,6 +25,7 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       lib' = import ./lib { inherit pkgs; };
+      sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
@@ -35,7 +36,7 @@
         "hp-laptop" = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit inputs lib';
+            inherit inputs lib' sources;
           };
           modules = [
             ./System/Common

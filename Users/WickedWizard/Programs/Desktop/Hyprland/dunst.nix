@@ -1,14 +1,8 @@
-{ config, pkgs, lib', ... }:
-let
-  catppuccin = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/dunst/main/themes/mocha.conf";
-    hash = "sha256-7bejAIpueES8pwyiyY0RcMJwaFkTBf1G1RR1EhHqvig=";
-  };
-in
+{ config, sources, lib', ... }:
 {
   services.dunst = {
     inherit (config.wayland.windowManager.hyprland) enable;
-    settings = { } // lib'.iniToNix catppuccin;
+    settings = { } // lib'.iniToNix "${sources.dunst_catppuccin.src}/themes/mocha.conf";
   };
 
   wayland.windowManager.hyprland.settings = {

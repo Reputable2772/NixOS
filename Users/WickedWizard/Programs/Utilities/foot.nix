@@ -1,14 +1,7 @@
-{ pkgs, lib', ... }:
-let
-  catppuccin = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/foot/main/themes/catppuccin-mocha.ini";
-    hash = "sha256-Yr5/n7m3DAwQ8z4EdV9C1BTs88iMvFQ3Ah9L6Dh5hZQ=";
-  };
-in
-{
+{ sources, lib', ... }: {
   programs.foot = {
     enable = true;
-    settings = { } // lib'.iniToNix catppuccin;
+    settings = { } // lib'.iniToNix "${sources.foot_catppuccin.src}/themes/catppuccin-mocha.ini";
   };
 
   wayland.windowManager.hyprland.settings.bind = [

@@ -1,0 +1,35 @@
+[rofi_catppuccin]
+src.git = "https://github.com/catppuccin/rofi.git"
+fetch.github = "catppuccin/rofi"
+
+[rofi-bluetooth]
+src.git = "https://github.com/nickclyde/rofi-bluetooth.git"
+fetch.github = "nickclyde/rofi-bluetooth"
+
+[bottom_catppuccin]
+src.git = "https://github.com/catppuccin/bottom.git"
+fetch.github = "catppuccin/bottom"
+
+[fastfetch]
+src.git = "https://github.com/fastfetch-cli/fastfetch.git"
+fetch.github = "fastfetch-cli/fastfetch"
+
+[starship_catppuccin]
+src.git = "https://github.com/catppuccin/starship.git"
+fetch.github = "catppuccin/starship"
+
+[foot_catppuccin]
+src.git = "https://github.com/catppuccin/foot.git"
+fetch.github = "catppuccin/foot"
+
+[dunst_catppuccin]
+src.git = "https://github.com/catppuccin/dunst.git"
+fetch.github = "catppuccin/dunst"
+
+[prismlauncher_catppuccin]
+src.git = "https://github.com/catppuccin/prismlauncher.git"
+fetch.github = "catppuccin/prismlauncher"
+
+[obs_catppuccin]
+src.git = "https://github.com/catppuccin/obs.git"
+fetch.github = "catppuccin/obs"
