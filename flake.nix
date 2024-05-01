@@ -17,9 +17,10 @@
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
+    nvfetcher.url = "github:berberman/nvfetcher";
   };
 
-  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, self, ... }@inputs:
+  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, self, nvfetcher, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -48,7 +49,7 @@
           jq
           hydra-check
           nixpkgs-fmt
-        ];
+        ] ++ [ nvfetcher.packages.${system}.default ];
         shellHook = pkgs.lib.strings.concatStrings [
           # Fixes https://github.com/direnv/direnv/issues/73
           # "export_alias codium 'codium --profile Nix $@'"
