@@ -27,18 +27,22 @@ jobs:
           trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ env.SUBSTITUTERS }}
 
-    - name: "Update Nix Flake"
-      run: nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee output.txt
+    - name: "Update flake.lock and nvfetcher"
+      run: |
+        nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee flake-update.txt
+        nix run github:berberman/nvfetcher 2>&1 | tee nvfetcher-update.txt
 
     - name: "Write changelog"
       run: |
-        echo "chore: update flake.lock ($(date -I))" > changelog.txt
-        grep -E "'\s\(|Updated input" output.txt >> changelog.txt
+        echo "chore: update flake.lock & sources ($(date -I))" > changelog.txt
+        echo "" >> changelog.txt
+        grep -E "'\s\(|Updated input" flake-update.txt >> changelog.txt
+        echo "" >> changelog.txt
+        grep -E "→" nvfetcher-update.txt >> changelog.txt
 
     - name: "Build Packages"
       run: |
         nix shell nixpkgs#cachix github:Mic92/nix-fast-build --command bash -c "CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} CACHIX_ACTIVATE_TOKEN=${{ secrets.CACHIX_ACTIVATE_TOKEN }} ./nix.sh ci"
-
 
     - name: "Ntfy failure notifications"
       if: failure()
@@ -53,5 +57,6 @@ jobs:
     - name: "Stage, Commit and Push"
       run: |
         git add flake.lock
+        git add _sources/
         git commit -sF changelog.txt
         git push origin master
