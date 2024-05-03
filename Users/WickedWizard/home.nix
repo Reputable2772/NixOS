@@ -8,6 +8,7 @@
       enable = builtins.pathExists file;
       target = "mimeapps.list";
       source = config.lib.file.mkOutOfStoreSymlink file;
+      force = true;
     };
 
   imports = [
