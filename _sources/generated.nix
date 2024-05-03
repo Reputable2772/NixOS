@@ -27,15 +27,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "3a990e495bb676bf9e594113e1ca87bbc1de485c";
+    version = "9fbb23b135d4934e35079de5cf789654f8bcc724";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "3a990e495bb676bf9e594113e1ca87bbc1de485c";
+      rev = "9fbb23b135d4934e35079de5cf789654f8bcc724";
       fetchSubmodules = false;
-      sha256 = "sha256-/YyyVFdkdq4c1xf0PSA7ztNI8yWQhOkuIqnHA8HWY0w=";
+      sha256 = "sha256-2zTarj13yM4NIMbFlXELAQsTigSHDpK1jYKax2exVZc=";
     };
-    date = "2024-05-03";
+    date = "2024-05-04";
   };
   foot_catppuccin = {
     pname = "foot_catppuccin";
