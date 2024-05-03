@@ -33,3 +33,7 @@ fetch.github = "catppuccin/prismlauncher"
 [obs_catppuccin]
 src.git = "https://github.com/catppuccin/obs.git"
 fetch.github = "catppuccin/obs"
+
+[nix-fast-build]
+src.git = "https://github.com/Mic92/nix-fast-build.git"
+fetch.github = "Mic92/nix-fast-build"

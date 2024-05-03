@@ -47,25 +47,14 @@
           ];
         };
       };
-      devShells.${system}.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          curl
-          jq
-          hydra-check
-          nixpkgs-fmt
-        ] ++ [ nvfetcher.packages.${system}.default ];
-        shellHook = pkgs.lib.strings.concatStrings [
-          # Fixes https://github.com/direnv/direnv/issues/73
-          # "export_alias codium 'codium --profile Nix $@'"
-          "\n"
-          (pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixpkgs-fmt.enable = true;
-              commitizen.enable = true;
-            };
-          }).shellHook
-        ];
-      };
+      devShells.${system} =
+        let
+          inherit (pkgs.lib) attrsets lists strings;
+        in
+        (attrsets.genAttrs
+          (lists.forEach
+            (attrsets.attrNames (builtins.readDir ./Shells))
+            (str: strings.removeSuffix ".nix" str))
+          (name: import (./Shells + "/${name}.nix") { inherit pkgs inputs sources; }));
     };
 }
