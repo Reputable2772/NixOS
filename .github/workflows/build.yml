@@ -10,7 +10,11 @@ jobs:
     - name: "Checkout"
       uses: actions/checkout@v3
 
+    - name: "Check diff for Nix file changes"
+      run: ./nix.sh diff-nix
+
     - name: Substituters
+      if: env.SKIP_JOBS == 1
       run: |
         sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/configuration.nix | xargs > trusted-public-keys.txt
         sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/configuration.nix | xargs >> substituters.txt
@@ -19,14 +23,12 @@ jobs:
         echo "SUBSTITUTERS=$(cat substituters.txt)" >> "$GITHUB_ENV"
 
     - name: "Install Nix"
+      if: env.SKIP_JOBS == 1
       uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
           trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ env.SUBSTITUTERS }}
-
-    - name: "Check diff for Nix file changes"
-      run: ./nix.sh diff-nix
 
     - name: "Check Flake"
       if: env.SKIP_JOBS == 1
