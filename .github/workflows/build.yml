@@ -25,9 +25,14 @@ jobs:
           trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ env.SUBSTITUTERS }}
 
+    - name: "Check diff for Nix file changes"
+      run: ./nix.sh diff-nix
+
     - name: "Check Flake"
+      if: env.SKIP_JOBS == 1
       run: ./nix.sh check
 
     - name: "Build Packages"
+      if: env.SKIP_JOBS == 1
       run: |
         nix develop .#ci --command bash -c "CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} CACHIX_ACTIVATE_TOKEN=${{ secrets.CACHIX_ACTIVATE_TOKEN }} ./nix.sh ci"
