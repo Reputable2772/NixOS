@@ -14,8 +14,8 @@ jobs:
 
     - name: Substituters
       run: |
-        sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/configuration.nix | xargs > trusted-public-keys.txt
-        sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/configuration.nix | xargs >> substituters.txt
+        sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs > trusted-public-keys.txt
+        sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs >> substituters.txt
 
         echo "TRUSTED_PUBLIC_KEYS=$(cat trusted-public-keys.txt)" >> "$GITHUB_ENV"
         echo "SUBSTITUTERS=$(cat substituters.txt)" >> "$GITHUB_ENV"
