@@ -1,17 +1,12 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, sources
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "firefox-gnome-theme";
-  version = "124";
+  version = sources.firefox-gnome-theme.version;
 
-  src = fetchFromGitHub {
-    repo = pname;
-    owner = "rafaelmardojai";
-    rev = "v${version}";
-    sha256 = "sha256-NOfsWKOLifmRLIySbjlJFFLuRT8UVyLeZItuLCjvIno=";
-  };
+  src = sources.firefox-gnome-theme.src;
 
   dontConfigure = true;
   dontBuild = true;

@@ -1,6 +1,6 @@
-{ config, osConfig, lib', pkgs, ... }:
+{ config, osConfig, lib', pkgs, sources, ... }:
 let
-  firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix { };
+  firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix { inherit sources; };
 in
 {
   home.packages = [ firefox-gnome-theme ];

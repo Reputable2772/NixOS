@@ -59,6 +59,26 @@
         },
         "version": "9fbb23b135d4934e35079de5cf789654f8bcc724"
     },
+    "firefox-gnome-theme": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "firefox-gnome-theme",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rafaelmardojai",
+            "repo": "firefox-gnome-theme",
+            "rev": "v125",
+            "sha256": "sha256-N1BmvredC7xfZhobNOog0+0KrbGXPbQmmmWHT1eOoBw=",
+            "type": "github"
+        },
+        "version": "v125"
+    },
     "foot_catppuccin": {
         "cargoLocks": null,
         "date": "2024-05-02",

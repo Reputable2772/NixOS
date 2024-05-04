@@ -37,6 +37,17 @@
     };
     date = "2024-05-04";
   };
+  firefox-gnome-theme = {
+    pname = "firefox-gnome-theme";
+    version = "v125";
+    src = fetchFromGitHub {
+      owner = "rafaelmardojai";
+      repo = "firefox-gnome-theme";
+      rev = "v125";
+      fetchSubmodules = false;
+      sha256 = "sha256-N1BmvredC7xfZhobNOog0+0KrbGXPbQmmmWHT1eOoBw=";
+    };
+  };
   foot_catppuccin = {
     pname = "foot_catppuccin";
     version = "307611230661b7b1787feb7f9d122e851bae97e9";
