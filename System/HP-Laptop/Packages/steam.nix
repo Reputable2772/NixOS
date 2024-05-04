@@ -1,8 +1,5 @@
-{ pkgs, inputs, ... }: {
+{
   programs.steam = {
-    enable = false;
-    package = inputs.nixpkgs-unfree.legacyPackages.${pkgs.system}.steam;
+    enable = true;
   };
-
-  # environment.systemPackages = [ inputs.nixpkgs-unfree.legacyPackages.${pkgs.system}.steam ];
 }
