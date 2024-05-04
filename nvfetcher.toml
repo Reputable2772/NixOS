@@ -41,3 +41,7 @@ fetch.github = "Mic92/nix-fast-build"
 [firefox-gnome-theme]
 src.github = "rafaelmardojai/firefox-gnome-theme"
 fetch.github = "rafaelmardojai/firefox-gnome-theme"
+
+[filen]
+src.manual = "latest"
+fetch.url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"

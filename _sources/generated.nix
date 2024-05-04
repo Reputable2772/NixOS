@@ -37,6 +37,14 @@
     };
     date = "2024-05-04";
   };
+  filen = {
+    pname = "filen";
+    version = "latest";
+    src = fetchurl {
+      url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage";
+      sha256 = "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=";
+    };
+  };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
     version = "v125";

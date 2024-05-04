@@ -1,21 +1,16 @@
 # Taken from https://github.com/NixOS/nixpkgs/pull/243693#issuecomment-1957252695 and modified
 
 { lib
-, fetchurl
 , makeWrapper
 , appimageTools
 , libappindicator-gtk3
+, sources
 }:
 let
   pname = "filen-desktop";
-  version = "2.0.24";
+  version = sources.filen.version;
 
-  src = fetchurl {
-    # Package will need a hash update whenever upstream updates
-    # https://github.com/FilenCloudDienste/filen-desktop/issues/208
-    url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage";
-    hash = "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=";
-  };
+  src = sources.filen.src;
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
 
