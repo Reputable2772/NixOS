@@ -8,7 +8,6 @@
       mpris
       quality-menu
       sponsorblock
-      youtube-upnext
     ];
   };
 }
