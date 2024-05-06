@@ -1,4 +1,4 @@
-{ pkgs, sources }:
+{ pkgs, sources, ... }:
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     cachix
