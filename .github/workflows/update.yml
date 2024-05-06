@@ -30,7 +30,7 @@ jobs:
     - name: "Update flake.lock and nvfetcher"
       run: |
         nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee flake-update.txt
-        nix run github:berberman/nvfetcher 2>&1 | tee nvfetcher-update.txt
+        nix develop .#ci --command bash -c nvfetcher 2>&1 | tee nvfetcher-update.txt
 
     - name: "Write changelog"
       run: |

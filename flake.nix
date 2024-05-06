@@ -16,10 +16,9 @@
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
-    nvfetcher.url = "github:berberman/nvfetcher";
   };
 
-  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, self, nvfetcher, ... }@inputs:
+  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, self, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
