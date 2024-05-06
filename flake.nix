@@ -15,10 +15,9 @@
     spicetify-nix.url = "github:the-argus/spicetify-nix";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    cachix-deploy-flake.url = "github:cachix/cachix-deploy-flake";
   };
 
-  outputs = { nixpkgs, pre-commit-hooks, cachix-deploy-flake, self, ... }@inputs:
+  outputs = { nixpkgs, pre-commit-hooks, self, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -27,9 +26,9 @@
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
-      cachix-deploy = (cachix-deploy-flake.lib pkgs).spec {
+      cachix-deploy = pkgs.writeText "cachix-deploy.json" (builtins.toJSON {
         agents = pkgs.lib.attrsets.mapAttrs (name: value: value.config.system.build.toplevel) self.nixosConfigurations;
-      };
+      });
       nixosConfigurations = {
         "hp-laptop" = nixpkgs.lib.nixosSystem {
           inherit system;
