@@ -1,5 +1,5 @@
 { pkgs, inputs, ... }: {
-  home.packages = with pkgs; [ inputs.nixpkgs-master.legacyPackages.${pkgs.system}.nixd nil ];
+  home.packages = with pkgs; [ nixd nil ];
 
   # All VSCode related issues
   # https://github.com/nix-community/home-manager/issues/3822
