@@ -42,13 +42,6 @@
         };
       };
       devShells.${system} =
-        let
-          inherit (pkgs.lib) attrsets lists strings;
-        in
-        (attrsets.genAttrs
-          (lists.forEach
-            (attrsets.attrNames (builtins.readDir ./Shells))
-            (str: strings.removeSuffix ".nix" str))
-          (name: import (./Shells + "/${name}.nix") { inherit pkgs inputs sources; }));
+        pkgs.lib.attrsets.mapAttrs (name: value: import value { inherit pkgs inputs sources; }) (lib'.recurseDirectory ./Shells);
     };
 }
