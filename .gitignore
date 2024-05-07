@@ -10,3 +10,4 @@
 /Config/**/*
 !/Config/mimeapps.list
 !/Config/*.age
+!/Config/config.nix

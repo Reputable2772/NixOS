@@ -1,4 +1,4 @@
-{ osConfig, pkgs, lib, ... }:
+{ config, config', pkgs, lib, ... }:
 let
   script = name: podman: sleep: extra: extra_pkgs: extra_rules: builtins.toString (
     pkgs.resholve.writeScript name
@@ -36,7 +36,7 @@ in
           export BW_SESSION=$(bw unlock $(ssh-askpass-fullscreen) --raw)
           export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
 
-          for folder in $(find ${osConfig.programs.config_dir.self_dir}/Config/SSH/ -type f ! -name "*.*"); do
+          for folder in $(find ${config'.users.${config.home.username}.config.dir.config}/SSH/ -type f ! -name "*.*"); do
             key=$(basename $folder)
             pass=$(bw get item $key | jq ".login.password" | tr -d '"')
             expect -c "spawn ssh-add $folder" -c "expect \"Enter passphrase\"" -c "send \"$pass\r\"" -c "expect eof"

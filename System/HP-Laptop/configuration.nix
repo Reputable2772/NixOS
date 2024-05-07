@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib', sources, ... }:
+{ config, config', pkgs, inputs, lib', sources, ... }:
 let
   inherit (inputs) nur home-manager nixpkgs-wayland;
 in
@@ -42,20 +42,9 @@ in
       };
     };
     extraSpecialArgs = {
-      inherit inputs lib' sources;
+      inherit inputs lib' sources config';
     };
   };
-
-  programs.config_dir =
-    let
-      base = a: "${config.users.users.wickedwizard.home}/Documents/${a}";
-    in
-    {
-      base_dir = "${config.users.users.wickedwizard.home}/Documents";
-      config_dir = base "Config";
-      browser_dir = base "Browsers";
-      self_dir = base "NixOS";
-    };
 
   imports = [
     home-manager.nixosModules.home-manager

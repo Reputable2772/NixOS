@@ -1,4 +1,4 @@
-{ osConfig, ... }: {
+{ config, config', lib, ... }: {
   programs.librewolf = {
     enable = true;
     settings = {
@@ -13,7 +13,7 @@
     [Profile0]
     Name=Default
     IsRelative=0
-    Path=${osConfig.programs.config_dir.browser_dir}/Librewolf
+    ${lib.optionals (lib.attrsets.hasAttrByPath [ "config" "dir" "browsers" ] config'.users.${config.home.username}) "Path=${config'.users.${config.home.username}.config.dir.browsers}/Librewolf"}
 
     [General]
     StartWithLastProfile=1

@@ -1,11 +1,13 @@
-{ config, inputs, ... }:
+{ inputs, config', lib, ... }:
 {
   imports = [
     inputs.agenix.nixosModules.default
   ];
 
   # SSH private keys for the system side.
-  age.identityPaths = [
-    "${config.programs.config_dir.self_dir}/Config/SSH/Encryption/Encryption"
+  age.identityPaths = lib.pipe config'.system.secrets [
+    (lib.attrsets.filterAttrs (_: v: v != null))
+    (lib.attrsets.mapAttrs (n: v: v.pkeyfile))
+    lib.attrsets.attrValues
   ];
 }
