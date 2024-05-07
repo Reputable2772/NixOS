@@ -1,10 +1,10 @@
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, inputs, ... }: {
   nix = {
     registry.nixpkgs.flake = inputs.nixpkgs;
     gc = {
       automatic = true;
       dates = "daily";
-      options = "--delete-old --delete-older-than 2d";
+      options = "--delete-older-than 2d";
     };
     settings = {
       auto-optimise-store = true;
