@@ -4,8 +4,7 @@
     ./Misc
     ./Packages
     ./Services
-    ./boot.nix
-    ./configuration.nix
-    ./virtualisation.nix
+
+    ./users.nix
   ];
 }

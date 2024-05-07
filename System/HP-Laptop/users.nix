@@ -1,13 +1,8 @@
 { config, config', pkgs, inputs, lib', sources, ... }:
 let
-  inherit (inputs) nur home-manager nixpkgs-wayland;
+  inherit (inputs) home-manager;
 in
 {
-  nixpkgs.overlays = [
-    nur.overlay
-    nixpkgs-wayland.overlay
-  ] ++ import ../../Overlays;
-
   # Needs to be set here or else shell won't work
   programs.zsh.enable = true;
   # Shell autocomplete
