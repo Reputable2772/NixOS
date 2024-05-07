@@ -3,6 +3,6 @@
     ./Misc
     ./Services
 
-    ./configuration.nix
+    ../../Modules/System
   ];
 }
