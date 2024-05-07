@@ -23,7 +23,7 @@
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
     };
-    package = pkgs.nixVersions.nix_2_21;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       always-allow-substitutes = true
     '';
