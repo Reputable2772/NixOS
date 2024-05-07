@@ -1,6 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   nix = {
-    registry.nixpkgs.flake = inputs.nixpkgs;
     gc = {
       automatic = true;
       dates = "daily";
@@ -32,8 +31,11 @@
       always-allow-substitutes = true
     '';
 
-    # Disable channels and set NIX_PATH
+    /**
+      Disable Nix channels.
+      There is no need for setting NIX_PATH and the Flake registry, thanks to
+      NixOS/nixpkgs#254405
+     */
     channel.enable = false;
   };
-  environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
 }
