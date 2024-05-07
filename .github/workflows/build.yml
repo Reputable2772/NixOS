@@ -32,6 +32,9 @@ jobs:
           trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ env.SUBSTITUTERS }}
 
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+      if: env.SKIP_JOBS == 1
+
     - name: "Check Flake"
       if: env.SKIP_JOBS == 1
       run: ./nix.sh check
