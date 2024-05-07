@@ -6,6 +6,10 @@
       dates = "daily";
       options = "--delete-older-than 2d";
     };
+    optimise = {
+      automatic = true;
+      dates = [ "daily" ];
+    };
     settings = {
       auto-optimise-store = true;
       trusted-users = [ "root" "@wheel" ];
