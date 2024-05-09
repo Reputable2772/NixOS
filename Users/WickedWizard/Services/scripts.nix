@@ -33,7 +33,7 @@ in
         Restart = "on-failure";
         RestartSec = 5;
         ExecStart = script "login.sh" "up -d" true ''
-          export BW_SESSION=$(bw unlock $(ssh-askpass-fullscreen) --raw)
+          export BW_SESSION=$(bw unlock $(ssh-askpass) --raw)
           export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent
 
           for folder in $(find ${config'.users.${config.home.username}.config.dir.config}/SSH/ -type f ! -name "*.*"); do
@@ -48,9 +48,10 @@ in
             jq
             expect
             findutils
-          ]) [
+          ] ++ [ "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass" ]) [
           "cannot:${lib.getExe pkgs.expect}"
           "cannot:${lib.getExe pkgs.bitwarden-cli}"
+          "cannot:${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass"
         ];
         ExecStop = script "logout.sh" "down" false ''
           bw lock
