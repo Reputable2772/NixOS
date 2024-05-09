@@ -2,11 +2,13 @@
 # and form an attrset with file name as key and value as path to file.
 { lib }:
 let
-  inherit (lib) attrsets lists strings;
-  recurseDirectory = folder: attrsets.genAttrs
-    (lists.forEach
-      (attrsets.attrNames (attrsets.filterAttrs (name: value: value == "regular") (builtins.readDir folder)))
-      (str: strings.removeSuffix ".nix" str))
-    (name: folder + "/${name}.nix");
+  inherit (lib) attrsets lists strings trivial;
+  recurseDirectory = folder:
+    lib.pipe (builtins.readDir folder) [
+      (attrsets.filterAttrs (n: v: v == "regular"))
+      attrsets.attrNames
+      (lists.map (str: strings.removeSuffix ".nix" str))
+      (trivial.flip attrsets.genAttrs (name: folder + "/${name}.nix"))
+    ];
 in
 recurseDirectory
