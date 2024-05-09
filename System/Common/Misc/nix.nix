@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
   nix = {
     gc = {
       automatic = true;
@@ -13,6 +13,8 @@
       auto-optimise-store = true;
       trusted-users = [ "root" "@wheel" ];
       experimental-features = [ "flakes" "nix-command" ];
+      # Fixes NixOS/nix#9574
+      nix-path = config.nix.nixPath;
       substituters = [
         "https://spearman4157.cachix.org"
         "https://cache.nixos.org/"
@@ -30,12 +32,14 @@
     extraOptions = ''
       always-allow-substitutes = true
     '';
+    channel.enable = false;
 
     /**
-      Disable Nix channels.
-      There is no need for setting NIX_PATH and the Flake registry, thanks to
-      NixOS/nixpkgs#254405
+      Map the registry so that it has every flake input in it.
+      Also make sure the flake contains every input path in it.
+      Set nix.settings.nix-path manually as well, see above
      */
-    channel.enable = false;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
 }
