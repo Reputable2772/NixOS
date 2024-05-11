@@ -5,9 +5,10 @@
   ];
 
   # SSH private keys for the system side.
-  age.identityPaths = lib.pipe config'.system.secrets [
-    (lib.attrsets.filterAttrs (_: v: v != null))
-    (lib.attrsets.mapAttrs (n: v: v.pkeyfile))
-    lib.attrsets.attrValues
-  ];
+  age.identityPaths = lib.pipe config'.system.secrets
+    (with lib.attrsets; [
+      (filterAttrs (_: v: v != null))
+      (mapAttrs (n: v: v.pkeyfile))
+      attrValues
+    ]);
 }

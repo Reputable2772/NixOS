@@ -3,6 +3,8 @@
   The aim is to replace the old config modules.
 
   If you don't want something, or want to disable the module, set the value to null.
+
+  All the keys are added to ssh-agent using KeePassXC.
 */
 
 rec {
@@ -19,8 +21,15 @@ rec {
 
   system = {
     secrets = {
-      # The SSH Keys for encrypting system related secrets.
-      # This key should not have password.
+      /**
+        The SSH Keys for encrypting system related secrets.
+        This key should not have password, since age(nix) doesn't support using ssh-agent.
+        If you do set a password, it should be entered everytime the system is booted up,
+        or everytime you switch configurations.
+
+        Note: If you set a password for this, you most probably cannot use any
+        deployment tools like cachix-deploy, colmena, etc.
+       */
       encryption = {
         pkeyfile = "${flake.dir.config}/SSH/Encryption/Encryption";
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@hp-laptop";
@@ -63,5 +72,5 @@ rec {
   };
 
   # Agenix config
-  "./Cachix.age".publicKeys = [ system.secrets.encryption.key ];
+  "Cachix.age".publicKeys = [ system.secrets.encryption.key ];
 }
