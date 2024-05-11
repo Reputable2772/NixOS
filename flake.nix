@@ -47,6 +47,6 @@
         };
       };
       devShells.${system} =
-        pkgs.lib.attrsets.mapAttrs (name: value: import value { inherit pkgs inputs sources; }) (lib'.recurseDirectory ./Shells);
+        pkgs.lib.attrsets.mapAttrs (name: value: import value { inherit pkgs inputs sources; }) (lib'.recurseDirectory ./Shells false);
     };
 }
