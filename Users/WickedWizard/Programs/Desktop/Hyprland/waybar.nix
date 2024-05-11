@@ -1,5 +1,5 @@
 # Inspiration https://github.com/Srinath10X/catppuccin-waybar/
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   waybar = {
     exclusive = true;
@@ -349,7 +349,7 @@ in
 {
 
   programs.waybar = {
-    enable = true;
+    enable = config.wayland.windowManager.hyprland.enable;
     settings = {
       mainBar = waybar;
     };
@@ -359,11 +359,14 @@ in
     systemd.enable = false;
   };
 
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [
-      "${lib.getExe pkgs.waybar}"
-    ];
-  };
+  programs.autostart.autostartPackages = lib.optionals config.programs.waybar.enable [
+    (pkgs.makeDesktopItem {
+      name = "Waybar";
+      exec = "waybar";
+      desktopName = "Waybar";
+      categories = [ "Applications" ];
+    })
+  ];
 
   # xdg.configFile = {
   #   waybar = {
