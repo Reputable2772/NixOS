@@ -5,6 +5,7 @@
     ./evince.nix
     ./file-roller.nix
     ./foot.nix
+    ./keepassxc.nix
     # ./kitty.nix
     ./maps.nix
     ./ntfy.nix
