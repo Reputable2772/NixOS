@@ -40,7 +40,7 @@ in
             ${lib.pipe
               config'.users.${config.home.username}.mounts.gocryptfs
               (with lib; [
-                (attrsets.mapAttrs (n: v: "gocryptfs ${v.source} ${v.mountpoint} ${optionalString (v ? authentication && v.authentication) "-passwd ${config.age.secrets.${n}.path}"}"))
+                (attrsets.mapAttrs (n: v: "gocryptfs ${v.source} ${v.mountpoint} ${optionalString (v ? authentication && v.authentication) "-passfile ${config.age.secrets.${n}.path}"}"))
                 attrsets.attrValues
                 (strings.concatStringsSep "\n")
               ])
