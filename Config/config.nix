@@ -6,7 +6,6 @@
 
   All the keys are added to ssh-agent using KeePassXC.
 */
-
 rec {
   flake = {
     dir = rec {
@@ -29,7 +28,7 @@ rec {
 
         Note: If you set a password for this, you most probably cannot use any
         deployment tools like cachix-deploy, colmena, etc.
-       */
+      */
       encryption = {
         pkeyfile = "${flake.dir.config}/SSH/Encryption/Encryption";
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@hp-laptop";
@@ -38,7 +37,24 @@ rec {
   };
 
   users = {
-    wickedwizard = {
+    wickedwizard = rec {
+      # Drives or gocryptfs locations to mount.
+      mounts = {
+        /**
+          By default, authentication for these gocryptfs folders is assumed to be false.
+          If authentication is necessary, set `authentication = true` and set `encryptionKeys = [...]`
+
+          When it is set, there needs to be a corresponding age file for the particular key name.
+          This needs to be done manually, since we cannot use nixpkgs/lib here.
+        */
+        gocryptfs = {
+          important-files = {
+            source = "${config.dir.base}/Important-Files";
+            mountpoint = "${config.dir.base}/../Mounted/Important-Files";
+            authentication = true;
+          };
+        };
+      };
       config = {
         dir = rec {
           # Internal variable, should not be used
@@ -67,10 +83,18 @@ rec {
             key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@hp-laptop";
           };
         };
+        # Passwords should not be set for this key, look above.
+        encryption = {
+          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/User-Encryption";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@hp-laptop";
+        };
       };
     };
   };
 
   # Agenix config
   "Cachix.age".publicKeys = [ system.secrets.encryption.key ];
+
+  # Gocryptfs age files
+  "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
