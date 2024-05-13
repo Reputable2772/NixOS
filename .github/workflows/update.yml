@@ -46,11 +46,6 @@ jobs:
       run: |
         nix develop .#ci --command bash -c "CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} CACHIX_ACTIVATE_TOKEN=${{ secrets.CACHIX_ACTIVATE_TOKEN }} ./nix.sh ci"
 
-    - name: "Ntfy failure notifications"
-      if: failure()
-      run: |
-        curl -H "Click: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" -d "Flake Update Github Actions has failed!" ${{ secrets.NTFY_URL }} > /dev/null
-
     - name: "Configure Git"
       run: |
         git config --global user.name "GitHub Actions"
