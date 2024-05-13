@@ -14,6 +14,8 @@
   imports = [
     ./Programs
     ./Services
+
+    ./secrets.nix
   ];
 
   programs.home-manager.enable = true;
