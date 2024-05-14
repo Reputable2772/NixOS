@@ -362,7 +362,7 @@ in
   programs.autostart.autostartPackages = lib.optionals config.programs.waybar.enable [
     (pkgs.makeDesktopItem {
       name = "Waybar";
-      exec = "waybar";
+      exec = "waybar --log-level trace 2>&1 | tee test.txt";
       desktopName = "Waybar";
       categories = [ "Applications" ];
     })
