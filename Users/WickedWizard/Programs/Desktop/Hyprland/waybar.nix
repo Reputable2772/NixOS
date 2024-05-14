@@ -1,5 +1,5 @@
 # Inspiration https://github.com/Srinath10X/catppuccin-waybar/
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 let
   waybar = {
     exclusive = true;
@@ -359,14 +359,14 @@ in
     systemd.enable = false;
   };
 
-  programs.autostart.autostartPackages = lib.optionals config.programs.waybar.enable [
-    (pkgs.makeDesktopItem {
-      name = "Waybar";
-      exec = "waybar --log-level trace 2>&1 | tee test.txt";
-      desktopName = "Waybar";
-      categories = [ "Applications" ];
-    })
-  ];
+  # programs.autostart.autostartPackages = lib.optionals config.programs.waybar.enable [
+  #   (pkgs.makeDesktopItem {
+  #     name = "Waybar";
+  #     exec = "waybar";
+  #     desktopName = "Waybar";
+  #     categories = [ "Applications" ];
+  #   })
+  # ];
 
   # xdg.configFile = {
   #   waybar = {
