@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ playerctl ];
 
-  programs.autostart.autostartPackages = [
+  programs.autostart.packages = [
     (pkgs.makeDesktopItem {
       name = "Playerctld";
       exec = "playerctld daemon";

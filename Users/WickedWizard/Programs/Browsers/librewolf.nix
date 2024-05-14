@@ -20,7 +20,7 @@
     Version=2
   '';
 
-  # programs.autostart.autostartPackages = with pkgs; [ librewolf ];
+  # programs.autostart.packages = with pkgs; [ librewolf ];
 
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, B, exec, librewolf"

@@ -5,5 +5,5 @@ in
 {
   home.packages = [ filen ];
 
-  programs.autostart.autostartPackages = [ filen ];
+  programs.autostart.packages = [ filen ];
 }

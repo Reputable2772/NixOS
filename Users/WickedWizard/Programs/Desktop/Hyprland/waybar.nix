@@ -359,7 +359,7 @@ in
     systemd.enable = false;
   };
 
-  # programs.autostart.autostartPackages = lib.optionals config.programs.waybar.enable [
+  # programs.autostart.packages = lib.optionals config.programs.waybar.enable [
   #   (pkgs.makeDesktopItem {
   #     name = "Waybar";
   #     exec = "waybar";

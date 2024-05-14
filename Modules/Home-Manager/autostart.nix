@@ -13,14 +13,14 @@ in
       '';
     };
 
-    autostartPackages = mkOption {
+    packages = mkOption {
       default = [ ];
       example = literalExpression "[ pkgs.gnome.pomodoro ]";
       type = types.listOf types.package;
       description = lib.mdDoc "Packages that need to be autostarted.";
     };
 
-    autostartFiles = mkOption {
+    files = mkOption {
       default = [ ];
       example = literalExpression "\$\{pkgs.gnome.pomodoro\}/share/applications/org.gnome.Pomodoro.desktop";
       type = types.listOf types.path;
@@ -32,11 +32,11 @@ in
     xdg.configFile."autostart".source = pkgs.runCommand "" { } ''
       mkdir $out
 
-      for dir in ${strings.escapeShellArgs cfg.autostartPackages}; do
+      for dir in ${strings.escapeShellArgs cfg.packages}; do
         ln -s $dir/share/applications/*.desktop $out/
       done
 
-      for file in ${strings.escapeShellArgs cfg.autostartFiles}; do
+      for file in ${strings.escapeShellArgs cfg.files}; do
         ln -s $file $out/
       done
     '';

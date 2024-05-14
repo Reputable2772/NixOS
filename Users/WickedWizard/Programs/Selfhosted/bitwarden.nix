@@ -1,5 +1,5 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ bitwarden bitwarden-cli ];
 
-  # programs.autostart.autostartPackages = with pkgs; [ bitwarden ];
+  # programs.autostart.packages = with pkgs; [ bitwarden ];
 }

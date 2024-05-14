@@ -23,5 +23,5 @@ in
     ];
   };
 
-  programs.autostart.autostartPackages = with pkgs; [ spotify ];
+  programs.autostart.packages = with pkgs; [ spotify ];
 }

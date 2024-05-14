@@ -4,5 +4,5 @@
     joplin-desktop
   ];
 
-  programs.autostart.autostartPackages = with pkgs; [ joplin-desktop ];
+  programs.autostart.packages = with pkgs; [ joplin-desktop ];
 }

@@ -11,7 +11,7 @@ in
     (bool cond gnome.pomodoro uair)
   ];
 
-  programs.autostart.autostartPackages = [
+  programs.autostart.packages = [
     (bool cond pkgs.gnome.pomodoro (
       pkgs.makeDesktopItem {
         name = "Uair";

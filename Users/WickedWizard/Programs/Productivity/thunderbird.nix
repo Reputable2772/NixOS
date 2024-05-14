@@ -13,5 +13,5 @@
     Version=2
   '';
 
-  programs.autostart.autostartPackages = with pkgs; [ thunderbird ];
+  programs.autostart.packages = with pkgs; [ thunderbird ];
 }

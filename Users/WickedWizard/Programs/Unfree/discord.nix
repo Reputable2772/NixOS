@@ -3,5 +3,5 @@
     vesktop
   ];
 
-  # programs.autostart.autostartPackages = with pkgs; [ vesktop ];
+  # programs.autostart.packages = with pkgs; [ vesktop ];
 }

@@ -1,5 +1,5 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ keepassxc ];
 
-  programs.autostart.autostartPackages = with pkgs; [ keepassxc ];
+  programs.autostart.packages = with pkgs; [ keepassxc ];
 }

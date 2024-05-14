@@ -25,7 +25,7 @@
     };
   };
 
-  programs.autostart.autostartFiles = [ "${pkgs.kitty}/share/applications/kitty.desktop" ];
+  programs.autostart.files = [ "${pkgs.kitty}/share/applications/kitty.desktop" ];
 
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, Return, exec, kitty"
