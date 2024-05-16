@@ -41,7 +41,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-05-15",
+        "date": "2024-05-16",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "445dd94b53f0903f35989dca47eeaa6edeb53f86",
-            "sha256": "sha256-rCuobd8oOIpAuzxYmi4ZKH1CVSc+6yYVWspYrsENobQ=",
+            "rev": "b4a6606faf75ad679293e2aa29319a9c307ec016",
+            "sha256": "sha256-5ez1TTM2vT3YzFs237h0rhaOUlOPMHJQmr00qtQ6J/w=",
             "type": "github"
         },
-        "version": "445dd94b53f0903f35989dca47eeaa6edeb53f86"
+        "version": "b4a6606faf75ad679293e2aa29319a9c307ec016"
     },
     "filen": {
         "cargoLocks": null,
@@ -88,11 +88,11 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v125",
-            "sha256": "sha256-N1BmvredC7xfZhobNOog0+0KrbGXPbQmmmWHT1eOoBw=",
+            "rev": "v126",
+            "sha256": "sha256-jVbj2JD5GRkP8s3vKBtd9PDpftf3kjLR0ZA/ND/c2+Q=",
             "type": "github"
         },
-        "version": "v125"
+        "version": "v126"
     },
     "foot_catppuccin": {
         "cargoLocks": null,
@@ -116,7 +116,7 @@
     },
     "nix-fast-build": {
         "cargoLocks": null,
-        "date": "2024-05-02",
+        "date": "2024-05-15",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -128,11 +128,11 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "071d44681486271060f938a354ef9ba82ee4f9ea",
-            "sha256": "sha256-2D2UVkXHivtNUohlJy3GjMaiE7efozJCRgnYOkBbZlY=",
+            "rev": "cfff239d93716e92f6467f8953d8f8c12da1892a",
+            "sha256": "sha256-wvsg/UMM/jekzgbggH56KLZJzRmwrB9ErevaXXyWyqc=",
             "type": "github"
         },
-        "version": "071d44681486271060f938a354ef9ba82ee4f9ea"
+        "version": "cfff239d93716e92f6467f8953d8f8c12da1892a"
     },
     "obs_catppuccin": {
         "cargoLocks": null,
