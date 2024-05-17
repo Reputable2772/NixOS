@@ -1,8 +1,8 @@
 {
   imports = [
-    ./beeper.nix
-    ./discord.nix
-    ./spotify.nix
+    # ./beeper.nix
+    # ./discord.nix
+    # ./spotify.nix
     ./telegram.nix
     ./whatsapp.nix
   ];
