@@ -29,9 +29,6 @@
       ];
     };
     package = pkgs.nixVersions.latest;
-    extraOptions = ''
-      always-allow-substitutes = true
-    '';
     channel.enable = false;
 
     /**
