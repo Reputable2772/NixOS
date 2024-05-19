@@ -84,12 +84,6 @@ depends() {
 	NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNFREE=1 nix why-depends --impure --derivation .#nixosConfigurations.$(hostname).config.system.build.toplevel .#nixosConfigurations.$(hostname).pkgs.$1
 }
 
-diff_nix() {
-	if [[ $(git diff HEAD HEAD~1 --name-only) =~ .*".nix".* ]]; then
-        echo "SKIP_JOBS=1" >> "$GITHUB_ENV"
-	fi
-}
-
 format() {
 	echo "Formatting files."
 	nix fmt
@@ -141,8 +135,6 @@ case $1 in
 		clean;;
 	"dconf")
 		dconf_nix;;
-	"diff-nix")
-		diff_nix;;
 	"format")
 		format;;
 	"first-time-setup")
@@ -152,5 +144,5 @@ case $1 in
 	"last-unbroken")
 		last_unbroken $2;;
 	*)
-		echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'diff-nix', 'format', 'first-time-setup', 'why-depends' or 'last-unbroken'";;
+		echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'first-time-setup', 'why-depends' or 'last-unbroken'";;
 esac

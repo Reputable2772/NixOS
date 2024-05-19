@@ -12,11 +12,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: "Check diff for Nix file changes"
-      run: ./nix.sh diff-nix
-
     - name: Substituters
-      if: env.SKIP_JOBS == 1
       run: |
         sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs > trusted-public-keys.txt
         sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs >> substituters.txt
@@ -25,7 +21,6 @@ jobs:
         echo "SUBSTITUTERS=$(cat substituters.txt)" >> "$GITHUB_ENV"
 
     - name: "Install Nix"
-      if: env.SKIP_JOBS == 1
       uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
@@ -33,13 +28,10 @@ jobs:
           substituters = ${{ env.SUBSTITUTERS }}
 
     - uses: DeterminateSystems/magic-nix-cache-action@main
-      if: env.SKIP_JOBS == 1
 
     - name: "Check Flake"
-      if: env.SKIP_JOBS == 1
       run: ./nix.sh check
 
     - name: "Build Packages"
-      if: env.SKIP_JOBS == 1
       run: |
         nix develop .#ci --command bash -c "CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} CACHIX_ACTIVATE_TOKEN=${{ secrets.CACHIX_ACTIVATE_TOKEN }} ./nix.sh ci"
