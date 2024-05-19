@@ -42,7 +42,7 @@ ci() {
 	# https://github.com/Mic92/nix-fast-build/blob/f024a66e6a1f83de95aba109287a97dd6ca76127/nix_fast_build/__init__.py#L605
 	mv deploy.json- deploy.json
 
-	jq '.agents | values[]' deploy.json | cachix push spearman4157
+	echo $(jq '.agents | values[]' deploy.json) | cachix push spearman4157
 
 	cachix deploy activate ./deploy.json
 }
