@@ -57,7 +57,7 @@ in
                     ''
                       cat <<_EOF >$out/bin/${pname}
                       #! ${pkgs.runtimeShell} -e
-                      exec /run/wrappers/bin/firejail --profile ${pkgs.firejail}/etc/firejail/${pname}.profile -- ${bpath}
+                      exec /run/wrappers/bin/firejail --profile=${pkgs.firejail}/etc/firejail/${pname}.profile -- ${bpath}
                       _EOF
 
                       chmod 0755 $out/bin/${pname}
