@@ -14,4 +14,5 @@
   '';
 
   programs.autostart.packages = with pkgs; [ thunderbird ];
+  programs.firejail.excludedPackages = with pkgs; [ thunderbird ];
 }

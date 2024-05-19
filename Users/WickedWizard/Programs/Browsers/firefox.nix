@@ -23,6 +23,7 @@ in
   };
 
   # programs.autostart.packages = with pkgs; [ firefox ];
+  programs.firejail.excludedPackages = with pkgs; [ firefox ];
 
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, V, exec, firefox"
