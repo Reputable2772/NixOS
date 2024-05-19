@@ -27,15 +27,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "92abf3e06314ea28ab92a8361669c8492762bf75";
+    version = "aba211221b252ee1bedc8523a5c512f003015327";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "92abf3e06314ea28ab92a8361669c8492762bf75";
+      rev = "aba211221b252ee1bedc8523a5c512f003015327";
       fetchSubmodules = false;
-      sha256 = "sha256-sJrqEFwc69AAnoIHGpvrhiyM2QpyLYyE8nWgV72dpsE=";
+      sha256 = "sha256-xf5bdVQyb6Zpq/pbK+K/xHZ71XPREtfAC4kHPvL9ZoY=";
     };
-    date = "2024-05-18";
+    date = "2024-05-19";
   };
   filen = {
     pname = "filen";
