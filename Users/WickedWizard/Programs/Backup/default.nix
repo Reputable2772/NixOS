@@ -1,4 +1,4 @@
-{ ... }: {
+{
   imports = [
     ./filen.nix
     ./rclone.nix
