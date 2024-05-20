@@ -41,7 +41,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-05-19",
+        "date": "2024-05-20",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "aba211221b252ee1bedc8523a5c512f003015327",
-            "sha256": "sha256-xf5bdVQyb6Zpq/pbK+K/xHZ71XPREtfAC4kHPvL9ZoY=",
+            "rev": "43bdb68cbf0ebf4717e4ecd5783280b2dd686a7f",
+            "sha256": "sha256-T1M+AwKc7O7Ex6mzBtYBwhOXHkggO5CsjddmZhBpxfQ=",
             "type": "github"
         },
-        "version": "aba211221b252ee1bedc8523a5c512f003015327"
+        "version": "43bdb68cbf0ebf4717e4ecd5783280b2dd686a7f"
     },
     "filen": {
         "cargoLocks": null,
