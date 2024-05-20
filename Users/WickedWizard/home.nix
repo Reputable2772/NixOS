@@ -21,7 +21,7 @@
   programs.home-manager.enable = true;
   programs.autostart.enable = true;
   programs.firejail = {
-    enable = true;
+    enable = false;
     # This is a necessary, since passing `config.home.packages` itself without modifying would cause an infinite recursion.
     packages = config.home.packages ++ [
       (pkgs.runCommand "a-dummy-package" { } ''
