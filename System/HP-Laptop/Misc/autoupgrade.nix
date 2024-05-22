@@ -1,5 +1,5 @@
 { config, ... }: {
-  age.secrets.cachix.file = ../../../Config/Cachix.age;
+  age.secrets.cachix.file = ../../../Config/cachix.age;
 
   services.cachix-agent = {
     enable = true;
