@@ -7,8 +7,12 @@
   # SSH private keys for the system side.
   age.identityPaths = lib.pipe config'.system.secrets
     (with lib.attrsets; [
-      (filterAttrs (_: v: v != null))
-      (mapAttrs (n: v: v.pkeyfile))
+      (concatMapAttrs (_: v:
+        if v ? pkeyfile then
+          { ${_} = v.pkeyfile; }
+        else
+          (mapAttrs (n: v: v.pkeyfile) (filterAttrs (a: b: b ? pkeyfile) v))
+      ))
       attrValues
     ]);
 }
