@@ -48,8 +48,8 @@ ci() {
 }
 
 clean() {
-	sudo nix-collect-garbage --delete-old
-	nix-collect-garbage --delete-old
+	sudo nix-collect-garbage --delete-older-than 2d
+	nix-collect-garbage --delete-older-than 2d
 	# sudo nixos-rebuild boot --flake .#hp-laptop
 }
 
