@@ -16,8 +16,11 @@
       general = {
         layout = "dwindle";
         resize_on_border = true;
-        cursor_inactive_timeout = 15;
         no_border_on_floating = true;
+      };
+
+      cursor = {
+        inactive_timeout = 15;
       };
 
       monitor = [
