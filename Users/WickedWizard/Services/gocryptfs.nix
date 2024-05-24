@@ -1,20 +1,20 @@
 { config, config', pkgs, lib, ... }:
 let
-  script = name: extra: extra_pkgs: execer: fake: builtins.toString (
+  script = name: script: extra_pkgs: execer: fake: builtins.toString (
     pkgs.resholve.writeScript name
       {
         interpreter = lib.getExe pkgs.bash;
         inputs = with pkgs; [ coreutils ] ++ extra_pkgs;
         inherit execer fake;
       }
-      (lib.optionalString (builtins.stringLength extra > 0) extra)
+      script
   );
   gocryptfs = cmd: lib.optionalString (config'.users.${config.home.username}.mounts ? gocryptfs && config'.users.${config.home.username}.mounts.gocryptfs != null)
     ''
       ${lib.pipe
         config'.users.${config.home.username}.mounts.gocryptfs
         (with lib; [
-          (attrsets.mapAttrs (n: v: cmd n v))
+          (attrsets.mapAttrs cmd)
           attrsets.attrValues
           (strings.concatStringsSep "\n")
         ])
@@ -25,7 +25,7 @@ in
   age.secrets."important-files".file = ../../../Config/important-files.age;
 
   systemd.user.services = {
-    podman-login = {
+    gocryptfs = {
       Service = {
         Type = "forking";
         Restart = "on-failure";
@@ -36,17 +36,15 @@ in
           [ "cannot:${lib.getExe' pkgs.gocryptfs "gocryptfs"}" ]
           { };
         ExecStop = script "logout.sh"
-          (gocryptfs (n: v: "umount ${v.mountpoint}"))
-          [ pkgs.util-linux ]
+          (gocryptfs (n: v: "fusermount -u ${v.mountpoint}"))
+          [ pkgs.fuse ]
           [ ]
-          { external = [ "umount" ]; };
+          { external = [ "fusermount" ]; };
+        # Force gocryptfs and others to use the fusermount wrapper in /run/wrappers/bin, otherwise permissions error occurs.
+        Environment = [ "PATH=/run/wrappers/bin" ];
       };
       Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-      Unit = {
-        Description = "Podman Services";
-        After = [ "graphical-session-pre.target" ];
+        WantedBy = [ "default.target" ];
       };
     };
   };
