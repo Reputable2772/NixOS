@@ -1,9 +1,12 @@
-{ config, sources, pkgs, lib, ... }:
+{ inputs, config, sources, pkgs, lib, ... }:
 let
   inherit (config.wayland.windowManager) hyprland;
 in
 {
-  home.packages = lib.mkIf hyprland.enable [ pkgs.rofi-wayland ];
+  home.packages = lib.mkIf hyprland.enable [
+    pkgs.rofi-wayland
+    inputs.menucalc.packages.${pkgs.system}.menucalc
+  ];
 
   xdg.configFile.rofi = {
     inherit (hyprland) enable;
@@ -31,6 +34,7 @@ in
     bind = [
       "SUPER, R, exec, rofi -show run"
       "SUPER, A, exec, rofi -show drun"
+      "SUPER, Equal, exec, ="
     ];
     layerrule = [
       "blur,rofi"

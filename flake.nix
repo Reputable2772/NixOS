@@ -19,6 +19,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    menucalc = {
+      url = "github:sumnerevans/menu-calc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, pre-commit-hooks, self, ... }@inputs:
