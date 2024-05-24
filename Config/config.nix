@@ -44,7 +44,9 @@ rec {
           By default, authentication for these gocryptfs folders is assumed to be false.
           If authentication is necessary, set `authentication = true` and set `encryptionKeys = [...]`
 
-          When it is set, there needs to be a corresponding age file for the particular key name.
+          When it is set, there needs to be a corresponding age file for the particular key name
+          (E.g. important-files key should have `important-files.age` agenix file).
+          They need to be stored in this directory only.
           This needs to be done manually, since we cannot use nixpkgs/lib here.
         */
         gocryptfs = {

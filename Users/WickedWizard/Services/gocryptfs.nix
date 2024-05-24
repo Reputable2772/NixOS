@@ -1,5 +1,8 @@
 { config, config', pkgs, lib, ... }:
 let
+  inherit (lib.attrsets) mapAttrs attrValues filterAttrs concatMapAttrs;
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.trivial) pipe;
   script = name: script: extra_pkgs: execer: fake: builtins.toString (
     pkgs.resholve.writeScript name
       {
@@ -9,34 +12,39 @@ let
       }
       script
   );
-  gocryptfs = cmd: lib.optionalString (config'.users.${config.home.username}.mounts ? gocryptfs && config'.users.${config.home.username}.mounts.gocryptfs != null)
-    ''
-      ${lib.pipe
-        config'.users.${config.home.username}.mounts.gocryptfs
-        (with lib; [
-          (attrsets.mapAttrs cmd)
-          attrsets.attrValues
-          (strings.concatStringsSep "\n")
-        ])
-      }
-    '';
+  gocryptfs = _pipe: lib.mkIf
+    (config'.users.${config.home.username}.mounts ? gocryptfs && config'.users.${config.home.username}.mounts.gocryptfs != null)
+    (pipe config'.users.${config.home.username}.mounts.gocryptfs _pipe);
 in
 {
-  age.secrets."important-files".file = ../../../Config/important-files.age;
+  age.secrets = gocryptfs [
+    (filterAttrs (n: v: v ? authentication && v.authentication))
+    (concatMapAttrs (n: v: {
+      ${n}.file = ./. + "../../../../Config/${n}.age";
+    }))
+  ];
 
-  systemd.user.services = {
-    gocryptfs = {
+  systemd.user.services.gocryptfs =
+    let
+      gocryptfs_map = cmd:
+        (gocryptfs [
+          (mapAttrs cmd)
+          attrValues
+          (concatStringsSep "\n")
+        ]).content;
+    in
+    {
       Service = {
         Type = "forking";
         Restart = "on-failure";
         RestartSec = 5;
         ExecStart = script "login.sh"
-          (gocryptfs (n: v: "gocryptfs ${v.source} ${v.mountpoint} ${lib.optionalString (v ? authentication && v.authentication) "-passfile ${config.age.secrets.${n}.path}"}"))
+          (gocryptfs_map (n: v: "gocryptfs ${v.source} ${v.mountpoint} ${lib.optionalString (v ? authentication && v.authentication) "-passfile ${config.age.secrets.${n}.path}"}"))
           [ pkgs.gocryptfs ]
           [ "cannot:${lib.getExe' pkgs.gocryptfs "gocryptfs"}" ]
           { };
         ExecStop = script "logout.sh"
-          (gocryptfs (n: v: "fusermount -u ${v.mountpoint}"))
+          (gocryptfs_map (n: v: "fusermount -u ${v.mountpoint}"))
           [ pkgs.fuse ]
           [ ]
           { external = [ "fusermount" ]; };
@@ -47,6 +55,5 @@ in
         WantedBy = [ "default.target" ];
       };
     };
-  };
 }
 
