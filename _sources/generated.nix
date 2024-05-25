@@ -13,6 +13,18 @@
     };
     date = "2024-05-13";
   };
+  catppuccin_zsh_syntax_highlighting = {
+    pname = "catppuccin_zsh_syntax_highlighting";
+    version = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "zsh-syntax-highlighting";
+      rev = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+      fetchSubmodules = false;
+      sha256 = "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
+    };
+    date = "2022-10-12";
+  };
   dunst_catppuccin = {
     pname = "dunst_catppuccin";
     version = "bfec91a5d0ab02a73a4615243feb5499d376831c";
