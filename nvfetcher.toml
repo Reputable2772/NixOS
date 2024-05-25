@@ -45,3 +45,15 @@ fetch.github = "rafaelmardojai/firefox-gnome-theme"
 [filen]
 src.manual = "latest"
 fetch.url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
+
+[hyprlock_catppuccin]
+src.git = "https://github.com/catppuccin/hyprlock.git"
+fetch.github = "catppuccin/hyprlock"
+
+[hyprland_catppuccin]
+src.git = "https://github.com/catppuccin/hyprland.git"
+fetch.github = "catppuccin/hyprland"
+
+[wickedwizard_picture]
+src.manual = "latest"
+fetch.url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg"

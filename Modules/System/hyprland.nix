@@ -1,10 +1,14 @@
 { config, lib, pkgs, ... }:
-with lib;
+# with lib;
 let
   cfg = config.programs.hyprland;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.modules) mkIf;
 in
 {
-  options.programs.hyprland = { };
+  options.programs.hyprland = {
+    hyprlock.pam.enable = mkEnableOption "Hyprlock PAM";
+  };
 
   config = mkIf cfg.enable {
     # Fixes https://github.com/NixOS/nixpkgs/issues/189851#issuecomment-1238907955
@@ -19,6 +23,8 @@ in
     };
 
     environment.systemPackages = [ pkgs.xdg-utils ];
+
+    security.pam.services.hyprlock = mkIf cfg.hyprlock.pam.enable { };
 
     # Thunar
     programs.thunar = {

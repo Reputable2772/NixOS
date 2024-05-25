@@ -41,7 +41,6 @@
         "CTRL ALT SHIFT, F, exec, systemctl --user restart wireplumber"
 
         # Misc
-        "CTRL ALT, Delete, exit"
         "CTRL SHIFT, Q, killactive"
         "ALT, F, togglefloating"
         "SUPER, F, fullscreen"

@@ -68,6 +68,30 @@
     };
     date = "2024-05-02";
   };
+  hyprland_catppuccin = {
+    pname = "hyprland_catppuccin";
+    version = "b57375545f5da1f7790341905d1049b1873a8bb3";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "hyprland";
+      rev = "b57375545f5da1f7790341905d1049b1873a8bb3";
+      fetchSubmodules = false;
+      sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
+    };
+    date = "2024-04-03";
+  };
+  hyprlock_catppuccin = {
+    pname = "hyprlock_catppuccin";
+    version = "d5a6767000409334be8413f19bfd1cf5b6bb5cc6";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "hyprlock";
+      rev = "d5a6767000409334be8413f19bfd1cf5b6bb5cc6";
+      fetchSubmodules = false;
+      sha256 = "sha256-pjMFPaonq3h3e9fvifCneZ8oxxb1sufFQd7hsFe6/i4=";
+    };
+    date = "2024-04-01";
+  };
   nix-fast-build = {
     pname = "nix-fast-build";
     version = "cfff239d93716e92f6467f8953d8f8c12da1892a";
@@ -139,5 +163,13 @@
       sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
     };
     date = "2023-07-13";
+  };
+  wickedwizard_picture = {
+    pname = "wickedwizard_picture";
+    version = "latest";
+    src = fetchurl {
+      url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg";
+      sha256 = "sha256-lagT6en5bMTeDsUmFFGMiFeg5O21RFUQez2Y0U8QYZU=";
+    };
   };
 }
