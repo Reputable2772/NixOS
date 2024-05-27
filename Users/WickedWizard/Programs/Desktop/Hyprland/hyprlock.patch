@@ -1,32 +1,20 @@
 --- a/hyprlock.conf
 +++ b/hyprlock.conf
-@@ -30,9 +30,9 @@ label {
-     valign = top
+@@ -13,7 +13,7 @@ general {
+ # BACKGROUND
+ background {
+     monitor =
+-    path = ~/.config/background
++    path = ~/.config/lockscreen.png
+     blur_passes = 0
+     color = $base
  }
- 
--# DATE 
-+# DATE
- label {
--    monitor = 
-+    monitor =
-     text = cmd[update:43200000] echo "$(date +"%A, %d %B %Y")"
-     color = $text
-     font_size = 25
-@@ -45,8 +45,8 @@ label {
- # USER AVATAR
+@@ -46,7 +46,7 @@ label {
  
  image {
--    monitor = 
+     monitor = 
 -    path = ~/.face
-+    monitor =
-+    path = ~/.config/user-icon.jpg
++    path = ~/.config/user.jpg
      size = 100
      border_color = $accent
  
-@@ -76,4 +76,4 @@ input-field {
-     position = 0, -35
-     halign = center
-     valign = center
--}
-\ No newline at end of file
-+}

@@ -20,7 +20,8 @@
   # Specifically this file, because https://github.com/catppuccin/hyprlock/blob/d5a6767000409334be8413f19bfd1cf5b6bb5cc6/hyprlock.conf#L1
   xdg.configFile."hypr/mocha.conf".source = "${sources.hyprland_catppuccin.src}/themes/mocha.conf";
 
-  xdg.configFile."user-icon.jpg".source = sources.wickedwizard_picture.src;
+  xdg.configFile."user.jpg".source = sources.wickedwizard_picture.src;
+  xdg.configFile."lockscreen.png".source = sources.hyprlock_background.src;
 
   wayland.windowManager.hyprland.settings.bind = [
     "CTRL ALT, Delete, exec, hyprlock"

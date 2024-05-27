@@ -61,3 +61,7 @@ fetch.url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5
 [catppuccin_zsh_syntax_highlighting]
 src.git = "https://github.com/catppuccin/zsh-syntax-highlighting.git"
 fetch.github = "catppuccin/zsh-syntax-highlighting"
+
+[hyprlock_background]
+src.manual = "latest"
+fetch.url = "https://raw.githubusercontent.com/zhichaoh/catppuccin-wallpapers/main/os/nix-black-4k.png"

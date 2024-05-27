@@ -92,6 +92,14 @@
     };
     date = "2024-04-03";
   };
+  hyprlock_background = {
+    pname = "hyprlock_background";
+    version = "latest";
+    src = fetchurl {
+      url = "https://raw.githubusercontent.com/zhichaoh/catppuccin-wallpapers/main/os/nix-black-4k.png";
+      sha256 = "sha256-HRZYeKDmfA53kb3fZxuNWvR8cE96tLrqPZhX4+z4lZA=";
+    };
+  };
   hyprlock_catppuccin = {
     pname = "hyprlock_catppuccin";
     version = "d5a6767000409334be8413f19bfd1cf5b6bb5cc6";
