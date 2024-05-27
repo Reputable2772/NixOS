@@ -61,7 +61,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-05-22",
+        "date": "2024-05-27",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -73,11 +73,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "f00969cb81b11edb44ac1ca6a6a3f4a6ecd52d52",
-            "sha256": "sha256-iRSQDh/l6pysXoGzXm27AzHugisupazl6dppMT60I60=",
+            "rev": "ad709c4153af2614c79bdd5e7a70f9470baf49bf",
+            "sha256": "sha256-cZCsdeKBovknSTp+nuHrlZgWxRAwiWcCsI4eOlkF240=",
             "type": "github"
         },
-        "version": "f00969cb81b11edb44ac1ca6a6a3f4a6ecd52d52"
+        "version": "ad709c4153af2614c79bdd5e7a70f9470baf49bf"
     },
     "filen": {
         "cargoLocks": null,
@@ -291,7 +291,7 @@
     },
     "starship_catppuccin": {
         "cargoLocks": null,
-        "date": "2023-07-13",
+        "date": "2024-05-24",
         "extract": null,
         "name": "starship_catppuccin",
         "passthru": null,
@@ -303,11 +303,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "starship",
-            "rev": "5629d2356f62a9f2f8efad3ff37476c19969bd4f",
-            "sha256": "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=",
+            "rev": "ca2fb0600730fd3958a2cb4d4ca97c401877b365",
+            "sha256": "sha256-KzXO4dqpufxTew064ZLp3zKIXBwbF8Bi+I0Xa63j/lI=",
             "type": "github"
         },
-        "version": "5629d2356f62a9f2f8efad3ff37476c19969bd4f"
+        "version": "ca2fb0600730fd3958a2cb4d4ca97c401877b365"
     },
     "wickedwizard_picture": {
         "cargoLocks": null,

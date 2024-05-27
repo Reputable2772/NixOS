@@ -39,15 +39,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "f00969cb81b11edb44ac1ca6a6a3f4a6ecd52d52";
+    version = "ad709c4153af2614c79bdd5e7a70f9470baf49bf";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "f00969cb81b11edb44ac1ca6a6a3f4a6ecd52d52";
+      rev = "ad709c4153af2614c79bdd5e7a70f9470baf49bf";
       fetchSubmodules = false;
-      sha256 = "sha256-iRSQDh/l6pysXoGzXm27AzHugisupazl6dppMT60I60=";
+      sha256 = "sha256-cZCsdeKBovknSTp+nuHrlZgWxRAwiWcCsI4eOlkF240=";
     };
-    date = "2024-05-22";
+    date = "2024-05-27";
   };
   filen = {
     pname = "filen";
@@ -174,15 +174,15 @@
   };
   starship_catppuccin = {
     pname = "starship_catppuccin";
-    version = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
+    version = "ca2fb0600730fd3958a2cb4d4ca97c401877b365";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "starship";
-      rev = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
+      rev = "ca2fb0600730fd3958a2cb4d4ca97c401877b365";
       fetchSubmodules = false;
-      sha256 = "sha256-nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
+      sha256 = "sha256-KzXO4dqpufxTew064ZLp3zKIXBwbF8Bi+I0Xa63j/lI=";
     };
-    date = "2023-07-13";
+    date = "2024-05-24";
   };
   wickedwizard_picture = {
     pname = "wickedwizard_picture";
