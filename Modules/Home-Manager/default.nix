@@ -1,8 +1,9 @@
 {
   imports = [
     ./autostart.nix
-    ./gnome.nix
     ./firejail.nix
+    ./gnome.nix
+    ./quadlets.nix
     ./shells.nix
   ];
 }

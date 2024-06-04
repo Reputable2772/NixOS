@@ -65,6 +65,8 @@ rec {
           browsers = "${base}/Browsers";
           # Where to store generic undeclarative user config. Should be gitignored
           config = "${flake.dir.self}/Config";
+          # Where to store all container data. Set to null to disable containers.
+          containers = "${base}/Applications/Containers";
         };
         git = {
           # The username and email to set for Git.
