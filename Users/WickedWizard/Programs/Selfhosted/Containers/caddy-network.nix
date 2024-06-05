@@ -4,7 +4,6 @@
       name = "caddy.network";
       content = ''
         [Network]
-        DNS=192.168.0.102
         Driver=bridge
         Gateway=10.89.0.1
         Gateway=fdd6:61c:2978:8345::1
