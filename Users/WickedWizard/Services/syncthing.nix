@@ -1,15 +1,12 @@
-{ config', config, lib, ... }:
-let
-  userConfig = config'.users.${config.home.username};
-in
+{ config', lib, ... }:
 {
   services.syncthing = {
     enable = lib.mkIf
-      (lib.attrsets.hasAttrByPath [ "config" "dir" "config" ] config'.users.${config.home.username})
+      (lib.attrsets.hasAttrByPath [ "config" "dir" "config" ] config')
       true;
     extraOptions = [
-      "--config=${userConfig.config.dir.config}/Syncthing"
-      "--data=${userConfig.config.dir.config}/Syncthing/data"
+      "--config=${config'.config.dir.config}/Syncthing"
+      "--data=${config'.config.dir.config}/Syncthing/data"
     ];
   };
 }

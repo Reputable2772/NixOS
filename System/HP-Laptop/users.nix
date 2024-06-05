@@ -1,6 +1,7 @@
 { config, config', pkgs, inputs, lib', sources, ... }:
 let
   inherit (inputs) home-manager;
+  inherit (config') users;
 in
 {
   # Needs to be set here or else shell won't work
@@ -36,9 +37,13 @@ in
         ];
       };
     };
-    extraSpecialArgs = {
-      inherit inputs lib' sources config';
-    };
+    extraSpecialArgs =
+      let
+        config' = users.wickedwizard;
+      in
+      {
+        inherit inputs lib' sources config';
+      };
   };
 
   imports = [

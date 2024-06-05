@@ -1,16 +1,15 @@
 { config, config', pkgs, lib, ... }:
 let
-  userConfig = config'.users.${config.home.username};
-  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" userConfig.secrets.git.signing.key);
+  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config'.secrets.git.signing.key);
 in
 {
   programs.git = {
     enable = true;
     package = pkgs.git;
-    userEmail = userConfig.config.git.email;
-    userName = userConfig.config.git.username;
+    userEmail = config'.config.git.email;
+    userName = config'.config.git.username;
     signing.signByDefault = lib.mkIf
-      (lib.attrsets.hasAttrByPath [ "git" "signing" "key" ] userConfig.secrets)
+      (lib.attrsets.hasAttrByPath [ "git" "signing" "key" ] config'.secrets)
       true;
     signing.key = null;
     extraConfig = {
@@ -21,7 +20,7 @@ in
         format = "ssh";
         ssh.allowedSignersFile = signFile;
       };
-      user.signingkey = userConfig.secrets.git.signing.key;
+      user.signingkey = config'.secrets.git.signing.key;
     };
   };
 
@@ -30,9 +29,9 @@ in
     target = ".ssh/ssh_config";
     text =
       lib.optionals
-        (lib.attrsets.hasAttrByPath [ "git" "authentication" "pkeyfile" ] userConfig.secrets)
+        (lib.attrsets.hasAttrByPath [ "git" "authentication" "pkeyfile" ] config'.secrets)
         ''
           Host github.com
-            IdentityFile ${userConfig.secrets.git.authentication.pkeyfile}'';
+            IdentityFile ${config'.secrets.git.authentication.pkeyfile}'';
   };
 }

@@ -1,11 +1,11 @@
-{ inputs, config, config', lib, ... }:
+{ inputs, config', lib, ... }:
 {
   imports = [
     inputs.agenix.homeManagerModules.default
   ];
 
   # SSH private keys for the user side.
-  age.identityPaths = lib.pipe config'.users.${config.home.username}.secrets
+  age.identityPaths = lib.pipe config'.secrets
     (with lib.attrsets; [
       (concatMapAttrs (_: v:
         if v ? pkeyfile then

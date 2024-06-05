@@ -10,8 +10,8 @@ in
       isDefault = true;
       name = "default";
       path = lib.mkIf
-        (lib.attrsets.hasAttrByPath [ "config" "dir" "browsers" ] config'.users.${config.home.username})
-        (lib'.absoluteToRelativePath "${config'.users.${config.home.username}.config.dir.browsers}/Firefox/" "${config.home.homeDirectory}/.mozilla/firefox/");
+        (lib.attrsets.hasAttrByPath [ "config" "dir" "browsers" ] config')
+        (lib'.absoluteToRelativePath "${config'.config.dir.browsers}/Firefox/" "${config.home.homeDirectory}/.mozilla/firefox/");
       userChrome = ''
         @import "${firefox-gnome-theme}/share/firefox-gnome-theme/userChrome.css";
       '';

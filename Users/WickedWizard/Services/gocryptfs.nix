@@ -13,8 +13,8 @@ let
       script
   );
   gocryptfs = _pipe: lib.mkIf
-    (config'.users.${config.home.username}.mounts ? gocryptfs && config'.users.${config.home.username}.mounts.gocryptfs != null)
-    (pipe config'.users.${config.home.username}.mounts.gocryptfs _pipe);
+    (config'.mounts ? gocryptfs && config'.mounts.gocryptfs != null)
+    (pipe config'.mounts.gocryptfs _pipe);
 in
 {
   age.secrets = gocryptfs [

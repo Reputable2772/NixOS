@@ -1,7 +1,4 @@
-{ config, config', ... }:
-let
-  cfg = config'.users.${config.home.username};
-in
+{ config', ... }:
 {
   programs.quadlets.quadlets = [
     {
@@ -12,8 +9,8 @@ in
         Image=docker.io/ckulka/baikal:nginx
         Network=systemd-caddy
         PodmanArgs=--network-alias baikal
-        Volume=${cfg.config.dir.containers}/Baikal/baikal/config:/var/www/baikal/config
-        Volume=${cfg.config.dir.containers}/Baikal/baikal/data:/var/www/baikal/Specific
+        Volume=${config'.config.dir.containers}/Baikal/baikal/config:/var/www/baikal/config
+        Volume=${config'.config.dir.containers}/Baikal/baikal/data:/var/www/baikal/Specific
 
         [Service]
         Restart=always

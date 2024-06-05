@@ -1,7 +1,4 @@
-{ config, config', ... }:
-let
-  cfg = config'.users.${config.home.username};
-in
+{ config', ... }:
 {
   programs.quadlets.quadlets = [
     {
@@ -15,8 +12,8 @@ in
         PodmanArgs=--network-alias qbittorrent
         PublishPort=61851:61851
         PublishPort=61851:61851/udp
-        Volume=${cfg.config.dir.containers}qBittorrent/config:/config
-        Volume=${cfg.config.dir.containers}qBittorrent/VueTorrent:/themes/VueTorrent
+        Volume=${config'.config.dir.containers}qBittorrent/config:/config
+        Volume=${config'.config.dir.containers}qBittorrent/VueTorrent:/themes/VueTorrent
         # Stays hardcoded, till I figure out a way to fix this
         Volume=/home/wickedwizard/Documents/Media/Downloads:/downloads
 

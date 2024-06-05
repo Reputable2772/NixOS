@@ -1,7 +1,4 @@
-{ config, config', ... }:
-let
-  cfg = config'.users.${config.home.username};
-in
+{ config', ... }:
 {
   programs.quadlets.quadlets = [
     {
@@ -10,11 +7,11 @@ in
         # vaultwarden.container
         [Container]
         ContainerName=vaultwarden
-        EnvironmentFile=${cfg.config.dir.containers}/Vaultwarden/.env
+        EnvironmentFile=${config'.config.dir.containers}/Vaultwarden/.env
         Image=docker.io/vaultwarden/server:latest
         Network=systemd-caddy
         PodmanArgs=--network-alias vaultwarden
-        Volume=${cfg.config.dir.containers}/Vaultwarden/vaultwarden:/data
+        Volume=${config'.config.dir.containers}/Vaultwarden/vaultwarden:/data
 
         [Service]
         Restart=on-failure
