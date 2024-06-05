@@ -10,7 +10,7 @@ in
       isDefault = true;
       name = "default";
       path = lib.mkIf
-        (lib.attrsets.hasAttrByPath [ "config" "dir" "browsers" ] config')
+        (config'.config.dir ? browsers)
         (lib'.absoluteToRelativePath "${config'.config.dir.browsers}/Firefox/" "${config.home.homeDirectory}/.mozilla/firefox/");
       userChrome = ''
         @import "${firefox-gnome-theme}/share/firefox-gnome-theme/userChrome.css";

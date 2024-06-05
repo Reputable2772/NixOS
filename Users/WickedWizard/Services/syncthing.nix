@@ -2,7 +2,7 @@
 {
   services.syncthing = {
     enable = lib.mkIf
-      (lib.attrsets.hasAttrByPath [ "config" "dir" "config" ] config')
+      (config'.config.dir ? config)
       true;
     extraOptions = [
       "--config=${config'.config.dir.config}/Syncthing"

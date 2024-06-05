@@ -13,7 +13,7 @@
     [Profile0]
     Name=Default
     IsRelative=0
-    ${lib.optionals (lib.attrsets.hasAttrByPath [ "config" "dir" "browsers" ] config') "Path=${config'.config.dir.browsers}/Librewolf"}
+    ${lib.optionals (config'.config.dir ? browsers) "Path=${config'.config.dir.browsers}/Librewolf"}
 
     [General]
     StartWithLastProfile=1

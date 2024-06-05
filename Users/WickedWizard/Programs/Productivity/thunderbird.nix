@@ -5,7 +5,7 @@
     [Profile0]
     Name=Thunderbird
     IsRelative=0
-    ${lib.optionals (lib.attrsets.hasAttrByPath [ "config" "dir" "browsers" ] config') "Path=${config'.config.dir.browsers}/Thunderbird"}
+    ${lib.optionals (config'.config.dir ? browsers) "Path=${config'.config.dir.browsers}/Thunderbird"}
     Default=1
 
     [General]
