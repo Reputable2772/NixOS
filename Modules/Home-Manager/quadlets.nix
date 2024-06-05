@@ -65,6 +65,16 @@ in
         source = "${pkgs.runCommand "quadlet-generator" { } (concatStringsSep "\n" contents)}/units";
         recursive = true;
       };
+
+      /**
+        Solves this issue.
+        https://matrix.to/#/!RRerllqmbATpmbJgCn:nixos.org/$kZUAN0U0ydYnQOu5Ho2GFWALq20fH1Kd-gqodksK59M?via=nixos.org&via=matrix.org&via=tchncs.de
+
+        No clue as to why this issue occurs, but this is necessary for the Quadlets to run, since I cannot use an systemd.user.services.<name>.overrideStrategy for them,
+        therefore requiring this workaround. This also fixes the gocryptfs service (no need to set PATH in Environment), but that can stay.
+       */
+      systemd.user.settings.Manager.DefaultEnvironment.PATH = "/run/wrappers/bin:$PATH";
+      systemd.user.settings.Manager.ManagerEnvironment.PATH = "/run/wrappers/bin:$PATH";
     };
 }
 
