@@ -43,22 +43,17 @@ in
       contents =
         [
           "mkdir -p $out $out/source $out/units"
-          "tmp=$(echo $out/source)"
         ]
         ++ (map
           (_:
             let
-              inherit (_) name content;
+              file = pkgs.writeTextDir _.name _.content;
             in
             ''
-              cat <<_EOF >$tmp/${name}
-              ${content}
-              _EOF
+              cp ${file}/* $out/source
+              QUADLET_UNIT_DIRS=${file} ${pkgs.podman}/libexec/podman/quadlet $out/units
             '')
-          cfg.quadlets)
-        ++ [
-          "QUADLET_UNIT_DIRS=$tmp/ ${pkgs.podman}/libexec/podman/quadlet $out/units"
-        ];
+          cfg.quadlets);
     in
     lib.mkIf cfg.enable {
       xdg.configFile."systemd/user/" = {
