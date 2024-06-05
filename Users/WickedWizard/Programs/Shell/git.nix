@@ -1,15 +1,15 @@
 { config, config', pkgs, lib, ... }:
 let
-  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config'.secrets.git.signing.key);
+  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config'.git.secrets.signing.key);
 in
 {
   programs.git = {
     enable = true;
     package = pkgs.git;
-    userEmail = config'.config.git.email;
-    userName = config'.config.git.username;
+    userEmail = config'.git.email;
+    userName = config'.git.username;
     signing.signByDefault = lib.mkIf
-      (lib.attrsets.hasAttrByPath [ "git" "signing" "key" ] config'.secrets)
+      (config'.git.secrets.signing ? key)
       true;
     signing.key = null;
     extraConfig = {
@@ -20,7 +20,7 @@ in
         format = "ssh";
         ssh.allowedSignersFile = signFile;
       };
-      user.signingkey = config'.secrets.git.signing.key;
+      user.signingkey = config'.git.secrets.signing.key;
     };
   };
 
@@ -29,9 +29,9 @@ in
     target = ".ssh/ssh_config";
     text =
       lib.optionals
-        (lib.attrsets.hasAttrByPath [ "git" "authentication" "pkeyfile" ] config'.secrets)
+        (config'.git.secrets.authentication ? pkeyfile)
         ''
           Host github.com
-            IdentityFile ${config'.secrets.git.authentication.pkeyfile}'';
+            IdentityFile ${config'.git.secrets.authentication.pkeyfile}'';
   };
 }

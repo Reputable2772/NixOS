@@ -7,11 +7,11 @@
         # vaultwarden.container
         [Container]
         ContainerName=vaultwarden
-        EnvironmentFile=${config'.config.dir.containers}/Vaultwarden/.env
+        EnvironmentFile=${config'.dir.containers}/Vaultwarden/.env
         Image=docker.io/vaultwarden/server:latest
         Network=systemd-caddy
         PodmanArgs=--network-alias vaultwarden
-        Volume=${config'.config.dir.containers}/Vaultwarden/vaultwarden:/data
+        Volume=${config'.dir.containers}/Vaultwarden/vaultwarden:/data
 
         [Service]
         Restart=on-failure

@@ -1,7 +1,7 @@
 { config', lib, ... }: {
   programs.quadlets.enable =
-    config'.config.dir ? containers &&
-    lib.strings.typeOf config'.config.dir.containers == "string";
+    config'.dir ? containers &&
+    lib.strings.typeOf config'.dir.containers == "string";
 
   imports = [
     ./baikal.nix

@@ -13,7 +13,7 @@
     [Profile0]
     Name=Default
     IsRelative=0
-    ${lib.optionals (config'.config.dir ? browsers) "Path=${config'.config.dir.browsers}/Librewolf"}
+    ${lib.optionals (config'.dir ? browsers) "Path=${config'.dir.browsers}/Librewolf"}
 
     [General]
     StartWithLastProfile=1

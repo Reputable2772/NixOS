@@ -51,42 +51,40 @@ rec {
         */
         gocryptfs = {
           important-files = {
-            source = "${config.dir.base}/Important-Files";
-            mountpoint = "${config.dir.base}/../Mounted/Important-Files";
+            source = "${dir.base}/Important-Files";
+            mountpoint = "${dir.base}/../Mounted/Important-Files";
             authentication = true;
           };
         };
       };
-      config = {
-        dir = rec {
-          # Internal variable, should not be used
-          base = "/home/wickedwizard/Documents";
-          # Where to store the browser profiles, for easily moving it about.
-          browsers = "${base}/Browsers";
-          # Where to store generic undeclarative user config. Should be gitignored
-          config = "${flake.dir.self}/Config";
-          # Where to store all container data. Set to null to disable containers.
-          containers = "${base}/Applications/Containers";
-        };
-        git = {
-          # The username and email to set for Git.
-          username = "Reputable2722";
-          email = "153411261+Reputable2772@users.noreply.github.com";
-        };
+      dir = rec {
+        # Internal variable, should not be used
+        base = "/home/wickedwizard/Documents";
+        # Where to store the browser profiles, for easily moving it about.
+        browsers = "${base}/Browsers";
+        # Where to store generic undeclarative user config. Should be gitignored
+        config = "${flake.dir.self}/Config";
+        # Where to store all container data. Set to null to disable containers.
+        containers = "${base}/Applications/Containers";
       };
-      secrets = {
-        git = {
+      git = {
+        # The username and email to set for Git.
+        username = "Reputable2722";
+        email = "153411261+Reputable2772@users.noreply.github.com";
+        secrets = {
           # The SSH Key that is used for authentication by Git
           authentication = {
-            pkeyfile = "${users.wickedwizard.config.dir.config}/SSH/Authentication/Authentication";
+            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Authentication/Authentication";
             key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@hp-laptop";
           };
           # The SSH Key that is used for signing by Git
           signing = {
-            pkeyfile = "${users.wickedwizard.config.dir.config}/SSH/Signing/Signing";
+            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Signing/Signing";
             key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@hp-laptop";
           };
         };
+      };
+      secrets = {
         # Passwords should not be set for this key, look above.
         encryption = {
           pkeyfile = "${flake.dir.config}/SSH/User-Encryption/User-Encryption";
