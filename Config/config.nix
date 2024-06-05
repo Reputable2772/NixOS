@@ -96,8 +96,10 @@ rec {
     };
   };
 
+  # All files should be in the same directory as this file.
+
   # Agenix config
-  "Cachix.age".publicKeys = [ system.secrets.encryption.key ];
+  "cachix.age".publicKeys = [ system.secrets.encryption.key ];
 
   # Gocryptfs age files
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
