@@ -1,12 +1,9 @@
-{ config', lib, ... }: {
-  programs.quadlets.enable =
-    config'.dir ? containers &&
-    lib.strings.typeOf config'.dir.containers == "string";
-
+{
   imports = [
     ./baikal.nix
     ./caddy.nix
     ./caddy-network.nix
+    ./lib.nix
     ./qbittorrent.nix
     ./vaultwarden.nix
   ];

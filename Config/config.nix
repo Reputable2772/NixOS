@@ -91,6 +91,31 @@ rec {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@hp-laptop";
         };
       };
+      containers = {
+        caddy = {
+          # Setting it to null or omitting it will use the default directory
+          dir = null;
+          # A list of all the agenix file names to be used, without the age suffix.
+          envFiles = [ "duckdns" "domains" "email" ];
+          # Environment variables
+          env = [ "LOG_FILE=/data/access.log" ];
+        };
+        baikal = {
+          dir = null;
+          envFiles = null;
+          env = null;
+        };
+        qbittorrent = {
+          dir = null;
+          envFiles = null;
+          env = [ "TZ=Asia/Kolkata" "WEBUI_PORT=8516" "PUID=0" "PGID=0" ];
+        };
+        vaultwarden = {
+          dir = null;
+          envFiles = [ "push-notifications" ];
+          env = [ "WEBSOCKET_ENABLE=true" "ROCKET_PORT=80" "PUSH_ENABLED=true" "LOG_FILE=/data/vaultwarden.log" ];
+        };
+      };
     };
   };
 
@@ -101,4 +126,10 @@ rec {
 
   # Gocryptfs age files
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+
+  # Container files
+  "duckdns.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
