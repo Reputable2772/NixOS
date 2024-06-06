@@ -50,8 +50,17 @@ in
               file = pkgs.writeTextDir _.name _.content;
             in
             ''
+              mkdir -p $out/tmp
               cp ${file}/* $out/source
-              QUADLET_UNIT_DIRS=${file} ${pkgs.podman}/libexec/podman/quadlet $out/units
+              QUADLET_UNIT_DIRS=${file} ${pkgs.podman}/libexec/podman/quadlet -user $out/tmp
+
+              for file in $(find $out/tmp -not -type d -exec realpath --relative-to $out/tmp {} \;); do
+                # We do this so that podman doesn't resolve the paths relative to the QUADLET_UNIT_DIRS (why, podman, why?)
+                # and also because replacing $XDG_RUNTIME_DIR with $\{XDG_RUNTIME_DIR} really fixes Podman's environment variable resolution.
+                substitute $out/tmp/$file $out/units/$file \
+                  --replace-warn ${file}/\$XDG_RUNTIME_DIR \$\{XDG_RUNTIME_DIR}
+              done
+              rm -rf $out/tmp
             '')
           cfg.quadlets);
     in
