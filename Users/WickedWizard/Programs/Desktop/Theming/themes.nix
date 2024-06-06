@@ -1,14 +1,16 @@
 { config, pkgs, lib, ... }:
 let
-  inherit (lib) mkForce strings;
+  inherit (lib) mkForce;
+  inherit (lib.strings) toLower;
+
   variant = "Mocha";
   accent = "Blue";
   size = "Standard";
   dark = "Dark";
+
   qt_theme = pkgs.catppuccin-kvantum.override {
     inherit variant accent;
   };
-  gtk_theme = "Catppuccin-${variant}-${size}-${accent}-${dark}";
 in
 {
   home.packages = with pkgs; [
@@ -22,12 +24,12 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = gtk_theme;
+      name = "Catppuccin-${variant}-${size}-${accent}-${dark}";
       package = pkgs.catppuccin-gtk.override {
-        accents = [ (strings.toLower accent) ];
+        accents = [ (toLower accent) ];
         tweaks = [ "rimless" "normal" "float" ];
-        size = strings.toLower size;
-        variant = strings.toLower "mocha";
+        size = toLower size;
+        variant = toLower variant;
       };
     };
   };
@@ -35,7 +37,7 @@ in
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = mkForce "prefer-dark";
-      gtk-theme = mkForce gtk_theme;
+      gtk-theme = mkForce config.gtk.theme.name;
     };
   };
 
@@ -58,13 +60,6 @@ in
       target = "Kvantum/Catppuccin-${variant}-${accent}";
       recursive = true;
       source = "${qt_theme}/share/Kvantum/Catppuccin-${variant}-${accent}";
-    };
-
-    gtk_theme = {
-      enable = true;
-      target = "gtk-4.0";
-      source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0";
-      recursive = true;
     };
   };
 }
