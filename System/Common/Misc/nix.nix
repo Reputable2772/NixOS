@@ -15,7 +15,7 @@
       experimental-features = [ "flakes" "nix-command" ];
       # Fixes NixOS/nix#9574
       nix-path = config.nix.nixPath;
-      substituters = [
+      trusted-substituters = [
         "https://spearman4157.cachix.org"
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
