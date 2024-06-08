@@ -10,7 +10,7 @@ in
 
   xdg.configFile.rofi = {
     inherit (hyprland) enable;
-    target = "rasi/config.rasi";
+    target = "rofi/config.rasi";
     source = "${sources.rofi_catppuccin.src}/basic/.config/rofi/config.rasi";
   };
 
