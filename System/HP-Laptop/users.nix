@@ -9,6 +9,10 @@ in
   # Shell autocomplete
   environment.pathsToLink = [ "/share/zsh" ];
 
+  age.secrets.wickedwizardPassword.file = ../../Config/wickedwizardPassword.age;
+  age.secrets.rootPassword.file = ../../Config/rootPassword.age;
+
+  users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
   users.users.wickedwizard = {
     isNormalUser = true;
     home = "/home/wickedwizard";
@@ -16,6 +20,7 @@ in
     # Fixes https://github.com/GPUOpen-Drivers/AMDVLK/issues/310
     extraGroups = [ "wheel" "networkmanager" "input" "video" "render" ];
     shell = pkgs.zsh;
+    hashedPasswordFile = config.age.secrets.wickedwizardPassword.path;
   };
 
   home-manager = {
