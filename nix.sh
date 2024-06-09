@@ -47,6 +47,17 @@ ci() {
 	cachix deploy activate ./deploy.json
 }
 
+ci_get() {
+	case $1 in
+		"trusted-substituters")
+			sed -n '/trusted-substituters = \[/, /];/{ /trusted-substituters = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
+		"trusted-public-keys")
+			sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
+		*)
+			echo "Unknown, cya.";;
+	esac
+}
+
 clean() {
 	sudo nix-collect-garbage --delete-older-than 2d
 	nix-collect-garbage --delete-older-than 2d
@@ -143,6 +154,10 @@ case $1 in
 		depends $2;;
 	"last-unbroken")
 		last_unbroken $2;;
+
+	# Meant for CI to get trusted-public-keys or trusted-substituters
+	"ci_get")
+		ci_get $2;;
 	*)
 		echo "Invalid option. Expected 'build', 'changelog', 'check', 'ci', 'dconf', 'format', 'first-time-setup', 'why-depends' or 'last-unbroken'";;
 esac
