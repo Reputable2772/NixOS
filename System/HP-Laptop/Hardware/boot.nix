@@ -14,6 +14,7 @@
       "net.core.wmem_max" = 2500000;
     };
     initrd.kernelModules = [ "amdgpu" ];
+    initrd.systemd.enable = true;
 
     # RTL8821CE
     extraModulePackages = with pkgs; [ linuxKernel.packages.linux_zen.rtl8821ce ];
