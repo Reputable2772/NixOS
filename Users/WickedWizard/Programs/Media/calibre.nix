@@ -1,3 +1,3 @@
 { pkgs, ... }: {
-  # home.packages = with pkgs; [ calibre ];
+  home.packages = with pkgs; [ calibre ];
 }
