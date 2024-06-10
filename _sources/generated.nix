@@ -13,6 +13,18 @@
     };
     date = "2024-05-13";
   };
+  calibre_catppuccin = {
+    pname = "calibre_catppuccin";
+    version = "c0cea844e74b6ffb346969839f8548f96fcde14d";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "calibre";
+      rev = "c0cea844e74b6ffb346969839f8548f96fcde14d";
+      fetchSubmodules = false;
+      sha256 = "sha256-/Ipm3V6AJrqugg3Er6u1wriOF8NOmdFdSc2bKRfLvV0=";
+    };
+    date = "2024-05-10";
+  };
   catppuccin_zsh_syntax_highlighting = {
     pname = "catppuccin_zsh_syntax_highlighting";
     version = "06d519c20798f0ebe275fc3a8101841faaeee8ea";

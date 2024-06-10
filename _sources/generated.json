@@ -19,6 +19,26 @@
         },
         "version": "66c540ea512187df5f0c6c97312b0c6da7225af0"
     },
+    "calibre_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-05-10",
+        "extract": null,
+        "name": "calibre_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "calibre",
+            "rev": "c0cea844e74b6ffb346969839f8548f96fcde14d",
+            "sha256": "sha256-/Ipm3V6AJrqugg3Er6u1wriOF8NOmdFdSc2bKRfLvV0=",
+            "type": "github"
+        },
+        "version": "c0cea844e74b6ffb346969839f8548f96fcde14d"
+    },
     "catppuccin_zsh_syntax_highlighting": {
         "cargoLocks": null,
         "date": "2022-10-12",
