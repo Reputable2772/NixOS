@@ -20,7 +20,7 @@
     Version=2
   '';
 
-  # programs.autostart.packages = with pkgs; [ librewolf ];
+  programs.autostart.packages = with pkgs; [ librewolf ];
   programs.firejail.excludedPackages = with pkgs; [ librewolf ];
 
   wayland.windowManager.hyprland.settings.bind = [
