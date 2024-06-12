@@ -51,15 +51,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "550eeb850c8fdf196abaa59bdc7ce375897eacc2";
+    version = "2bd507c8900727e625617e8535199e436ec86f4c";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "550eeb850c8fdf196abaa59bdc7ce375897eacc2";
+      rev = "2bd507c8900727e625617e8535199e436ec86f4c";
       fetchSubmodules = false;
-      sha256 = "sha256-wpuaZlUC9J9OEiHsmDEjDpdJenpCKirGfIPIDo4xOPw=";
+      sha256 = "sha256-nwI1FxezMKIH4Lxrl3HnqLmC1rb640N7Jz5JPbTQEuQ=";
     };
-    date = "2024-06-06";
+    date = "2024-06-12";
   };
   filen = {
     pname = "filen";
@@ -94,15 +94,15 @@
   };
   hyprland_catppuccin = {
     pname = "hyprland_catppuccin";
-    version = "b57375545f5da1f7790341905d1049b1873a8bb3";
+    version = "249e262af51022e6c4acaf2da48fc3c7bdac8d76";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "hyprland";
-      rev = "b57375545f5da1f7790341905d1049b1873a8bb3";
+      rev = "249e262af51022e6c4acaf2da48fc3c7bdac8d76";
       fetchSubmodules = false;
-      sha256 = "sha256-XTqpmucOeHUgSpXQ0XzbggBFW+ZloRD/3mFhI+Tq4O8=";
+      sha256 = "sha256-MIkjmXXGzSG+RKSCBfSdFrn2XVGPm+OEZzdGzAdoIaM=";
     };
-    date = "2024-04-03";
+    date = "2024-06-10";
   };
   hyprlock_background = {
     pname = "hyprlock_background";
@@ -150,15 +150,15 @@
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
-    version = "07e9c3ca0ff8eb7da9fa8b5329a9d2ceec707f24";
+    version = "2edbdf5295bc3c12c3dd53b203ab91028fce2c54";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "prismlauncher";
-      rev = "07e9c3ca0ff8eb7da9fa8b5329a9d2ceec707f24";
+      rev = "2edbdf5295bc3c12c3dd53b203ab91028fce2c54";
       fetchSubmodules = false;
-      sha256 = "sha256-/qUqF92e3kYkl59GUMMFRtRTzVgSp5tGPxnXLGeusys=";
+      sha256 = "sha256-+yGrSZztf2sZ9frPT3ydIJDavo4eXs03cQWfdTAmn3w=";
     };
-    date = "2024-03-30";
+    date = "2024-06-11";
   };
   rofi-bluetooth = {
     pname = "rofi-bluetooth";
