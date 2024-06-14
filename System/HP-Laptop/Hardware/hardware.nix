@@ -27,6 +27,7 @@
     "/home" = {
       device = "/dev/disk/by-label/home";
       fsType = "ext4";
+      neededForBoot = true;
     };
     "/boot" = {
       device = "/dev/disk/by-label/boot";
