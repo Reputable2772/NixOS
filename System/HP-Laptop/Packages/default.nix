@@ -1,7 +1,6 @@
 {
   imports = [
     ./adb.nix
-    ./firejail.nix
     ./gamemode.nix
     ./gnome.nix
     ./hyprland.nix
