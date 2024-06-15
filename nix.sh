@@ -104,21 +104,17 @@ first_time_setup() {
 	echo "Modify Config/config.nix, and then hit enter."
 	read
 
-	echo "Make sure that you systemd-cryptenroll'ed your Encryption Keys into your TPM."
-	echo "Syntax is: systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 <Encrypted partition>"
-	echo "0+7 is because Secure Boot is enabled. Change it if necessary."
-	echo "https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module"
-
 	# User isn't a trusted user yet to specify substituters and public keys
 	sudo nix build .#nixosConfigurations."$(hostname)".config.system.build.toplevel \
 		--accept-flake-config \
 		--option pure-eval true \
 		--option always-allow-substitutes true \
-		--option trusted-substituters $(ci_get trusted-substituters) \
-		--option extra-trusted-public-keys $(ci_get trusted-public-keys)
+		--option trusted-substituters "$(ci_get trusted-substituters)" \
+		--option extra-trusted-public-keys "$(ci_get trusted-public-keys)"
 
 	sudo ./result/bin/switch-to-configuration switch
 
+	echo "Do read ./NOTES.md, especially the First Time Setup section."
 	echo "Setup completed."
 }
 

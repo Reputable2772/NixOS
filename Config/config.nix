@@ -48,6 +48,8 @@ rec {
           (E.g. important-files key should have `important-files.age` agenix file).
           They need to be stored in this directory only.
           This needs to be done manually, since we cannot use nixpkgs/lib here.
+
+          The mountpoint and all other folders need to be created manually.
         */
         gocryptfs = {
           important-files = {
