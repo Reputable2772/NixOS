@@ -4,5 +4,6 @@
     ./keyring.nix
     ./networking.nix
     ./pipewire.nix
+    ./opensnitch.nix
   ];
 }
