@@ -27,6 +27,7 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-ld-rs.url = "github:nix-community/nix-ld-rs";
   };
 
   outputs = { nixpkgs, pre-commit-hooks, self, ... }@inputs:
