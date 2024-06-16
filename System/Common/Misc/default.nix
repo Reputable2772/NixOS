@@ -8,5 +8,6 @@
     ./nix.nix
     ./packages.nix
     ./sudo.nix
+    ./udev.nix
   ];
 }
