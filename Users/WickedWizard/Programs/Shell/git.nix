@@ -1,11 +1,10 @@
 { config, config', pkgs, lib, ... }:
 let
-  signFile = builtins.toString (pkgs.writeText "signingkey-${config.home.username}" config'.git.secrets.signing.key);
+  signFile = (pkgs.writeText "signingkey-${config.home.username}" config'.git.secrets.signing.key).outPath;
 in
 {
   programs.git = {
     enable = true;
-    package = pkgs.git;
     userEmail = config'.git.email;
     userName = config'.git.username;
     signing.signByDefault = lib.mkIf
@@ -32,6 +31,7 @@ in
         (config'.git.secrets.authentication ? pkeyfile)
         ''
           Host github.com
-            IdentityFile ${config'.git.secrets.authentication.pkeyfile}'';
+            IdentityFile ${config'.git.secrets.authentication.pkeyfile}
+        '';
   };
 }

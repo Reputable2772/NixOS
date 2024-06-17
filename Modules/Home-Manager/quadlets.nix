@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ osConfig, config, lib, pkgs, ... }:
 
 let
   inherit (lib) types;
@@ -51,7 +51,7 @@ in
             in
             ''
               cp ${file}/* $out/source
-              QUADLET_UNIT_DIRS=${file} ${pkgs.podman}/libexec/podman/quadlet -user $out/units
+              QUADLET_UNIT_DIRS=${file} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
 
               for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
                 # We do this so that podman doesn't resolve the paths relative to the QUADLET_UNIT_DIRS (why, podman, why?)

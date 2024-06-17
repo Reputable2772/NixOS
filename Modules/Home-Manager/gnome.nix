@@ -28,8 +28,8 @@ in
     };
   };
 
-  config = {
-    home.packages = mkIf cfg.enable (cfg.extensions ++ cfg.gnomeOnlyPackages);
+  config = mkIf cfg.enable {
+    home.packages = cfg.extensions ++ cfg.gnomeOnlyPackages;
 
     # Fixes https://github.com/NixOS/nixpkgs/issues/53631.
     home.sessionVariables.GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [

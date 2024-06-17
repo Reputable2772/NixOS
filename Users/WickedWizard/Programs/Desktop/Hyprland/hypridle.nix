@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }: {
   services.hypridle = {
-    enable = config.wayland.windowManager.hyprland.enable;
+    inherit (config.wayland.windowManager.hyprland) enable;
     settings = {
       general = {
         lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${lib.getExe pkgs.hyprlock}";

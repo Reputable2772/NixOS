@@ -28,7 +28,7 @@ in
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     xdg.configFile."autostart".source = pkgs.runCommand "" { } ''
       mkdir $out
 

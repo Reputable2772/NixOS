@@ -1,6 +1,6 @@
 { pkgs, sources, ... }:
 let
-  catppuccin-calibre = (pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix { inherit sources; });
+  catppuccin-calibre = pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix { inherit sources; };
 in
 {
   home.packages = with pkgs; [ calibre ];

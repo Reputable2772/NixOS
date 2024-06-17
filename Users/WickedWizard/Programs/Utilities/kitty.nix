@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, ... }: {
   programs.kitty = {
     enable = true;
     shellIntegration = {
@@ -25,7 +25,7 @@
     };
   };
 
-  programs.autostart.files = [ "${pkgs.kitty}/share/applications/kitty.desktop" ];
+  programs.autostart.files = [ "${config.programs.kitty}/share/applications/kitty.desktop" ];
 
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, Return, exec, kitty"

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   virtualisation = {
     podman = {
       enable = true;
@@ -19,11 +19,5 @@
 
     oci-containers.backend = "podman";
     waydroid.enable = true;
-  };
-
-  # Fixes https://matrix.to/#/!RRerllqmbATpmbJgCn:nixos.org/$BYFRKRjy_uQ8LfOdzx_qxaHXSeATi6ZsJf8Rcy87Wjs?via=nixos.org&via=matrix.org&via=tchncs.de
-  environment.etc.quadlet-user-generator = {
-    source = "${pkgs.podman}/lib/systemd/user-generators/podman-user-generator";
-    target = "/etc/systemd/user-generators/podman-user-generators";
   };
 }

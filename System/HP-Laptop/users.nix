@@ -1,4 +1,4 @@
-{ config, config', pkgs, inputs, lib', sources, ... }:
+{ config, config', pkgs, inputs, lib, lib', sources, ... }:
 let
   inherit (inputs) home-manager;
   inherit (config') users;
@@ -16,6 +16,7 @@ in
   users.users.wickedwizard = {
     isNormalUser = true;
     home = "/home/wickedwizard";
+    # Description of all users should container their folder name.
     description = "WickedWizard";
     # Fixes https://github.com/GPUOpen-Drivers/AMDVLK/issues/310
     extraGroups = [ "wheel" "networkmanager" "input" "video" "render" ];
@@ -27,21 +28,21 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
-    users = {
-      wickedwizard = {
+    users = lib.attrsets.mapAttrs
+      (n: v: {
         imports = [
-          ../../Users/WickedWizard/home.nix
+          ../../Users/${v.description}/home.nix
           ../../Modules/Home-Manager
           {
             home = {
-              username = "wickedwizard";
-              homeDirectory = config.users.users.wickedwizard.home;
+              username = n;
+              homeDirectory = v.home;
               stateVersion = "23.05";
             };
           }
         ];
-      };
-    };
+      })
+      (lib.attrsets.filterAttrs (n: v: v.isNormalUser) config.users.users);
     extraSpecialArgs =
       let
         config' = users.wickedwizard;

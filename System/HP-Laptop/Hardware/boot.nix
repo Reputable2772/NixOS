@@ -17,6 +17,7 @@
     initrd.systemd.enable = true;
 
     # RTL8821CE
+    # Overlay doesn't apply if `config.boot.kernelPackages.rtl8821ce` is used.
     extraModulePackages = with pkgs; [ linuxKernel.packages.linux_zen.rtl8821ce ];
     blacklistedKernelModules = [ "rtw88_8821ce" ];
   };
