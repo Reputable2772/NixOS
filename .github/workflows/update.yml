@@ -35,9 +35,9 @@ jobs:
       run: |
         echo "chore: update flake.lock & sources ($(date -I))" > changelog.txt
         echo "" >> changelog.txt
-        grep -E "'\s\(|Updated input" flake-update.txt >> changelog.txt
+        grep -E "'\s\(|Updated input" flake-update.txt || echo "" >> changelog.txt
         echo "" >> changelog.txt
-        grep -E "→" nvfetcher-update.txt >> changelog.txt
+        grep -E "→" nvfetcher-update.txt || echo "" >> changelog.txt
 
     - name: "Build Packages"
       run: |
