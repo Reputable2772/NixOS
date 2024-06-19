@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
-# with lib;
+{ config, lib, pkgs, options, ... }:
 let
   cfg = config.programs.hyprland;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib.attrsets) filterAttrs mapAttrs;
   inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption;
 in
 {
   options.programs.hyprland = {
@@ -11,10 +11,26 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Fixes https://github.com/NixOS/nixpkgs/issues/189851#issuecomment-1238907955
-    systemd.user.extraConfig = ''
-      DefaultEnvironment="PATH=/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH"
-    '';
+    /**
+      Does not prioritize /run/wrappers/bin, causes further issues with
+      systemd's user config.
+
+      https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/wayland/hyprland.nix#L63-L68
+     */
+    programs.hyprland.systemd.setPath.enable = false;
+
+    # Fixes NixOS/nixpkgs#189851
+    home-manager.users = mapAttrs
+      (n: v: {
+        wayland.windowManager.hyprland.systemd = {
+          enable = lib.mkDefault true;
+          variables =
+            # Append to default options provided by HM.
+            (options.home-manager.users.type.getSubOptions [ ]).wayland.windowManager.hyprland.systemd.variables.default
+            ++ [ "PATH" ];
+        };
+      })
+      (filterAttrs (n: v: v.isNormalUser) config.users.users);
 
     xdg.portal = {
       inherit (cfg) enable;
