@@ -73,6 +73,12 @@
           handle @qbittorrent {
             reverse_proxy qbittorrent:8516
           }
+
+          @lidarr host lidarr.{env.DOMAIN} lidarr.{env.EXTERNAL_DOMAIN}
+          handle @lidarr {
+            # Lidarr's traffic is proxied through Gluetun.
+            reverse_proxy gluetun:8686
+          }
       '';
     in
     [

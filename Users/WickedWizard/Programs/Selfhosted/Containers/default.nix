@@ -5,6 +5,7 @@
     ./caddy-network.nix
     ./gluetun.nix
     ./lib.nix
+    ./lidarr.nix
     ./qbittorrent.nix
     ./vaultwarden.nix
   ];

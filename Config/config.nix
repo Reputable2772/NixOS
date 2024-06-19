@@ -119,6 +119,11 @@ rec {
             "SERVER_COUNTRIES=Netherlands"
           ];
         };
+        lidarr = {
+          dir = null;
+          envFiles = [ ];
+          env = [ "TZ=Asia/Kolkata" "PUID=0" "PGID=0" ];
+        };
         qbittorrent = {
           dir = null;
           envFiles = null;

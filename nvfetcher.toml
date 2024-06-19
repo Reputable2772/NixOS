@@ -42,6 +42,7 @@ fetch.github = "Mic92/nix-fast-build"
 src.github = "rafaelmardojai/firefox-gnome-theme"
 fetch.github = "rafaelmardojai/firefox-gnome-theme"
 
+# TODO: Set this to update automatically.
 [filen]
 src.manual = "latest"
 fetch.url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
@@ -69,3 +70,7 @@ fetch.url = "https://raw.githubusercontent.com/zhichaoh/catppuccin-wallpapers/ma
 [calibre_catppuccin]
 src.git = "https://github.com/catppuccin/calibre.git"
 fetch.github = "catppuccin/calibre"
+
+[arr_scripts]
+src.git = "https://github.com/RandomNinjaAtk/arr-scripts.git"
+fetch.github = "RandomNinjaAtk/arr-scripts"
