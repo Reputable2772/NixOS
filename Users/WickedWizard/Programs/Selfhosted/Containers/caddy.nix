@@ -1,7 +1,7 @@
 { config, config', lib, pkgs, ... }: {
   programs.quadlets.quadlets =
     let
-      dir = if config'.containers.caddy ? dir && config'.containers.caddy.dir != null then config'.containers.caddy.dir else config'.dir.containers;
+      dir = if config'.containers.caddy ? dir && config'.containers.caddy.dir != null then config'.containers.caddy.dir else "${config'.dir.containers}/Caddy";
       caddyFile = pkgs.writeText "Caddyfile" ''
         (default) {
           tls {
@@ -90,8 +90,8 @@
           PublishPort=443:443
           PublishPort=2019:2019
           Volume=${caddyFile}:/etc/caddy/Caddyfile
-          Volume=${dir}/Caddy/config:/config
-          Volume=${dir}/Caddy/data:/data
+          Volume=${dir}/config:/config
+          Volume=${dir}/data:/data
 
           [Unit]
           Wants=network-online.target

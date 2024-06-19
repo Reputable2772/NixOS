@@ -2,7 +2,7 @@
 {
   programs.quadlets.quadlets =
     let
-      dir = if config'.containers.vaultwarden ? dir && config'.containers.vaultwarden.dir != null then config'.containers.vaultwarden.dir else config'.dir.containers;
+      dir = if config'.containers.vaultwarden ? dir && config'.containers.vaultwarden.dir != null then config'.containers.vaultwarden.dir else "${config'.dir.containers}/Vaultwarden";
     in
     [
       {
@@ -16,7 +16,7 @@
           Image=docker.io/vaultwarden/server:latest
           Network=systemd-caddy
           PodmanArgs=--network-alias vaultwarden
-          Volume=${dir}/Vaultwarden:/data
+          Volume=${dir}:/data
 
           [Service]
           Restart=on-failure

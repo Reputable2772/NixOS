@@ -2,7 +2,7 @@
 {
   programs.quadlets.quadlets =
     let
-      dir = if config'.containers.baikal ? dir && config'.containers.baikal.dir != null then config'.containers.baikal.dir else config'.dir.containers;
+      dir = if config'.containers.baikal ? dir && config'.containers.baikal.dir != null then config'.containers.baikal.dir else "${config'.dir.containers}/Baikal";
     in
     [
       {
@@ -15,8 +15,8 @@
           PodmanArgs=--network-alias baikal
           ${lib.optionalString (config'.containers.baikal ? env && config'.containers.baikal.env != null) "Environment=${lib.strings.concatStringsSep " " config'.containers.baikal.env}"}
           ${lib.optionalString (config'.containers.baikal ? envFiles && config'.containers.baikal.envFiles != null) (lib.strings.concatStringsSep "\n" (lib.lists.map (n: "EnvironmentFile=${config.age.secrets.${n}.path}") config'.containers.baikal.envFiles))}
-          Volume=${dir}/Baikal/config:/var/www/baikal/config
-          Volume=${dir}/Baikal/data:/var/www/baikal/Specific
+          Volume=${dir}/config:/var/www/baikal/config
+          Volume=${dir}/data:/var/www/baikal/Specific
 
           [Service]
           Restart=always

@@ -2,7 +2,7 @@
 {
   programs.quadlets.quadlets =
     let
-      dir = if config'.containers.qbittorrent ? dir && config'.containers.qbittorrent.dir != null then config'.containers.qbittorrent.dir else config'.dir.containers;
+      dir = if config'.containers.qbittorrent ? dir && config'.containers.qbittorrent.dir != null then config'.containers.qbittorrent.dir else "${config'.dir.containers}/qBittorrent";
     in
     [
       {
@@ -17,8 +17,8 @@
           PodmanArgs=--network-alias qbittorrent
           PublishPort=61851:61851
           PublishPort=61851:61851/udp
-          Volume=${dir}/qBittorrent/config:/config
-          Volume=${dir}/qBittorrent/VueTorrent:/themes/VueTorrent
+          Volume=${dir}/config:/config
+          Volume=${dir}/VueTorrent:/themes/VueTorrent
           Volume=${dir}/Downloads:/downloads
 
           # Arch wiki - https://wiki.archlinux.org/title/Podman#Quadlet
