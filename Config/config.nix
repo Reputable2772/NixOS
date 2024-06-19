@@ -107,6 +107,18 @@ rec {
           envFiles = null;
           env = null;
         };
+        gluetun = {
+          dir = null;
+          # Proton VPN's OpenVPN user and password.
+          envFiles = [ "proton-openvpn" ];
+          env = [
+            "DOT=off"
+            "DNS_KEEP_NAMESERVER=on"
+            "FREE_ONLY=on"
+            "VPN_SERVICE_PROVIDER=protonvpn"
+            "SERVER_COUNTRIES=Netherlands"
+          ];
+        };
         qbittorrent = {
           dir = null;
           envFiles = null;
@@ -137,4 +149,5 @@ rec {
   "domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
