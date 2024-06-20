@@ -10,7 +10,6 @@
     settings = {
       exec-once = [
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
-        "${lib.getExe pkgs.dex} --autostart"
       ];
 
       general = {
