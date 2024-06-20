@@ -28,6 +28,9 @@ in
             # Append to default options provided by HM.
             (options.home-manager.users.type.getSubOptions [ ]).wayland.windowManager.hyprland.systemd.variables.default
             ++ [ "PATH" ];
+          extraCommands =
+            (options.home-manager.users.type.getSubOptions [ ]).wayland.windowManager.hyprland.systemd.extraCommands.default
+            ++ [ "systemctl --user stop xdg-desktop-portal.service" "systemctl --user start xdg-desktop-portal.service" ];
         };
       })
       (filterAttrs (n: v: v.isNormalUser) config.users.users);
