@@ -1,23 +1,27 @@
 { pkgs, inputs, ... }:
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    coreutils
-    curl
-    jq
-    hydra-check
-    nixpkgs-fmt
-    inputs.agenix.packages.${pkgs.system}.default
-  ];
-  shellHook = pkgs.lib.strings.concatStrings [
-    # Fixes https://github.com/direnv/direnv/issues/73
-    # "export_alias codium 'codium --profile Nix $@'"
-    "\n"
-    (inputs.pre-commit-hooks.lib.${pkgs.system}.run {
-      src = ../.;
-      hooks = {
-        nixpkgs-fmt.enable = true;
-        commitizen.enable = true;
-      };
-    }).shellHook
-  ];
+let
+  inherit (pkgs) lib;
+in
+pkgs.devshell.mkShell {
+  imports = [ "${inputs.devshell}/extra/git/hooks.nix" ];
+  devshell = {
+    name = "Development Shell for System Flake";
+    packages = with pkgs; [
+      coreutils
+      curl
+      jq
+      hydra-check
+      nixpkgs-fmt
+      inputs.agenix.packages.${pkgs.system}.default
+    ];
+  };
+  git.hooks = {
+    enable = true;
+    pre-commit.text = ''
+      ${lib.getExe pkgs.nixVersions.latest} fmt
+    '';
+    commit-msg.text = ''
+      ${lib.getExe pkgs.commitizen} check --allow-abort --commit-msg-file $1
+    '';
+  };
 }

@@ -13,7 +13,6 @@
     };
     nur.url = "github:nix-community/NUR";
     spicetify-nix.url = "github:the-argus/spicetify-nix";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -28,9 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-ld-rs.url = "github:nix-community/nix-ld-rs";
+    devshell.url = "github:numtide/devshell";
   };
 
-  outputs = { nixpkgs, pre-commit-hooks, self, ... }@inputs:
+  outputs = { nixpkgs, pre-commit-hooks, self, devshell, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -56,6 +56,14 @@
         };
       };
       devShells.${system} =
-        pkgs.lib.attrsets.mapAttrs (name: value: import value { inherit pkgs inputs sources; }) (lib'.recurseDirectory ./Shells false);
+        pkgs.lib.attrsets.mapAttrs
+          (name: value: import value {
+            inherit inputs sources;
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ devshell.overlays.default ];
+            };
+          })
+          (lib'.recurseDirectory ./Shells false);
     };
 }

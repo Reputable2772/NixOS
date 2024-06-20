@@ -1,10 +1,13 @@
 { pkgs, sources, ... }:
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    cachix
-    jq
-    coreutils
-    (callPackage "${sources.nix-fast-build.src}/default.nix" { })
-    nvfetcher
-  ];
+pkgs.devshell.mkShell {
+  devshell = {
+    name = "CI Shell";
+    packages = with pkgs; [
+      cachix
+      jq
+      coreutils
+      (callPackage "${sources.nix-fast-build.src}/default.nix" { })
+      nvfetcher
+    ];
+  };
 }
