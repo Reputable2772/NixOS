@@ -8,28 +8,20 @@
     "LIBVA_DRIVER_NAME" = "radeonsi";
   };
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-
   hardware = {
     cpu.amd.updateMicrocode = true;
-    opengl = {
+    graphics = {
       enable = true;
-      setLdLibraryPath = true;
-
-      # Vulkan
-      driSupport = true;
-      driSupport32Bit = true;
-
-      extraPackages = with pkgs; [
-        # OpenCL
-        rocmPackages.clr.icd
-
-        # Vulkan
-        amdvlk
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk
-      ];
+      enable32Bit = true;
+    };
+    amdgpu = {
+      opencl.enable = true;
+      legacySupport.enable = true;
+      initrd.enable = true;
+      amdvlk = {
+        enable = true;
+        support32Bit.enable = true;
+      };
     };
   };
 }
