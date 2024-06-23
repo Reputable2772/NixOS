@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2024-06-07",
+        "date": "2024-06-20",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "c89b19796cbff7a60adaaf28af1e36665faeadce",
-            "sha256": "sha256-sJ59blaPHXuXNxh5Kfen7wAUoeFpuEC/ratojhDLJEY=",
+            "rev": "f7debf4ab7acf189b7e1d8fb1117f9127b5f3daa",
+            "sha256": "sha256-k7OaktGmYcDBOmlwoXM7N6ZoMKfud1Cm/tyuw3/ilBc=",
             "type": "github"
         },
-        "version": "c89b19796cbff7a60adaaf28af1e36665faeadce"
+        "version": "f7debf4ab7acf189b7e1d8fb1117f9127b5f3daa"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-06-14",
+        "date": "2024-06-23",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "5539fecb9915aea812c65d52183eba339b9c82e6",
-            "sha256": "sha256-WsasrUlTa+qPzSqi/fs6/RQCf3xZiraQ/UijUU4AHqM=",
+            "rev": "a6c006221d21d8db370f1e29c1fbd27c65e888bb",
+            "sha256": "sha256-fnYZEI0Nsjo2DWmQGxKs71jX5Lr/yDSUjQlm365yJZs=",
             "type": "github"
         },
-        "version": "5539fecb9915aea812c65d52183eba339b9c82e6"
+        "version": "a6c006221d21d8db370f1e29c1fbd27c65e888bb"
     },
     "filen": {
         "cargoLocks": null,
@@ -148,11 +148,11 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v126",
-            "sha256": "sha256-jVbj2JD5GRkP8s3vKBtd9PDpftf3kjLR0ZA/ND/c2+Q=",
+            "rev": "v127",
+            "sha256": "sha256-ihOVmsno400zgdgSdRRxKRzmKiydH0Vux7LtSDpCyUI=",
             "type": "github"
         },
-        "version": "v126"
+        "version": "v127"
     },
     "foot_catppuccin": {
         "cargoLocks": null,
@@ -176,7 +176,7 @@
     },
     "hyprland_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-06-10",
+        "date": "2024-06-19",
         "extract": null,
         "name": "hyprland_catppuccin",
         "passthru": null,
@@ -188,11 +188,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "hyprland",
-            "rev": "249e262af51022e6c4acaf2da48fc3c7bdac8d76",
-            "sha256": "sha256-MIkjmXXGzSG+RKSCBfSdFrn2XVGPm+OEZzdGzAdoIaM=",
+            "rev": "c388ac55563ddeea0afe9df79d4bfff0096b146b",
+            "sha256": "sha256-xSa/z0Pu+ioZ0gFH9qSo9P94NPkEMovstm1avJ7rvzM=",
             "type": "github"
         },
-        "version": "249e262af51022e6c4acaf2da48fc3c7bdac8d76"
+        "version": "c388ac55563ddeea0afe9df79d4bfff0096b146b"
     },
     "hyprlock_background": {
         "cargoLocks": null,
@@ -211,7 +211,7 @@
     },
     "hyprlock_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-04-01",
+        "date": "2024-06-17",
         "extract": null,
         "name": "hyprlock_catppuccin",
         "passthru": null,
@@ -223,11 +223,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "hyprlock",
-            "rev": "d5a6767000409334be8413f19bfd1cf5b6bb5cc6",
-            "sha256": "sha256-pjMFPaonq3h3e9fvifCneZ8oxxb1sufFQd7hsFe6/i4=",
+            "rev": "480c46f1f3fa9dd175f8f9611c0d4378324378a7",
+            "sha256": "sha256-Fisxyg5Q5C3dlZdIpgVDEpOUJYrqRMT6HJ+46XUVwI0=",
             "type": "github"
         },
-        "version": "d5a6767000409334be8413f19bfd1cf5b6bb5cc6"
+        "version": "480c46f1f3fa9dd175f8f9611c0d4378324378a7"
     },
     "nix-fast-build": {
         "cargoLocks": null,
@@ -311,7 +311,7 @@
     },
     "rofi_catppuccin": {
         "cargoLocks": null,
-        "date": "2022-12-31",
+        "date": "2024-06-20",
         "extract": null,
         "name": "rofi_catppuccin",
         "passthru": null,
@@ -323,11 +323,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "rofi",
-            "rev": "5350da41a11814f950c3354f090b90d4674a95ce",
-            "sha256": "sha256-DNorfyl3C4RBclF2KDgwvQQwixpTwSRu7fIvihPN8JY=",
+            "rev": "b636a00fd40a7899a8206195464ae8b7f0450a6d",
+            "sha256": "sha256-zA8Zum19pDTgn0KdQ0gD2kqCOXK4OCHBidFpGwrJOqg=",
             "type": "github"
         },
-        "version": "5350da41a11814f950c3354f090b90d4674a95ce"
+        "version": "b636a00fd40a7899a8206195464ae8b7f0450a6d"
     },
     "starship_catppuccin": {
         "cargoLocks": null,
