@@ -40,9 +40,16 @@
     in
     {
       formatter.${system} = pkgs.nixpkgs-fmt;
-      cachix-deploy = pkgs.writeText "cachix-deploy.json" (builtins.toJSON {
-        agents = pkgs.lib.attrsets.mapAttrs (name: value: value.config.system.build.toplevel) self.nixosConfigurations;
-      });
+      build =
+        let
+          inherit (pkgs) lib writeText;
+          inherit (lib.attrsets) mapAttrs;
+        in
+        writeText "build.json"
+          (builtins.toJSON [
+            (mapAttrs (name: value: value.config.system.build.toplevel) self.nixosConfigurations)
+            (self.devShells.${system})
+          ]);
       nixosConfigurations = {
         "hp-laptop" = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -56,13 +63,16 @@
         };
       };
       devShells.${system} =
+        let
+          overlayed_pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ devshell.overlays.default ];
+          };
+        in
         pkgs.lib.attrsets.mapAttrs
           (name: value: import value {
             inherit inputs sources;
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [ devshell.overlays.default ];
-            };
+            pkgs = overlayed_pkgs;
           })
           (lib'.recurseDirectory ./Shells false);
     };

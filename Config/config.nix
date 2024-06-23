@@ -141,7 +141,6 @@ rec {
   # All files should be in the same directory as this file.
 
   # Agenix config
-  "cachix.age".publicKeys = [ system.secrets.encryption.key ];
   # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
   "wickedwizardPassword.age".publicKeys = [ system.secrets.encryption.key ];
   "rootPassword.age".publicKeys = [ system.secrets.encryption.key ];
