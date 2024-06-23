@@ -1,5 +1,5 @@
-{ pkgs, lib, ... }: {
-  home.packages = with pkgs; [ hyprpicker ];
+{ config, pkgs, lib, ... }: {
+  home.packages = lib.optional config.wayland.windowManager.hyprland.enable pkgs.hyprpicker;
 
   wayland.windowManager.hyprland.settings = {
     bind = [

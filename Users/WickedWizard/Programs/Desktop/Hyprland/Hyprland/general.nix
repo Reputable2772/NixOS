@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }: {
+{ osConfig, config, lib, pkgs, ... }: {
   home.packages = lib.mkIf config.wayland.windowManager.hyprland.enable (with pkgs; [
     dex
     polkit_gnome
   ]);
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    inherit (osConfig.programs.hyprland) enable;
     xwayland.enable = true;
     settings = {
       exec-once = [

@@ -349,7 +349,7 @@ in
 {
 
   programs.waybar = {
-    enable = config.wayland.windowManager.hyprland.enable;
+    inherit (config.wayland.windowManager.hyprland) enable;
     settings = {
       mainBar = waybar;
     };

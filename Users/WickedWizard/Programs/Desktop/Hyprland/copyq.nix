@@ -4,7 +4,7 @@
   ];
 
   services.copyq = {
-    enable = true;
+    inherit (config.wayland.windowManager.hyprland) enable;
     systemdTarget = "";
   };
 
