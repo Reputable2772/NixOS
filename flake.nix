@@ -30,7 +30,7 @@
     devshell.url = "github:numtide/devshell";
   };
 
-  outputs = { nixpkgs, pre-commit-hooks, self, devshell, ... }@inputs:
+  outputs = { nixpkgs, self, devshell, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
