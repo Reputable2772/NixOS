@@ -38,18 +38,17 @@ jobs:
       run: |
         echo "commit_msg=$(echo "chore: update flake.lock & sources ($(date -I))")" >> "$GITHUB_OUTPUT"
         echo "date_week=$(date +%V)" >> "$GITHUB_OUTPUT"
+        echo "body_file=$PWD/changelog.txt" >> "$GITHUB_OUTPUT"
 
         echo "Automated Pull Request for Week $(date +%V)" > changelog.txt
         echo "" >> changelog.txt
 
         echo "Flakes Changelog:" >> changelog.txt
-        grep -E "'\s\(|Updated input" flake-update.txt || echo "" >> changelog.txt
+        grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!" >> changelog.txt
         echo "" >> changelog.txt
 
         echo "Sources Changelog:" >> changelog.txt
-        grep -E "→" nvfetcher-update.txt || echo "" >> changelog.txt
-
-        rm -rf flake-update.txt nvfetcher-update.txt
+        grep -E "→" nvfetcher-update.txt || echo "No changes!" >> changelog.txt
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
@@ -62,4 +61,4 @@ jobs:
         signoff: true
         delete-branch: true
         branch: flake-update/${{ steps.changelog.outputs.date_week }}
-        body-path: ./changelog.txt
+        body-path: ${{ steps.changelog.outputs.body_file }}
