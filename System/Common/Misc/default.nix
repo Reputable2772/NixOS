@@ -1,6 +1,7 @@
 {
   imports = [
     ./appimage.nix
+    ./envfs.nix
     ./environment.nix
     ./lanzaboote.nix
     ./misc.nix
