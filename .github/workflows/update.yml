@@ -36,17 +36,18 @@ jobs:
     - name: "Write changelog"
       id: changelog
       run: |
-        echo "pr_title=$(echo "chore: update flake.lock & sources ($(date -I))")" >> "$GITHUB_OUTPUT"
-
-        echo "flake_changelog<<__EOF" >> "$GITHUB_OUTPUT"
-        grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!" >> "$GITHUB_OUTPUT"
-        echo __EOF >> "$GITHUB_OUTPUT"
-
-        echo "sources_changelog<<__EOF" >> "$GITHUB_OUTPUT"
-        grep -E "→" nvfetcher-update.txt || echo "No changes!" >> "$GITHUB_OUTPUT"
-        echo __EOF >> "$GITHUB_OUTPUT"
-
+        echo "commit_msg=$(echo "chore: update flake.lock & sources ($(date -I))")" >> "$GITHUB_OUTPUT"
         echo "date_week=$(date +%V)" >> "$GITHUB_OUTPUT"
+
+        echo "Automated Pull Request for Week $(date +%V)" > changelog.txt
+        echo "" >> changelog.txt
+
+        echo "Flakes Changelog:" >> changelog.txt
+        grep -E "'\s\(|Updated input" flake-update.txt || echo "" >> changelog.txt
+        echo "" >> changelog.txt
+
+        echo "Sources Changelog:" >> changelog.txt
+        grep -E "→" nvfetcher-update.txt || echo "" >> changelog.txt
 
         rm -rf flake-update.txt nvfetcher-update.txt
 
@@ -54,15 +55,11 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         title: "Flake Update: Week ${{ steps.changelog.outputs.date_week }}"
-        commit-message: ${{ steps.changelog.outputs.pr_title }}
+        commit-message: ${{ steps.changelog.outputs.commit_msg }}
+        add-paths: |
+          _sources/*
+          flake.lock
         signoff: true
         delete-branch: true
         branch: flake-update/${{ steps.changelog.outputs.date_week }}
-        body: |
-          Automated Pull Request for Week ${{ steps.changelog.outputs.date_week }}
-
-          Flakes Changelog:
-          ${{ steps.changelog.outputs.flake_changelog }}
-
-          Sources Changelog:
-          ${{ steps.changelog.outputs.sources_changelog }}
+        body-path: ./changelog.txt
