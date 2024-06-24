@@ -37,8 +37,15 @@ jobs:
       id: changelog
       run: |
         echo "pr_title=$(echo "chore: update flake.lock & sources ($(date -I))")" >> "$GITHUB_OUTPUT"
-        echo "flake_changelog=$(grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!")" >> "$GITHUB_OUTPUT"
-        echo "sources_changelog=$(grep -E "→" nvfetcher-update.txt || echo "No changes!")" >> "$GITHUB_OUTPUT"
+
+        echo "flake_changelog<<__EOF" >> "$GITHUB_OUTPUT"
+        grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!" >> "$GITHUB_OUTPUT"
+        echo __EOF >> "$GITHUB_OUTPUT"
+
+        echo "sources_changelog<<__EOF" >> "$GITHUB_OUTPUT"
+        grep -E "→" nvfetcher-update.txt || echo "No changes!" >> "$GITHUB_OUTPUT"
+        echo __EOF >> "$GITHUB_OUTPUT"
+
         echo "date_week=$(date +%V)" >> "$GITHUB_OUTPUT"
 
         rm -rf flake-update.txt nvfetcher-update.txt

@@ -8,16 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Substituters
+      id: substituters
       run: |
-        echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_ENV"
-        echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_ENV"
+        echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
+        echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
 
     - name: "Install Nix"
       uses: cachix/install-nix-action@v26
       with:
         extra_nix_config: |
-          trusted-public-keys = ${{ env.TRUSTED_PUBLIC_KEYS }}
-          substituters = ${{ env.SUBSTITUTERS }}
+          trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
+          substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
 
     - uses: DeterminateSystems/magic-nix-cache-action@main
 
