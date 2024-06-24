@@ -44,11 +44,11 @@ jobs:
         echo "" >> changelog.txt
 
         echo "Flakes Changelog:" >> changelog.txt
-        grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!" >> changelog.txt
+        echo $(grep -E "'\s\(|Updated input" flake-update.txt || "No changes!") >> changelog.txt
         echo "" >> changelog.txt
 
         echo "Sources Changelog:" >> changelog.txt
-        grep -E "→" nvfetcher-update.txt || echo "No changes!" >> changelog.txt
+        echo $(grep -E "→" nvfetcher-update.txt || "No changes!") >> changelog.txt
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
