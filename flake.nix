@@ -30,12 +30,14 @@
     devshell.url = "github:numtide/devshell";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
+    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
   };
 
-  outputs = { nixpkgs, self, devshell, flake-parts, systems, ... }@inputs:
+  outputs = { nixpkgs, self, devshell, flake-parts, pre-commit-hooks-nix, systems, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         devshell.flakeModule
+        pre-commit-hooks-nix.flakeModule
       ];
 
       systems = import systems;
@@ -61,8 +63,15 @@
           };
       };
 
-      perSystem = { system, pkgs, self', ... }: {
+      perSystem = { config, system, pkgs, self', ... }: {
         formatter = pkgs.nixpkgs-fmt;
+
+        # Installation hooks need to setup manually in each devshell.
+        pre-commit.check.enable = true;
+        pre-commit.settings.hooks = {
+          commitizen.enable = true;
+          nixpkgs-fmt.enable = true;
+        };
 
         packages.build =
           let
@@ -77,7 +86,7 @@
 
         devshells = pkgs.lib.attrsets.mapAttrs
           (name: value: import value {
-            inherit inputs pkgs;
+            inherit config inputs pkgs;
             sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
           })
           ((import ./lib { inherit pkgs; }).recurseDirectory ./Shells false);
