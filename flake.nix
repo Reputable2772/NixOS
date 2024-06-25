@@ -28,52 +28,59 @@
     };
     nix-ld-rs.url = "github:nix-community/nix-ld-rs";
     devshell.url = "github:numtide/devshell";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    systems.url = "github:nix-systems/default";
   };
 
-  outputs = { nixpkgs, self, devshell, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      lib' = import ./lib { inherit pkgs; };
-      config' = import ./Config/config.nix;
-      sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
-    in
-    {
-      formatter.${system} = pkgs.nixpkgs-fmt;
-      build =
-        let
-          inherit (pkgs) lib writeText;
-          inherit (lib.attrsets) mapAttrs;
-        in
-        writeText "build.json"
-          (builtins.toJSON [
-            (mapAttrs (name: value: value.config.system.build.toplevel) self.nixosConfigurations)
-            (self.devShells.${system})
-          ]);
-      nixosConfigurations = {
-        "hp-laptop" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs lib' sources config';
-          };
-          modules = [
-            ./System/Common
-            ./System/HP-Laptop
-          ];
-        };
-      };
-      devShells.${system} =
-        let
-          overlayed_pkgs = import nixpkgs {
+  outputs = { nixpkgs, self, devshell, flake-parts, systems, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        devshell.flakeModule
+      ];
+
+      systems = import systems;
+
+      flake.nixosConfigurations = {
+        "hp-laptop" =
+          let
+            system = "x86_64-linux";
+            pkgs = nixpkgs.legacyPackages.${system};
+          in
+          nixpkgs.lib.nixosSystem {
             inherit system;
-            overlays = [ devshell.overlays.default ];
+            specialArgs = {
+              inherit inputs;
+              config' = import ./Config/config.nix;
+              lib' = import ./lib { inherit pkgs; };
+              sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
+            };
+            modules = [
+              ./System/Common
+              ./System/HP-Laptop
+            ];
           };
-        in
-        pkgs.lib.attrsets.mapAttrs
+      };
+
+      perSystem = { system, pkgs, self', ... }: {
+        formatter = pkgs.nixpkgs-fmt;
+
+        packages.build =
+          let
+            inherit (pkgs) lib writeText;
+            inherit (lib.attrsets) filterAttrs mapAttrs;
+          in
+          writeText "build.json"
+            (builtins.toJSON [
+              (mapAttrs (name: value: value.config.system.build.toplevel) (filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations))
+              self'.devShells
+            ]);
+
+        devshells = pkgs.lib.attrsets.mapAttrs
           (name: value: import value {
-            inherit inputs sources;
-            pkgs = overlayed_pkgs;
+            inherit inputs pkgs;
+            sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
           })
-          (lib'.recurseDirectory ./Shells false);
+          ((import ./lib { inherit pkgs; }).recurseDirectory ./Shells false);
+      };
     };
 }

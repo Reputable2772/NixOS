@@ -2,7 +2,7 @@
 let
   inherit (pkgs) lib;
 in
-pkgs.devshell.mkShell {
+{
   imports = [ "${inputs.devshell}/extra/git/hooks.nix" ];
   devshell = {
     name = "Development Shell for System Flake";

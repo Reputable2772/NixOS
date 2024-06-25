@@ -1,5 +1,4 @@
-{ pkgs, sources, ... }:
-pkgs.devshell.mkShell {
+{ pkgs, sources, ... }: {
   devshell = {
     name = "CI Shell";
     packages = with pkgs; [
