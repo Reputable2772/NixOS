@@ -127,7 +127,7 @@ rec {
         qbittorrent = {
           dir = null;
           envFiles = null;
-          env = [ "TZ=Asia/Kolkata" "WEBUI_PORT=8516" "PUID=0" "PGID=0" ];
+          env = [ "TZ=Asia/Kolkata" "WEBUI_PORT=8516" "PUID=0" "PGID=0" "TORRENTING_PORT=61851" ];
         };
         vaultwarden = {
           dir = null;
