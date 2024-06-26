@@ -62,6 +62,18 @@
               ./System/HP-Laptop
             ];
           };
+
+        "rescue" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+            polyfill = true;
+          };
+          modules = [
+            ./System/Common
+            ./System/Rescue
+          ];
+        };
       };
 
       perSystem = { config, system, pkgs, self', ... }: {
@@ -81,7 +93,7 @@
           in
           writeText "build.json"
             (builtins.toJSON [
-              (mapAttrs (name: value: value.config.system.build.toplevel) (filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations))
+              (mapAttrs (name: value: value.config.system.build.${if name == "rescue" then "isoImage" else "toplevel"}) (filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations))
               self'.devShells
             ]);
 
