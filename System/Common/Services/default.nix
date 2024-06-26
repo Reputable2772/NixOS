@@ -4,5 +4,6 @@
     ./fwupd.nix
     ./logind.nix
     ./networking.nix
+    ./pipewire.nix
   ];
 }
