@@ -14,5 +14,11 @@
     # Utilities
     coreutils
     util-linux
+
+    firefox
+    nano
+    vscodium
+    foot
+    ungoogled-chromium
   ];
 }
