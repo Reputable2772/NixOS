@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  programs.gnome = {
+  services.xserver.desktopManager.gnome = {
     enable = false;
     excludePackages = (with pkgs; [
       gnome-photos

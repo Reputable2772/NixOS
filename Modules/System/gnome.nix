@@ -1,17 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.programs.gnome;
+  cfg = config.services.xserver.desktopManager.gnome;
 in
 {
-  options.programs.gnome = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Enable Gnome Desktop Environment Module
-      '';
-    };
+  options.services.xserver.desktopManager.gnome = {
     avahi.enable = mkOption {
       type = types.bool;
       default = false;
@@ -35,11 +28,6 @@ in
   };
 
   config = {
-    services.xserver = {
-      enable = mkDefault true;
-      desktopManager.gnome.enable = cfg.enable;
-    };
-
     environment.gnome.excludePackages = cfg.excludePackages;
 
     services.avahi.enable = cfg.avahi.enable;
