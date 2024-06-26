@@ -6,6 +6,6 @@
   boot.loader.systemd-boot.enable = lib.mkForce (!config.boot.lanzaboote.enable);
   boot.lanzaboote = {
     enable = true;
-    pkiBundle = "${config'.flake.dir.config}/secureboot";
+    pkiBundle = "${config'.flake.dir.config}/secureboot/${config.networking.hostName}";
   };
 }

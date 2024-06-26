@@ -3,7 +3,6 @@
     ./appimage.nix
     ./envfs.nix
     ./environment.nix
-    ./lanzaboote.nix
     ./misc.nix
     ./nix-ld-rs.nix
     ./nix.nix
