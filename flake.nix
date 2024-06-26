@@ -53,6 +53,7 @@
             specialArgs = {
               inherit inputs;
               config' = import ./Config/config.nix;
+              polyfill = false;
               lib' = import ./lib { inherit pkgs; };
               sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
             };
