@@ -1,12 +1,12 @@
 { config, pkgs, lib, ... }:
 let
   inherit (lib) mkForce;
-  inherit (lib.strings) toLower;
+  inherit (lib.strings) concatStringsSep toLower;
 
   variant = "Mocha";
   accent = "Blue";
   size = "Standard";
-  dark = "Dark";
+  # dark = "Dark";
 
   qt_theme = pkgs.catppuccin-kvantum.override {
     inherit variant accent;
@@ -23,14 +23,24 @@ in
   # Both DConf and GTK need to be set, since the dconf2nix generated file may override it otherwise.
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-${variant}-${size}-${accent}-${dark}";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ (toLower accent) ];
+    theme =
+      let
         tweaks = [ "rimless" "normal" "float" ];
-        size = toLower size;
-        variant = toLower variant;
+      in
+      {
+        name = "catppuccin-${toLower variant}-${toLower accent}-${toLower size}+${concatStringsSep "," tweaks}";
+        package = pkgs.catppuccin-gtk.override {
+          accents = [ (toLower accent) ];
+          inherit tweaks;
+          size = toLower size;
+          variant = toLower variant;
+        };
       };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 0;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 0;
     };
   };
 
