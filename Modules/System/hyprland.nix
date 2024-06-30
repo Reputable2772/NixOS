@@ -54,7 +54,7 @@ in
       services.upower.enable = true;
     })
 
-    (mkIf (cfg.enable && (config ? home-manager)) {
+    (mkIf cfg.enable {
       # Fixes NixOS/nixpkgs#189851
       home-manager.users = mapAttrs
         (n: v: {
