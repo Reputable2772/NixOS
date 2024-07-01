@@ -1,8 +1,8 @@
 {
-  services.xserver.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.xserver.enable = false;
+  services.desktopManager.plasma6.enable = false;
   services.displayManager.sddm = {
-    enable = true;
+    enable = false;
     wayland = {
       enable = true;
       compositor = "kwin";
