@@ -30,17 +30,6 @@ in
         xdgOpenUsePortal = true;
       };
 
-      environment.systemPackages = [ pkgs.xdg-utils ];
-
-      # Thunar
-      programs.thunar = {
-        enable = true;
-        plugins = with pkgs.xfce; [
-          thunar-archive-plugin
-          thunar-volman
-        ];
-      };
-
       programs.xfconf.enable = true;
       services.gvfs.enable = true;
 
