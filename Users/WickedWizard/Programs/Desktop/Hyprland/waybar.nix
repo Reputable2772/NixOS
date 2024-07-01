@@ -1,5 +1,5 @@
 # Inspiration https://github.com/Srinath10X/catppuccin-waybar/
-{ config, pkgs, inputs, ... }:
+{ config, ... }:
 let
   waybar = {
     exclusive = true;
@@ -354,8 +354,6 @@ in
       mainBar = waybar;
     };
     style = waybar_css;
-    # Fixes nix-community/nixpkgs-wayland#448
-    package = inputs.nixpkgs.legacyPackages.${pkgs.system}.waybar.override { swaySupport = false; };
 
     # Fixes https://github.com/nix-community/home-manager/issues/3599
     systemd.enable = false;
