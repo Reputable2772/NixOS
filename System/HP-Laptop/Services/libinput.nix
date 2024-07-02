@@ -1,11 +1,11 @@
-{
+{ lib, ... }: {
   services.libinput = {
     enable = true;
-    mouse = {
+    mouse = lib.mkForce {
       accelProfile = "flat";
       horizontalScrolling = true;
     };
-    touchpad = {
+    touchpad = lib.mkForce {
       accelProfile = "flat";
       disableWhileTyping = true;
       horizontalScrolling = true;
