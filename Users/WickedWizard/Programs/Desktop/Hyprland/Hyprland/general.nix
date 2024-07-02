@@ -31,7 +31,7 @@
         disable_hyprland_logo = false;
         disable_splash_rendering = true;
         mouse_move_enables_dpms = true;
-        key_press_enables_dpms = false;
+        key_press_enables_dpms = true;
         vrr = true;
         vfr = true;
         animate_manual_resizes = true;
@@ -48,7 +48,7 @@
         repeat_rate = 25;
         repeat_delay = 269;
         accel_profile = "flat";
-        force_no_accel = false;
+        force_no_accel = true;
         sensitivity = 1.0;
         numlock_by_default = true;
 
