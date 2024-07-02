@@ -36,7 +36,7 @@
       Also make sure the flake contains every input path in it.
       Set nix.settings.nix-path manually as well, see above
      */
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) (lib.filterAttrs (n: v: n != "self") inputs);
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
 }
