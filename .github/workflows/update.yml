@@ -57,7 +57,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
-        title: "Flake Update: Week ${{ steps.changelog.outputs.date_week }}"
+        title: ${{ steps.changelog.outputs.commit_msg }}
         commit-message: ${{ steps.changelog.outputs.commit_msg }}
         add-paths: |
           _sources/*
