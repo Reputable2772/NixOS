@@ -9,6 +9,11 @@ let
           paths = [ pkgs.safeeyes ];
           nativeBuildInputs = [ pkgs.makeWrapper ];
 
+          /**
+            This ends up double wrapping the package,
+            since makeWrapper is used in the original package
+            also.
+           */
           postBuild = ''
             wrapProgram $out/bin/safeeyes \
               --prefix XDG_CURRENT_DESKTOP : sway
