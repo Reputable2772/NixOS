@@ -25,5 +25,11 @@ in
 {
   home.packages = [ safeeyes ];
 
+  wayland.windowManager.hyprland.settings.windowrulev2 = [
+    "fullscreen,initialClass:^(Safeeyes)$"
+    "stayfocused,initialClass:^(Safeeyes)$"
+    "focusonactivate,initialClass:^(Safeeyes)$"
+  ];
+
   programs.autostart.packages = [ safeeyes ];
 }
