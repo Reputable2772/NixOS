@@ -5,15 +5,30 @@
     # Packages are effectively in cache.nixos.org as soon as they are built by Hydra.
     # So I don't think this requires that many builds from source.
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    agenix.url = "github:ryantm/agenix";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,18 +41,27 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ld-rs.url = "github:nix-community/nix-ld-rs";
-    devshell.url = "github:numtide/devshell";
+    nix-ld-rs = {
+      url = "github:nix-community/nix-ld-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
-    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, self, devshell, flake-parts, pre-commit-hooks-nix, systems, ... }@inputs:
+  outputs = { nixpkgs, self, devshell, flake-parts, git-hooks, systems, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         devshell.flakeModule
-        pre-commit-hooks-nix.flakeModule
+        git-hooks.flakeModule
       ];
 
       systems = import systems;
