@@ -1,6 +1,10 @@
 name: "Additional Info for PR"
 
-on: pull_request_target
+permissions:
+  pull-requests: write
+
+on:
+  pull_request
 
 jobs:
   provide-data:
