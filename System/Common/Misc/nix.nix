@@ -30,6 +30,9 @@
     };
     package = pkgs.nixVersions.latest;
     channel.enable = false;
+    extraOptions = ''
+      flake-registry =
+    '';
 
     /**
       Map the registry so that it has every flake input in it.
