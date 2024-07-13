@@ -26,7 +26,7 @@ ci() {
 ci_get() {
 	case $1 in
 		"trusted-substituters")
-			sed -n '/trusted-substituters = \[/, /];/{ /trusted-substituters = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
+			sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
 		"trusted-public-keys")
 			sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
 		*)
