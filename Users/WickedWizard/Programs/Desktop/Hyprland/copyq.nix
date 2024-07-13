@@ -17,10 +17,10 @@
     ];
     windowrule = [
       "float, copyq"
-    ];
-    windowrulev2 = [
-      "dimaround,class:^(com.github.hluk.copyq)$"
-      "noborder,class:^(com.github.hluk.copyq)$"
+      "float, .*com.github.hluk.copyq.*"
+      "opaque, .*com.github.hluk.copyq.*"
+      "dimaround, .*com.github.hluk.copyq.*"
+      "stayfocused, .*com.github.hluk.copyq.*"
     ];
   };
 }
