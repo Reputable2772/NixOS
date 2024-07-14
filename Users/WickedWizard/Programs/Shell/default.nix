@@ -3,6 +3,7 @@
     ./atuin.nix
     ./bottom.nix
     ./common.nix
+    ./direnv.nix
     ./fastfetch.nix
     ./git.nix
     ./nix-index.nix
