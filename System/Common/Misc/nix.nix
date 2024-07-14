@@ -32,6 +32,7 @@
     channel.enable = false;
     extraOptions = ''
       flake-registry =
+      always-allow-substitutes = true
     '';
 
     /**

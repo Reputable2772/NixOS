@@ -1,3 +1,3 @@
-{ config, pkgs, ... }: {
-  home.packages = with pkgs; [ picard ];
+{ pkgs, ... }: {
+  # home.packages = with pkgs; [ picard ];
 }
