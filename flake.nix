@@ -12,10 +12,7 @@
         home-manager.follows = "home-manager";
       };
     };
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,26 +22,14 @@
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-index-database.url = "github:nix-community/nix-index-database";
     menucalc = {
       url = "github:sumnerevans/menu-calc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-ld-rs = {
-      url = "github:nix-community/nix-ld-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.3.0";
+    nix-ld-rs.url = "github:nix-community/nix-ld-rs";
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
