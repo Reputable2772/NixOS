@@ -17,9 +17,9 @@
       nix-path = config.nix.nixPath;
       substituters = [
         "https://spearman4157.cachix.org?priority=10"
-        "https://nixpkgs-wayland.cachix.org?priority=20"
+        "https://cache.nixos.org/?priority=20"
         "https://nix-community.cachix.org?priority=30"
-        "https://cache.nixos.org/?priority=40"
+        "https://nixpkgs-wayland.cachix.org?priority=40"
       ];
       trusted-public-keys = [
         "spearman4157.cachix.org-1:C5rIS9uufmlsdRIe9dEHSZVjxo9g8se+gjMdIeeEYfk="
