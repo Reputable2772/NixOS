@@ -5,8 +5,11 @@ in
 {
   # Required even if Gnome is not installed
   home.packages =
-    [ pkgs.dconf2nix ]
-    ++ lib.optionals cond (with pkgs.gnomeExtensions; [
+    with pkgs; [
+      dconf2nix
+      gnome-terminal
+      dconf-editor
+    ] ++ lib.optionals cond (with pkgs.gnomeExtensions; [
       appindicator
       bluetooth-battery
       caffeine
@@ -14,9 +17,6 @@ in
       pano
       rounded-window-corners
       vitals
-    ]) ++ (with pkgs.gnome; [
-      gnome-terminal
-      dconf-editor
     ]);
 
   # Fixes NixOS/nixpkgs#53631
