@@ -26,7 +26,7 @@ in
 
   home-manager = {
     useGlobalPkgs = true;
-    useUserPackages = true;
+    useUserPackages = lib.mkForce false;
     backupFileExtension = "bak";
     users = lib.attrsets.mapAttrs
       (n: v: {
