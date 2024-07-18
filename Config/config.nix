@@ -10,7 +10,7 @@ rec {
   flake = {
     dir = rec {
       # Internal Variable
-      base = "/home/wickedwizard/Documents";
+      base = "/home/wickedwizard/Documents/Coding/Nix";
       # Location where undeclarative system config is stored, so that one folder can be moved about systems. This directory needs to be gitignored.
       config = "${self}/Config";
       # Working directory of the flake.nix file
