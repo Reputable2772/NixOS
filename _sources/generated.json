@@ -21,7 +21,7 @@
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-05-13",
+        "date": "2024-07-20",
         "extract": null,
         "name": "bottom_catppuccin",
         "passthru": null,
@@ -33,11 +33,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "bottom",
-            "rev": "66c540ea512187df5f0c6c97312b0c6da7225af0",
-            "sha256": "sha256-Ge2avQXFWEqGPOglJBnH6bjejFGfCyLOqrYcaoAP0XI=",
+            "rev": "bc8183af40ab06db07824dd37ec9a9cf8bd61616",
+            "sha256": "sha256-V2HnizZOaxyQRb/7nqXS/TyrGUbWZ0dwx0wo9xHJcgc=",
             "type": "github"
         },
-        "version": "66c540ea512187df5f0c6c97312b0c6da7225af0"
+        "version": "bc8183af40ab06db07824dd37ec9a9cf8bd61616"
     },
     "calibre_catppuccin": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-07-12",
+        "date": "2024-07-20",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "beabaa90f13e7b95c7f6facab2dfc0a5766d6f67",
-            "sha256": "sha256-hsgpqx/oIN+0pVModps4e/xlnrSj5Q0DAhBjM3FyiBU=",
+            "rev": "7a1b214ffee60e2a0e8e03f471bbdee9fc65589a",
+            "sha256": "sha256-UPJKRMPhFOlPdrtMpPUOWYXYCLGpdSWeOUcCBh1mYec=",
             "type": "github"
         },
-        "version": "beabaa90f13e7b95c7f6facab2dfc0a5766d6f67"
+        "version": "7a1b214ffee60e2a0e8e03f471bbdee9fc65589a"
     },
     "filen": {
         "cargoLocks": null,
@@ -148,11 +148,11 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v127",
-            "sha256": "sha256-ihOVmsno400zgdgSdRRxKRzmKiydH0Vux7LtSDpCyUI=",
+            "rev": "v128",
+            "sha256": "sha256-zB+Zd0V0ayKP/zg9n1MQ8J/Znwa49adylRftxuc694k=",
             "type": "github"
         },
-        "version": "v127"
+        "version": "v128"
     },
     "foot_catppuccin": {
         "cargoLocks": null,
