@@ -76,12 +76,12 @@ rec {
         secrets = {
           # The SSH Key that is used for authentication by Git
           authentication = {
-            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Authentication/Authentication";
+            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Authentication/Authentication";
             key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@hp-laptop";
           };
           # The SSH Key that is used for signing by Git
           signing = {
-            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Signing/Signing";
+            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Signing/Signing";
             key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@hp-laptop";
           };
         };
