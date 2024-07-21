@@ -1,11 +1,11 @@
 { config, pkgs, inputs, ... }:
 let
   inherit (inputs) spicetify-nix;
-  spicePkgs = spicetify-nix.packages.${pkgs.system}.default;
+  spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
   imports = [
-    spicetify-nix.homeManagerModule
+    spicetify-nix.homeManagerModules.default
   ];
 
   programs.spicetify = {
