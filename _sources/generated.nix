@@ -15,15 +15,15 @@
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
-    version = "66c540ea512187df5f0c6c97312b0c6da7225af0";
+    version = "bc8183af40ab06db07824dd37ec9a9cf8bd61616";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "bottom";
-      rev = "66c540ea512187df5f0c6c97312b0c6da7225af0";
+      rev = "bc8183af40ab06db07824dd37ec9a9cf8bd61616";
       fetchSubmodules = false;
-      sha256 = "sha256-Ge2avQXFWEqGPOglJBnH6bjejFGfCyLOqrYcaoAP0XI=";
+      sha256 = "sha256-V2HnizZOaxyQRb/7nqXS/TyrGUbWZ0dwx0wo9xHJcgc=";
     };
-    date = "2024-05-13";
+    date = "2024-07-20";
   };
   calibre_catppuccin = {
     pname = "calibre_catppuccin";
@@ -63,15 +63,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "beabaa90f13e7b95c7f6facab2dfc0a5766d6f67";
+    version = "7a1b214ffee60e2a0e8e03f471bbdee9fc65589a";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "beabaa90f13e7b95c7f6facab2dfc0a5766d6f67";
+      rev = "7a1b214ffee60e2a0e8e03f471bbdee9fc65589a";
       fetchSubmodules = false;
-      sha256 = "sha256-hsgpqx/oIN+0pVModps4e/xlnrSj5Q0DAhBjM3FyiBU=";
+      sha256 = "sha256-UPJKRMPhFOlPdrtMpPUOWYXYCLGpdSWeOUcCBh1mYec=";
     };
-    date = "2024-07-12";
+    date = "2024-07-20";
   };
   filen = {
     pname = "filen";
@@ -83,13 +83,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v127";
+    version = "v128";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v127";
+      rev = "v128";
       fetchSubmodules = false;
-      sha256 = "sha256-ihOVmsno400zgdgSdRRxKRzmKiydH0Vux7LtSDpCyUI=";
+      sha256 = "sha256-zB+Zd0V0ayKP/zg9n1MQ8J/Znwa49adylRftxuc694k=";
     };
   };
   foot_catppuccin = {
