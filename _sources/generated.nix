@@ -39,39 +39,39 @@
   };
   catppuccin_zsh_syntax_highlighting = {
     pname = "catppuccin_zsh_syntax_highlighting";
-    version = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+    version = "7926c3d3e17d26b3779851a2255b95ee650bd928";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "zsh-syntax-highlighting";
-      rev = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
+      rev = "7926c3d3e17d26b3779851a2255b95ee650bd928";
       fetchSubmodules = false;
-      sha256 = "sha256-Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
+      sha256 = "sha256-l6tztApzYpQ2/CiKuLBf8vI2imM6vPJuFdNDSEi7T/o=";
     };
-    date = "2022-10-12";
+    date = "2024-07-20";
   };
   dunst_catppuccin = {
     pname = "dunst_catppuccin";
-    version = "bfec91a5d0ab02a73a4615243feb5499d376831c";
+    version = "f02cd2894411c9b4caa207cfd8ed6345f97c0455";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "dunst";
-      rev = "bfec91a5d0ab02a73a4615243feb5499d376831c";
+      rev = "f02cd2894411c9b4caa207cfd8ed6345f97c0455";
       fetchSubmodules = false;
-      sha256 = "sha256-xy99DpBrOKlP7DgKyPgbl4QGC+dnXnvkGlkIG0cmd2A=";
+      sha256 = "sha256-EadNqtF1m//blHkV660+d4YjDReVFU2Bzhs0Pb43jh4=";
     };
-    date = "2024-04-07";
+    date = "2024-07-20";
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "7a1b214ffee60e2a0e8e03f471bbdee9fc65589a";
+    version = "b89eeaa95421c5c21e5927ab4ae8733cd03558e2";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "7a1b214ffee60e2a0e8e03f471bbdee9fc65589a";
+      rev = "b89eeaa95421c5c21e5927ab4ae8733cd03558e2";
       fetchSubmodules = false;
-      sha256 = "sha256-UPJKRMPhFOlPdrtMpPUOWYXYCLGpdSWeOUcCBh1mYec=";
+      sha256 = "sha256-LShS6JFTfWLK5WbJdOZucRBOCfShfQsc5PiSkstcnN8=";
     };
-    date = "2024-07-20";
+    date = "2024-07-22";
   };
   filen = {
     pname = "filen";
@@ -94,15 +94,15 @@
   };
   foot_catppuccin = {
     pname = "foot_catppuccin";
-    version = "80756a4d63ea4fae4d0fdd793017370f8b8b12ac";
+    version = "17e2bdc8a8d854e8d390919579f87ab7d5f86e38";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "foot";
-      rev = "80756a4d63ea4fae4d0fdd793017370f8b8b12ac";
+      rev = "17e2bdc8a8d854e8d390919579f87ab7d5f86e38";
       fetchSubmodules = false;
-      sha256 = "sha256-h6+7ln/i+FRSfWX2aSLhrxFO4mYJgH2pzzhe2Zz9Q4k=";
+      sha256 = "sha256-L5/HvBe4jGTHNSCxFL+xRh8CKYO3NLJ0ksVJIQxjsZA=";
     };
-    date = "2024-06-06";
+    date = "2024-07-20";
   };
   hyprland_catppuccin = {
     pname = "hyprland_catppuccin";
