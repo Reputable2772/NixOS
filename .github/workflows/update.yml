@@ -58,6 +58,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         title: ${{ steps.changelog.outputs.commit_msg }}
+        token: ${{ secrets.PR_CREATOR }}
         commit-message: ${{ steps.changelog.outputs.commit_msg }}
         add-paths: |
           _sources/*
