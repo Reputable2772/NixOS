@@ -38,6 +38,32 @@ rec {
 
   users = {
     wickedwizard = rec {
+      /**
+        There needs to be a corresponding age file, with the name
+        `user-backup.age`, use system encryption keys only.
+       */
+      backup = rec {
+        # Internal variables
+        base = "/home/wickedwizard/Documents";
+
+        repository = "${base}/Backup";
+        paths = {
+          include = map (x: "${base}/${x}") [
+            "Android"
+            "Applications"
+            "Books"
+            "Browsers"
+            "Coding"
+            "Config"
+            "Games/Linux/Minecraft"
+            "Games/Saves"
+            "Important-Files"
+            "Joplin"
+          ];
+          exclude = [ ];
+        };
+      };
+
       # Drives or gocryptfs locations to mount.
       mounts = {
         /**
@@ -144,6 +170,9 @@ rec {
   # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
   "wickedwizardPassword.age".publicKeys = [ system.secrets.encryption.key ];
   "rootPassword.age".publicKeys = [ system.secrets.encryption.key ];
+
+  # Backup age files
+  "wickedwizard-backup.age".publicKeys = [ system.secrets.encryption.key ];
 
   # Gocryptfs age files
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
