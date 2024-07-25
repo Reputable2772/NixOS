@@ -5,5 +5,6 @@
     "steam"
     "steam-original"
     "steam-run"
+    "android-studio-stable"
   ];
 }
