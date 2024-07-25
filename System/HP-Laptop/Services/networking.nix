@@ -1,4 +1,4 @@
-{
+{ lib, ... }: {
   networking = {
     hostName = "hp-laptop";
     firewall = {
@@ -18,6 +18,9 @@
         [ 80 443 ] # Caddy
         ++ [ 22000 21027 ] # Syncthing
         ++ [ 61851 ]; # qBittorrent
+    };
+    networkmanager.connectionConfig = {
+      "wifi.powersave" = lib.mkForce 2;
     };
   };
 }
