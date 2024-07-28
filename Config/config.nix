@@ -6,6 +6,7 @@
 
   All the keys are added to ssh-agent using KeePassXC.
 */
+{ _home ? { } }:
 rec {
   flake = {
     dir = rec {
@@ -41,7 +42,7 @@ rec {
 
   users = {
     wickedwizard = rec {
-      home = "/home/wickedwizard";
+      home = _home.wickedwizard or "";
       /**
         There needs to be a corresponding age file, with the name
         `user-backup.age`, use system encryption keys only.

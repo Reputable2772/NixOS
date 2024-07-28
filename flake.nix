@@ -61,7 +61,6 @@
             inherit system;
             specialArgs = {
               inherit inputs;
-              config' = import ./Config/config.nix;
               polyfill = false;
               lib' = import ./lib { inherit pkgs; };
               sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
@@ -69,6 +68,14 @@
             modules = [
               ./System/Common
               ./System/HP-Laptop
+
+              ({ config, ... }: {
+                _module.args = {
+                  config' = import ./Config/config.nix {
+                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
+                  };
+                };
+              })
             ];
           };
 
@@ -85,33 +92,35 @@
         };
       };
 
-      perSystem = { config, system, pkgs, self', ... }: {
-        formatter = pkgs.nixpkgs-fmt;
+      perSystem = { config, system, pkgs, self', ... }:
+        let
+          inherit (pkgs) lib writeText;
+          inherit (lib.attrsets) filterAttrs mapAttrs;
+          inherit (lib.strings) hasSuffix;
+        in
+        {
+          formatter = pkgs.nixpkgs-fmt;
 
-        # Installation hooks need to setup manually in each devshell.
-        pre-commit.check.enable = true;
-        pre-commit.settings.hooks = {
-          commitizen.enable = true;
-          nixpkgs-fmt.enable = true;
+          # Installation hooks need to setup manually in each devshell.
+          pre-commit.check.enable = true;
+          pre-commit.settings.hooks = {
+            commitizen.enable = true;
+            nixpkgs-fmt.enable = true;
+          };
+
+          packages.build =
+            writeText "build.json"
+              (builtins.toJSON [
+                (mapAttrs (name: value: value.config.system.build.${if name == "rescue" then "isoImage" else "toplevel"}) (filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations))
+                self'.devShells
+              ]);
+
+          devshells = mapAttrs
+            (name: value: import value {
+              inherit config inputs pkgs;
+              sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
+            })
+            (filterAttrs (n: v: hasSuffix "nix" v) ((import ./lib { inherit pkgs; }).recurseDirectory ./Shells false));
         };
-
-        packages.build =
-          let
-            inherit (pkgs) lib writeText;
-            inherit (lib.attrsets) filterAttrs mapAttrs;
-          in
-          writeText "build.json"
-            (builtins.toJSON [
-              (mapAttrs (name: value: value.config.system.build.${if name == "rescue" then "isoImage" else "toplevel"}) (filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations))
-              self'.devShells
-            ]);
-
-        devshells = pkgs.lib.attrsets.mapAttrs
-          (name: value: import value {
-            inherit config inputs pkgs;
-            sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
-          })
-          ((import ./lib { inherit pkgs; }).recurseDirectory ./Shells false);
-      };
     };
 }
