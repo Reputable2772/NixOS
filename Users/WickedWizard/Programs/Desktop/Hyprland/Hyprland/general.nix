@@ -18,9 +18,9 @@
         no_border_on_floating = true;
       };
 
-      # cursor = {
-      #   inactive_timeout = 15;
-      # };
+      cursor = {
+        inactive_timeout = 15;
+      };
 
       monitor = [
         "eDP-1,1920x1080@60,0x0,1"
