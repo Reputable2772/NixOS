@@ -14,9 +14,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    kdePackages.qtstyleplugin-kvantum
-
-    # Needed only if GTK4 apps are themed with GTk3
+    # Needed only if GTK4 apps are themed with GTK3
     # adw-gtk3
   ] ++ [ qt_theme ];
 
