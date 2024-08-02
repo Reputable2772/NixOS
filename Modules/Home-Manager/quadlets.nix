@@ -1,40 +1,24 @@
-{ osConfig, config, lib, pkgs, ... }:
+{ osConfig, config, pkgs, lib, lib', ... }:
 
 let
   inherit (lib) types;
-  inherit (lib.lists) map;
-  inherit (lib.options) literalExpression mkEnableOption mkOption;
+  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings) concatStringsSep;
-  cfg = config.programs.quadlets;
-  quadletType = types.submodule
-    ({ config, ... }: {
-      options = {
-        name = mkOption {
-          type = types.str;
-          description = ''
-            Name of quadlet file.
 
-            Example:
-            caddy.network, caddy.container, vaultwarden.container, etc.
-          '';
-        };
-        content = mkOption {
-          type = types.str;
-          description = ''
-            Contents of quadlet file.
-          '';
-        };
-      };
-    });
+  cfg = config.programs.quadlets;
 in
 {
   options.programs.quadlets = {
     enable = mkEnableOption "Podman's Quadlets";
     quadlets = mkOption {
-      default = [ ];
-      example = literalExpression "[ ''Quadlet file here'' ]";
-      type = types.listOf quadletType;
-      description = "All the quadlet files that need to have systemd unit files generated";
+      default = { };
+      type = with types;
+        let primitive = oneOf [ bool int str path ];
+        in attrsOf (attrsOf (attrsOf (either primitive (listOf primitive)))) // {
+          description = "Quadlet configuration.";
+        };
+      description = "All the quadlets that need to have systemd unit files generated";
     };
   };
 
@@ -44,18 +28,16 @@ in
         [
           "mkdir -p $out $out/source $out/units"
         ]
-        ++ (map
-          (_:
+        ++ (mapAttrsToList
+          (n: v:
             let
-              file = pkgs.writeTextDir _.name _.content;
+              file = pkgs.writeTextDir n (lib'.toSystemdUnit v);
             in
             ''
               cp ${file}/* $out/source
               QUADLET_UNIT_DIRS=${file} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
 
               for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
-                # We do this so that podman doesn't resolve the paths relative to the QUADLET_UNIT_DIRS (why, podman, why?)
-                # and also because replacing $XDG_RUNTIME_DIR with $\{XDG_RUNTIME_DIR} really fixes Podman's environment variable resolution.
                 substituteInPlace $out/units/$file \
                   --replace-warn ${file}/\$XDG_RUNTIME_DIR \$\{XDG_RUNTIME_DIR}
               done
