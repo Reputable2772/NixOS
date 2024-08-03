@@ -1,7 +1,10 @@
-{ config, config', lib, pkgs, ... }: {
-  programs.quadlets.quadlets =
+{ config, config', lib, pkgs, ... }:
+let
+  utils = import ./utils.nix { inherit config config' lib; };
+in
+{
+  programs.quadlets.quadlets."caddy.container" =
     let
-      dir = if config'.containers.caddy ? dir && config'.containers.caddy.dir != null then config'.containers.caddy.dir else "${config'.dir.containers}/Caddy";
       caddyFile = pkgs.writeText "Caddyfile" ''
         (default) {
           tls {
@@ -81,35 +84,22 @@
           }
       '';
     in
-    [
+    lib.attrsets.recursiveUpdate
       {
-        name = "caddy.container";
-        content = ''
-          [Container]
-          ContainerName=caddy
-          ${lib.optionalString (config'.containers.caddy ? env && config'.containers.caddy.env != null) "Environment=${lib.strings.concatStringsSep " " config'.containers.caddy.env}"}
-          ${lib.optionalString (config'.containers.caddy ? envFiles && config'.containers.caddy.envFiles != null) (lib.strings.concatStringsSep "\n" (lib.lists.map (n: "EnvironmentFile=${config.age.secrets.${n}.path}") config'.containers.caddy.envFiles))}
-          Image=caddy
-          Network=systemd-caddy
-          PodmanArgs=--network-alias caddy
-          PublishPort=80:80
-          PublishPort=443:443
-          PublishPort=2019:2019
-          Volume=${caddyFile}:/etc/caddy/Caddyfile
-          Volume=${dir}/config:/config
-          Volume=${dir}/data:/data
-
-          [Unit]
-          Wants=network-online.target
-          After=network-online.target
-
-          [Service]
-          Restart=always
-          TimeoutStartSec=300
-
-          [Install]
-          WantedBy=default.target
-        '';
+        Container = {
+          Image = "caddy";
+          Network = "systemd-caddy";
+          PublishPort = [
+            "80:80"
+            "443:443"
+          ];
+          Volume = [
+            "${caddyFile}:/etc/caddy/Caddyfile"
+          ] ++ utils.mapVolume "caddy" [
+            "config:/config"
+            "data:/data"
+          ];
+        } // utils.appendEnv "caddy";
       }
-    ];
+      (utils.defaults "caddy");
 }

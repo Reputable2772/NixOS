@@ -1,42 +1,30 @@
 { config, config', lib, ... }:
+let
+  utils = import ./utils.nix { inherit config config' lib; };
+in
 {
-  programs.quadlets.quadlets =
-    let
-      dir = if config'.containers.qbittorrent ? dir && config'.containers.qbittorrent.dir != null then config'.containers.qbittorrent.dir else "${config'.dir.containers}/qBittorrent";
-    in
-    [
+  programs.quadlets.quadlets."qbittorrent.container" =
+    lib.attrsets.recursiveUpdate
       {
-        name = "qbittorrent.container";
-        content = ''
-          [Container]
-          ContainerName=qbittorrent
-          ${lib.optionalString (config'.containers.qbittorrent ? env && config'.containers.qbittorrent.env != null) "Environment=${lib.strings.concatStringsSep " " config'.containers.qbittorrent.env}"}
-          ${lib.optionalString (config'.containers.qbittorrent ? envFiles && config'.containers.qbittorrent.envFiles != null) (lib.strings.concatStringsSep "\n" (lib.lists.map (n: "EnvironmentFile=${config.age.secrets.${n}.path}") config'.containers.qbittorrent.envFiles))}
-          Image=lscr.io/linuxserver/qbittorrent:latest
-          Network=systemd-caddy
-          PodmanArgs=--network-alias qbittorrent
-          PublishPort=61851:61851
-          PublishPort=61851:61851/udp
-          Volume=${dir}/config:/config
-          Volume=${dir}/VueTorrent:/themes/VueTorrent
-          Volume=${dir}/Downloads:/downloads
-
+        Container = {
+          Image = "lscr.io/linuxserver/qbittorrent:latest";
+          Network = "systemd-caddy";
+          PublishPort = [
+            "61851:61851"
+            "61851:61851/udp"
+          ];
+          Volume = utils.mapVolume "qbittorrent" [
+            "config:/config"
+            "VueTorrent:/themes/VueTorrent"
+            "Downloads:/downloads"
+          ];
           # Arch wiki - https://wiki.archlinux.org/title/Podman#Quadlet
-          UIDMap=1000:0:1
-          UIDMap=0:1:1000
-          UIDMap=1001:1001:64536
-
-          [Service]
-          Restart=always
-          TimeoutStartSec=300
-
-          [Unit]
-          Wants=network-online.target
-          After=network-online.target
-
-          [Install]
-          WantedBy=default.target
-        '';
+          UIDMap = [
+            "1000:0:1"
+            "0:1:1000"
+            "1001:1001:64536"
+          ];
+        } // utils.appendEnv "qbittorrent";
       }
-    ];
+      (utils.defaults "qbittorrent");
 }
