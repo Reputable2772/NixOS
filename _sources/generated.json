@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2024-07-11",
+        "date": "2024-08-01",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "0965f6b2c524582fbe726860762b1297da68b732",
-            "sha256": "sha256-EDvocGeA1/4QJnlARH2gWPbf74gMUA1UVZEjkf6JPZM=",
+            "rev": "193f168511117d34b4ac6c3e371b878dd8f3fda0",
+            "sha256": "sha256-NmjpCEgn4E3Bf9NSRDZOnWmlj8DmoMJUDNI0oxSxLbo=",
             "type": "github"
         },
-        "version": "0965f6b2c524582fbe726860762b1297da68b732"
+        "version": "193f168511117d34b4ac6c3e371b878dd8f3fda0"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-07-28",
+        "date": "2024-08-03",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "a102f0505c6ccf5522da03af0ce389b3eb6a91f2",
-            "sha256": "sha256-CY/8OgFQe2YlQ4jHOftVLnw+Fq63rLKS2R9OipHeDiA=",
+            "rev": "6b0db6fa746c3d5e2273cf76b6f7544f3a6585fe",
+            "sha256": "sha256-UgVcFtrKKaxtZp7iPtCwqc0TIgOGsghbNfHjIE1uKwE=",
             "type": "github"
         },
-        "version": "a102f0505c6ccf5522da03af0ce389b3eb6a91f2"
+        "version": "6b0db6fa746c3d5e2273cf76b6f7544f3a6585fe"
     },
     "filen": {
         "cargoLocks": null,
