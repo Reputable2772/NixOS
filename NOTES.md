@@ -5,6 +5,8 @@
 Command: "systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 <Encrypted partition>"
 0+7 is because Secure Boot is enabled. [Reference](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module)
 
+* You need to manually setup Icon Themes and Application Theme for Qt5ct and Qt6ct. The Kvantum part is done by nix itself.
+
 # Implementation
 The entire system is deployed by the CI (Github Actions) through Cachix Deploy. If the CI fails, no deployment is done. All the burden of building and pushing to Cachix rests on the CI. This can be found in `.github/workflows`.
 

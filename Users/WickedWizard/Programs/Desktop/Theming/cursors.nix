@@ -1,4 +1,7 @@
 { config, pkgs, lib, ... }: {
+  # Qt applications are cool.
+  # https://wiki.archlinux.org/title/Cursor_themes#Qt
+
   home.pointerCursor = {
     name = "catppuccin-mocha-dark-cursors";
     package = pkgs.catppuccin-cursors.mochaDark;
