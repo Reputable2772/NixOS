@@ -3,27 +3,27 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "193f168511117d34b4ac6c3e371b878dd8f3fda0";
+    version = "8d9271f31d8282a3c7bbfc1eea008d631b5ce70e";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "193f168511117d34b4ac6c3e371b878dd8f3fda0";
+      rev = "8d9271f31d8282a3c7bbfc1eea008d631b5ce70e";
       fetchSubmodules = false;
-      sha256 = "sha256-NmjpCEgn4E3Bf9NSRDZOnWmlj8DmoMJUDNI0oxSxLbo=";
+      sha256 = "sha256-kUcmeeHoCHMQuRrtOrLPrpvpW0LmRf2smbzncQIIC9Y=";
     };
-    date = "2024-08-01";
+    date = "2024-08-08";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
-    version = "bc8183af40ab06db07824dd37ec9a9cf8bd61616";
+    version = "f33104ec5be6cdde0559c2560f85130e48e10cff";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "bottom";
-      rev = "bc8183af40ab06db07824dd37ec9a9cf8bd61616";
+      rev = "f33104ec5be6cdde0559c2560f85130e48e10cff";
       fetchSubmodules = false;
-      sha256 = "sha256-V2HnizZOaxyQRb/7nqXS/TyrGUbWZ0dwx0wo9xHJcgc=";
+      sha256 = "sha256-Ew2yryQFJRICy3RbtQnLMR5pphXPZp1PtaFVxAL2Eu4=";
     };
-    date = "2024-07-20";
+    date = "2024-08-09";
   };
   calibre_catppuccin = {
     pname = "calibre_catppuccin";
@@ -63,15 +63,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "6b0db6fa746c3d5e2273cf76b6f7544f3a6585fe";
+    version = "55b1603b83bd7a8e84a863b98206fba8694c3922";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "6b0db6fa746c3d5e2273cf76b6f7544f3a6585fe";
+      rev = "55b1603b83bd7a8e84a863b98206fba8694c3922";
       fetchSubmodules = false;
-      sha256 = "sha256-UgVcFtrKKaxtZp7iPtCwqc0TIgOGsghbNfHjIE1uKwE=";
+      sha256 = "sha256-paExg3JVq0rCuJhiBQKqm7kIZzqEGCHboAgSkspnzeU=";
     };
-    date = "2024-08-03";
+    date = "2024-08-10";
   };
   filen = {
     pname = "filen";
@@ -83,13 +83,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v128";
+    version = "v129";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v128";
+      rev = "v129";
       fetchSubmodules = false;
-      sha256 = "sha256-zB+Zd0V0ayKP/zg9n1MQ8J/Znwa49adylRftxuc694k=";
+      sha256 = "sha256-MOE9NeU2i6Ws1GhGmppMnjOHkNLl2MQMJmGhaMzdoJM=";
     };
   };
   foot_catppuccin = {
@@ -126,15 +126,15 @@
   };
   hyprlock_catppuccin = {
     pname = "hyprlock_catppuccin";
-    version = "480c46f1f3fa9dd175f8f9611c0d4378324378a7";
+    version = "958e70b1cd8799defd16dee070d07f977d4fd76b";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "hyprlock";
-      rev = "480c46f1f3fa9dd175f8f9611c0d4378324378a7";
+      rev = "958e70b1cd8799defd16dee070d07f977d4fd76b";
       fetchSubmodules = false;
-      sha256 = "sha256-Fisxyg5Q5C3dlZdIpgVDEpOUJYrqRMT6HJ+46XUVwI0=";
+      sha256 = "sha256-l4CbAUeb/Tg603QnZ/VWxuGqRBztpHN0HLX/h8ndc5w=";
     };
-    date = "2024-06-17";
+    date = "2024-08-06";
   };
   nix-fast-build = {
     pname = "nix-fast-build";
