@@ -3,6 +3,12 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  /**
+    * Do not turn on
+    * Reannounce to all trackers when IP or port changed:
+    * in Qbittorrent advanced settings. This stops UDP
+    * trackers from completely functioning.
+   */
   programs.quadlets.quadlets."qbittorrent.container" =
     lib.attrsets.recursiveUpdate
       {
@@ -10,7 +16,7 @@ in
           Image = "lscr.io/linuxserver/qbittorrent:latest";
           Network = "systemd-caddy";
           PublishPort = [
-            "61851:61851"
+            "61851:61851/tcp"
             "61851:61851/udp"
           ];
           Volume = utils.mapVolume "qbittorrent" [
@@ -26,5 +32,5 @@ in
           ];
         } // utils.appendEnv "qbittorrent";
       }
-      (utils.defaults "qbittorrent");
+      (utils.containerDefaults "qbittorrent" "systemd-caddy");
 }

@@ -1,4 +1,4 @@
-{ config, config', lib }: {
+{ config, config', lib }: rec {
   # Appends base part of volume path from config'.
   mapVolume = name: vol:
     lib.lists.map
@@ -14,19 +14,14 @@
 
   appendEnv = name: {
     Environment = lib.optionals
-      (config'.containers.${name}.env ? name && config'.containers.${name}.env != null)
+      (config'.containers.${name} ? env && config'.containers.${name}.env != null)
       (config'.containers.${name}.env);
     EnvironmentFile = lib.optionals
-      (config'.containers.${name}.envFiles ? name && config'.containers.${name}.envFiles != null)
+      (config'.containers.${name} ? envFiles && config'.containers.${name}.envFiles != null)
       (lib.lists.map (n: config.age.secrets.${n}.path) config'.containers.${name}.envFiles);
   };
 
-  defaults = name: {
-    Container = {
-      ContainerName = name;
-      PodmanArgs = "--network-alias ${name}";
-    };
-
+  defaults = {
     Service = {
       Restart = "always";
       TimeoutStartSec = 300;
@@ -39,4 +34,19 @@
       WantedBy = [ "default.target" ];
     };
   };
+
+  containerDefaults = name: network: lib.recursiveUpdate
+    {
+      Container = {
+        ContainerName = name;
+        PodmanArgs = "--network-alias ${name} --user 0:0";
+      };
+
+      # We convert the raw network name to service name.
+      Unit = {
+        Requires = [ "${network}-network.service" ];
+        After = [ "${network}-network.service" ];
+      };
+    }
+    defaults;
 }

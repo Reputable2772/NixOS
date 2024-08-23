@@ -14,5 +14,5 @@ in
         ];
       } // utils.appendEnv "baikal";
     }
-    (utils.defaults "baikal");
+    (utils.containerDefaults "baikal" "systemd-caddy");
 }

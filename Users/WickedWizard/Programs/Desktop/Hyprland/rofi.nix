@@ -4,9 +4,12 @@ let
 in
 {
   home.packages = lib.mkIf hyprland.enable [
-    pkgs.rofi-wayland
     inputs.menucalc.packages.${pkgs.system}.menucalc
+    pkgs.rofi-wayland
+    # added for rofi
+    pkgs.udev-gothic-nf
   ];
+  fonts.fontconfig.enable = true;
 
   xdg.configFile.rofi = {
     inherit (hyprland) enable;

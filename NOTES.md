@@ -7,9 +7,14 @@ Command: "systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 <Encrypted part
 
 * You need to manually setup Icon Themes and Application Theme for Qt5ct and Qt6ct. The Kvantum part is done by nix itself.
 
-# Implementation
-The entire system is deployed by the CI (Github Actions) through Cachix Deploy. If the CI fails, no deployment is done. All the burden of building and pushing to Cachix rests on the CI. This can be found in `.github/workflows`.
+* Calibre, KeePassXC theme also needs to be setup manually.
 
-The update CI runs everyday at 16:30. All systems are deployed if the CI passes.
+* Follow everything after the [second point](https://github.com/catppuccin/joplin#usage) for Joplin.
+
+* Applications whose config can never be declarative:
+Spotify, Newsflash, Joplin, Vesktop, Wifi settings, Bitwarden, KDE Connect
+
+# Implementation
+The update CI runs on Saturday 16:30 (GMT +00:00). It opens a PR, and the PR is checked by the CI.
 
 * Currently there's no way to get rid of IFDs (IF that matters), especially those pesky `builtins.readFile` and `convertini` derivations, due to Catppuccin theming.

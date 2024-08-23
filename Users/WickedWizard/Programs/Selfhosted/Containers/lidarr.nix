@@ -6,6 +6,7 @@ in
   programs.quadlets.quadlets."lidarr.container" = (lib.attrsets.recursiveUpdate
     {
       Container = {
+        ContainerName = "lidarr";
         Group = 0;
         Image = "lscr.io/linuxserver/lidarr:latest";
         Network = "container:gluetun";
@@ -27,9 +28,11 @@ in
         ];
       } // utils.appendEnv "lidarr";
     }
-    (utils.defaults "lidarr")) // {
+    # Cannot use utils.containerDefaults, since it sets --network-alias,
+    # which is not applicable for this networking.
+    utils.defaults) // {
     # Give higher preference to this on merging, over network-online.target since gluetun service itself
     # fulfills that wants anyway.
-    Unit.Wants = [ "gluetun.service" ];
+    Unit.Requires = [ "gluetun.service" ];
   };
 }

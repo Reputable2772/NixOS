@@ -1,8 +1,4 @@
 { config, config', pkgs, inputs, lib, lib', sources, ... }:
-let
-  inherit (inputs) home-manager;
-  inherit (config') users;
-in
 {
   # Needs to be set here or else shell won't work
   programs.zsh.enable = true;
@@ -28,31 +24,32 @@ in
     useGlobalPkgs = true;
     useUserPackages = lib.mkForce false;
     backupFileExtension = "bak";
-    users = lib.attrsets.mapAttrs
-      (n: v: {
+    # users = lib.attrsets.mapAttrs
+    # (n: v:
+    users = {
+      wickedwizard = {
         imports = [
-          ../../Users/${v.description}/home.nix
           ../../Modules/Home-Manager
+          ../../Users/WickedWizard/home.nix
           {
             home = {
-              username = n;
-              homeDirectory = v.home;
+              # username = n;
+              # homeDirectory = v.home;
               stateVersion = "23.05";
             };
+            _module.args.config' = config'.users.wickedwizard;
           }
         ];
-      })
-      (lib.attrsets.filterAttrs (n: v: v.isNormalUser) config.users.users);
-    extraSpecialArgs =
-      let
-        config' = users.wickedwizard;
-      in
-      {
-        inherit inputs lib' sources config';
       };
+    };
+
+    # (lib.attrsets.filterAttrs (n: v: v.isNormalUser && builtins.pathExists ../../Users/${v.description}/home.nix) config.users.users);
+    extraSpecialArgs = {
+      inherit inputs lib' sources;
+    };
   };
 
   imports = [
-    home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
   ];
 }

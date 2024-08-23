@@ -1,8 +1,7 @@
-{ config, pkgs, inputs, lib, polyfill, ... }:
+{ config, pkgs, inputs, lib, ... }:
 let
-  inherit (lib.attrsets) attrValues filterAttrs mapAttrs;
-  inherit (lib.lists) concatLists;
-  inherit (lib.trivial) pipe;
+  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.lists) flatten;
 in
 {
   programs.nix-ld = {
@@ -10,7 +9,10 @@ in
     package = inputs.nix-ld-rs.packages.${pkgs.system}.nix-ld-rs;
 
     libraries =
-      if polyfill then
+      if config ? home-manager then
+      # All packages installed by any user that has HM.
+        flatten (mapAttrsToList (n: v: v.home.packages) config.home-manager.users)
+      else
       # Taken from https://github.com/Mic92/dotfiles/blob/main/nixos/modules/nix-ld.nix
         with pkgs; [
           alsa-lib
@@ -64,14 +66,6 @@ in
           xorg.libxkbfile
           xorg.libxshmfence
           zlib
-        ]
-      else
-      # All packages installed by any user that has HM.
-        pipe config.users.users [
-          (filterAttrs (n: v: v.isNormalUser))
-          (mapAttrs (n: v: config.home-manager.users.${n}.home.packages))
-          attrValues
-          concatLists
         ];
   };
 }

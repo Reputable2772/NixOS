@@ -174,6 +174,21 @@
         },
         "version": "17e2bdc8a8d854e8d390919579f87ab7d5f86e38"
     },
+    "hyprland_background": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hyprland_background",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=",
+            "type": "url",
+            "url": "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png"
+        },
+        "version": "latest"
+    },
     "hyprland_catppuccin": {
         "cargoLocks": null,
         "date": "2024-06-19",
@@ -228,6 +243,26 @@
             "type": "github"
         },
         "version": "958e70b1cd8799defd16dee070d07f977d4fd76b"
+    },
+    "joplin_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-06-21",
+        "extract": null,
+        "name": "joplin_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "joplin",
+            "rev": "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9",
+            "sha256": "sha256-H19iaemj7XWsd3r7OBvQinrNKMiYGl53ArIp49gZExs=",
+            "type": "github"
+        },
+        "version": "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9"
     },
     "nix-fast-build": {
         "cargoLocks": null,

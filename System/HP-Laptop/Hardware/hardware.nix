@@ -4,36 +4,30 @@
 { config, lib, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot = {
-    kernelModules = [ "kvm-amd" ];
-    extraModulePackages = [ ];
-    loader.systemd-boot.enable = true;
-    initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sr_mod" ];
-      kernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
+  boot.initrd.luks.devices.nixos.device = "/dev/disk/by-uuid/ca45b52f-3d82-4dba-96a1-f62e44c7a6cc";
 
-      luks.devices."cryptroot".device = "/dev/nvme0n1p1";
-      luks.devices."crypthome".device = "/dev/nvme0n1p5";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/7414-0099";
+    fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/root";
-      fsType = "ext4";
-    };
-    "/home" = {
-      device = "/dev/disk/by-label/home";
-      fsType = "ext4";
-      neededForBoot = true;
-    };
-    "/boot" = {
-      device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/6436f2a5-ac3d-4f5c-925a-185628ad4a98";
+    fsType = "ext4";
+    neededForBoot = true;
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/bad0fad2-ecad-43af-8b71-d4fd80c2a029";
+    fsType = "ext4";
   };
 
   swapDevices = [
@@ -46,6 +40,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

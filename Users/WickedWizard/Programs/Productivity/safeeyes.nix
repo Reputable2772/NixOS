@@ -31,5 +31,5 @@ in
     "focusonactivate,initialClass:^(Safeeyes)$"
   ];
 
-  programs.autostart.packages = [ safeeyes ];
+  # programs.autostart.packages = [ safeeyes ];
 }

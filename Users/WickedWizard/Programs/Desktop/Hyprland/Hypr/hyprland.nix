@@ -1,21 +1,35 @@
-{ osConfig, config, lib, pkgs, ... }: {
-  home.packages = lib.mkIf config.wayland.windowManager.hyprland.enable (with pkgs; [
-    dex
-    polkit_gnome
-  ]);
-
+{ osConfig, pkgs, sources, ... }: {
   wayland.windowManager.hyprland = {
     inherit (osConfig.programs.hyprland) enable;
+    systemd.enableXdgAutostart = true;
     xwayland.enable = true;
     settings = {
       exec-once = [
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       ];
 
+      source = [
+        "${sources.hyprland_catppuccin.src}/themes/mocha.conf"
+      ];
+
       general = {
+        "col.active_border" = "$blue";
+        "col.inactive_border" = "$surface1";
         layout = "dwindle";
         resize_on_border = true;
         no_border_on_floating = true;
+      };
+
+      group = {
+        "col.border_inactive" = "$surface1";
+        "col.border_active" = "$blue";
+        "col.border_locked_active" = "$teal";
+
+        groupbar = {
+          text_color = "$text";
+          "col.active" = "$blue";
+          "col.inactive" = "$surface1";
+        };
       };
 
       cursor = {
@@ -28,6 +42,7 @@
 
       misc = {
         focus_on_activate = true;
+        background_color = "$base";
         disable_hyprland_logo = false;
         disable_splash_rendering = true;
         mouse_move_enables_dpms = true;
@@ -36,7 +51,6 @@
         vfr = true;
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
-        no_direct_scanout = false;
         force_default_wallpaper = 1;
       };
 
@@ -67,7 +81,7 @@
         drop_shadow = "yes";
         shadow_range = 8;
         shadow_render_power = 2;
-        "col.shadow" = "rgba(00000044)";
+        "col.shadow" = "rgba($baseAlpha99)";
         dim_inactive = false;
         blur = {
           enabled = true;

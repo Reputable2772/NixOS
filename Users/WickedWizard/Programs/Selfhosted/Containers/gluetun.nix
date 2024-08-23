@@ -17,5 +17,5 @@ in
         ];
       } // utils.appendEnv "gluetun";
     }
-    (utils.defaults "gluetun");
+    (utils.containerDefaults "gluetun" "systemd-caddy");
 }

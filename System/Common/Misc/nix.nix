@@ -28,7 +28,7 @@
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
     };
-    package = pkgs.nixVersions.latest;
+    package = pkgs.lix;
     channel.enable = false;
     extraOptions = ''
       flake-registry =

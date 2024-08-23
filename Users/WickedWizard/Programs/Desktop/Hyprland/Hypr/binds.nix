@@ -1,9 +1,4 @@
-{ config, lib, pkgs, ... }: {
-  home.packages = lib.mkIf config.wayland.windowManager.hyprland.enable (with pkgs; [
-    brightnessctl
-    libnotify
-  ]);
-
+{
   wayland.windowManager.hyprland.settings = {
     bind =
       let
@@ -44,7 +39,7 @@
         "CTRL SHIFT, Q, killactive"
         "ALT, F, togglefloating"
         "SUPER, F, fullscreen"
-        "SUPER, O, fakefullscreen"
+        "SUPER, O, fullscreenstate, -1 2"
         "SUPER, P, pseudo,"
         "SUPER SHIFT, P, togglesplit"
         "SUPER CTRL, P, pin"
@@ -66,13 +61,6 @@
       "SUPER SHIFT, l, movewindow, r"
       "SUPER SHIFT, k, movewindow, u"
       "SUPER SHIFT, j, movewindow, d"
-      # Audio
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-
-      # Brightness
-      ", XF86KBDBrightnessUp, exec, brightnessctl set 10%+"
-      ", XF86KBDBrightnessDown, exec, brightnessctl set 10%-"
     ];
 
     bindm = [
@@ -86,14 +74,6 @@
       ", XF86AudioPrev, exec, playerctl --player playerctld previous"
       ", XF86AudioNext, exec, playerctl --player playerctld next"
       ", XF86AudioPlay, exec, playerctl --player playerctld play-pause"
-
-      # Repeated both here and in binde, because one is required for inhibition, and other one is for repetition.
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+"
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-
-      # Repeated both here and in binde, because one is required for inhibition, and other one is for repetition.
-      ", XF86KBDBrightnessUp, exec, brightnessctl set 10%+"
-      ", XF86KBDBrightnessDown, exec, brightnessctl set 10%-"
     ];
   };
 }

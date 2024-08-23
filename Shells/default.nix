@@ -31,7 +31,7 @@
     {
       help = "Run `nixos-rebuild --flake . --fast test` to test the current config.";
       name = "test-config";
-      command = "sudo nixos-rebuild --flake . --fast test";
+      command = "nixos-rebuild --flake . --use-remote-sudo --fast test";
       category = "Development";
     }
     {
@@ -59,7 +59,7 @@
         fi
 
         echo "Builiding"
-        sudo nixos-rebuild switch --flake .
+        nixos-rebuild --flake . --use-remote-sudo switch
       '';
     }
     {

@@ -24,4 +24,8 @@ in
   };
 
   programs.autostart.packages = with pkgs; [ spotify ];
+
+  wayland.windowManager.hyprland.settings.windowrulev2 = [
+    "workspace 5, initialClass:(Spotify)"
+  ];
 }

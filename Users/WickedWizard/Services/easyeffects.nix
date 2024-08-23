@@ -1,5 +1,6 @@
 {
   services.easyeffects = {
-    enable = true;
+    # NixOS/nixpkgs#332957
+    enable = false;
   };
 }

@@ -8,10 +8,10 @@ in
       Container = {
         Image = "docker.io/vaultwarden/server:latest";
         Network = "systemd-caddy";
-        Volume = [
+        Volume = utils.mapVolume "vaultwarden" [
           ":/data"
         ];
       } // utils.appendEnv "vaultwarden";
     }
-    (utils.defaults "vaultwarden");
+    (utils.containerDefaults "vaultwarden" "systemd-caddy");
 }

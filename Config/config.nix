@@ -20,6 +20,7 @@ rec {
   };
 
   system = {
+    timezone = "Asia/Kolkata";
     hp-laptop = {
       secrets = {
         /**
@@ -36,6 +37,18 @@ rec {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@hp-laptop";
         };
       };
+
+      mounts = {
+        # Need to have a corresponding age file with the object name, if you want to provide authentication.
+        bitlocker = {
+          windows = {
+            source = "/dev/nvme0n1p4";
+            mountpoint = "/mnt/Windows";
+            authentication = true;
+            fsType = "ntfs";
+          };
+        };
+      };
     };
     rescue = { };
   };
@@ -50,7 +63,6 @@ rec {
       backup = rec {
         # Internal variables
         base = "${home}/Documents";
-        games = "${base}/Games";
 
         repository = "${base}/Backup";
         paths = {
@@ -69,99 +81,7 @@ rec {
           exclude = [ ];
         };
         # Ludusavi is a backup tool for Games.
-        ludusavi = {
-          backup = {
-            filter = {
-              cloud = {
-                epic = false;
-                exclude = false;
-                gog = false;
-                origin = false;
-                steam = false;
-                uplay = false;
-              };
-              excludeStoreScreenshots = false;
-              ignoredPaths = [ ];
-              ignoredRegistry = [ ];
-            };
-            format = {
-              chosen = "zip";
-              compression = {
-                bzip2.level = 6;
-                deflate.level = 6;
-                zstd.level = 10;
-              };
-              zip.compression = "zstd";
-            };
-            ignoredGames = [ ];
-            path = "${games}/Saves";
-            retention = {
-              differential = 0;
-              full = 1;
-            };
-            sort = {
-              key = "name";
-              reversed = false;
-            };
-            toggledPaths = { };
-            toggledRegistry = { };
-          };
-          customGames = [
-            {
-              files = [
-                "${games}/Linux/Half-Life/game/valve/*.cfg"
-                "${games}/Linux/Half-Life/game/valve/SAVE"
-              ];
-              name = "Half-Life";
-              registry = [ ];
-            }
-            {
-              files = [
-                "${games}/Windows/Half-Life 2/drive_c/Program Files (x86)/DODI-Repacks/Half Life 2/hl2/cfg"
-                "${games}/Windows/Half-Life 2/drive_c/Program Files (x86)/DODI-Repacks/Half Life 2/hl2/save"
-              ];
-              name = "Half-Life 2";
-              registry = [ ];
-            }
-            {
-              files = [
-                "${games}/Linux/Factorio/*.dat"
-                "${games}/Linux/Factorio/config"
-                "${games}/Linux/Factorio/saves"
-                "${home}/.factorio/config"
-                "${home}/.factorio/saves"
-              ];
-              name = "Factorio";
-              registry = [ ];
-            }
-          ];
-          language = "en-US";
-          manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
-          redirects = [ ];
-          restore = {
-            ignoredGames = [ ];
-            path = "${games}/Saves";
-            sort = {
-              key = "status";
-              reversed = false;
-            };
-            toggledPaths = { };
-            toggledRegistry = { };
-          };
-          roots = [
-            { path = "${home}/.local/share/Steam"; store = "steam"; }
-            { path = "${home}/.config/heroic"; store = "heroic"; }
-            { path = "${games}/Windows/*"; store = "otherWine"; }
-            { path = "${games}/Linux/*"; store = "otherLinux"; }
-          ];
-          runtime.threads = null;
-          scan = {
-            showDeselectedGames = true;
-            showUnchangedGames = true;
-            showUnscannedGames = true;
-          };
-          theme = "dark";
-        };
+        ludusavi = import ./ludusavi.nix { inherit home; games = "${base}/Games"; };
       };
 
       # Drives or gocryptfs locations to mount.
@@ -174,8 +94,6 @@ rec {
           (E.g. important-files key should have `important-files.age` agenix file).
           They need to be stored in this directory only.
           This needs to be done manually, since we cannot use nixpkgs/lib here.
-
-          The mountpoint and all other folders need to be created manually.
         */
         gocryptfs = {
           important-files = {
@@ -248,17 +166,39 @@ rec {
         lidarr = {
           dir = null;
           envFiles = [ ];
-          env = [ "TZ=Asia/Kolkata" "PUID=0" "PGID=0" ];
+          env = [ "TZ=${system.timezone}" "PUID=0" "PGID=0" ];
         };
         qbittorrent = {
           dir = null;
           envFiles = null;
-          env = [ "TZ=Asia/Kolkata" "WEBUI_PORT=8516" "PUID=0" "PGID=0" "TORRENTING_PORT=61851" ];
+          env = [ "TZ=${system.timezone}" "WEBUI_PORT=8516" "PUID=0" "PGID=0" "TORRENTING_PORT=61851" ];
         };
         vaultwarden = {
           dir = null;
           envFiles = [ "push-notifications" ];
           env = [ "WEBSOCKET_ENABLE=true" "ROCKET_PORT=80" "PUSH_ENABLED=true" "LOG_FILE=/data/vaultwarden.log" ];
+        };
+        syncthing = {
+          dir = null;
+          envFiles = null;
+          env = [ "TZ=${system.timezone}" "PUID=0" "PGID=0" ];
+          # All custom config that a container requires is put here.
+          # Applicable on a per-container basis only.
+          custom = {
+            # Internal and external mapping of folders for Syncthing
+            folders = map (x: dir.base + "/" + x) [
+              "Android/Backups:/android-backups"
+              "Android/Tasker:/android-tasker"
+              "Books:/books"
+              "Important-Files:/important-files"
+              "Joplin:/joplin"
+            ];
+          };
+        };
+        homepage = {
+          dir = null;
+          envFiles = null;
+          env = null;
         };
       };
     };
@@ -270,6 +210,9 @@ rec {
   # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
   "wickedwizardPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "rootPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+
+  # Bitlocker age files
+  "windows.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
 
   # Backup age files
   "wickedwizard-backup.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];

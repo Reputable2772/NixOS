@@ -1,5 +1,5 @@
-{
-  time.timeZone = "Asia/Kolkata";
+{ config', ... }: {
+  time.timeZone = config'.system.timezone;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;

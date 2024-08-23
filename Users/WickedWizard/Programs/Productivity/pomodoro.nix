@@ -7,9 +7,10 @@ let
   cond = osConfig.services.xserver.desktopManager.gnome.enable;
 in
 {
-  home.packages = with pkgs; [
-    (bool cond gnome.pomodoro uair)
-  ];
+  # NixOS/nixpkgs#332957
+  # home.packages = with pkgs; [
+  #   (bool cond gnome.pomodoro uair)
+  # ];
 
   programs.autostart.packages = [
     (bool cond pkgs.gnome.pomodoro (

@@ -1,12 +1,8 @@
 { config, pkgs, lib, ... }: {
-  home.packages = with pkgs; [
-    wl-clipboard
+  home.packages = lib.optionals config.wayland.windowManager.hyprland.enable [
+    pkgs.wl-clipboard
+    pkgs.copyq
   ];
-
-  services.copyq = {
-    inherit (config.wayland.windowManager.hyprland) enable;
-    systemdTarget = "";
-  };
 
   wayland.windowManager.hyprland.settings = {
     exec-once = [

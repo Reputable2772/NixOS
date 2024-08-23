@@ -9,6 +9,6 @@ in
     enableZshIntegration = true;
     settings = {
       palette = "catppuccin_${flavour}";
-    } // builtins.fromTOML (builtins.readFile "${sources.starship_catppuccin.src}/palettes/${flavour}.toml");
+    } // builtins.fromTOML (builtins.readFile "${sources.starship_catppuccin.src}/themes/${flavour}.toml");
   };
 }

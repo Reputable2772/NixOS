@@ -2,15 +2,16 @@
 
 let
   inherit (lib) types;
-  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.attrsets) hasAttrByPath mapAttrsToList optionalAttrs recursiveUpdate;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.strings) concatStringsSep;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep;
 
   cfg = config.programs.quadlets;
 in
 {
   options.programs.quadlets = {
     enable = mkEnableOption "Podman's Quadlets";
+    mkdir = mkEnableOption "Creating directories if they don't exist.";
     quadlets = mkOption {
       default = { };
       type = with types;
@@ -31,7 +32,13 @@ in
         ++ (mapAttrsToList
           (n: v:
             let
-              file = pkgs.writeTextDir n (lib'.toSystemdUnit v);
+              # Don't override if a user already set ExecStartPre
+              val = recursiveUpdate
+                (optionalAttrs (cfg.mkdir && hasAttrByPath [ "Container" "Volume" ] v && (v.Container.Volume != null || v.Container.Volume != [ ])) {
+                  Service.ExecStartPre = pkgs.writeShellScript "${n}-mkdir" (concatMapStringsSep "\n" (x: "${pkgs.coreutils}/bin/mkdir -p ${builtins.elemAt (builtins.split ":" x) 0}") v.Container.Volume);
+                })
+                v;
+              file = pkgs.writeTextDir n (lib'.toSystemdUnit val);
             in
             ''
               cp ${file}/* $out/source
@@ -39,7 +46,7 @@ in
 
               for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
                 substituteInPlace $out/units/$file \
-                  --replace-warn ${file}/\$XDG_RUNTIME_DIR \$\{XDG_RUNTIME_DIR}
+                  --replace-warn ${file}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR}
               done
             '')
           cfg.quadlets);

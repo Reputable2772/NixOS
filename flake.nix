@@ -61,7 +61,6 @@
             inherit system;
             specialArgs = {
               inherit inputs;
-              polyfill = false;
               lib' = import ./lib { inherit pkgs; };
               sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
             };
@@ -70,10 +69,8 @@
               ./System/HP-Laptop
 
               ({ config, ... }: {
-                _module.args = {
-                  config' = import ./Config/config.nix {
-                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
-                  };
+                _module.args.config' = import ./Config/config.nix {
+                  _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
                 };
               })
             ];
@@ -83,7 +80,6 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
-            polyfill = true;
           };
           modules = [
             ./System/Common
@@ -94,7 +90,7 @@
 
       perSystem = { config, system, pkgs, self', ... }:
         let
-          inherit (pkgs) lib writeText;
+          inherit (pkgs) lib;
           inherit (lib.attrsets) filterAttrs mapAttrs;
           inherit (lib.strings) hasSuffix;
         in
@@ -107,13 +103,6 @@
             commitizen.enable = true;
             nixpkgs-fmt.enable = true;
           };
-
-          packages.build =
-            writeText "build.json"
-              (builtins.toJSON [
-                (mapAttrs (name: value: value.config.system.build.${if name == "rescue" then "isoImage" else "toplevel"}) (filterAttrs (n: v: v.pkgs.system == system) self.nixosConfigurations))
-                self'.devShells
-              ]);
 
           devshells = mapAttrs
             (name: value: import value {

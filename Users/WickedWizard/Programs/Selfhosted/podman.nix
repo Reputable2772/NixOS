@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     podman-compose
-    pods
+    # NixOS/nixpkgs#332957
+    # pods
   ];
 }

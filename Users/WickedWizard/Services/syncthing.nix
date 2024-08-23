@@ -1,12 +1,10 @@
-{ config', lib, ... }:
+{ config', ... }:
 {
   services.syncthing = {
-    enable = lib.mkIf
-      (config'.dir ? config)
-      true;
+    enable = false;
     extraOptions = [
       "--config=${config'.dir.config}/Syncthing"
-      "--data=${config'.dir.config}/Syncthing/data"
+      # "--data=${config'.dir.config}/Syncthing/data"
     ];
   };
 }

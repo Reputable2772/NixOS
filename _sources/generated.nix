@@ -104,6 +104,14 @@
     };
     date = "2024-07-20";
   };
+  hyprland_background = {
+    pname = "hyprland_background";
+    version = "latest";
+    src = fetchurl {
+      url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png";
+      sha256 = "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=";
+    };
+  };
   hyprland_catppuccin = {
     pname = "hyprland_catppuccin";
     version = "c388ac55563ddeea0afe9df79d4bfff0096b146b";
@@ -135,6 +143,18 @@
       sha256 = "sha256-l4CbAUeb/Tg603QnZ/VWxuGqRBztpHN0HLX/h8ndc5w=";
     };
     date = "2024-08-06";
+  };
+  joplin_catppuccin = {
+    pname = "joplin_catppuccin";
+    version = "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "joplin";
+      rev = "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9";
+      fetchSubmodules = false;
+      sha256 = "sha256-H19iaemj7XWsd3r7OBvQinrNKMiYGl53ArIp49gZExs=";
+    };
+    date = "2024-06-21";
   };
   nix-fast-build = {
     pname = "nix-fast-build";

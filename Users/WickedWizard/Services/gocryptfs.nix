@@ -3,7 +3,7 @@ let
   inherit (lib.attrsets) mapAttrs attrValues filterAttrs concatMapAttrs;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.trivial) pipe;
-  script = name: script: extra_pkgs: execer: fake: builtins.toString (
+  script = name: script: extra_pkgs: execer: fake: (
     pkgs.resholve.writeScript name
       {
         interpreter = lib.getExe pkgs.bash;
@@ -11,13 +11,13 @@ let
         inherit execer fake;
       }
       script
-  );
-  gocryptfs = _pipe: lib.mkIf
+  ).outPath;
+  validMounts = _pipe: lib.mkIf
     (config'.mounts ? gocryptfs && config'.mounts.gocryptfs != null)
     (pipe config'.mounts.gocryptfs _pipe);
 in
 {
-  age.secrets = gocryptfs [
+  age.secrets = validMounts [
     (filterAttrs (n: v: v ? authentication && v.authentication))
     (concatMapAttrs (n: v: {
       ${n}.file = ./. + "../../../../Config/${n}.age";
@@ -27,7 +27,7 @@ in
   systemd.user.services.gocryptfs =
     let
       gocryptfs_map = cmd:
-        (gocryptfs [
+        (validMounts [
           (mapAttrs cmd)
           attrValues
           (concatStringsSep "\n")
@@ -38,6 +38,12 @@ in
         Type = "forking";
         Restart = "on-failure";
         RestartSec = 5;
+        ExecStartPre = script "pre-login.sh"
+          (gocryptfs_map (n: v: "mkdir -p ${v.mountpoint}"))
+          [ ]
+          [ ]
+          { };
+
         ExecStart = script "login.sh"
           (gocryptfs_map (n: v: "gocryptfs ${v.source} ${v.mountpoint} ${lib.optionalString (v ? authentication && v.authentication) "-passfile ${config.age.secrets.${n}.path}"}"))
           [ pkgs.gocryptfs ]

@@ -7,6 +7,7 @@
     ./lib.nix
     ./lidarr.nix
     ./qbittorrent.nix
+    ./syncthing.nix
     ./vaultwarden.nix
   ];
 }

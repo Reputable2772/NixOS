@@ -74,3 +74,11 @@ fetch.github = "catppuccin/calibre"
 [arr_scripts]
 src.git = "https://github.com/RandomNinjaAtk/arr-scripts.git"
 fetch.github = "RandomNinjaAtk/arr-scripts"
+
+[joplin_catppuccin]
+src.git = "https://github.com/catppuccin/joplin.git"
+fetch.github = "catppuccin/joplin"
+
+[hyprland_background]
+src.manual = "latest"
+fetch.url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png"

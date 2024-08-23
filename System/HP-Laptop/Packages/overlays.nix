@@ -1,9 +1,5 @@
-{ inputs, ... }:
-let
-  inherit (inputs) nur nixpkgs-wayland;
-in
-{
-  nixpkgs.overlays = [
+{ inputs, ... }: {
+  nixpkgs.overlays = with inputs; [
     nur.overlay
     nixpkgs-wayland.overlay
   ] ++ import ../../../Overlays;
