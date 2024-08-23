@@ -14,12 +14,15 @@ in
   environment.etc.crypttab.text = only
     (concatStringsSep "\n"
       (mapAttrsToList
-        (n: v: "${n} ${v.source} ${if v.authentication then config.age.secrets.${n}.path else "- noauto,"}bitlk")
+        (n: v: "${n} ${v.source} ${if v.authentication then "${config.age.secrets.${n}.path} " else "- noauto,"}bitlk")
         config'.system.${config.networking.hostName}.mounts.bitlocker));
 
   fileSystems = only
     (mapAttrs'
       (n: v: nameValuePair v.mountpoint {
+        depends = [
+          "/home"
+        ];
         device = "/dev/mapper/${n}";
         inherit (v) fsType;
       })
