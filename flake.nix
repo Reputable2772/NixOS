@@ -28,7 +28,10 @@
       url = "github:sumnerevans/menu-calc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.3.0";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld-rs.url = "github:nix-community/nix-ld-rs";
     devshell = {
       url = "github:numtide/devshell";
