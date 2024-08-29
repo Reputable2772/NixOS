@@ -1,6 +1,7 @@
-{ config', pkgs, lib, ... }: {
+{ config, config', inputs, pkgs, lib, ... }: {
   programs.librewolf = {
     enable = true;
+    package = inputs.nixpkgs-master.legacyPackages.${pkgs.system}.librewolf;
     settings = {
       "privacy.resistFingerprinting.letterboxing" = true;
       "network.http.referer.XOriginPolicy" = 2;
@@ -20,7 +21,7 @@
     Version=2
   '';
 
-  programs.autostart.packages = with pkgs; [ librewolf ];
+  programs.autostart.packages = [ config.programs.librewolf.package ];
 
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, B, exec, librewolf"
