@@ -1,5 +1,8 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    lutris-free
+    lutris
+
+    # Fixes NixOS/nixpkgs#285748
+    winetricks
   ];
 }
