@@ -34,6 +34,9 @@
 
       cursor = {
         inactive_timeout = 15;
+        no_warps = true;
+        warp_on_change_workspace = true;
+        min_refresh_rate = 60;
       };
 
       monitor = [
