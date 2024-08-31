@@ -63,15 +63,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "788cad3cbe4262e022774becf36f0df2847abf46";
+    version = "99e0dc9aaa9ecf3645c086258149058beb1442af";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "788cad3cbe4262e022774becf36f0df2847abf46";
+      rev = "99e0dc9aaa9ecf3645c086258149058beb1442af";
       fetchSubmodules = false;
-      sha256 = "sha256-4MOK+4QQzE3wH0WQY9LYJY4CLmrLMaFip41eA6eN/Ns=";
+      sha256 = "sha256-cb4R9sef3gVWAeMTHfK70jTUL/6/z7uYVB2mrK47OB4=";
     };
-    date = "2024-08-24";
+    date = "2024-08-31";
   };
   filen = {
     pname = "filen";
@@ -170,15 +170,15 @@
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "e7c4fcf387415a20cb747121bc0416c4c8ae3362";
+    version = "b17939991545bdd6232e688ec5004b6dfae46f69";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "e7c4fcf387415a20cb747121bc0416c4c8ae3362";
+      rev = "b17939991545bdd6232e688ec5004b6dfae46f69";
       fetchSubmodules = false;
-      sha256 = "sha256-dZcgIPMa1AUFXcMPT99YUUhvxHbniv0Anbh9/DB00NY=";
+      sha256 = "sha256-1Stlcfcl/DZMPPqsShst849Ns0Lgk9D2SekMhTy7zZY=";
     };
-    date = "2024-04-03";
+    date = "2024-08-30";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
