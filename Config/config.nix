@@ -78,6 +78,8 @@ rec {
             "Games/Saves"
             "Important-Files"
             "Joplin"
+          ] ++ [
+            "/mnt/Windows/Backup"
           ];
           exclude = [ ];
         };
