@@ -12,7 +12,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
