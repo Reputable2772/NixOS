@@ -7,7 +7,6 @@ in
   home.packages =
     with pkgs; [
       dconf2nix
-      gnome-terminal
       dconf-editor
     ] ++ lib.optionals cond (with pkgs.gnomeExtensions; [
       appindicator
