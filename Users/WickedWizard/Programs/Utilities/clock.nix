@@ -1,3 +1,3 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ gnome.gnome-clocks ];
+  home.packages = with pkgs; [ gnome-clocks ];
 }
