@@ -7,6 +7,7 @@
     ./foot.nix
     ./keepassxc.nix
     # ./kitty.nix
+    ./nemo.nix
     ./protonvpn.nix
   ];
 }

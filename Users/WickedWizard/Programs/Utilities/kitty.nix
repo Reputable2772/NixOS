@@ -27,6 +27,8 @@
 
   programs.autostart.files = [ "${config.programs.kitty}/share/applications/kitty.desktop" ];
 
+  dconf.settings."org/cinnamon/desktop/applications/terminal".exec = "kitty";
+
   wayland.windowManager.hyprland.settings.bind = [
     "SUPER, Return, exec, kitty"
   ];

@@ -8,7 +8,6 @@
     ./kde.nix
     ./overlays.nix
     ./steam.nix
-    ./thunar.nix
     ./unfree.nix
   ];
 }
