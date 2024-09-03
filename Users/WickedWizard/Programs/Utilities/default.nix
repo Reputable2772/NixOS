@@ -7,7 +7,6 @@
     ./foot.nix
     ./keepassxc.nix
     # ./kitty.nix
-    ./maps.nix
     ./ntfy.nix
     ./protonvpn.nix
   ];
