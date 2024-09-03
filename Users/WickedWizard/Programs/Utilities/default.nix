@@ -10,6 +10,5 @@
     ./maps.nix
     ./ntfy.nix
     ./protonvpn.nix
-    ./power-manager.nix
   ];
 }
