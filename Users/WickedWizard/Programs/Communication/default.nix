@@ -1,7 +1,7 @@
 {
   imports = [
-    ./fractal.nix
-    ./konversation.nix
-    ./signal.nix
+    # ./fractal.nix
+    # ./konversation.nix
+    # ./signal.nix
   ];
 }
