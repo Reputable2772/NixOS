@@ -1,5 +1,5 @@
 # Inspiration https://github.com/alberkev03/dotfiles/
-{ config, pkgs, lib, inputs, ... }:
+{ config, lib, ... }:
 let
   waybar = {
     layer = "top";
@@ -192,7 +192,6 @@ in
 
   programs.waybar = {
     inherit (config.wayland.windowManager.hyprland) enable;
-    package = inputs.nixpkgs.legacyPackages.${pkgs.system}.waybar;
     settings = {
       mainBar = waybar;
     };
