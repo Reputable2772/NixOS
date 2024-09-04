@@ -7,4 +7,9 @@
     "${pkgs.kdePackages.kdeconnect-kde}/share/applications/org.kde.kdeconnect.daemon.desktop"
     "${pkgs.kdePackages.kdeconnect-kde}/share/applications/org.kde.kdeconnect.nonplasma.desktop"
   ];
+
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/tel" = "org.kde.kdeconnect.handler.desktop";
+    "x-scheme-handler/sms" = "org.kde.kdeconnect.handler.desktop";
+  };
 }
