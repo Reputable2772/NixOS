@@ -3,8 +3,8 @@
     ./Containers
 
     ./bitwarden.nix
-    ./picard.nix
+    # ./picard.nix
     ./podman.nix
-    ./songrec.nix
+    # ./songrec.nix
   ];
 }
