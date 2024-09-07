@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "ae84972d035ee14966c176fb420fbe1d28402feb";
+    version = "32d14192f1afbadb20cefd6edf261d38a4474863";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "ae84972d035ee14966c176fb420fbe1d28402feb";
+      rev = "32d14192f1afbadb20cefd6edf261d38a4474863";
       fetchSubmodules = false;
-      sha256 = "sha256-nrET7F+LDmZvH9tgSijbsgzcYntRON75rfjw6n9fLGQ=";
+      sha256 = "sha256-fp9Kcq95KTLvbDYwiadmcSG171E4Uf6Ybsbkr/SytKs=";
     };
-    date = "2024-08-19";
+    date = "2024-09-05";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
@@ -63,15 +63,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "99e0dc9aaa9ecf3645c086258149058beb1442af";
+    version = "1e4601485a46bdb7c3601ffcba577e67495a44b9";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "99e0dc9aaa9ecf3645c086258149058beb1442af";
+      rev = "1e4601485a46bdb7c3601ffcba577e67495a44b9";
       fetchSubmodules = false;
-      sha256 = "sha256-cb4R9sef3gVWAeMTHfK70jTUL/6/z7uYVB2mrK47OB4=";
+      sha256 = "sha256-vZeL3bqwTxbVSdDUVjjoyNUToLPqjVSnd5UyAydm6UM=";
     };
-    date = "2024-08-31";
+    date = "2024-09-07";
   };
   filen = {
     pname = "filen";
