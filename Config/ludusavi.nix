@@ -35,35 +35,7 @@
     toggledPaths = { };
     toggledRegistry = { };
   };
-  customGames = [
-    {
-      files = [
-        "${games}/Linux/Half-Life/game/valve/*.cfg"
-        "${games}/Linux/Half-Life/game/valve/SAVE"
-      ];
-      name = "Half-Life";
-      registry = [ ];
-    }
-    {
-      files = [
-        "${games}/Windows/Half-Life 2/drive_c/Program Files (x86)/DODI-Repacks/Half Life 2/hl2/cfg"
-        "${games}/Windows/Half-Life 2/drive_c/Program Files (x86)/DODI-Repacks/Half Life 2/hl2/save"
-      ];
-      name = "Half-Life 2";
-      registry = [ ];
-    }
-    {
-      files = [
-        "${games}/Linux/Factorio/*.dat"
-        "${games}/Linux/Factorio/config"
-        "${games}/Linux/Factorio/saves"
-        "${home}/.factorio/config"
-        "${home}/.factorio/saves"
-      ];
-      name = "Factorio";
-      registry = [ ];
-    }
-  ];
+  customGames = [ ];
   language = "en-US";
   manifest.url = "https://raw.githubusercontent.com/mtkennerly/ludusavi-manifest/master/data/manifest.yaml";
   redirects = [ ];
