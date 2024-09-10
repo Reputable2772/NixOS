@@ -80,8 +80,7 @@
   roots = [
     { path = "${home}/.local/share/Steam"; store = "steam"; }
     { path = "${home}/.config/heroic"; store = "heroic"; }
-    { path = "${games}/Windows/*"; store = "otherWine"; }
-    { path = "${games}/Linux/*"; store = "otherLinux"; }
+    { database = "${home}/.local/share/lutris/pga.db"; path = "${home}/.local/share/lutris"; store = "lutris"; }
   ];
   runtime.threads = null;
   scan = {
