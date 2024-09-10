@@ -18,6 +18,8 @@ in
         exclude = v.programs.backup.paths.exclude;
         passwordFile = config.age.secrets."${n}-backup".path;
         timerConfig = null;
+        inhibitsSleep = true;
+        extraBackupArgs = [ "--compression max" ];
       })
       filtered;
 }
