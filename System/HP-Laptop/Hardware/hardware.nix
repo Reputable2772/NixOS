@@ -13,6 +13,9 @@
   boot.extraModulePackages = [ ];
   boot.initrd.luks.devices.nixos.device = "/dev/disk/by-uuid/ca45b52f-3d82-4dba-96a1-f62e44c7a6cc";
 
+  boot.kernelParams = [ "resume_offset=6344704" ];
+  boot.resumeDevice = "/dev/disk/by-uuid/67372b15-575e-455e-bf77-9959cdd78a62";
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/7414-0099";
     fsType = "vfat";
