@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "32d14192f1afbadb20cefd6edf261d38a4474863";
+    version = "394c395fa6451771b5b64e7cba6edcea9bee6b9b";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "32d14192f1afbadb20cefd6edf261d38a4474863";
+      rev = "394c395fa6451771b5b64e7cba6edcea9bee6b9b";
       fetchSubmodules = false;
-      sha256 = "sha256-fp9Kcq95KTLvbDYwiadmcSG171E4Uf6Ybsbkr/SytKs=";
+      sha256 = "sha256-fBUt5SOsOsnNiiLNtgyi7/hOInfTi1a0D7O8cIyg8xM=";
     };
-    date = "2024-09-05";
+    date = "2024-09-09";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
@@ -63,15 +63,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "1e4601485a46bdb7c3601ffcba577e67495a44b9";
+    version = "3381062ab9e32bb062732cf6aecf4c1f99b73b4d";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "1e4601485a46bdb7c3601ffcba577e67495a44b9";
+      rev = "3381062ab9e32bb062732cf6aecf4c1f99b73b4d";
       fetchSubmodules = false;
-      sha256 = "sha256-vZeL3bqwTxbVSdDUVjjoyNUToLPqjVSnd5UyAydm6UM=";
+      sha256 = "sha256-DrgNYTiOcP8fxm8JNMvuKivzADFVBc2b/IeDjbsPEds=";
     };
-    date = "2024-09-07";
+    date = "2024-09-14";
   };
   filen = {
     pname = "filen";
@@ -170,15 +170,15 @@
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "b17939991545bdd6232e688ec5004b6dfae46f69";
+    version = "d90002a5315db3a43c39dc52c2a91a99c9330e1f";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "b17939991545bdd6232e688ec5004b6dfae46f69";
+      rev = "d90002a5315db3a43c39dc52c2a91a99c9330e1f";
       fetchSubmodules = false;
-      sha256 = "sha256-1Stlcfcl/DZMPPqsShst849Ns0Lgk9D2SekMhTy7zZY=";
+      sha256 = "sha256-rU4WTj+2E/+OblAeK0+nzJhisz2V2/KwHBiJVBRj+LQ=";
     };
-    date = "2024-08-30";
+    date = "2024-09-14";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";

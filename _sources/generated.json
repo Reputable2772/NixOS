@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2024-09-05",
+        "date": "2024-09-09",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "32d14192f1afbadb20cefd6edf261d38a4474863",
-            "sha256": "sha256-fp9Kcq95KTLvbDYwiadmcSG171E4Uf6Ybsbkr/SytKs=",
+            "rev": "394c395fa6451771b5b64e7cba6edcea9bee6b9b",
+            "sha256": "sha256-fBUt5SOsOsnNiiLNtgyi7/hOInfTi1a0D7O8cIyg8xM=",
             "type": "github"
         },
-        "version": "32d14192f1afbadb20cefd6edf261d38a4474863"
+        "version": "394c395fa6451771b5b64e7cba6edcea9bee6b9b"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-09-07",
+        "date": "2024-09-14",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "1e4601485a46bdb7c3601ffcba577e67495a44b9",
-            "sha256": "sha256-vZeL3bqwTxbVSdDUVjjoyNUToLPqjVSnd5UyAydm6UM=",
+            "rev": "3381062ab9e32bb062732cf6aecf4c1f99b73b4d",
+            "sha256": "sha256-DrgNYTiOcP8fxm8JNMvuKivzADFVBc2b/IeDjbsPEds=",
             "type": "github"
         },
-        "version": "1e4601485a46bdb7c3601ffcba577e67495a44b9"
+        "version": "3381062ab9e32bb062732cf6aecf4c1f99b73b4d"
     },
     "filen": {
         "cargoLocks": null,
@@ -286,7 +286,7 @@
     },
     "obs_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-08-30",
+        "date": "2024-09-14",
         "extract": null,
         "name": "obs_catppuccin",
         "passthru": null,
@@ -298,11 +298,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "obs",
-            "rev": "b17939991545bdd6232e688ec5004b6dfae46f69",
-            "sha256": "sha256-1Stlcfcl/DZMPPqsShst849Ns0Lgk9D2SekMhTy7zZY=",
+            "rev": "d90002a5315db3a43c39dc52c2a91a99c9330e1f",
+            "sha256": "sha256-rU4WTj+2E/+OblAeK0+nzJhisz2V2/KwHBiJVBRj+LQ=",
             "type": "github"
         },
-        "version": "b17939991545bdd6232e688ec5004b6dfae46f69"
+        "version": "d90002a5315db3a43c39dc52c2a91a99c9330e1f"
     },
     "prismlauncher_catppuccin": {
         "cargoLocks": null,
