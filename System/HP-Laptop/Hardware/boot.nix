@@ -10,6 +10,7 @@
     loader = {
       systemd-boot.enable = true;
       systemd-boot.rebootForBitlocker = true;
+      systemd-boot.editor = false;
       efi.canTouchEfiVariables = true;
       timeout = 3;
     };
