@@ -1,6 +1,7 @@
 {
   imports = [
     ./adb.nix
+    ./flatpak.nix
     ./gamemode.nix
     ./gnome.nix
     ./hyprland.nix
