@@ -15,6 +15,7 @@
     ./Programs
     ./Services
 
+    ./flatpak.nix
     ./secrets.nix
   ];
 
