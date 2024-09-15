@@ -1,0 +1,58 @@
+name: "Additional Info for PR"
+
+permissions:
+  pull-requests: write
+
+on:
+  pull_request
+
+jobs:
+  provide-data:
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Checkout"
+      uses: actions/checkout@v4
+
+    - name: Substituters
+      id: substituters
+      run: |
+        echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
+        echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
+
+    - name: "Install Nix"
+      uses: cachix/install-nix-action@v26
+      with:
+        extra_nix_config: |
+          trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
+          substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
+
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+
+    - name: "Build both closures"
+      id: build
+      run: |
+        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}/${{ github.base_ref }}#hp-laptop"
+        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_new --flake github:${{ github.repository }}/${{ github.head_ref }}#hp-laptop"
+        mv result_old- result_old
+        mv result_new- result_new
+
+    - name: "Diff Profile Closures"
+      id: profile-diff
+      run: |
+        echo "Profile diff:" >> comment.txt
+        echo "\`\`\`" >> comment.txt
+        nix store diff-closures ./result_old ./result_new 2>&1 | tee -a comment.txt
+        echo "\`\`\`" >> comment.txt
+
+    - name: "Generate Vulnix Report"
+      id: vulnix
+      run: |
+        echo "Vulnerabilities in closure: " >> comment.txt
+        nix shell nixpkgs#vulnix --command bash -c "vulnix -C ./result_new 2>&1 | tee -a comment.txt"
+
+    - name: PR comment with file
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        filePath: ./comment.txt
+
+# TODO: Flakes and Sources changelog from their respective git repositories.
