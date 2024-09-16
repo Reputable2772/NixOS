@@ -5,5 +5,7 @@
   security.rtkit.enable = true;
 
   system.stateVersion = "23.05";
+
+  system.extraSystemBuilderCmds = "ln -s ${../../..} $out/src";
 }
 
