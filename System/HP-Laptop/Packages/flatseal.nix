@@ -1,3 +1,3 @@
 {
-  services.flatpak.package = [ "com.github.tchx84.Flatseal" ];
+  services.flatpak.packages = [ "com.github.tchx84.Flatseal" ];
 }
