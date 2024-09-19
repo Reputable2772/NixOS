@@ -1,3 +1,6 @@
 {
-  services.flatpak.packages = [ "com.valvesoftware.Steam" ];
+  services.flatpak.packages = [
+    "com.valvesoftware.Steam"
+    "io.github.Foldex.AdwSteamGtk"
+  ];
 }
