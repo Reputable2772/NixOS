@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2024-09-09",
+        "date": "2024-09-16",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,15 +13,15 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "394c395fa6451771b5b64e7cba6edcea9bee6b9b",
-            "sha256": "sha256-fBUt5SOsOsnNiiLNtgyi7/hOInfTi1a0D7O8cIyg8xM=",
+            "rev": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b",
+            "sha256": "sha256-0h7Ab/wZBSTD2x0xfIiFz4yixH0TD4VzD+cu0RT7GVg=",
             "type": "github"
         },
-        "version": "394c395fa6451771b5b64e7cba6edcea9bee6b9b"
+        "version": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-08-09",
+        "date": "2024-09-17",
         "extract": null,
         "name": "bottom_catppuccin",
         "passthru": null,
@@ -33,15 +33,15 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "bottom",
-            "rev": "f33104ec5be6cdde0559c2560f85130e48e10cff",
-            "sha256": "sha256-Ew2yryQFJRICy3RbtQnLMR5pphXPZp1PtaFVxAL2Eu4=",
+            "rev": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2",
+            "sha256": "sha256-Vi438I+YVvoD2xzq2t9hJ9R3a+2TlDdbakjFYFtjtXQ=",
             "type": "github"
         },
-        "version": "f33104ec5be6cdde0559c2560f85130e48e10cff"
+        "version": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2"
     },
     "calibre_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-05-10",
+        "date": "2024-09-14",
         "extract": null,
         "name": "calibre_catppuccin",
         "passthru": null,
@@ -53,11 +53,11 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "calibre",
-            "rev": "c0cea844e74b6ffb346969839f8548f96fcde14d",
-            "sha256": "sha256-/Ipm3V6AJrqugg3Er6u1wriOF8NOmdFdSc2bKRfLvV0=",
+            "rev": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921",
+            "sha256": "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=",
             "type": "github"
         },
-        "version": "c0cea844e74b6ffb346969839f8548f96fcde14d"
+        "version": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921"
     },
     "catppuccin_zsh_syntax_highlighting": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "fastfetch": {
         "cargoLocks": null,
-        "date": "2024-09-14",
+        "date": "2024-09-21",
         "extract": null,
         "name": "fastfetch",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "fastfetch-cli",
             "repo": "fastfetch",
-            "rev": "3381062ab9e32bb062732cf6aecf4c1f99b73b4d",
-            "sha256": "sha256-DrgNYTiOcP8fxm8JNMvuKivzADFVBc2b/IeDjbsPEds=",
+            "rev": "005d660d77a4a217c0cc46167197ea80a762c9c4",
+            "sha256": "sha256-C9Mv0Sou9pts8496gx+gITNVDeHcwSTevAmlKCYlLVE=",
             "type": "github"
         },
-        "version": "3381062ab9e32bb062732cf6aecf4c1f99b73b4d"
+        "version": "005d660d77a4a217c0cc46167197ea80a762c9c4"
     },
     "filen": {
         "cargoLocks": null,
