@@ -1,9 +1,7 @@
-{ lib, ... }: {
-  powerManagement.powertop.enable = true;
-
-  services.power-profiles-daemon.enable = lib.mkForce false;
+{ config, lib, ... }: {
+  services.power-profiles-daemon.enable = lib.mkForce (!config.programs.hyprland.enable);
   services.auto-cpufreq = {
-    enable = true;
+    enable = config.programs.hyprland.enable;
     settings = {
       charger = {
         governor = "performance";
