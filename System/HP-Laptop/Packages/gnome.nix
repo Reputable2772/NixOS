@@ -3,11 +3,10 @@
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 
-  environment.gnome.excludePackages = (with pkgs; [
+  environment.gnome.excludePackages = with pkgs; [
     gnome-photos
     gnome-console
     gnome-tour
-  ]) ++ (with pkgs.gnome; [
     cheese
     gnome-music
     geary
@@ -18,6 +17,5 @@
     hitori
     atomix
     simple-scan
-  ]);
-
+  ];
 }

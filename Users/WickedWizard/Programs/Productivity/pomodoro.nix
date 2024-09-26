@@ -13,7 +13,7 @@ in
   # ];
 
   programs.autostart.packages = [
-    (bool cond pkgs.gnome.pomodoro (
+    (bool cond pkgs.gnome-pomodoro (
       pkgs.makeDesktopItem {
         name = "Uair";
         exec = "uair %u";
