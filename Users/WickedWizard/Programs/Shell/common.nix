@@ -3,7 +3,13 @@
     dnsutils
     eza
     rmtrash
+
+    # Required by eza.
+    nerdfonts
   ];
+
+  # Required for eza
+  fonts.fontconfig.enable = true;
 
   programs.shells = {
     enable = true;
