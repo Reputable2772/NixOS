@@ -74,7 +74,6 @@ rec {
             "Coding"
             "Config"
             "Games/Linux/Minecraft"
-            "Games/Manuals"
             "Games/Saves"
             "Important-Files"
             "Joplin"
