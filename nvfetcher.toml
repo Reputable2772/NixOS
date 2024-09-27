@@ -10,10 +10,6 @@ fetch.github = "nickclyde/rofi-bluetooth"
 src.git = "https://github.com/catppuccin/bottom.git"
 fetch.github = "catppuccin/bottom"
 
-[fastfetch]
-src.git = "https://github.com/fastfetch-cli/fastfetch.git"
-fetch.github = "fastfetch-cli/fastfetch"
-
 [starship_catppuccin]
 src.git = "https://github.com/catppuccin/starship.git"
 fetch.github = "catppuccin/starship"

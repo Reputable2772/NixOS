@@ -61,18 +61,6 @@
     };
     date = "2024-07-20";
   };
-  fastfetch = {
-    pname = "fastfetch";
-    version = "140b9834cc453388ef15cdd53bc3c813b947ab94";
-    src = fetchFromGitHub {
-      owner = "fastfetch-cli";
-      repo = "fastfetch";
-      rev = "140b9834cc453388ef15cdd53bc3c813b947ab94";
-      fetchSubmodules = false;
-      sha256 = "sha256-1MED0XRu0+VAR2Zo7AzvjnF71PP3Ui89pAJZcFEDXF8=";
-    };
-    date = "2024-09-28";
-  };
   filen = {
     pname = "filen";
     version = "latest";
