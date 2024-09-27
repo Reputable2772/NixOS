@@ -50,8 +50,6 @@ in
     })}/src";
   };
 
-  home.activation.spicetify-update = lib.mkIf config.programs.spicetify.dontInstall (lib.hm.dag.entryAfter [ "writeBoundary" ] "${pkgs.spicetify-cli}/bin/spicetify auto");
-
   programs.autostart.packages = [
     (if config.programs.spicetify.dontInstall then
       (pkgs.makeDesktopItem {
