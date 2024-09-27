@@ -48,7 +48,7 @@ dconf_nix() {
 	echo "Nixifying dconf"
 
 	file="./Users/WickedWizard/Programs/Desktop/Gnome/dconf.nix"
-	gnome_file="./Users/WickedWizard/Programs/Desktop/Gnome/gnome.nix"
+	gnome_file="./Users/WickedWizard/Programs/Desktop/Gnome/settings.nix"
 
 	if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
 		echo "Gnome Desktop Environment Found!"
