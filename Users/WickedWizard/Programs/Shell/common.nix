@@ -14,9 +14,6 @@
   programs.shells = {
     enable = true;
     enableCompletion = true;
-    rcExtra = ''
-      fastfetch
-    '';
     shellAliases = {
       ls = "eza -al --color=always --group-directories-first --icons";
       ip = "ip -color";
