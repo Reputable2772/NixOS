@@ -2,6 +2,7 @@
   imports = [
     ./atuin.nix
     ./bottom.nix
+    ./comma.nix
     ./common.nix
     ./direnv.nix
     ./fastfetch.nix
