@@ -63,15 +63,15 @@
   };
   fastfetch = {
     pname = "fastfetch";
-    version = "005d660d77a4a217c0cc46167197ea80a762c9c4";
+    version = "140b9834cc453388ef15cdd53bc3c813b947ab94";
     src = fetchFromGitHub {
       owner = "fastfetch-cli";
       repo = "fastfetch";
-      rev = "005d660d77a4a217c0cc46167197ea80a762c9c4";
+      rev = "140b9834cc453388ef15cdd53bc3c813b947ab94";
       fetchSubmodules = false;
-      sha256 = "sha256-C9Mv0Sou9pts8496gx+gITNVDeHcwSTevAmlKCYlLVE=";
+      sha256 = "sha256-1MED0XRu0+VAR2Zo7AzvjnF71PP3Ui89pAJZcFEDXF8=";
     };
-    date = "2024-09-21";
+    date = "2024-09-28";
   };
   filen = {
     pname = "filen";
@@ -94,15 +94,15 @@
   };
   foot_catppuccin = {
     pname = "foot_catppuccin";
-    version = "17e2bdc8a8d854e8d390919579f87ab7d5f86e38";
+    version = "962ff1a5b6387bc5419e9788a773a080eea5f1e1";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "foot";
-      rev = "17e2bdc8a8d854e8d390919579f87ab7d5f86e38";
+      rev = "962ff1a5b6387bc5419e9788a773a080eea5f1e1";
       fetchSubmodules = false;
-      sha256 = "sha256-L5/HvBe4jGTHNSCxFL+xRh8CKYO3NLJ0ksVJIQxjsZA=";
+      sha256 = "sha256-eVH3BY2fZe0/OjqucM/IZthV8PMsM9XeIijOg8cNE1Y=";
     };
-    date = "2024-07-20";
+    date = "2024-09-25";
   };
   hyprland_background = {
     pname = "hyprland_background";
@@ -158,15 +158,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "030e586195c97424844965d2ce680140f6565c02";
+    version = "bd134ae2ed8921e58f36bd36612a82906fffd7de";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "030e586195c97424844965d2ce680140f6565c02";
+      rev = "bd134ae2ed8921e58f36bd36612a82906fffd7de";
       fetchSubmodules = false;
-      sha256 = "sha256-8zW6eWvE9T03cMpo/hY8RRZIsSCfs1zmsJOkEZzuYwM=";
+      sha256 = "sha256-7WYLxguYPJnmvj4FgmTZ4psrgF/nsW5oUBZ99m1JVyg=";
     };
-    date = "2024-06-27";
+    date = "2024-09-27";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
