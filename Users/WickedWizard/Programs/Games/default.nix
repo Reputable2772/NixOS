@@ -5,6 +5,5 @@
     ./lutris.nix
     ./mangohud.nix
     ./prismlauncher.nix
-    ./xonotic.nix
   ];
 }
