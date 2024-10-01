@@ -1,7 +1,5 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [
-    vesktop
+{
+  services.flatpak.packages = [
+    "dev.vencord.Vesktop"
   ];
-
-  # programs.autostart.packages = with pkgs; [ vesktop ];
 }
