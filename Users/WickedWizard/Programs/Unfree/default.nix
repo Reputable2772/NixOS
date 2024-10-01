@@ -5,6 +5,6 @@
     ./spotify.nix
     ./steam.nix
     ./telegram.nix
-    ./whatsapp.nix
+    # ./whatsapp.nix
   ];
 }
