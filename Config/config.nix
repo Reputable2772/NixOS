@@ -21,6 +21,7 @@ rec {
 
   system = {
     timezone = "Asia/Kolkata";
+    locale = "en_IN";
     hp-laptop = {
       secrets = {
         /**
