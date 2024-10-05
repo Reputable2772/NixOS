@@ -1,382 +1,382 @@
 {
-	"arr_scripts": {
-		"cargoLocks": null,
-		"date": "2024-09-16",
-		"extract": null,
-		"name": "arr_scripts",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "RandomNinjaAtk",
-			"repo": "arr-scripts",
-			"rev": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b",
-			"sha256": "sha256-0h7Ab/wZBSTD2x0xfIiFz4yixH0TD4VzD+cu0RT7GVg=",
-			"type": "github"
-		},
-		"version": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b"
-	},
-	"bottom_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-09-17",
-		"extract": null,
-		"name": "bottom_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "bottom",
-			"rev": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2",
-			"sha256": "sha256-Vi438I+YVvoD2xzq2t9hJ9R3a+2TlDdbakjFYFtjtXQ=",
-			"type": "github"
-		},
-		"version": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2"
-	},
-	"calibre_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-09-14",
-		"extract": null,
-		"name": "calibre_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "calibre",
-			"rev": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921",
-			"sha256": "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=",
-			"type": "github"
-		},
-		"version": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921"
-	},
-	"catppuccin_zsh_syntax_highlighting": {
-		"cargoLocks": null,
-		"date": "2024-07-20",
-		"extract": null,
-		"name": "catppuccin_zsh_syntax_highlighting",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "zsh-syntax-highlighting",
-			"rev": "7926c3d3e17d26b3779851a2255b95ee650bd928",
-			"sha256": "sha256-l6tztApzYpQ2/CiKuLBf8vI2imM6vPJuFdNDSEi7T/o=",
-			"type": "github"
-		},
-		"version": "7926c3d3e17d26b3779851a2255b95ee650bd928"
-	},
-	"dunst_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-07-20",
-		"extract": null,
-		"name": "dunst_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "dunst",
-			"rev": "f02cd2894411c9b4caa207cfd8ed6345f97c0455",
-			"sha256": "sha256-EadNqtF1m//blHkV660+d4YjDReVFU2Bzhs0Pb43jh4=",
-			"type": "github"
-		},
-		"version": "f02cd2894411c9b4caa207cfd8ed6345f97c0455"
-	},
-	"filen": {
-		"cargoLocks": null,
-		"date": null,
-		"extract": null,
-		"name": "filen",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"name": null,
-			"sha256": "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=",
-			"type": "url",
-			"url": "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
-		},
-		"version": "latest"
-	},
-	"firefox-gnome-theme": {
-		"cargoLocks": null,
-		"date": null,
-		"extract": null,
-		"name": "firefox-gnome-theme",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "rafaelmardojai",
-			"repo": "firefox-gnome-theme",
-			"rev": "v129",
-			"sha256": "sha256-MOE9NeU2i6Ws1GhGmppMnjOHkNLl2MQMJmGhaMzdoJM=",
-			"type": "github"
-		},
-		"version": "v129"
-	},
-	"foot_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-09-25",
-		"extract": null,
-		"name": "foot_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "foot",
-			"rev": "962ff1a5b6387bc5419e9788a773a080eea5f1e1",
-			"sha256": "sha256-eVH3BY2fZe0/OjqucM/IZthV8PMsM9XeIijOg8cNE1Y=",
-			"type": "github"
-		},
-		"version": "962ff1a5b6387bc5419e9788a773a080eea5f1e1"
-	},
-	"hyprland_background": {
-		"cargoLocks": null,
-		"date": null,
-		"extract": null,
-		"name": "hyprland_background",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"name": null,
-			"sha256": "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=",
-			"type": "url",
-			"url": "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png"
-		},
-		"version": "latest"
-	},
-	"hyprland_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-06-19",
-		"extract": null,
-		"name": "hyprland_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "hyprland",
-			"rev": "c388ac55563ddeea0afe9df79d4bfff0096b146b",
-			"sha256": "sha256-xSa/z0Pu+ioZ0gFH9qSo9P94NPkEMovstm1avJ7rvzM=",
-			"type": "github"
-		},
-		"version": "c388ac55563ddeea0afe9df79d4bfff0096b146b"
-	},
-	"hyprlock_background": {
-		"cargoLocks": null,
-		"date": null,
-		"extract": null,
-		"name": "hyprlock_background",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"name": null,
-			"sha256": "sha256-HRZYeKDmfA53kb3fZxuNWvR8cE96tLrqPZhX4+z4lZA=",
-			"type": "url",
-			"url": "https://raw.githubusercontent.com/zhichaoh/catppuccin-wallpapers/main/os/nix-black-4k.png"
-		},
-		"version": "latest"
-	},
-	"hyprlock_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-08-06",
-		"extract": null,
-		"name": "hyprlock_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "hyprlock",
-			"rev": "958e70b1cd8799defd16dee070d07f977d4fd76b",
-			"sha256": "sha256-l4CbAUeb/Tg603QnZ/VWxuGqRBztpHN0HLX/h8ndc5w=",
-			"type": "github"
-		},
-		"version": "958e70b1cd8799defd16dee070d07f977d4fd76b"
-	},
-	"joplin_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-06-21",
-		"extract": null,
-		"name": "joplin_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "joplin",
-			"rev": "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9",
-			"sha256": "sha256-H19iaemj7XWsd3r7OBvQinrNKMiYGl53ArIp49gZExs=",
-			"type": "github"
-		},
-		"version": "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9"
-	},
-	"nix-fast-build": {
-		"cargoLocks": null,
-		"date": "2024-09-27",
-		"extract": null,
-		"name": "nix-fast-build",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "Mic92",
-			"repo": "nix-fast-build",
-			"rev": "bd134ae2ed8921e58f36bd36612a82906fffd7de",
-			"sha256": "sha256-7WYLxguYPJnmvj4FgmTZ4psrgF/nsW5oUBZ99m1JVyg=",
-			"type": "github"
-		},
-		"version": "bd134ae2ed8921e58f36bd36612a82906fffd7de"
-	},
-	"obs_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-09-14",
-		"extract": null,
-		"name": "obs_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "obs",
-			"rev": "d90002a5315db3a43c39dc52c2a91a99c9330e1f",
-			"sha256": "sha256-rU4WTj+2E/+OblAeK0+nzJhisz2V2/KwHBiJVBRj+LQ=",
-			"type": "github"
-		},
-		"version": "d90002a5315db3a43c39dc52c2a91a99c9330e1f"
-	},
-	"prismlauncher_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-06-11",
-		"extract": null,
-		"name": "prismlauncher_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "prismlauncher",
-			"rev": "2edbdf5295bc3c12c3dd53b203ab91028fce2c54",
-			"sha256": "sha256-+yGrSZztf2sZ9frPT3ydIJDavo4eXs03cQWfdTAmn3w=",
-			"type": "github"
-		},
-		"version": "2edbdf5295bc3c12c3dd53b203ab91028fce2c54"
-	},
-	"rofi-bluetooth": {
-		"cargoLocks": null,
-		"date": "2023-02-03",
-		"extract": null,
-		"name": "rofi-bluetooth",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "nickclyde",
-			"repo": "rofi-bluetooth",
-			"rev": "9d91c048ff129819f4c6e9e48a17bd54343bbffb",
-			"sha256": "sha256-1Xe3QFThIvJDCUznDP5ZBzwZEMuqmxpDIV+BcVvQDG8=",
-			"type": "github"
-		},
-		"version": "9d91c048ff129819f4c6e9e48a17bd54343bbffb"
-	},
-	"rofi_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-06-20",
-		"extract": null,
-		"name": "rofi_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "rofi",
-			"rev": "b636a00fd40a7899a8206195464ae8b7f0450a6d",
-			"sha256": "sha256-zA8Zum19pDTgn0KdQ0gD2kqCOXK4OCHBidFpGwrJOqg=",
-			"type": "github"
-		},
-		"version": "b636a00fd40a7899a8206195464ae8b7f0450a6d"
-	},
-	"starship_catppuccin": {
-		"cargoLocks": null,
-		"date": "2024-08-16",
-		"extract": null,
-		"name": "starship_catppuccin",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"deepClone": false,
-			"fetchSubmodules": false,
-			"leaveDotGit": false,
-			"name": null,
-			"owner": "catppuccin",
-			"repo": "starship",
-			"rev": "3c4749512e7d552adf48e75e5182a271392ab176",
-			"sha256": "sha256-t/Hmd2dzBn0AbLUlbL8CBt19/we8spY5nMP0Z+VPMXA=",
-			"type": "github"
-		},
-		"version": "3c4749512e7d552adf48e75e5182a271392ab176"
-	},
-	"wickedwizard_picture": {
-		"cargoLocks": null,
-		"date": null,
-		"extract": null,
-		"name": "wickedwizard_picture",
-		"passthru": null,
-		"pinned": false,
-		"src": {
-			"name": null,
-			"sha256": "sha256-lagT6en5bMTeDsUmFFGMiFeg5O21RFUQez2Y0U8QYZU=",
-			"type": "url",
-			"url": "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg"
-		},
-		"version": "latest"
-	}
+    "arr_scripts": {
+        "cargoLocks": null,
+        "date": "2024-09-16",
+        "extract": null,
+        "name": "arr_scripts",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "RandomNinjaAtk",
+            "repo": "arr-scripts",
+            "rev": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b",
+            "sha256": "sha256-0h7Ab/wZBSTD2x0xfIiFz4yixH0TD4VzD+cu0RT7GVg=",
+            "type": "github"
+        },
+        "version": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b"
+    },
+    "bottom_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-09-17",
+        "extract": null,
+        "name": "bottom_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "bottom",
+            "rev": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2",
+            "sha256": "sha256-Vi438I+YVvoD2xzq2t9hJ9R3a+2TlDdbakjFYFtjtXQ=",
+            "type": "github"
+        },
+        "version": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2"
+    },
+    "calibre_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-09-14",
+        "extract": null,
+        "name": "calibre_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "calibre",
+            "rev": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921",
+            "sha256": "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=",
+            "type": "github"
+        },
+        "version": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921"
+    },
+    "catppuccin_zsh_syntax_highlighting": {
+        "cargoLocks": null,
+        "date": "2024-07-20",
+        "extract": null,
+        "name": "catppuccin_zsh_syntax_highlighting",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "zsh-syntax-highlighting",
+            "rev": "7926c3d3e17d26b3779851a2255b95ee650bd928",
+            "sha256": "sha256-l6tztApzYpQ2/CiKuLBf8vI2imM6vPJuFdNDSEi7T/o=",
+            "type": "github"
+        },
+        "version": "7926c3d3e17d26b3779851a2255b95ee650bd928"
+    },
+    "dunst_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-07-20",
+        "extract": null,
+        "name": "dunst_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "dunst",
+            "rev": "f02cd2894411c9b4caa207cfd8ed6345f97c0455",
+            "sha256": "sha256-EadNqtF1m//blHkV660+d4YjDReVFU2Bzhs0Pb43jh4=",
+            "type": "github"
+        },
+        "version": "f02cd2894411c9b4caa207cfd8ed6345f97c0455"
+    },
+    "filen": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "filen",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=",
+            "type": "url",
+            "url": "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
+        },
+        "version": "latest"
+    },
+    "firefox-gnome-theme": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "firefox-gnome-theme",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rafaelmardojai",
+            "repo": "firefox-gnome-theme",
+            "rev": "v131",
+            "sha256": "sha256-nf+0/UR5TZArp3Dn3NS3nB+ZGqecTOTOZRCFM3a1veM=",
+            "type": "github"
+        },
+        "version": "v131"
+    },
+    "foot_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-09-25",
+        "extract": null,
+        "name": "foot_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "foot",
+            "rev": "962ff1a5b6387bc5419e9788a773a080eea5f1e1",
+            "sha256": "sha256-eVH3BY2fZe0/OjqucM/IZthV8PMsM9XeIijOg8cNE1Y=",
+            "type": "github"
+        },
+        "version": "962ff1a5b6387bc5419e9788a773a080eea5f1e1"
+    },
+    "hyprland_background": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hyprland_background",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fmKFYw2gYAYFjOv4lr8IkXPtZfE1+88yKQ4vjEcax1s=",
+            "type": "url",
+            "url": "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png"
+        },
+        "version": "latest"
+    },
+    "hyprland_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-06-19",
+        "extract": null,
+        "name": "hyprland_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "hyprland",
+            "rev": "c388ac55563ddeea0afe9df79d4bfff0096b146b",
+            "sha256": "sha256-xSa/z0Pu+ioZ0gFH9qSo9P94NPkEMovstm1avJ7rvzM=",
+            "type": "github"
+        },
+        "version": "c388ac55563ddeea0afe9df79d4bfff0096b146b"
+    },
+    "hyprlock_background": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hyprlock_background",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-HRZYeKDmfA53kb3fZxuNWvR8cE96tLrqPZhX4+z4lZA=",
+            "type": "url",
+            "url": "https://raw.githubusercontent.com/zhichaoh/catppuccin-wallpapers/main/os/nix-black-4k.png"
+        },
+        "version": "latest"
+    },
+    "hyprlock_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-08-06",
+        "extract": null,
+        "name": "hyprlock_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "hyprlock",
+            "rev": "958e70b1cd8799defd16dee070d07f977d4fd76b",
+            "sha256": "sha256-l4CbAUeb/Tg603QnZ/VWxuGqRBztpHN0HLX/h8ndc5w=",
+            "type": "github"
+        },
+        "version": "958e70b1cd8799defd16dee070d07f977d4fd76b"
+    },
+    "joplin_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-06-21",
+        "extract": null,
+        "name": "joplin_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "joplin",
+            "rev": "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9",
+            "sha256": "sha256-H19iaemj7XWsd3r7OBvQinrNKMiYGl53ArIp49gZExs=",
+            "type": "github"
+        },
+        "version": "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9"
+    },
+    "nix-fast-build": {
+        "cargoLocks": null,
+        "date": "2024-10-05",
+        "extract": null,
+        "name": "nix-fast-build",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Mic92",
+            "repo": "nix-fast-build",
+            "rev": "2ba025eab61fe026a76bbab3579d1f051dde5275",
+            "sha256": "sha256-gYTZbNvQ7Gz29SRRzoJWHGzktEI6CqPBoXiPVIXdE9c=",
+            "type": "github"
+        },
+        "version": "2ba025eab61fe026a76bbab3579d1f051dde5275"
+    },
+    "obs_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-09-14",
+        "extract": null,
+        "name": "obs_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "obs",
+            "rev": "d90002a5315db3a43c39dc52c2a91a99c9330e1f",
+            "sha256": "sha256-rU4WTj+2E/+OblAeK0+nzJhisz2V2/KwHBiJVBRj+LQ=",
+            "type": "github"
+        },
+        "version": "d90002a5315db3a43c39dc52c2a91a99c9330e1f"
+    },
+    "prismlauncher_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-06-11",
+        "extract": null,
+        "name": "prismlauncher_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "prismlauncher",
+            "rev": "2edbdf5295bc3c12c3dd53b203ab91028fce2c54",
+            "sha256": "sha256-+yGrSZztf2sZ9frPT3ydIJDavo4eXs03cQWfdTAmn3w=",
+            "type": "github"
+        },
+        "version": "2edbdf5295bc3c12c3dd53b203ab91028fce2c54"
+    },
+    "rofi-bluetooth": {
+        "cargoLocks": null,
+        "date": "2023-02-03",
+        "extract": null,
+        "name": "rofi-bluetooth",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nickclyde",
+            "repo": "rofi-bluetooth",
+            "rev": "9d91c048ff129819f4c6e9e48a17bd54343bbffb",
+            "sha256": "sha256-1Xe3QFThIvJDCUznDP5ZBzwZEMuqmxpDIV+BcVvQDG8=",
+            "type": "github"
+        },
+        "version": "9d91c048ff129819f4c6e9e48a17bd54343bbffb"
+    },
+    "rofi_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-06-20",
+        "extract": null,
+        "name": "rofi_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "rofi",
+            "rev": "b636a00fd40a7899a8206195464ae8b7f0450a6d",
+            "sha256": "sha256-zA8Zum19pDTgn0KdQ0gD2kqCOXK4OCHBidFpGwrJOqg=",
+            "type": "github"
+        },
+        "version": "b636a00fd40a7899a8206195464ae8b7f0450a6d"
+    },
+    "starship_catppuccin": {
+        "cargoLocks": null,
+        "date": "2024-08-16",
+        "extract": null,
+        "name": "starship_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "starship",
+            "rev": "3c4749512e7d552adf48e75e5182a271392ab176",
+            "sha256": "sha256-t/Hmd2dzBn0AbLUlbL8CBt19/we8spY5nMP0Z+VPMXA=",
+            "type": "github"
+        },
+        "version": "3c4749512e7d552adf48e75e5182a271392ab176"
+    },
+    "wickedwizard_picture": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "wickedwizard_picture",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-lagT6en5bMTeDsUmFFGMiFeg5O21RFUQez2Y0U8QYZU=",
+            "type": "url",
+            "url": "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg"
+        },
+        "version": "latest"
+    }
 }
