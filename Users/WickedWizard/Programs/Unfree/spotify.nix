@@ -29,23 +29,32 @@ in
     ];
   };
 
-  # This is taken from https://github.com/Gerg-L/spicetify-nix/blob/master/pkgs/spicetify.nix
-  # to modify ~/.config/spicetify to be declarative, while simultaneously being able to
-  # be modded by spicetify.
+  /**
+    This is a modification of https://github.com/Gerg-L/spicetify-nix/blob/master/pkgs/spicetifyBuilder.nix
+    to use the declarative handling of dependencies done by the module, but modifying it such that
+    it is usable as a flatpak.
+
+    It copies over all the required build directories for spicetify, and changes locations to point
+    to the flatpak.
+   */
   xdg.configFile.spicetify = {
     enable = config.programs.spicetify.dontInstall;
     recursive = true;
     source = "${config.programs.spicetify.spicedSpotify.overrideAttrs (old: {
+      # ; is required since the string is terminated in the same line, in upstream.
       postInstall = (old.postInstall or "") + ''
-        mkdir -p $out/src $out/src/Backup
+        ;mkdir -p $out/src $out/src/Backup
         cp -r {Themes,Extensions,CustomApps} $out/src
+        cp -ra {jsHelper,css-map.json} $out/src
 
-        ln -s ${pkgs.spicetify-cli}/bin/jsHelper $out/src/jsHelper
-        ln -s ${pkgs.spicetify-cli.src}/css-map.json $out/src/css-map.json
-
-        sed "s|__SPOTIFY__|${config.xdg.dataHome}/flatpak/app/com.spotify.Client/current/active/files/extra/share/spotify|g; s|__PREFS__|${config.home.homeDirectory}/.var/app/com.spotify.Client/config/spotify/prefs|g" ${
-          pkgs.writeText "spicetify-confi-xpui" (lib.generators.toINI { } config.programs.spicetify.spicedSpotify.config-xpui)
-        } > $out/src/config-xpui.ini
+        sed "s|${
+          if pkgs.stdenv.isLinux then
+            "$out/share/spotify"
+          else if pkgs.stdenv.isDarwin then
+            "$out/Applications/Spotify.app/Contents/Resources"
+          else
+            throw ""
+        }|${config.xdg.dataHome}/flatpak/app/com.spotify.Client/current/active/files/extra/share/spotify|g; s|$SPICETIFY_CONFIG/prefs|${config.home.homeDirectory}/.var/app/com.spotify.Client/config/spotify/prefs|g" config-xpui.ini > $out/src/config-xpui.ini
       '';
     })}/src";
   };
