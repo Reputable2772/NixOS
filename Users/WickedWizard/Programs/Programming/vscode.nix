@@ -16,6 +16,7 @@
       catppuccin.catppuccin-vsc-icons
       catppuccin.catppuccin-vsc
       pkief.material-icon-theme
+      rust-lang.rust-analyzer
       # arcticicestudio.nord-visual-studio-code
       mkhl.direnv
       oderwat.indent-rainbow
