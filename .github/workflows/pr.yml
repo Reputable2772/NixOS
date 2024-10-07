@@ -31,8 +31,8 @@ jobs:
     - name: "Build both closures"
       id: build
       run: |
-        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}/${{ github.base_ref }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"
-        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_new --flake github:${{ github.repository }}/${{ github.head_ref }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"
+        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"
+        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_new --flake .#nixosConfigurations.hp-laptop.config.system.build.toplevel"
         mv result_old- result_old
         mv result_new- result_new
 
