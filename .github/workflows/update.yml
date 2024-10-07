@@ -38,6 +38,7 @@ jobs:
       run: |
         echo "commit_msg=$(echo "chore: update flake.lock & sources ($(date -I))")" >> "$GITHUB_OUTPUT"
         echo "date_week=$(date +%V)" >> "$GITHUB_OUTPUT"
+        echo "date_year=$(date +%Y)" >> "$GITHUB_OUTPUT"
         echo "body_file=$PWD/changelog.txt" >> "$GITHUB_OUTPUT"
 
         echo "Automated Pull Request for Week $(date +%V)" > changelog.txt
@@ -65,5 +66,5 @@ jobs:
           flake.lock
         signoff: true
         delete-branch: true
-        branch: flake-update/${{ steps.changelog.outputs.date_week }}
+        branch: flake-update/${{ steps.changelog.outputs.date_year }}-${{ steps.changelog.outputs.date_week }}
         body-path: ${{ steps.changelog.outputs.body_file }}
