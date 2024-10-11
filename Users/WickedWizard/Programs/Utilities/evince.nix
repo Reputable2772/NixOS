@@ -1,6 +1,19 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [ evince ];
 
+  dconf.settings."org/gnome/evince/default" = {
+    continuous = true;
+    dual-page = false;
+    dual-page-odd-left = false;
+    enable-spellchecking = true;
+    fullscreen = false;
+    inverted-colors = true;
+    show-sidebar = true;
+    sidebar-page = "thumbnails";
+    sidebar-size = 194;
+    sizing-mode = "fit-width";
+  };
+
   xdg.mimeApps.defaultApplications = {
     "application/vnd.comicbook-rar" = "org.gnome.Evince.desktop";
     "application/vnd.comicbook+zip" = "org.gnome.Evince.desktop";
