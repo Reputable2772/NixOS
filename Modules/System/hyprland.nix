@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.programs.hyprland;
   inherit (lib.modules) mkMerge mkIf;
@@ -15,12 +15,6 @@ in
         https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/programs/wayland/hyprland.nix#L63-L68
       */
       programs.hyprland.systemd.setPath.enable = false;
-
-      xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-        xdgOpenUsePortal = true;
-      };
 
       programs.xfconf.enable = true;
       services.gvfs.enable = true;
