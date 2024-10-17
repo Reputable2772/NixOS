@@ -195,6 +195,7 @@ rec {
               "Books:/books"
               "Important-Files:/important-files"
               "Joplin:/joplin"
+              "Study-Materials:/study-materials"
             ];
           };
         };
