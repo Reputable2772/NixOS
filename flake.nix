@@ -4,7 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # Packages are effectively in cache.nixos.org as soon as they are built by Hydra.
     # So I don't think this requires that many builds from source.
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {

@@ -1,7 +1,6 @@
-{ config, config', inputs, pkgs, lib, ... }: {
+{ config, config', lib, ... }: {
   programs.librewolf = {
     enable = true;
-    package = inputs.nixpkgs-master.legacyPackages.${pkgs.system}.librewolf;
     settings = {
       "privacy.resistFingerprinting.letterboxing" = true;
       "network.http.referer.XOriginPolicy" = 2;

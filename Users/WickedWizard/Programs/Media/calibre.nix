@@ -1,9 +1,10 @@
-{ pkgs, sources, ... }:
+{ inputs, pkgs, sources, ... }:
 let
   catppuccin-calibre = pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix { inherit sources; };
 in
 {
-  home.packages = with pkgs; [ calibre ];
+  # NixOS/nixpkgs#348845
+  home.packages = [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.calibre ];
 
   xdg.mimeApps.defaultApplications = {
     "image/vnd.djvu" = "calibre-ebook-viewer.desktop";
