@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2024-09-16",
+        "date": "2024-10-16",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b",
-            "sha256": "sha256-0h7Ab/wZBSTD2x0xfIiFz4yixH0TD4VzD+cu0RT7GVg=",
+            "rev": "f7c59f85192b771e16cc9f52aaf06289136ee0d7",
+            "sha256": "sha256-IjGuhXmaLLewYhja7pUo2+RIQ8rwK1K2FzQ5q8PSuDg=",
             "type": "github"
         },
-        "version": "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b"
+        "version": "f7c59f85192b771e16cc9f52aaf06289136ee0d7"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
