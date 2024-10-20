@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b";
+    version = "f7c59f85192b771e16cc9f52aaf06289136ee0d7";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "ef8fc991dba53381c7a2c12fb844a31aa41c7e7b";
+      rev = "f7c59f85192b771e16cc9f52aaf06289136ee0d7";
       fetchSubmodules = false;
-      sha256 = "sha256-0h7Ab/wZBSTD2x0xfIiFz4yixH0TD4VzD+cu0RT7GVg=";
+      sha256 = "sha256-IjGuhXmaLLewYhja7pUo2+RIQ8rwK1K2FzQ5q8PSuDg=";
     };
-    date = "2024-09-16";
+    date = "2024-10-16";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
