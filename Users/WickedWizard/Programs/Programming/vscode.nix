@@ -9,37 +9,39 @@
   programs.vscode = {
     package = pkgs.vscodium;
     enable = true;
-    extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-      eamodio.gitlens
-      github.vscode-github-actions
-      editorconfig.editorconfig
-      catppuccin.catppuccin-vsc-icons
-      catppuccin.catppuccin-vsc
-      pkief.material-icon-theme
-      rust-lang.rust-analyzer
-      # arcticicestudio.nord-visual-studio-code
-      mkhl.direnv
-      oderwat.indent-rainbow
-      jnoortheen.nix-ide
-      usernamehw.errorlens
-    ];
-    userSettings = {
-      "editor.minimap.enabled" = false;
-      "explorer.confirmDragAndDrop" = false;
-      "diffEditor.ignoreTrimWhitespace" = false;
-      "editor.formatOnSave" = true;
-      "editor.formatOnType" = true;
-      "editor.formatOnPaste" = true;
+    profiles.default = {
+      extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+        eamodio.gitlens
+        github.vscode-github-actions
+        editorconfig.editorconfig
+        catppuccin.catppuccin-vsc-icons
+        catppuccin.catppuccin-vsc
+        pkief.material-icon-theme
+        rust-lang.rust-analyzer
+        # arcticicestudio.nord-visual-studio-code
+        mkhl.direnv
+        oderwat.indent-rainbow
+        jnoortheen.nix-ide
+        usernamehw.errorlens
+      ];
+      userSettings = {
+        "editor.minimap.enabled" = false;
+        "explorer.confirmDragAndDrop" = false;
+        "diffEditor.ignoreTrimWhitespace" = false;
+        "editor.formatOnSave" = true;
+        "editor.formatOnType" = true;
+        "editor.formatOnPaste" = true;
 
-      # Catppuccin
-      "catppuccin.italicKeywords" = true;
-      "catppuccin.boldKeywords" = true;
-      "catppuccin.italicComments" = true;
-      "workbench.iconTheme" = "material-icon-theme";
-      "workbench.colorTheme" = "Catppuccin Mocha";
-      "editor.semanticHighlighting.enabled" = true;
-      "terminal.integrated.minimumContrastRatio" = 1;
-      "window.titleBarStyle" = "custom";
+        # Catppuccin
+        "catppuccin.italicKeywords" = true;
+        "catppuccin.boldKeywords" = true;
+        "catppuccin.italicComments" = true;
+        "workbench.iconTheme" = "material-icon-theme";
+        "workbench.colorTheme" = "Catppuccin Mocha";
+        "editor.semanticHighlighting.enabled" = true;
+        "terminal.integrated.minimumContrastRatio" = 1;
+        "window.titleBarStyle" = "custom";
+      };
     };
   };
 
