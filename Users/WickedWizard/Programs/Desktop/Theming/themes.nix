@@ -1,14 +1,14 @@
 { pkgs, lib, config, ... }:
 let
   # Also known as flavor
-  variant = "Mocha";
-  accent = "Blue";
+  variant = "mocha";
+  accent = "blue";
 
   # Only for Catppuccin GTK
   tweaks = [ ];
   size = "standard";
 
-  inherit (lib.strings) concatStringsSep optionalString toLower;
+  inherit (lib.strings) concatStringsSep optionalString;
   inherit (lib.modules) mkForce;
 
   qt_theme = pkgs.catppuccin-kvantum.override {
@@ -16,8 +16,8 @@ let
   };
   gtk_theme = pkgs.catppuccin-gtk.override {
     inherit size tweaks;
-    accents = [ (toLower accent) ];
-    variant = toLower variant;
+    accents = [ accent ];
+    variant = variant;
   };
 in
 {
@@ -27,17 +27,17 @@ in
   };
 
   gtk.theme = {
-    name = "catppuccin-${toLower variant}-${toLower accent}-${size}" + optionalString (tweaks != [ ]) ("+" + concatStringsSep "," tweaks);
+    name = "catppuccin-${variant}-${accent}-${size}" + optionalString (tweaks != [ ]) ("+" + concatStringsSep "," tweaks);
     package = gtk_theme;
   };
 
   xdg.configFile = {
     # Set theme name
     "Kvantum/kvantum.kvconfig".text = ''
-      theme=Catppuccin-${variant}-${accent}
+      theme=catppuccin-${variant}-${accent}
     '';
     # Symlink theme directory
-    "Kvantum/Catppuccin-${variant}-${accent}".source = "${qt_theme}/share/Kvantum/Catppuccin-${variant}-${accent}";
+    "Kvantum/catppuccin-${variant}-${accent}".source = "${qt_theme}/share/Kvantum/catppuccin-${variant}-${accent}";
   };
 
   dconf.settings."org/gnome/desktop/interface" = {
