@@ -35,6 +35,7 @@ jobs:
       # mv result_old- result_old
       # mv result_new- result_new
       run: |
+        ./nix.sh ci_increase_storage
         nix build --out-link result_old github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel
         nix build --out-link result_new .#nixosConfigurations.hp-laptop.config.system.build.toplevel
 
