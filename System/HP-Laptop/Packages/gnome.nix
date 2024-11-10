@@ -8,6 +8,9 @@
     gnome-console
     gnome-calculator
     gnome-tour
+    gnome-maps
+    epiphany
+    snapshot
     cheese
     gnome-music
     geary
