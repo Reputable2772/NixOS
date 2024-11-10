@@ -30,11 +30,14 @@ jobs:
 
     - name: "Build both closures"
       id: build
+      # nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"
+      # nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_new --flake .#nixosConfigurations.hp-laptop.config.system.build.toplevel"
+      # mv result_old- result_old
+      # mv result_new- result_new
       run: |
-        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"
-        nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_new --flake .#nixosConfigurations.hp-laptop.config.system.build.toplevel"
-        mv result_old- result_old
-        mv result_new- result_new
+        ./nix.sh ci_increase_storage
+        nix build --out-link result_old github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel
+        nix build --out-link result_new .#nixosConfigurations.hp-laptop.config.system.build.toplevel
 
     - name: "Diff Profile Closures"
       id: profile-diff
