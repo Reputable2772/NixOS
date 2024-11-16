@@ -206,15 +206,15 @@
   };
   starship_catppuccin = {
     pname = "starship_catppuccin";
-    version = "3c4749512e7d552adf48e75e5182a271392ab176";
+    version = "31b224a6408015d1e17a5766de6b764cf9af3c1c";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "starship";
-      rev = "3c4749512e7d552adf48e75e5182a271392ab176";
+      rev = "31b224a6408015d1e17a5766de6b764cf9af3c1c";
       fetchSubmodules = false;
-      sha256 = "sha256-t/Hmd2dzBn0AbLUlbL8CBt19/we8spY5nMP0Z+VPMXA=";
+      sha256 = "sha256-TjcoBlgmRoqXKdXH/eC5dWk7uqUSkvyV4ir9WqFR1pY=";
     };
-    date = "2024-08-16";
+    date = "2024-11-11";
   };
   wickedwizard_picture = {
     pname = "wickedwizard_picture";
