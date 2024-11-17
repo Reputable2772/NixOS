@@ -51,7 +51,7 @@ jobs:
       id: vulnix
       run: |
         echo "Vulnerabilities in closure: " >> comment.txt
-        nix shell nixpkgs#vulnix --command bash -c "vulnix -C ./result_new 2>&1 | tee -a comment.txt"
+        nix shell nixpkgs#vulnix --command bash -c "vulnix ./result_new 2>&1 | tee -a comment.txt"
 
     - name: PR comment with file
       uses: thollander/actions-comment-pull-request@v2
