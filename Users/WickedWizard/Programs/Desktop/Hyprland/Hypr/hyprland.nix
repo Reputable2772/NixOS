@@ -81,10 +81,12 @@
 
       decoration = {
         rounding = 8;
-        drop_shadow = "yes";
-        shadow_range = 8;
-        shadow_render_power = 2;
-        "col.shadow" = "rgba($baseAlpha99)";
+        shadow = {
+          enabled = true;
+          color = "rgba($baseAlpha99)";
+          render_power = 2;
+          range = 8;
+        };
         dim_inactive = false;
         blur = {
           enabled = true;
@@ -100,12 +102,10 @@
       dwindle = {
         pseudotile = "yes";
         preserve_split = "yes";
-        no_gaps_when_only = false;
       };
 
       master = {
         new_on_top = true;
-        no_gaps_when_only = false;
       };
 
       gestures = {
