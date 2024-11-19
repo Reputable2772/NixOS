@@ -78,3 +78,7 @@ fetch.github = "catppuccin/joplin"
 [hyprland_background]
 src.manual = "latest"
 fetch.url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png"
+
+[eza_themes]
+src.git = "https://github.com/eza-community/eza-themes.git"
+fetch.github = "eza-community/eza-themes"

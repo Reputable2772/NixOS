@@ -1,11 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     dnsutils
-    eza
     rmtrash
-
-    # Required by eza.
-    nerdfonts
   ];
 
   # Required for eza
@@ -15,7 +11,6 @@
     enable = true;
     enableCompletion = true;
     shellAliases = {
-      ls = "eza -al --color=always --group-directories-first --icons";
       ip = "ip -color";
       rm = "rmtrash";
       rmdir = "rmtrash";
