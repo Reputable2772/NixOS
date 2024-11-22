@@ -1,9 +1,7 @@
 {
   description = "Nix Flakes for my System.";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # Packages are effectively in cache.nixos.org as soon as they are built by Hydra.
-    # So I don't think this requires that many builds from source.
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
     agenix = {
       url = "github:ryantm/agenix";
@@ -101,13 +99,13 @@
           inherit (lib.strings) hasSuffix;
         in
         {
-          formatter = pkgs.nixpkgs-fmt;
+          formatter = pkgs.nixfmt-rfc-style;
 
           # Installation hooks need to setup manually in each devshell.
           pre-commit.check.enable = true;
           pre-commit.settings.hooks = {
             commitizen.enable = true;
-            nixpkgs-fmt.enable = true;
+            nixfmt-rfc-style.enable = true;
           };
 
           devshells = mapAttrs
