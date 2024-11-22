@@ -17,7 +17,9 @@ in
     sessionVariables = mkOption {
       default = { };
       type = types.attrs;
-      example = { TEST = 30; };
+      example = {
+        TEST = 30;
+      };
       description = ''
         Environment variables that will be set for the shell session.
       '';
@@ -68,7 +70,13 @@ in
   config =
     let
       base = {
-        inherit (cfg) enable sessionVariables shellAliases enableCompletion profileExtra;
+        inherit (cfg)
+          enable
+          sessionVariables
+          shellAliases
+          enableCompletion
+          profileExtra
+          ;
       };
     in
     {

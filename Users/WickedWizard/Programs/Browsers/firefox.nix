@@ -1,6 +1,16 @@
-{ config, config', lib', pkgs, lib, sources, ... }:
+{
+  config,
+  config',
+  lib',
+  pkgs,
+  lib,
+  sources,
+  ...
+}:
 let
-  firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix { inherit sources; };
+  firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix {
+    inherit sources;
+  };
 in
 {
   home.packages = [ firefox-gnome-theme ];
@@ -9,9 +19,9 @@ in
     profiles."default" = {
       isDefault = true;
       name = "default";
-      path = lib.mkIf
-        (config'.dir ? browsers)
-        (lib'.absoluteToRelativePath "${config'.dir.browsers}/Firefox/" "${config.home.homeDirectory}/.mozilla/firefox/");
+      path = lib.mkIf (config'.dir ? browsers) (
+        lib'.absoluteToRelativePath "${config'.dir.browsers}/Firefox/" "${config.home.homeDirectory}/.mozilla/firefox/"
+      );
       userChrome = ''
         @import "${firefox-gnome-theme}/share/firefox-gnome-theme/userChrome.css";
       '';

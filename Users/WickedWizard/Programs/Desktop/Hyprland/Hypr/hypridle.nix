@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   services.hypridle = {
     inherit (config.wayland.windowManager.hyprland) enable;
     settings = {

@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   services.power-profiles-daemon.enable = lib.mkForce (!config.programs.hyprland.enable);
   services.auto-cpufreq = {
     enable = config.programs.hyprland.enable;

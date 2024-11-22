@@ -1,4 +1,10 @@
-{ config, config', lib, ... }: {
+{
+  config,
+  config',
+  lib,
+  ...
+}:
+{
   programs.librewolf = {
     enable = true;
     settings = {

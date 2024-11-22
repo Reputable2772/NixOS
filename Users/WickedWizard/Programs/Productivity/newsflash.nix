@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [ newsflash ];
 
   wayland.windowManager.hyprland.settings.windowrulev2 = [

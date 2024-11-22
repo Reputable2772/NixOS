@@ -1,4 +1,10 @@
-{ inputs, config, config', lib, ... }:
+{
+  inputs,
+  config,
+  config',
+  lib,
+  ...
+}:
 let
   inherit (lib.attrsets) attrValues filterAttrs mapAttrs;
 in

@@ -1,4 +1,13 @@
-{ config, config', pkgs, inputs, lib, lib', sources, ... }:
+{
+  config,
+  config',
+  pkgs,
+  inputs,
+  lib,
+  lib',
+  sources,
+  ...
+}:
 {
   # Needs to be set here or else shell won't work
   programs.zsh.enable = true;
@@ -15,7 +24,13 @@
     # Description of all users should container their folder name.
     description = "WickedWizard";
     # Fixes https://github.com/GPUOpen-Drivers/AMDVLK/issues/310
-    extraGroups = [ "wheel" "networkmanager" "input" "video" "render" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "input"
+      "video"
+      "render"
+    ];
     shell = pkgs.zsh;
     hashedPasswordFile = config.age.secrets.wickedwizardPassword.path;
   };

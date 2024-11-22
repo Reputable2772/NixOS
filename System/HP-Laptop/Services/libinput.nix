@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   services.libinput = {
     enable = true;
     mouse = lib.mkForce {

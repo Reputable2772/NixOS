@@ -1,13 +1,23 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   hyprland = config.wayland.windowManager.hyprland.enable;
 in
 {
-  home.packages = (with pkgs; [ tesseract ]) ++ (lib.optionals hyprland (with pkgs; [
-    grim
-    slurp
-    swappy
-  ]));
+  home.packages =
+    (with pkgs; [ tesseract ])
+    ++ (lib.optionals hyprland (
+      with pkgs;
+      [
+        grim
+        slurp
+        swappy
+      ]
+    ));
 
   services.flameshot = {
     enable = !hyprland;

@@ -1,4 +1,9 @@
-{ config, sources, lib', ... }:
+{
+  config,
+  sources,
+  lib',
+  ...
+}:
 {
   services.dunst = {
     inherit (config.wayland.windowManager.hyprland) enable;

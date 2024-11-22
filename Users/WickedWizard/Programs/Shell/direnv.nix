@@ -1,4 +1,5 @@
-{ pkgs, osConfig, ... }: {
+{ pkgs, osConfig, ... }:
+{
   programs.direnv = {
     enable = true;
     nix-direnv = {

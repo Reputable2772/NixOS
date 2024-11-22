@@ -1,4 +1,10 @@
-{ osConfig, pkgs, sources, ... }: {
+{
+  osConfig,
+  pkgs,
+  sources,
+  ...
+}:
+{
   wayland.windowManager.hyprland = {
     inherit (osConfig.programs.hyprland) enable;
     systemd.enableXdgAutostart = true;
@@ -92,7 +98,7 @@
           enabled = true;
           size = 8;
           passes = 3;
-          noise = 0.012;
+          noise = 1.2e-2;
           contrast = 0.89;
           brightness = 0.85;
           xray = true;

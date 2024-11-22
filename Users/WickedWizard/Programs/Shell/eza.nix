@@ -1,4 +1,5 @@
-{ pkgs, sources, ... }: {
+{ pkgs, sources, ... }:
+{
   home.packages = with pkgs; [ nerdfonts ];
 
   programs.eza = {

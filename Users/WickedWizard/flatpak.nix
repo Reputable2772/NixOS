@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   services.flatpak = {
     enable = true;
     update.onActivation = true;

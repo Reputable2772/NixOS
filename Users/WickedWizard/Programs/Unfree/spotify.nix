@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   inherit (inputs) spicetify-nix;
   spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
@@ -18,7 +24,8 @@ in
     colorScheme = "mocha";
     alwaysEnableDevTools = true;
     # Flatpak takes care of this.
-    windowManagerPatch = config.wayland.windowManager.hyprland.enable && !config.programs.spicetify.dontInstall;
+    windowManagerPatch =
+      config.wayland.windowManager.hyprland.enable && !config.programs.spicetify.dontInstall;
 
     enabledExtensions = with spicePkgs.extensions; [
       autoVolume
@@ -36,39 +43,45 @@ in
 
     It copies over all the required build directories for spicetify, and changes locations to point
     to the flatpak.
-   */
+  */
   xdg.configFile.spicetify = {
     enable = config.programs.spicetify.dontInstall;
     recursive = true;
-    source = "${config.programs.spicetify.spicedSpotify.overrideAttrs (old: {
-      # ; is required since the string is terminated in the same line, in upstream.
-      postInstall = (old.postInstall or "") + ''
-        ;mkdir -p $out/src $out/src/Backup
-        cp -r {Themes,Extensions,CustomApps} $out/src
-        cp -ra {jsHelper,css-map.json} $out/src
+    source = "${
+      config.programs.spicetify.spicedSpotify.overrideAttrs (old: {
+        # ; is required since the string is terminated in the same line, in upstream.
+        postInstall =
+          (old.postInstall or "")
+          + ''
+            ;mkdir -p $out/src $out/src/Backup
+            cp -r {Themes,Extensions,CustomApps} $out/src
+            cp -ra {jsHelper,css-map.json} $out/src
 
-        sed "s|${
-          if pkgs.stdenv.isLinux then
-            "$out/share/spotify"
-          else if pkgs.stdenv.isDarwin then
-            "$out/Applications/Spotify.app/Contents/Resources"
-          else
-            throw ""
-        }|${config.xdg.dataHome}/flatpak/app/com.spotify.Client/current/active/files/extra/share/spotify|g; s|$SPICETIFY_CONFIG/prefs|${config.home.homeDirectory}/.var/app/com.spotify.Client/config/spotify/prefs|g" config-xpui.ini > $out/src/config-xpui.ini
-      '';
-    })}/src";
+            sed "s|${
+              if pkgs.stdenv.isLinux then
+                "$out/share/spotify"
+              else if pkgs.stdenv.isDarwin then
+                "$out/Applications/Spotify.app/Contents/Resources"
+              else
+                throw ""
+            }|${config.xdg.dataHome}/flatpak/app/com.spotify.Client/current/active/files/extra/share/spotify|g; s|$SPICETIFY_CONFIG/prefs|${config.home.homeDirectory}/.var/app/com.spotify.Client/config/spotify/prefs|g" config-xpui.ini > $out/src/config-xpui.ini
+          '';
+      })
+    }/src";
   };
 
   programs.autostart.packages = [
-    (if config.programs.spicetify.dontInstall then
-      (pkgs.makeDesktopItem {
-        name = "Spotify";
-        exec = "flatpak run com.spotify.Client";
-        desktopName = "spotify";
-        categories = [ "Applications" ];
-      })
-    else
-      pkgs.spotify)
+    (
+      if config.programs.spicetify.dontInstall then
+        (pkgs.makeDesktopItem {
+          name = "Spotify";
+          exec = "flatpak run com.spotify.Client";
+          desktopName = "spotify";
+          categories = [ "Applications" ];
+        })
+      else
+        pkgs.spotify
+    )
   ];
 
   wayland.windowManager.hyprland.settings.windowrulev2 = [

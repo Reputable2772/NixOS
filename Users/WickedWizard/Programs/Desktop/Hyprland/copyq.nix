@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   home.packages = lib.optionals config.wayland.windowManager.hyprland.enable [
     pkgs.wl-clipboard
     pkgs.copyq

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   # TODO: KDE Connect, Preview, GTKHash for Nemo.
 
   home.packages = lib.optional config.wayland.windowManager.hyprland.enable pkgs.nemo-with-extensions;

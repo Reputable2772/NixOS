@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   # Qt applications are cool.
   # https://wiki.archlinux.org/title/Cursor_themes#Qt
 

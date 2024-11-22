@@ -1,4 +1,5 @@
-{ pkgs, sources, ... }: {
+{ pkgs, sources, ... }:
+{
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [

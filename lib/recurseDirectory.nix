@@ -8,5 +8,7 @@ in
 folder: ext:
 lib.pipe (builtins.readDir folder) [
   (filterAttrs (n: v: v == "regular"))
-  (mapAttrs' (name: path: nameValuePair (if ext then name else removeSuffix ".nix" name) (folder + "/${name}")))
+  (mapAttrs' (
+    name: path: nameValuePair (if ext then name else removeSuffix ".nix" name) (folder + "/${name}")
+  ))
 ]

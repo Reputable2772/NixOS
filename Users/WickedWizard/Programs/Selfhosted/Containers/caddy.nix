@@ -1,4 +1,11 @@
-{ osConfig, config, config', lib, pkgs, ... }:
+{
+  osConfig,
+  config,
+  config',
+  lib,
+  pkgs,
+  ...
+}:
 let
   utils = import ./utils.nix { inherit config config' lib; };
   caddyFile = pkgs.writeText "Caddyfile" ''
@@ -103,8 +110,8 @@ in
     };
   };
 
-  programs.quadlets.quadlets."caddy.container" = (lib.attrsets.recursiveUpdate
-    {
+  programs.quadlets.quadlets."caddy.container" =
+    (lib.attrsets.recursiveUpdate {
       Container = {
         Image = "localhost/caddy";
         Network = "systemd-caddy";
@@ -112,19 +119,20 @@ in
           "80:80"
           "443:443"
         ];
-        Volume = [
-          "${caddyFile}:/etc/caddy/Caddyfile"
-        ] ++ utils.mapVolume "caddy" [
-          "config:/config"
-          "data:/data"
-        ];
+        Volume =
+          [
+            "${caddyFile}:/etc/caddy/Caddyfile"
+          ]
+          ++ utils.mapVolume "caddy" [
+            "config:/config"
+            "data:/data"
+          ];
       } // utils.appendEnv "caddy";
-    }
-    (utils.containerDefaults "caddy" "systemd-caddy")
-  ) // {
-    Unit = {
-      After = [ "caddy-image.service" ];
-      Requires = [ "caddy-image.service" ];
+    } (utils.containerDefaults "caddy" "systemd-caddy"))
+    // {
+      Unit = {
+        After = [ "caddy-image.service" ];
+        Requires = [ "caddy-image.service" ];
+      };
     };
-  };
 }

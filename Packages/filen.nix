@@ -1,10 +1,11 @@
 # Taken from https://github.com/NixOS/nixpkgs/pull/243693#issuecomment-1957252695 and modified
 
-{ lib
-, makeWrapper
-, appimageTools
-, libappindicator-gtk3
-, sources
+{
+  lib,
+  makeWrapper,
+  appimageTools,
+  libappindicator-gtk3,
+  sources,
 }:
 let
   pname = "filen-desktop";

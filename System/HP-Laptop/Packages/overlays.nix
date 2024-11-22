@@ -1,5 +1,9 @@
-{ inputs, ... }: {
-  nixpkgs.overlays = with inputs; [
-    nur.overlay
-  ] ++ import ../../../Overlays;
+{ inputs, ... }:
+{
+  nixpkgs.overlays =
+    with inputs;
+    [
+      nur.overlay
+    ]
+    ++ import ../../../Overlays;
 }

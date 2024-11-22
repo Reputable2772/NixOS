@@ -1,4 +1,8 @@
-{ home ? "", games ? "" }: {
+{
+  home ? "",
+  games ? "",
+}:
+{
   backup = {
     filter = {
       cloud = {
@@ -50,9 +54,19 @@
     toggledRegistry = { };
   };
   roots = [
-    { path = "${home}/.local/share/Steam"; store = "steam"; }
-    { path = "${home}/.config/heroic"; store = "heroic"; }
-    { database = "${home}/.local/share/lutris/pga.db"; path = "${home}/.local/share/lutris"; store = "lutris"; }
+    {
+      path = "${home}/.local/share/Steam";
+      store = "steam";
+    }
+    {
+      path = "${home}/.config/heroic";
+      store = "heroic";
+    }
+    {
+      database = "${home}/.local/share/lutris/pga.db";
+      path = "${home}/.local/share/lutris";
+      store = "lutris";
+    }
   ];
   runtime.threads = null;
   scan = {

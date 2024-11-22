@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   # TODO: Declaratively configure rules.
   services.opensnitch.enable = false;
 

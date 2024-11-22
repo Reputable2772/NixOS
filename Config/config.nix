@@ -6,7 +6,9 @@
 
   All the keys are added to ssh-agent using KeePassXC.
 */
-{ _home ? { } }:
+{
+  _home ? { },
+}:
 rec {
   flake = {
     dir = rec {
@@ -25,13 +27,13 @@ rec {
     hp-laptop = {
       secrets = {
         /**
-        The SSH Keys for encrypting system related secrets.
-        This key should not have password, since age(nix) doesn't support using ssh-agent.
-        If you do set a password, it should be entered everytime the system is booted up,
-        or everytime you switch configurations.
+          The SSH Keys for encrypting system related secrets.
+          This key should not have password, since age(nix) doesn't support using ssh-agent.
+          If you do set a password, it should be entered everytime the system is booted up,
+          or everytime you switch configurations.
 
-        Note: If you set a password for this, you most probably cannot use any
-        deployment tools like cachix-deploy, colmena, etc.
+          Note: If you set a password for this, you most probably cannot use any
+          deployment tools like cachix-deploy, colmena, etc.
         */
         encryption = {
           pkeyfile = "${flake.dir.config}/SSH/Encryption/Encryption";
@@ -60,31 +62,36 @@ rec {
       /**
         There needs to be a corresponding age file, with the name
         `user-backup.age`, use system encryption keys only.
-       */
+      */
       backup = rec {
         # Internal variables
         base = "${home}/Documents";
 
         repository = "${base}/Backup";
         paths = {
-          include = map (x: "${base}/${x}") [
-            "Android"
-            "Applications"
-            "Books"
-            "Browsers"
-            "Coding"
-            "Config"
-            "Games/Linux/Minecraft"
-            "Games/Saves"
-            "Important-Files"
-            "Joplin"
-          ] ++ [
-            "/mnt/Windows/Backup"
-          ];
+          include =
+            map (x: "${base}/${x}") [
+              "Android"
+              "Applications"
+              "Books"
+              "Browsers"
+              "Coding"
+              "Config"
+              "Games/Linux/Minecraft"
+              "Games/Saves"
+              "Important-Files"
+              "Joplin"
+            ]
+            ++ [
+              "/mnt/Windows/Backup"
+            ];
           exclude = [ ];
         };
         # Ludusavi is a backup tool for Games.
-        ludusavi = import ./ludusavi.nix { inherit home; games = "${base}/Games"; };
+        ludusavi = import ./ludusavi.nix {
+          inherit home;
+          games = "${base}/Games";
+        };
       };
 
       # Drives or gocryptfs locations to mount.
@@ -145,7 +152,11 @@ rec {
           # Setting it to null or omitting it will use the default directory
           dir = null;
           # A list of all the agenix file names to be used, without the age suffix.
-          envFiles = [ "duckdns" "domains" "email" ];
+          envFiles = [
+            "duckdns"
+            "domains"
+            "email"
+          ];
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
         };
@@ -169,22 +180,41 @@ rec {
         lidarr = {
           dir = null;
           envFiles = [ ];
-          env = [ "TZ=${system.timezone}" "PUID=0" "PGID=0" ];
+          env = [
+            "TZ=${system.timezone}"
+            "PUID=0"
+            "PGID=0"
+          ];
         };
         qbittorrent = {
           dir = null;
           envFiles = null;
-          env = [ "TZ=${system.timezone}" "WEBUI_PORT=8516" "PUID=0" "PGID=0" "TORRENTING_PORT=61851" ];
+          env = [
+            "TZ=${system.timezone}"
+            "WEBUI_PORT=8516"
+            "PUID=0"
+            "PGID=0"
+            "TORRENTING_PORT=61851"
+          ];
         };
         vaultwarden = {
           dir = null;
           envFiles = [ "push-notifications" ];
-          env = [ "WEBSOCKET_ENABLE=true" "ROCKET_PORT=80" "PUSH_ENABLED=true" "LOG_FILE=/data/vaultwarden.log" ];
+          env = [
+            "WEBSOCKET_ENABLE=true"
+            "ROCKET_PORT=80"
+            "PUSH_ENABLED=true"
+            "LOG_FILE=/data/vaultwarden.log"
+          ];
         };
         syncthing = {
           dir = null;
           envFiles = null;
-          env = [ "TZ=${system.timezone}" "PUID=0" "PGID=0" ];
+          env = [
+            "TZ=${system.timezone}"
+            "PUID=0"
+            "PGID=0"
+          ];
           # All custom config that a container requires is put here.
           # Applicable on a per-container basis only.
           custom = {

@@ -4,9 +4,26 @@ let
   waybar = {
     layer = "top";
     height = 30;
-    modules-left = [ "custom/logout" "hyprland/workspaces" ];
-    modules-center = [ "clock" "mpris" "gamemode" ];
-    modules-right = [ "tray" "temperature" "wireplumber" "bluetooth" "battery" "cpu" "memory" "backlight" "network" ];
+    modules-left = [
+      "custom/logout"
+      "hyprland/workspaces"
+    ];
+    modules-center = [
+      "clock"
+      "mpris"
+      "gamemode"
+    ];
+    modules-right = [
+      "tray"
+      "temperature"
+      "wireplumber"
+      "bluetooth"
+      "battery"
+      "cpu"
+      "memory"
+      "backlight"
+      "network"
+    ];
     position = "top";
     spacing = 4;
 
@@ -20,7 +37,11 @@ let
       on-click = "activate";
       on-scroll-down = "hyprctl dispatch workspace e+1";
       on-scroll-up = "hyprctl dispatch workspace e-1";
-      persistent-workspaces = { "1" = ""; "2" = ""; "3" = ""; };
+      persistent-workspaces = {
+        "1" = "";
+        "2" = "";
+        "3" = "";
+      };
     };
     privacy = {
       icon-size = 18;
@@ -63,7 +84,10 @@ let
       format = "{player_icon} {title}";
       format-paused = "{status_icon} <i>{title}</i>";
       max-length = 25;
-      player-icons = { default = "󰐊"; mpv = "🎵"; };
+      player-icons = {
+        default = "󰐊";
+        mpv = "🎵";
+      };
       status-icons = {
         paused = "";
         playing = "";
@@ -93,7 +117,11 @@ let
       format = "{icon} {volume}%";
       format-icons = {
         car = "";
-        default = [ "" "" "" ];
+        default = [
+          ""
+          ""
+          ""
+        ];
         hands-free = "";
         headphone = "";
         headset = "";
@@ -120,7 +148,11 @@ let
       format = "{icon}  {capacity}%";
       format-alt = "{time}";
       format-charging = "<span color='#2bce0e'>󰂉 </span> {capacity}%";
-      format-icons = [ "<span color='#bc1b0d'> </span>" "<span color='#cbce0e'> </span>" "<span color='#2bce0e'> </span>" ];
+      format-icons = [
+        "<span color='#bc1b0d'> </span>"
+        "<span color='#cbce0e'> </span>"
+        "<span color='#2bce0e'> </span>"
+      ];
       format-plugged = "󰂅 {capacity}%";
       states = {
         critical = 20;
@@ -138,7 +170,12 @@ let
     };
     backlight = {
       format = "{icon} {percent}%";
-      format-icons = [ "󰃞" "󰃝" "󰃟" "󰃠" ];
+      format-icons = [
+        "󰃞"
+        "󰃝"
+        "󰃟"
+        "󰃠"
+      ];
     };
     network = {
       format-alt = "{ifname}: {ipaddr}/{cidr}";
@@ -168,7 +205,23 @@ let
       color: #eceff4;
     }
 
-    ${lib.concatMapStringsSep ", " (x: "#" + lib.replaceStrings [ "hyprland/" "/" ] [ "" "-" ] x) waybar.modules-left} {
+    ${
+      lib.concatMapStringsSep ", " (
+        x:
+        "#"
+        +
+          lib.replaceStrings
+            [
+              "hyprland/"
+              "/"
+            ]
+            [
+              ""
+              "-"
+            ]
+            x
+      ) waybar.modules-left
+    } {
       border-radius: 10px;
       background-color: #24273a;
       font-size: 20px;
@@ -177,7 +230,11 @@ let
       margin-top: 6px;
     }
 
-    ${lib.concatMapStringsSep ", " (x: "#" + lib.replaceStrings [ "/" ] [ "-" ] x) (waybar.modules-right ++ waybar.modules-center)} {
+    ${
+      lib.concatMapStringsSep ", " (x: "#" + lib.replaceStrings [ "/" ] [ "-" ] x) (
+        waybar.modules-right ++ waybar.modules-center
+      )
+    } {
       border-radius: 10px;
       background-color: #24273a;
       color: #cad3f5;

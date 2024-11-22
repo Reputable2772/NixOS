@@ -1,4 +1,5 @@
-{ config', ... }: {
+{ config', ... }:
+{
   programs.backup = {
     inherit (config'.backup) repository;
     paths = {

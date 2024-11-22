@@ -1,4 +1,5 @@
-{ sources, lib', ... }: {
+{ sources, lib', ... }:
+{
   programs.foot = {
     enable = true;
     settings = { } // lib'.iniToNix "${sources.foot_catppuccin.src}/themes/catppuccin-mocha.ini";

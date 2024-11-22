@@ -1,6 +1,13 @@
-{ pkgs, sources, inputs, ... }:
+{
+  pkgs,
+  sources,
+  inputs,
+  ...
+}:
 let
-  catppuccin-calibre = pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix { inherit sources; };
+  catppuccin-calibre = pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix {
+    inherit sources;
+  };
 in
 {
   home.packages = [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.calibre ];
@@ -28,5 +35,5 @@ in
     the JSON contained by the theme files.
 
     Currently too much effort.
-   */
+  */
 }

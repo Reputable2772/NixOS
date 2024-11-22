@@ -1,4 +1,5 @@
-{ sources, ... }: {
+{ sources, ... }:
+{
   programs.zsh = {
     enable = true;
     autocd = true;

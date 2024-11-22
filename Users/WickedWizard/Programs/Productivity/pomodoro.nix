@@ -1,9 +1,8 @@
 { osConfig, pkgs, ... }:
 let
-  bool = c: t: f:
-    if c
-    then t
-    else f;
+  bool =
+    c: t: f:
+    if c then t else f;
   cond = osConfig.services.xserver.desktopManager.gnome.enable;
 in
 {

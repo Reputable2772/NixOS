@@ -1,6 +1,16 @@
 { lib, ... }:
 let
-  num = [ 1 2 3 4 5 6 7 8 9 ];
+  num = [
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+  ];
   numAttrFunc = x: listToAttrs (map x num);
 
   inherit (lib.attrsets) listToAttrs nameValuePair;
@@ -9,7 +19,12 @@ in
 {
   dconf.settings = with lib.hm.gvariant; {
     "org/gnome/desktop/input-sources" = {
-      sources = [ (mkTuple [ "xkb" "us" ]) ];
+      sources = [
+        (mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
       xkb-options = [ "terminate:ctrl_alt_bksp" ];
     };
 
@@ -43,18 +58,22 @@ in
       idle-delay = mkUint32 120;
     };
 
-    "org/gnome/desktop/wm/keybindings" = {
-      move-to-workspace-left = [ "<Control><Super>Left" ];
-      move-to-workspace-right = [ "<Control><Super>Right" ];
-      switch-applications = [ ];
-      switch-applications-backward = [ ];
-      switch-to-workspace-left = [ "<Control><Alt>Left" ];
-      switch-to-workspace-right = [ "<Control><Alt>Right" ];
-      switch-windows = [ "<Alt>Tab" ];
-      switch-windows-backward = [ "<Shift><Alt>Tab" ];
-      toggle-fullscreen = [ "<Super>f" ];
-    } // numAttrFunc (x: nameValuePair "move-to-workspace-${toString x}" [ "<Control><Super>${toString x}" ])
-    // numAttrFunc (x: nameValuePair "switch-to-workspace-${toString x}" [ "<Super>${toString x}" ]);
+    "org/gnome/desktop/wm/keybindings" =
+      {
+        move-to-workspace-left = [ "<Control><Super>Left" ];
+        move-to-workspace-right = [ "<Control><Super>Right" ];
+        switch-applications = [ ];
+        switch-applications-backward = [ ];
+        switch-to-workspace-left = [ "<Control><Alt>Left" ];
+        switch-to-workspace-right = [ "<Control><Alt>Right" ];
+        switch-windows = [ "<Alt>Tab" ];
+        switch-windows-backward = [ "<Shift><Alt>Tab" ];
+        toggle-fullscreen = [ "<Super>f" ];
+      }
+      // numAttrFunc (
+        x: nameValuePair "move-to-workspace-${toString x}" [ "<Control><Super>${toString x}" ]
+      )
+      // numAttrFunc (x: nameValuePair "switch-to-workspace-${toString x}" [ "<Super>${toString x}" ]);
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
@@ -87,7 +106,9 @@ in
     };
 
     "org/gnome/shell/keybindings" =
-      numAttrFunc (x: nameValuePair "open-new-window-application-${toString x}" [ "<Control><Alt>${toString x}" ])
+      numAttrFunc (
+        x: nameValuePair "open-new-window-application-${toString x}" [ "<Control><Alt>${toString x}" ]
+      )
       // numAttrFunc (x: nameValuePair "switch-to-application-${toString x}" [ ]);
 
     "org/gtk/gtk4/settings/file-chooser" = {
@@ -105,8 +126,14 @@ in
       sort-directories-first = true;
       sort-order = "descending";
       type-format = "category";
-      window-position = mkTuple [ 103 103 ];
-      window-size = mkTuple [ 1008 735 ];
+      window-position = mkTuple [
+        103
+        103
+      ];
+      window-size = mkTuple [
+        1008
+        735
+      ];
     };
   };
 }

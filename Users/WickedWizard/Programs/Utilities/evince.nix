@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [ evince ];
 
   dconf.settings."org/gnome/evince/default" = {

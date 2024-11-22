@@ -1,4 +1,11 @@
-{ config, lib, pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   nix = {
     gc = {
       automatic = true;
@@ -11,8 +18,14 @@
     };
     settings = {
       auto-optimise-store = true;
-      trusted-users = [ "root" "@wheel" ];
-      experimental-features = [ "flakes" "nix-command" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      experimental-features = [
+        "flakes"
+        "nix-command"
+      ];
       # Fixes NixOS/nix#9574
       nix-path = config.nix.nixPath;
       substituters = [
@@ -37,7 +50,7 @@
       Map the registry so that it has every flake input in it.
       Also make sure the flake contains every input path in it.
       Set nix.settings.nix-path manually as well, see above
-     */
+    */
     registry = lib.mapAttrs (_: value: { flake = value; }) (lib.filterAttrs (n: v: n != "self") inputs);
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };

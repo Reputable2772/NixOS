@@ -1,4 +1,5 @@
-{ sources, ... }: {
+{ sources, ... }:
+{
   programs.bottom = {
     enable = true;
     settings = {

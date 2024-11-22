@@ -2,7 +2,7 @@
   programs.mangohud = {
     enable = true;
     settings = {
-      fps_metrics = 0.01;
+      fps_metrics = 1.0e-2;
     };
   };
 }

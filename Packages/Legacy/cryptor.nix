@@ -1,17 +1,19 @@
-{ stdenv
-, lib
-, meson
-, cmake
-, vala
-, glib
-, gtk3
-, json-glib
-, pkg-config
-, ninja
-, libgee
-, wrapGAppsHook
-, fetchFromGitHub
-}: stdenv.mkDerivation rec {
+{
+  stdenv,
+  lib,
+  meson,
+  cmake,
+  vala,
+  glib,
+  gtk3,
+  json-glib,
+  pkg-config,
+  ninja,
+  libgee,
+  wrapGAppsHook,
+  fetchFromGitHub,
+}:
+stdenv.mkDerivation rec {
   pname = "cryptor";
   version = "1.0.3";
 

@@ -1,7 +1,8 @@
-{ stdenv
-, sources
-, librsvg
-, fontconfig
+{
+  stdenv,
+  sources,
+  librsvg,
+  fontconfig,
 }:
 stdenv.mkDerivation {
   name = "calibre-catppuccin";
@@ -12,7 +13,13 @@ stdenv.mkDerivation {
     make XDG_CACHE_HOME=$(mktemp -d) FONTCONFIG_PATH=${fontconfig.out.outPath}/etc/fonts/ convert
   '';
 
-  outputs = [ "latte" "frappe" "macchiato" "mocha" "out" ];
+  outputs = [
+    "latte"
+    "frappe"
+    "macchiato"
+    "mocha"
+    "out"
+  ];
 
   nativeBuildInputs = [ librsvg ];
 
@@ -32,4 +39,3 @@ stdenv.mkDerivation {
     done
   '';
 }
-

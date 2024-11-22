@@ -4,12 +4,16 @@ let
 in
 {
   programs.quadlets.enable =
-    config'.dir ? containers &&
-    lib.strings.typeOf config'.dir.containers == "string";
+    config'.dir ? containers && lib.strings.typeOf config'.dir.containers == "string";
   programs.quadlets.mkdir = true;
 
   age.secrets = lib.pipe config'.containers [
     (filterAttrs (n: v: v ? envFiles && v.envFiles != null))
-    (concatMapAttrs (n: v: genAttrs v.envFiles (f: { file = ./. + "../../../../../../Config/${f}.age"; })))
+    (concatMapAttrs (
+      n: v:
+      genAttrs v.envFiles (f: {
+        file = ./. + "../../../../../../Config/${f}.age";
+      })
+    ))
   ];
 }

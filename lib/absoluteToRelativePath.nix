@@ -1,6 +1,7 @@
 { lib }:
 let
-  absoluteToRelative = _a: _b:
+  absoluteToRelative =
+    _a: _b:
     with lib;
     let
       # Remove trailing '/'
@@ -18,7 +19,10 @@ let
       backLength = length splitB - c;
       # Get path from common directory.
       forwardPath = drop c splitA;
-      path = (if backLength < 1 then "./" else "") + strings.replicate backLength "../" + concatMapStrings (s: s + "/") forwardPath;
+      path =
+        (if backLength < 1 then "./" else "")
+        + strings.replicate backLength "../"
+        + concatMapStrings (s: s + "/") forwardPath;
     in
     path;
 in

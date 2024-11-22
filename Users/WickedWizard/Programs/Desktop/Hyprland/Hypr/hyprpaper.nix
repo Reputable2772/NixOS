@@ -1,4 +1,5 @@
-{ config, sources, ... }: {
+{ config, sources, ... }:
+{
   services.hyprpaper = {
     inherit (config.wayland.windowManager.hyprland) enable;
 

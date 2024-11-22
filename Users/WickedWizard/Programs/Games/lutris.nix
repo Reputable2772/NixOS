@@ -1,4 +1,5 @@
-{ osConfig, pkgs, ... }: {
+{ osConfig, pkgs, ... }:
+{
   home.packages = with pkgs; [
     (lutris.override {
       extraLibraries = pkgs: osConfig.programs.nix-ld.libraries;

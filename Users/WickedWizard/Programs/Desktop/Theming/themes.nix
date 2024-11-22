@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   # Also known as flavor
   variant = "mocha";
@@ -27,7 +32,9 @@ in
   };
 
   gtk.theme = {
-    name = "catppuccin-${variant}-${accent}-${size}" + optionalString (tweaks != [ ]) ("+" + concatStringsSep "," tweaks);
+    name =
+      "catppuccin-${variant}-${accent}-${size}"
+      + optionalString (tweaks != [ ]) ("+" + concatStringsSep "," tweaks);
     package = gtk_theme;
   };
 

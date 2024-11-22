@@ -1,8 +1,15 @@
-{ config, sources, pkgs, ... }: {
+{
+  config,
+  sources,
+  pkgs,
+  ...
+}:
+{
   programs.hyprlock = {
     inherit (config.wayland.windowManager.hyprland) enable;
     # This is required since I'd like to use the source, but patch only a few lines.
-    extraConfig = builtins.readFile "${pkgs.stdenv.mkDerivation {
+    extraConfig = builtins.readFile "${
+      pkgs.stdenv.mkDerivation {
         name = "hyprlock_catppuccin_patch";
         src = sources.hyprlock_catppuccin.src;
         patches = [ ./hyprlock.patch ];

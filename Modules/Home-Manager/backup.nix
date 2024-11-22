@@ -1,7 +1,7 @@
 /**
   Stub module. Real things occur in
   System/Common/backup.nix
- */
+*/
 { lib, ... }:
 let
   inherit (lib) types;

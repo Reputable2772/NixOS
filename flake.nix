@@ -44,7 +44,16 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   };
 
-  outputs = { nixpkgs, self, devshell, flake-parts, git-hooks, systems, ... }@inputs:
+  outputs =
+    {
+      nixpkgs,
+      self,
+      devshell,
+      flake-parts,
+      git-hooks,
+      systems,
+      ...
+    }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         devshell.flakeModule
@@ -64,17 +73,27 @@
             specialArgs = {
               inherit inputs;
               lib' = import ./lib { inherit pkgs; };
-              sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
+              sources = import ./_sources/generated.nix {
+                inherit (pkgs)
+                  fetchurl
+                  fetchgit
+                  fetchFromGitHub
+                  dockerTools
+                  ;
+              };
             };
             modules = [
               ./System/Common
               ./System/HP-Laptop
 
-              ({ config, ... }: {
-                _module.args.config' = import ./Config/config.nix {
-                  _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
-                };
-              })
+              (
+                { config, ... }:
+                {
+                  _module.args.config' = import ./Config/config.nix {
+                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
+                  };
+                }
+              )
             ];
           };
 
@@ -92,7 +111,14 @@
         };
       };
 
-      perSystem = { config, system, pkgs, self', ... }:
+      perSystem =
+        {
+          config,
+          system,
+          pkgs,
+          self',
+          ...
+        }:
         let
           inherit (pkgs) lib;
           inherit (lib.attrsets) filterAttrs mapAttrs;
@@ -105,15 +131,33 @@
           pre-commit.check.enable = true;
           pre-commit.settings.hooks = {
             commitizen.enable = true;
-            nixfmt-rfc-style.enable = true;
+            nixfmt-rfc-style = {
+              enable = true;
+              package = pkgs.nixfmt-rfc-style;
+            };
           };
 
-          devshells = mapAttrs
-            (name: value: import value {
-              inherit config inputs pkgs;
-              sources = import ./_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; };
-            })
-            (filterAttrs (n: v: hasSuffix "nix" v) ((import ./lib { inherit pkgs; }).recurseDirectory ./Shells false));
+          devshells =
+            mapAttrs
+              (
+                name: value:
+                import value {
+                  inherit config inputs pkgs;
+                  sources = import ./_sources/generated.nix {
+                    inherit (pkgs)
+                      fetchurl
+                      fetchgit
+                      fetchFromGitHub
+                      dockerTools
+                      ;
+                  };
+                }
+              )
+              (
+                filterAttrs (n: v: hasSuffix "nix" v) (
+                  (import ./lib { inherit pkgs; }).recurseDirectory ./Shells false
+                )
+              );
         };
     };
 }

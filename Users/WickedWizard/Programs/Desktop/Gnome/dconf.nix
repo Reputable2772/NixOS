@@ -51,8 +51,18 @@ with lib.hm.gvariant;
     };
 
     "com/github/wwmm/easyeffects/spectrum" = {
-      color = mkTuple [ 1.0 1.0 1.0 1.0 ];
-      color-axis-labels = mkTuple [ 1.0 1.0 1.0 1.0 ];
+      color = mkTuple [
+        1.0
+        1.0
+        1.0
+        1.0
+      ];
+      color-axis-labels = mkTuple [
+        1.0
+        1.0
+        1.0
+        1.0
+      ];
     };
 
     "com/github/wwmm/easyeffects/streaminputs" = {
@@ -120,7 +130,10 @@ with lib.hm.gvariant;
       target-currency = "DZD";
       target-units = "DZD";
       window-maximized = true;
-      window-size = mkTuple [ 680 519 ];
+      window-size = mkTuple [
+        680
+        519
+      ];
       word-size = 64;
     };
 
@@ -140,7 +153,10 @@ with lib.hm.gvariant;
     "org/gnome/clocks/state/window" = {
       maximized = true;
       panel-id = "stopwatch";
-      size = mkTuple [ 960 519 ];
+      size = mkTuple [
+        960
+        519
+      ];
     };
 
     "org/gnome/desktop/interface" = {
@@ -168,7 +184,10 @@ with lib.hm.gvariant;
       sidebar-page = "thumbnails";
       sidebar-size = 194;
       sizing-mode = "fit-width";
-      window-ratio = mkTuple [ 0.980392 0.757576 ];
+      window-ratio = mkTuple [
+        0.980392
+        0.757576
+      ];
       zoom = 0.6921980482933445;
     };
 
@@ -227,7 +246,10 @@ with lib.hm.gvariant;
     "org/gnome/file-roller/file-selector" = {
       show-hidden = false;
       sidebar-size = 168;
-      window-size = mkTuple [ 840 786 ];
+      window-size = mkTuple [
+        840
+        786
+      ];
     };
 
     "org/gnome/file-roller/listing" = {
@@ -273,12 +295,108 @@ with lib.hm.gvariant;
     };
 
     "org/gtk/gtk4/settings/emoji-chooser" = {
-      recent-emoji = [ (mkTuple [ (mkTuple [ [ (mkUint32 128064) ] "eyes" [ "eye" "face" ] (mkUint32 1) ]) (mkUint32 0) ]) (mkTuple [ (mkTuple [ [ 128517 ] "grinning face with sweat" [ "cold" "face" "open" "smile" "sweat" ] 0 ]) 0 ]) (mkTuple [ (mkTuple [ [ 128514 ] "face with tears of joy" [ "face" "joy" "laugh" "tear" ] 0 ]) 0 ]) (mkTuple [ (mkTuple [ [ 128077 0 ] "thumbs up" [ "+1" "hand" "thumb" "up" ] 1 ]) 0 ]) ];
+      recent-emoji = [
+        (mkTuple [
+          (mkTuple [
+            [ (mkUint32 128064) ]
+            "eyes"
+            [
+              "eye"
+              "face"
+            ]
+            (mkUint32 1)
+          ])
+          (mkUint32 0)
+        ])
+        (mkTuple [
+          (mkTuple [
+            [ 128517 ]
+            "grinning face with sweat"
+            [
+              "cold"
+              "face"
+              "open"
+              "smile"
+              "sweat"
+            ]
+            0
+          ])
+          0
+        ])
+        (mkTuple [
+          (mkTuple [
+            [ 128514 ]
+            "face with tears of joy"
+            [
+              "face"
+              "joy"
+              "laugh"
+              "tear"
+            ]
+            0
+          ])
+          0
+        ])
+        (mkTuple [
+          (mkTuple [
+            [
+              128077
+              0
+            ]
+            "thumbs up"
+            [
+              "+1"
+              "hand"
+              "thumb"
+              "up"
+            ]
+            1
+          ])
+          0
+        ])
+      ];
     };
 
     "org/gtk/settings/color-chooser" = {
-      custom-colors = [ (mkTuple [ 0.9450980392156862 0.9450980392156862 0.9450980392156862 1.0 ]) (mkTuple [ 8.627450980392157e-2 7.84313725490196e-2 0.10980392156862745 1.0 ]) (mkTuple [ 0.11764705882352941 0.11764705882352941 0.1803921568627451 1.0 ]) (mkTuple [ 0.8980392156862745 0.8980392156862745 0.8980392156862745 1.0 ]) (mkTuple [ 0.7568627450980392 0.49019607843137253 6.666666666666667e-2 1.0 ]) ];
-      selected-color = mkTuple [ true 0.9450980392156862 0.9450980392156862 0.9450980392156862 1.0 ];
+      custom-colors = [
+        (mkTuple [
+          0.9450980392156862
+          0.9450980392156862
+          0.9450980392156862
+          1.0
+        ])
+        (mkTuple [
+          8.627450980392157e-2
+          7.84313725490196e-2
+          0.10980392156862745
+          1.0
+        ])
+        (mkTuple [
+          0.11764705882352941
+          0.11764705882352941
+          0.1803921568627451
+          1.0
+        ])
+        (mkTuple [
+          0.8980392156862745
+          0.8980392156862745
+          0.8980392156862745
+          1.0
+        ])
+        (mkTuple [
+          0.7568627450980392
+          0.49019607843137253
+          6.666666666666667e-2
+          1.0
+        ])
+      ];
+      selected-color = mkTuple [
+        true
+        0.9450980392156862
+        0.9450980392156862
+        0.9450980392156862
+        1.0
+      ];
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -292,8 +410,14 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 0 0 ];
-      window-size = mkTuple [ 1231 902 ];
+      window-position = mkTuple [
+        0
+        0
+      ];
+      window-size = mkTuple [
+        1231
+        902
+      ];
     };
 
   };

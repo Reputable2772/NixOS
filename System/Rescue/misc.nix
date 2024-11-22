@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   services.xserver.desktopManager.gnome.enable = true;
 
   hardware.pulseaudio.enable = lib.mkForce false;

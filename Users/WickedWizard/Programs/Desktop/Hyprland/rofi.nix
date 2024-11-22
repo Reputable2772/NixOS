@@ -1,4 +1,11 @@
-{ inputs, config, sources, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  sources,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (config.wayland.windowManager) hyprland;
 in
