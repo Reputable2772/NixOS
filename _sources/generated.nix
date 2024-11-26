@@ -61,6 +61,18 @@
     };
     date = "2024-07-20";
   };
+  eza_themes = {
+    pname = "eza_themes";
+    version = "74be26bbd2ce76b29c37250a2fb7cb5d6644c964";
+    src = fetchFromGitHub {
+      owner = "eza-community";
+      repo = "eza-themes";
+      rev = "74be26bbd2ce76b29c37250a2fb7cb5d6644c964";
+      fetchSubmodules = false;
+      sha256 = "sha256-Gs21+A/to2AqjQsqMlWeOuSowYPOuSZ3fK6LRdBPUmI=";
+    };
+    date = "2024-10-27";
+  };
   filen = {
     pname = "filen";
     version = "latest";
