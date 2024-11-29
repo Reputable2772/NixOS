@@ -9,7 +9,7 @@
 				// Type: [string] | null
 				// Example: ["nixpkgs-fmt"]
 				"command": [
-					"nixpkgs-fmt"
+					"nixfmt"
 				],
 			},
 			"diagnostics": {

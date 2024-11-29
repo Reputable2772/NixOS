@@ -27,7 +27,7 @@
     };
 
     Timer = {
-      OnCalendar = "*-*-* *:*/30:00";
+      OnCalendar = "* *-*-* *:*/30:00";
     };
 
     Install = {

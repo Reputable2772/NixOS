@@ -1,4 +1,5 @@
-{ pkgs, sources, ... }: {
+{ pkgs, sources, ... }:
+{
   devshell = {
     name = "CI Shell";
     packages = with pkgs; [

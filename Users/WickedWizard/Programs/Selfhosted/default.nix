@@ -5,6 +5,5 @@
     ./bitwarden.nix
     ./ip-update.nix
     ./podman.nix
-    # ./songrec.nix
   ];
 }

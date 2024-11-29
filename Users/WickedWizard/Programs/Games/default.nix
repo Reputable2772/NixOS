@@ -5,5 +5,6 @@
     ./lutris.nix
     ./mangohud.nix
     ./prismlauncher.nix
+    ./steamtinkerlaunch.nix
   ];
 }

@@ -5,6 +5,7 @@
     ./comma.nix
     ./common.nix
     ./direnv.nix
+    ./eza.nix
     ./fastfetch.nix
     ./git.nix
     ./jq.nix

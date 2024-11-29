@@ -22,12 +22,6 @@ in
           "config:/config"
         ]
         ++ config'.containers.syncthing.custom.folders;
-      # Arch wiki - https://wiki.archlinux.org/title/Podman#Quadlet
-      UIDMap = [
-        "1000:0:1"
-        "0:1:1000"
-        "1001:1001:64536"
-      ];
     } // utils.appendEnv "syncthing";
   } (utils.containerDefaults "syncthing" "systemd-caddy");
 }

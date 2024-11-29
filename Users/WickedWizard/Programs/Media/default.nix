@@ -1,6 +1,7 @@
 {
   imports = [
     ./calibre.nix
+    ./freetube.nix
     ./loupe.nix
     ./mpv.nix
     ./obs-studio.nix

@@ -7,8 +7,10 @@
     colors = "auto";
     icons = "auto";
     git = true;
-    options = [
+    extraOptions = [
       "--group-directories-first"
+      "--all"
+      "-l"
     ];
     enableZshIntegration = true;
     enableFishIntegration = true;

@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   devshell =
     let
       _agenix = pkgs.applyPatches {
@@ -6,7 +12,9 @@
         src = inputs.agenix.outPath;
         patches = [ ./agenix.patch ];
       };
-      agenix_args = inputs.agenix.inputs // { self = inputs.agenix.outputs; };
+      agenix_args = inputs.agenix.inputs // {
+        self = inputs.agenix.outputs;
+      };
     in
     {
       name = "Development Shell for System Flake";
@@ -15,6 +23,7 @@
         curl
         jq
         hydra-check
+        config.formatter
         nixpkgs-fmt
         nix-diff
         # A weird, but working hack. We import outputs of the patched flake, and then pass it the
@@ -51,13 +60,6 @@
       help = "Build and switch to a new configuration";
       name = "switch";
       command = ''
-        echo "Copying non-declarative files"
-
-        # If file is not a symlink, then copy it over if it is new.
-        if [[ ! -L "$HOME/.config/mimeapps.list" ]]; then
-          cp -pu "$HOME/.config/mimeapps.list" "$PWD/Config/mimeapps.list"
-        fi
-
         echo "Builiding"
         nixos-rebuild --flake . --use-remote-sudo switch
       '';

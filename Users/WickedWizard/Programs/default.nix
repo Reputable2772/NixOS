@@ -2,10 +2,7 @@
   imports = [
     ./Backup
     ./Browsers
-    ./Communication
-    ./Compatibility
     ./Desktop
-    ./Entertainment
     ./Games
     ./Media
     ./Misc
