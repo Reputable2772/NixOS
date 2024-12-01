@@ -148,11 +148,11 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v132",
-            "sha256": "sha256-lf9MQs8+NUvQd8b5t+7c4kLqUQixGO9WwWcLa1XYuiQ=",
+            "rev": "v133",
+            "sha256": "sha256-k7v5PE6OcqMkC/u7aokwcxKDmTKM+ejiZGCsH9MK0s0=",
             "type": "github"
         },
-        "version": "v132"
+        "version": "v133"
     },
     "foot_catppuccin": {
         "cargoLocks": null,
@@ -266,7 +266,7 @@
     },
     "nix-fast-build": {
         "cargoLocks": null,
-        "date": "2024-10-30",
+        "date": "2024-11-25",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "8e7c9d76979381441facb8888f21408312cf177a",
-            "sha256": "sha256-CrbqsC+lEA3w6gLfpqfDMDEKoEta2sl4sbQK6Z/gXak=",
+            "rev": "f51f479d001317204f1a47302db36473dc12fc8f",
+            "sha256": "sha256-y1Q87PRcztZ2C1J/xGHk0VxY/T9wB6YL1nLtRbMYW5g=",
             "type": "github"
         },
-        "version": "8e7c9d76979381441facb8888f21408312cf177a"
+        "version": "f51f479d001317204f1a47302db36473dc12fc8f"
     },
     "obs_catppuccin": {
         "cargoLocks": null,
