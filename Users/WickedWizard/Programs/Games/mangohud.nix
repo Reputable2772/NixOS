@@ -6,5 +6,7 @@
     };
   };
 
-  services.flatpak.packages = [ "org.freedesktop.Platform.VulkanLayer.MangoHud" ];
+  services.flatpak.packages = [
+    "runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08"
+  ];
 }
