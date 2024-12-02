@@ -234,6 +234,15 @@ rec {
           envFiles = null;
           env = null;
         };
+        navidrome = {
+          dir = null;
+          envFiles = null;
+          env = [
+            "ND_SCANSCHEDULE=1h"
+            "ND_LOGLEVEL=info"
+            "ND_SESSIONTIMEOUT=24h"
+          ];
+        };
       };
     };
   };

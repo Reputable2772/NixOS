@@ -87,6 +87,11 @@ let
       handle @syncthing {
         reverse_proxy syncthing:8384
       }
+
+      @navidrome host navidrome.{env.DOMAIN} navidrome.{env.EXTERNAL_DOMAIN}
+      handle @navidrome {
+        reverse_proxy navidrome:4533
+      }
     }
   '';
   containerfile = pkgs.writeText "caddy-containerfile" ''
