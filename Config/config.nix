@@ -243,6 +243,11 @@ rec {
             "ND_SESSIONTIMEOUT=24h"
           ];
         };
+        linkding = {
+          dir = null;
+          envFiles = null;
+          env = null;
+        };
       };
     };
   };

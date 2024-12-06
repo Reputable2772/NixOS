@@ -92,6 +92,11 @@ let
       handle @navidrome {
         reverse_proxy navidrome:4533
       }
+
+      @linkding host linkding.{env.DOMAIN} linkding.{env.EXTERNAL_DOMAIN}
+      handle @linkding {
+        reverse_proxy linkding:9090
+      }
     }
   '';
   containerfile = pkgs.writeText "caddy-containerfile" ''

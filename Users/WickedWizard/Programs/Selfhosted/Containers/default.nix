@@ -6,6 +6,7 @@
     # ./gluetun.nix
     ./lib.nix
     # ./lidarr.nix
+    ./linkding.nix
     ./navidrome.nix
     # ./qbittorrent.nix
     ./syncthing.nix
