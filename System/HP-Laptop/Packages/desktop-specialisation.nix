@@ -22,7 +22,7 @@ in
     );
 
     services.desktopManager.plasma6.enable = lib.mkForce (
-      !config.programs.hyprland.enable && prefer-kde
+      config.programs.hyprland.enable && prefer-kde
     );
     services.displayManager.sddm = lib.mkForce {
       enable = cfg.services.desktopManager.plasma6.enable;
@@ -34,7 +34,7 @@ in
     };
 
     services.xserver.desktopManager.gnome.enable = lib.mkForce (
-      !config.programs.hyprland.enable && prefer-gnome
+      config.programs.hyprland.enable && prefer-gnome
     );
 
     services.xserver.displayManager.gdm.enable = lib.mkForce cfg.services.xserver.desktopManager.gnome.enable;
