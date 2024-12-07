@@ -18,3 +18,10 @@ Spotify, Newsflash, Joplin, Vesktop, Wifi settings, Bitwarden, KDE Connect
 The update CI runs on Saturday 16:30 (GMT +00:00). It opens a PR, and the PR is checked by the CI.
 
 * Currently there's no way to get rid of IFDs (IF that matters), especially those pesky `builtins.readFile` and `convertini` derivations, due to Catppuccin theming.
+
+* The selfhosted setup currently consists of a few services, namely Vaultwarden, Navidrome, Caddy, Syncthing.
+* The Containers/utils.nix file handles the defaults, and a few useful functions such as Environment Files, variables, etc.
+* Other files handle containers, lib funcs (which is responsible for secrets).
+
+Syncthing, Vaultwarden, Linkding just requires app on Android
+Navidrome requires two apps for android, namely DSub and Pano Scrobbler. Navidrome and Pano scrobble to musicbrainz, while DSub should _never_ scrobble to Navidrome. That should be handled by Pano only.
