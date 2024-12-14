@@ -38,7 +38,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = lib.mkForce false;
-    backupFileExtension = "bak";
+    backupFileExtension = "backup.backup.backup";
     # users = lib.attrsets.mapAttrs
     # (n: v:
     users = {
