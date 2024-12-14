@@ -148,11 +148,11 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v133",
-            "sha256": "sha256-k7v5PE6OcqMkC/u7aokwcxKDmTKM+ejiZGCsH9MK0s0=",
+            "rev": "v133.1",
+            "sha256": "sha256-onO+zd9ssgsLC5ax3UWPZ41DcZPkxdXT8JmmjDkw944=",
             "type": "github"
         },
-        "version": "v133"
+        "version": "v133.1"
     },
     "foot_catppuccin": {
         "cargoLocks": null,

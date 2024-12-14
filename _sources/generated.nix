@@ -83,13 +83,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v133";
+    version = "v133.1";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v133";
+      rev = "v133.1";
       fetchSubmodules = false;
-      sha256 = "sha256-k7v5PE6OcqMkC/u7aokwcxKDmTKM+ejiZGCsH9MK0s0=";
+      sha256 = "sha256-onO+zd9ssgsLC5ax3UWPZ41DcZPkxdXT8JmmjDkw944=";
     };
   };
   foot_catppuccin = {
