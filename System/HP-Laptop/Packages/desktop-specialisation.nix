@@ -14,6 +14,9 @@ in
   If GNOME/KDE is enabled, enable Hyprland in specialisation.
 
   These values must be mkForce'd to avoid issues with pulling in default configs.
+  Make sure any other values depending on these are defined in the respective config
+  files. They will automatically be pulled in and evaluated, since specialisation.<name>.inheritParentConfig
+  is set to true, by default.
 */
 {
   specialisation."desktop-environment-${if prefer-gnome then "gnome" else "kde"}".configuration = {
@@ -27,20 +30,13 @@ in
     services.desktopManager.plasma6.enable = lib.mkForce (
       config.programs.hyprland.enable && prefer-kde
     );
-    services.displayManager.sddm = lib.mkForce {
-      enable = cfg.services.desktopManager.plasma6.enable;
-      wayland = {
-        enable = true;
-        compositor = "kwin";
-      };
-      autoNumlock = true;
-    };
+    # Causes issues with Kvantum saying Plasma 6 doesn't find QML files, etc. Better to disable.
+    home-manager.sharedModules = [
+      { qt.enable = lib.mkForce (!cfg.services.desktopManager.plasma6.enable); }
+    ];
 
     services.xserver.desktopManager.gnome.enable = lib.mkForce (
       config.programs.hyprland.enable && prefer-gnome
     );
-
-    services.xserver.displayManager.gdm.enable =
-      lib.mkForce cfg.services.xserver.desktopManager.gnome.enable;
   };
 }

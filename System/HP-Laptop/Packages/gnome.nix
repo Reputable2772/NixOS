@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   services.xserver.enable = false;
   services.xserver.desktopManager.gnome.enable = false;
-  services.xserver.displayManager.gdm.enable = false;
+  services.xserver.displayManager.gdm.enable = config.services.xserver.desktopManager.gnome.enable;
 
   environment.gnome.excludePackages = with pkgs; [
     gnome-photos
