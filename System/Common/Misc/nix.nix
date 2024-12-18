@@ -44,6 +44,7 @@
     extraOptions = ''
       flake-registry =
       always-allow-substitutes = true
+      keep-outputs = true
     '';
 
     /**
