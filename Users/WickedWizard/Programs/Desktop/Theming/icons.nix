@@ -1,5 +1,5 @@
 {
-  config,
+  osConfig,
   pkgs,
   lib,
   ...
@@ -13,11 +13,7 @@
     };
   };
 
-  qt.platformTheme.name = "qtct";
-
-  dconf.settings."org/gnome/desktop/interface" = {
-    icon-theme = lib.mkForce config.gtk.iconTheme.name;
-  };
+  qt.platformTheme.name = lib.mkIf (!osConfig.services.desktopManager.plasma6.enable) "qtct";
 
   # Icon theme is only for qt apps, and to be configured manually using
   # qt5ct & qt6ct.

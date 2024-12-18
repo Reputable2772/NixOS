@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, ... }:
 {
   # Qt applications are cool.
   # https://wiki.archlinux.org/title/Cursor_themes#Qt
@@ -15,11 +10,5 @@
 
     gtk.enable = true;
     x11.enable = true;
-  };
-
-  # gtk.cursorTheme is explicitly set by home.pointerCursor once home.pointerCursor.gtk.enable is enabled.
-  dconf.settings."org/gnome/desktop/interface" = {
-    cursor-theme = lib.mkForce config.gtk.cursorTheme.name;
-    cursor-size = lib.mkForce config.gtk.cursorTheme.size;
   };
 }

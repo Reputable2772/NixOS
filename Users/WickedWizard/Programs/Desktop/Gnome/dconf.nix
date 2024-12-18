@@ -93,8 +93,6 @@ with lib.hm.gvariant;
       last-open-list = "Todos";
       maximized = true;
       sync-provider = 2;
-      sync-url = "https://baikal.wickedwizard3588.duckdns.org/dav.php";
-      sync-username = "Rural8708";
       width = 480;
     };
 
@@ -157,16 +155,6 @@ with lib.hm.gvariant;
         960
         519
       ];
-    };
-
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      cursor-size = 16;
-      cursor-theme = "Catppuccin-Mocha-Dark-Cursors";
-      font-antialiasing = "grayscale";
-      font-hinting = "slight";
-      gtk-theme = "Catppuccin-Mocha-Standard-Blue-Dark";
-      icon-theme = "Adwaita";
     };
 
     "org/gnome/evince" = {

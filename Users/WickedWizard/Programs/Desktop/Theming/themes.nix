@@ -1,7 +1,7 @@
 {
+  osConfig,
   pkgs,
   lib,
-  config,
   ...
 }:
 let
@@ -14,7 +14,6 @@ let
   size = "standard";
 
   inherit (lib.strings) concatStringsSep optionalString;
-  inherit (lib.modules) mkForce;
 
   qt_theme = pkgs.catppuccin-kvantum.override {
     inherit variant accent;
@@ -28,7 +27,14 @@ in
 {
   qt = {
     enable = true;
-    style.name = "kvantum";
+    # This needs to be set using Application Styles in KDE System Settings, to avoid segfaults with Plasma Shell.
+    style.name = lib.mkIf (!osConfig.services.desktopManager.plasma6.enable) "kvantum";
+  };
+
+  dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+    font-antialiasing = "grayscale";
+    font-hinting = "slight";
   };
 
   gtk.theme = {
@@ -38,16 +44,13 @@ in
     package = gtk_theme;
   };
 
-  xdg.configFile = {
+  xdg.configFile = lib.mkIf (!osConfig.services.desktopManager.plasma6.enable) {
     # Set theme name
     "Kvantum/kvantum.kvconfig".text = ''
       theme=catppuccin-${variant}-${accent}
     '';
     # Symlink theme directory
-    "Kvantum/catppuccin-${variant}-${accent}".source = "${qt_theme}/share/Kvantum/catppuccin-${variant}-${accent}";
-  };
-
-  dconf.settings."org/gnome/desktop/interface" = {
-    gtk-theme = mkForce config.gtk.theme.name;
+    "Kvantum/catppuccin-${variant}-${accent}".source =
+      "${qt_theme}/share/Kvantum/catppuccin-${variant}-${accent}";
   };
 }

@@ -30,10 +30,6 @@ in
     services.desktopManager.plasma6.enable = lib.mkForce (
       config.programs.hyprland.enable && prefer-kde
     );
-    # Causes issues with Kvantum saying Plasma 6 doesn't find QML files, etc. Better to disable.
-    home-manager.sharedModules = [
-      { qt.enable = lib.mkForce (!cfg.services.desktopManager.plasma6.enable); }
-    ];
 
     services.xserver.desktopManager.gnome.enable = lib.mkForce (
       config.programs.hyprland.enable && prefer-gnome
