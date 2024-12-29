@@ -2,7 +2,7 @@
   imports = [
     ./calibre.nix
     ./freetube.nix
-    ./loupe.nix
+    ./image-viewer.nix
     ./mpv.nix
     ./obs-studio.nix
     ./playerctl.nix

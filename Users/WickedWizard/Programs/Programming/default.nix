@@ -1,6 +1,6 @@
 {
   imports = [
-    ./gnome-text-editor.nix
+    ./text-editor.nix
     ./vscode.nix
   ];
 }
