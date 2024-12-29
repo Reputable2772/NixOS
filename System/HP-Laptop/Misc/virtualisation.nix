@@ -11,6 +11,5 @@
     };
     containers.enable = true;
     oci-containers.backend = "podman";
-    waydroid.enable = true;
   };
 }
