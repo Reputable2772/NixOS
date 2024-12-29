@@ -51,27 +51,27 @@
   };
   dunst_catppuccin = {
     pname = "dunst_catppuccin";
-    version = "f02cd2894411c9b4caa207cfd8ed6345f97c0455";
+    version = "5955cf0213d14a3494ec63580a81818b6f7caa66";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "dunst";
-      rev = "f02cd2894411c9b4caa207cfd8ed6345f97c0455";
+      rev = "5955cf0213d14a3494ec63580a81818b6f7caa66";
       fetchSubmodules = false;
-      sha256 = "sha256-EadNqtF1m//blHkV660+d4YjDReVFU2Bzhs0Pb43jh4=";
+      sha256 = "sha256-rBp9wU6QHpmNAjeaKnI6u8rOUlv8MC70SLUzeKHN/eY=";
     };
-    date = "2024-07-20";
+    date = "2024-12-24";
   };
   eza_themes = {
     pname = "eza_themes";
-    version = "78601bf47075a8b3681f7b4a7fbe5e258ad469f8";
+    version = "39c1a6640ceaaa4b59f354e1cb229c292a199e68";
     src = fetchFromGitHub {
       owner = "eza-community";
       repo = "eza-themes";
-      rev = "78601bf47075a8b3681f7b4a7fbe5e258ad469f8";
+      rev = "39c1a6640ceaaa4b59f354e1cb229c292a199e68";
       fetchSubmodules = false;
-      sha256 = "sha256-PJ0zSmAiS2iK3bW/HJ7YtYjjLvkgBSAhbbMezjHU0yA=";
+      sha256 = "sha256-sfQLMjtAcYTLAA664v6CaYlkoBCPtykhzSQCrcMEA2c=";
     };
-    date = "2024-12-03";
+    date = "2024-12-26";
   };
   filen = {
     pname = "filen";
