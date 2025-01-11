@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2025-01-03",
+        "date": "2025-01-10",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,11 +13,11 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "a3b85556a87dd2c2ca59155b2a192c3f674cdc3a",
-            "sha256": "sha256-AEfKQm6Crlhe67g9TAPLrtDPUuYillskaWgK8xMr9d4=",
+            "rev": "5714eeba59dc1ddac774f1b4a670398834f893b1",
+            "sha256": "sha256-DyYvJpQscjzlz4Lxc5Oww0AqvJ3wK6qvb9v5InDNOHU=",
             "type": "github"
         },
-        "version": "a3b85556a87dd2c2ca59155b2a192c3f674cdc3a"
+        "version": "5714eeba59dc1ddac774f1b4a670398834f893b1"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
@@ -101,7 +101,7 @@
     },
     "eza_themes": {
         "cargoLocks": null,
-        "date": "2024-12-26",
+        "date": "2025-01-10",
         "extract": null,
         "name": "eza_themes",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "eza-community",
             "repo": "eza-themes",
-            "rev": "39c1a6640ceaaa4b59f354e1cb229c292a199e68",
-            "sha256": "sha256-sfQLMjtAcYTLAA664v6CaYlkoBCPtykhzSQCrcMEA2c=",
+            "rev": "266feb8d373ac201bd28d7522e4e65cb2865f082",
+            "sha256": "sha256-K9k+jE27kK8PlN6BbTfMLhCagnWCc6CIO1lkqvWl9fE=",
             "type": "github"
         },
-        "version": "39c1a6640ceaaa4b59f354e1cb229c292a199e68"
+        "version": "266feb8d373ac201bd28d7522e4e65cb2865f082"
     },
     "filen": {
         "cargoLocks": null,
@@ -266,7 +266,7 @@
     },
     "nix-fast-build": {
         "cargoLocks": null,
-        "date": "2024-12-20",
+        "date": "2025-01-11",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -278,11 +278,11 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "ed736c65a8cb58a85369f6ee1c3f4403aa904fcc",
-            "sha256": "sha256-BCpd50t/3JU4ydiNfJxH3LzQDzyGbBI0CKWaeplnkVg=",
+            "rev": "906af17fcd50c84615a4660d9c08cf89c01cef7d",
+            "sha256": "sha256-HkaJeIFgxncLm8MC1BaWRTkge9b1/+mjPcbzXTRshoM=",
             "type": "github"
         },
-        "version": "ed736c65a8cb58a85369f6ee1c3f4403aa904fcc"
+        "version": "906af17fcd50c84615a4660d9c08cf89c01cef7d"
     },
     "obs_catppuccin": {
         "cargoLocks": null,
