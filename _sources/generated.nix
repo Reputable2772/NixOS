@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "a3b85556a87dd2c2ca59155b2a192c3f674cdc3a";
+    version = "5714eeba59dc1ddac774f1b4a670398834f893b1";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "a3b85556a87dd2c2ca59155b2a192c3f674cdc3a";
+      rev = "5714eeba59dc1ddac774f1b4a670398834f893b1";
       fetchSubmodules = false;
-      sha256 = "sha256-AEfKQm6Crlhe67g9TAPLrtDPUuYillskaWgK8xMr9d4=";
+      sha256 = "sha256-DyYvJpQscjzlz4Lxc5Oww0AqvJ3wK6qvb9v5InDNOHU=";
     };
-    date = "2025-01-03";
+    date = "2025-01-10";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
@@ -63,15 +63,15 @@
   };
   eza_themes = {
     pname = "eza_themes";
-    version = "39c1a6640ceaaa4b59f354e1cb229c292a199e68";
+    version = "266feb8d373ac201bd28d7522e4e65cb2865f082";
     src = fetchFromGitHub {
       owner = "eza-community";
       repo = "eza-themes";
-      rev = "39c1a6640ceaaa4b59f354e1cb229c292a199e68";
+      rev = "266feb8d373ac201bd28d7522e4e65cb2865f082";
       fetchSubmodules = false;
-      sha256 = "sha256-sfQLMjtAcYTLAA664v6CaYlkoBCPtykhzSQCrcMEA2c=";
+      sha256 = "sha256-K9k+jE27kK8PlN6BbTfMLhCagnWCc6CIO1lkqvWl9fE=";
     };
-    date = "2024-12-26";
+    date = "2025-01-10";
   };
   filen = {
     pname = "filen";
@@ -158,15 +158,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "ed736c65a8cb58a85369f6ee1c3f4403aa904fcc";
+    version = "906af17fcd50c84615a4660d9c08cf89c01cef7d";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "ed736c65a8cb58a85369f6ee1c3f4403aa904fcc";
+      rev = "906af17fcd50c84615a4660d9c08cf89c01cef7d";
       fetchSubmodules = false;
-      sha256 = "sha256-BCpd50t/3JU4ydiNfJxH3LzQDzyGbBI0CKWaeplnkVg=";
+      sha256 = "sha256-HkaJeIFgxncLm8MC1BaWRTkge9b1/+mjPcbzXTRshoM=";
     };
-    date = "2024-12-20";
+    date = "2025-01-11";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
