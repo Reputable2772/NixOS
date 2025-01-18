@@ -1,6 +1,8 @@
 { pkgs, sources, ... }:
 {
-  home.packages = with pkgs; [ nerdfonts ];
+  home.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
 
   programs.eza = {
     enable = true;

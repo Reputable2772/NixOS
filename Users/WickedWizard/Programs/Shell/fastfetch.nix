@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     fastfetch
-    nerdfonts
+    nerd-fonts.jetbrains-mono
   ];
 
   fonts.fontconfig.enable = true;

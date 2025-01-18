@@ -22,8 +22,8 @@
           80
           443
         ] # Caddy
-        ++ [ 22000 ] # Syncthing
-        ++ [ 61851 ]; # qBittorrent
+        ++ [ 22000 ]; # Syncthing
+      # ++ [ 61851 ]; # qBittorrent
       allowedUDPPorts =
         [
           80
@@ -32,8 +32,8 @@
         ++ [
           22000
           21027
-        ] # Syncthing
-        ++ [ 61851 ]; # qBittorrent
+        ]; # Syncthing
+      # ++ [ 61851 ]; # qBittorrent
     };
     networkmanager.connectionConfig = {
       "wifi.powersave" = lib.mkForce 2;
