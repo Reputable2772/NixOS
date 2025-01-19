@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "5714eeba59dc1ddac774f1b4a670398834f893b1";
+    version = "5738fdda3af666712fcf421f20110447c1ecc7ba";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "5714eeba59dc1ddac774f1b4a670398834f893b1";
+      rev = "5738fdda3af666712fcf421f20110447c1ecc7ba";
       fetchSubmodules = false;
-      sha256 = "sha256-DyYvJpQscjzlz4Lxc5Oww0AqvJ3wK6qvb9v5InDNOHU=";
+      sha256 = "sha256-SulpO5MR8hPnZLQwUDKnlC1csso96OPkkvegYeCVw3Q=";
     };
-    date = "2025-01-10";
+    date = "2025-01-16";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
@@ -83,13 +83,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v133.1";
+    version = "v134";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v133.1";
+      rev = "v134";
       fetchSubmodules = false;
-      sha256 = "sha256-onO+zd9ssgsLC5ax3UWPZ41DcZPkxdXT8JmmjDkw944=";
+      sha256 = "sha256-S79Hqn2EtSxU4kp99t8tRschSifWD4p/51++0xNWUxw=";
     };
   };
   foot_catppuccin = {
