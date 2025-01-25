@@ -101,7 +101,7 @@
     },
     "eza_themes": {
         "cargoLocks": null,
-        "date": "2025-01-10",
+        "date": "2025-01-24",
         "extract": null,
         "name": "eza_themes",
         "passthru": null,
@@ -113,11 +113,11 @@
             "name": null,
             "owner": "eza-community",
             "repo": "eza-themes",
-            "rev": "266feb8d373ac201bd28d7522e4e65cb2865f082",
-            "sha256": "sha256-K9k+jE27kK8PlN6BbTfMLhCagnWCc6CIO1lkqvWl9fE=",
+            "rev": "a99a5f1bbb5fec2c0bfa945ec8e2aabcb6f24d71",
+            "sha256": "sha256-d+bbjgI1JrOGenqZ2aIRK8itkTUV2L4L3vtEN9tEgf8=",
             "type": "github"
         },
-        "version": "266feb8d373ac201bd28d7522e4e65cb2865f082"
+        "version": "a99a5f1bbb5fec2c0bfa945ec8e2aabcb6f24d71"
     },
     "filen": {
         "cargoLocks": null,
