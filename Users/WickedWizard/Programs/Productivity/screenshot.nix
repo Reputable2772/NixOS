@@ -8,6 +8,14 @@ let
   hyprland = config.wayland.windowManager.hyprland.enable;
 in
 {
+  # Fixes nix-community/home-manager#2064
+  systemd.user.targets.tray = {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
+    };
+  };
+
   home.packages =
     (with pkgs; [ tesseract ])
     ++ (lib.optionals hyprland (
