@@ -97,6 +97,11 @@ let
       handle @linkding {
         reverse_proxy linkding:9090
       }
+
+      @ente host ente.{env.DOMAIN} ente.{env.EXTERNAL_DOMAIN}
+      handle @ente {
+        reverse_proxy ente_museum:8080
+      }
     }
   '';
   containerfile = pkgs.writeText "caddy-containerfile" ''

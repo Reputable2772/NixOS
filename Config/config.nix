@@ -248,6 +248,31 @@ rec {
           envFiles = null;
           env = null;
         };
+        ente_museum = {
+          dir = "${dir.containers}/Ente/museum";
+          envFiles = [ "ente" ];
+          env = [ "ENTE_CREDENTIALS_FILE=/credentials.yaml" ];
+        };
+        ente_socat = {
+          dir = "${dir.containers}/Ente/socat";
+          envFiles = null;
+          env = null;
+        };
+        ente_postgres = {
+          dir = "${dir.containers}/Ente/postgres";
+          envFiles = [ "ente" ];
+          env = null;
+        };
+        ente_minio = {
+          dir = "${dir.containers}/Ente/minio";
+          envFiles = [ "ente" ];
+          env = null;
+        };
+        ente_minio-provision = {
+          dir = "${dir.containers}/Ente/minio-provision";
+          env = null;
+          envFiles = null;
+        };
       };
     };
   };
@@ -274,4 +299,5 @@ rec {
   "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }

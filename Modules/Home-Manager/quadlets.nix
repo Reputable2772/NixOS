@@ -64,11 +64,13 @@ in
                 && (v.Container.Volume != null || v.Container.Volume != [ ])
               )
               {
-                Service.ExecStartPre = pkgs.writeShellScript "${n}-mkdir" (
-                  concatMapStringsSep "\n" (
-                    x: "${pkgs.coreutils}/bin/mkdir -p ${builtins.elemAt (builtins.split ":" x) 0}"
-                  ) v.Container.Volume
-                );
+                Service.ExecStartPre = [
+                  (pkgs.writeShellScript "${n}-mkdir" (
+                    concatMapStringsSep "\n" (
+                      x: "${pkgs.coreutils}/bin/mkdir -p ${builtins.elemAt (builtins.split ":" x) 0}"
+                    ) v.Container.Volume
+                  ))
+                ];
               }
             ) v;
             file = pkgs.writeTextDir n (lib'.toSystemdUnit val);
