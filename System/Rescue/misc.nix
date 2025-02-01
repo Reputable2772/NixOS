@@ -2,7 +2,6 @@
 {
   services.xserver.desktopManager.gnome.enable = true;
 
-  hardware.pulseaudio.enable = lib.mkForce false;
   services.openssh.enable = lib.mkForce false;
   services.avahi.enable = lib.mkForce false;
 
