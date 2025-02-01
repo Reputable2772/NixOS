@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  prefer-gnome = false;
+  prefer-gnome = true;
   prefer-kde = !prefer-gnome;
   cfg =
     config.specialisation."desktop-environment-${
