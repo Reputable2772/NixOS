@@ -152,6 +152,7 @@ rec {
           # Setting it to null or omitting it will use the default directory
           dir = null;
           # A list of all the agenix file names to be used, without the age suffix.
+          # Content of each agenix file is mentioned below.
           envFiles = [
             "duckdns"
             "domains"
@@ -301,3 +302,22 @@ rec {
   "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
+
+/**
+  wickedwizardPassword.age - Contains the password for user wickedwizard in hashed form.
+  rootPassword.age - Contains the password for user root in hashed form.
+
+  windows.age - Contains the Bitlocker recovery key.
+
+  wickedwizard-backup.age - Contains the password for restic backup repository.
+
+  important-files.age - Contains the password for Gocryptfs mount.
+
+  duckdns.age - Contains DUCKDNS_TOKEN from duckdns
+  domains.age - Contains DOMAIN and EXTERNAL_DOMAIN. (Legacy behaviour, both should be merged into one soon).abort
+  email.age - Contains your email for Caddy, Let's Encrypt
+  push-notifications.age - Contains Bitwarden Push Notification keys. (PUSH_INSTALLATION_ID, PUSH_INSTALLATION_KEY). More info - https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
+  proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)
+  ente.age - Contains POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, ENTE_DB_NAME, ENTE_DB_USER, ENTE_DB_PASSWORD. They match respectively. (i.e. POSTGRES_DB should have same value as ENTE_DB_NAME)
+    Also contains MINIO_ROOT_USER, MINIO_ROOT_PASSWORD.
+*/

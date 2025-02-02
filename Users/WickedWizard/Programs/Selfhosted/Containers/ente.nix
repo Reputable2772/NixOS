@@ -34,9 +34,9 @@ in
         "pg_isready"
         "-q"
         "-d"
-        "ente_db"
+        ''''${ENTE_DB_NAME}''
         "-U"
-        "ente"
+        ''''${ENTE_DB_USER}''
       ];
       HealthStartPeriod = "40s";
       HealthStartupInterval = "1s";
