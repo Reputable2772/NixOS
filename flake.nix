@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -38,7 +39,7 @@
 
     # Require manual updates, nix flake update will not work.
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.5.2";

@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 let
   prefer-gnome = true;
   prefer-kde = !prefer-gnome;
@@ -34,5 +39,21 @@ in
     services.xserver.desktopManager.gnome.enable = lib.mkForce (
       config.programs.hyprland.enable && prefer-gnome
     );
+  };
+
+  nix.settings = {
+    substituters = [ "https://cosmic.cachix.org/" ];
+    trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+  };
+
+  specialisation."desktop-environment-cosmic".configuration = {
+    programs.hyprland.enable = lib.mkForce (!config.programs.hyprland.enable);
+
+    imports = [
+      inputs.nixos-cosmic.nixosModules.default
+    ];
+
+    services.desktopManager.cosmic.enable = false;
+    services.displayManager.cosmic-greeter.enable = false;
   };
 }
