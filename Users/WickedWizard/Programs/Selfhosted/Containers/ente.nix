@@ -36,7 +36,7 @@ in
         "-d"
         "ente_db"
         "-U"
-        "pguser"
+        "ente"
       ];
       HealthStartPeriod = "40s";
       HealthStartupInterval = "1s";

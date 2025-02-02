@@ -253,26 +253,26 @@ rec {
           envFiles = [ "ente" ];
           env = [ "ENTE_CREDENTIALS_FILE=/credentials.yaml" ];
         };
-        ente_socat = {
-          dir = "${dir.containers}/Ente/socat";
-          envFiles = null;
-          env = null;
-        };
         ente_postgres = {
           dir = "${dir.containers}/Ente/postgres";
           envFiles = [ "ente" ];
           env = null;
         };
-        ente_minio = {
-          dir = "${dir.containers}/Ente/minio";
-          envFiles = [ "ente" ];
-          env = null;
-        };
-        ente_minio-provision = {
-          dir = "${dir.containers}/Ente/minio-provision";
-          env = null;
-          envFiles = null;
-        };
+        # ente_socat = {
+        #   dir = "${dir.containers}/Ente/socat";
+        #   envFiles = null;
+        #   env = null;
+        # };
+        # ente_minio = {
+        #   dir = "${dir.containers}/Ente/minio";
+        #   envFiles = [ "ente" ];
+        #   env = null;
+        # };
+        # ente_minio-provision = {
+        #   dir = "${dir.containers}/Ente/minio-provision";
+        #   env = null;
+        #   envFiles = null;
+        # };
       };
     };
   };
