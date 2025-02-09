@@ -2,6 +2,7 @@
   description = "Nix Flakes for my System.";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs.follows = "nixos-cosmic/nixpkgs";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     agenix = {

@@ -7,6 +7,8 @@
 let
   prefer-gnome = true;
   prefer-kde = !prefer-gnome;
+  # Check if nixpkgs.follows = "nixos-cosmic/nixpkgs"
+  cosmic-enabled = inputs.nixpkgs == inputs.nixos-cosmic.inputs.nixpkgs;
   cfg =
     config.specialisation."desktop-environment-${
       if prefer-gnome then "gnome" else "kde"
@@ -53,7 +55,8 @@ in
       inputs.nixos-cosmic.nixosModules.default
     ];
 
-    services.desktopManager.cosmic.enable = false;
-    services.displayManager.cosmic-greeter.enable = false;
+    # Uncomment `nixpkgs.follows` line in flake.nix to enable cosmic.
+    services.desktopManager.cosmic.enable = cosmic-enabled;
+    services.displayManager.cosmic-greeter.enable = cosmic-enabled;
   };
 }
