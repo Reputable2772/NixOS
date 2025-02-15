@@ -1,7 +1,7 @@
 {
     "arr_scripts": {
         "cargoLocks": null,
-        "date": "2025-02-06",
+        "date": "2025-02-10",
         "extract": null,
         "name": "arr_scripts",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "RandomNinjaAtk",
             "repo": "arr-scripts",
-            "rev": "e3e415569d829431db783e91669c7dd5eb325294",
-            "sha256": "sha256-1fX0Z2ZrLLNlVX4bzk5OU3FhwAG/YhLQBRE7Bb0Tfz4=",
+            "rev": "f6a7ce7be53e40d032220bc3203b0d811e90d341",
+            "sha256": "sha256-jFpk9/X/Og/FTjONkgqUYRmPSucF7OXZofz5qQS85GA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e3e415569d829431db783e91669c7dd5eb325294"
+        "version": "f6a7ce7be53e40d032220bc3203b0d811e90d341"
     },
     "bottom_catppuccin": {
         "cargoLocks": null,
@@ -154,12 +154,12 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v134",
-            "sha256": "sha256-S79Hqn2EtSxU4kp99t8tRschSifWD4p/51++0xNWUxw=",
+            "rev": "v135",
+            "sha256": "sha256-OtF9hFsFXLpCpz5Oy+I7yAE6GgenpFEzUXTc9AtoZQk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v134"
+        "version": "v135"
     },
     "foot_catppuccin": {
         "cargoLocks": null,
