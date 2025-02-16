@@ -24,7 +24,16 @@
     enable = true;
     settings = pkgs.stubby.passthru.settingsExample // {
       tls_min_version = "GETDNS_TLS1_3";
-      dnssec = "GETDNS_EXTENSION_TRUE";
+      upstream_recursive_servers = [
+        {
+          address_data = "1.1.1.1";
+          tls_auth_name = "cloudflare-dns.com";
+        }
+        {
+          address_data = "1.0.0.1";
+          tls_auth_name = "cloudflare-dns.com";
+        }
+      ];
     };
   };
 }
