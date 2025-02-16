@@ -16,12 +16,12 @@ in
     userName = config'.git.username;
     signing.signByDefault = lib.mkIf (config'.git.secrets.signing ? key) true;
     signing.key = null;
+    signing.format = "ssh";
     extraConfig = {
       core = {
         autocrlf = "input";
       };
       gpg = {
-        format = "ssh";
         ssh.allowedSignersFile = signFile;
       };
       user.signingkey = config'.git.secrets.signing.key;
