@@ -10,7 +10,9 @@ with lib;
 
 let
 
-  cfg = filterAttrs (n: f: f.enable) (config.home.file // config.programs.flatpak-config.files);
+  cfg = filterAttrs (n: f: f.enable) (
+    config.home.file // config.programs.flatpak-config.redirectFiles
+  );
 
   homeDirectory = config.home.homeDirectory;
 
