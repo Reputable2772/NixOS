@@ -1,6 +1,5 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ junction ];
+  services.flatpak.packages = [ "re.sonny.Junction" ];
 
   xdg.mimeApps.defaultApplications = {
     "default-web-browser" = [ "re.sonny.Junction.desktop" ];

@@ -1,7 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    tor-browser-bundle-bin
-    tor
-  ];
+  services.flatpak.packages = [ "org.torproject.torbrowser-launcher" ];
 }

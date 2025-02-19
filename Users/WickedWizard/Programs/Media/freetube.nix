@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ freetube ];
+  services.flatpak.packages = [ "io.freetubeapp.FreeTube" ];
 }
