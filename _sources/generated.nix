@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "e3e415569d829431db783e91669c7dd5eb325294";
+    version = "63373875a49fe147fe1fbf15d1c995aed1dcf08f";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "e3e415569d829431db783e91669c7dd5eb325294";
+      rev = "63373875a49fe147fe1fbf15d1c995aed1dcf08f";
       fetchSubmodules = false;
-      sha256 = "sha256-1fX0Z2ZrLLNlVX4bzk5OU3FhwAG/YhLQBRE7Bb0Tfz4=";
+      sha256 = "sha256-SqVLMNOycPit8imsa8ryhn0RJo5OR9rYf8VshioabfI=";
     };
-    date = "2025-02-06";
+    date = "2025-02-19";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
@@ -63,15 +63,15 @@
   };
   eza_themes = {
     pname = "eza_themes";
-    version = "a99a5f1bbb5fec2c0bfa945ec8e2aabcb6f24d71";
+    version = "57149851f07b3ee6ca94f5fe3d9d552f73f8b8b4";
     src = fetchFromGitHub {
       owner = "eza-community";
       repo = "eza-themes";
-      rev = "a99a5f1bbb5fec2c0bfa945ec8e2aabcb6f24d71";
+      rev = "57149851f07b3ee6ca94f5fe3d9d552f73f8b8b4";
       fetchSubmodules = false;
-      sha256 = "sha256-d+bbjgI1JrOGenqZ2aIRK8itkTUV2L4L3vtEN9tEgf8=";
+      sha256 = "sha256-vu6QLz0RvPavpD2VED25D2PJlHgQ8Yis+DnL+BPlvHw=";
     };
-    date = "2025-01-24";
+    date = "2025-02-19";
   };
   filen = {
     pname = "filen";
@@ -83,13 +83,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v134";
+    version = "v135";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v134";
+      rev = "v135";
       fetchSubmodules = false;
-      sha256 = "sha256-S79Hqn2EtSxU4kp99t8tRschSifWD4p/51++0xNWUxw=";
+      sha256 = "sha256-OtF9hFsFXLpCpz5Oy+I7yAE6GgenpFEzUXTc9AtoZQk=";
     };
   };
   foot_catppuccin = {
@@ -206,15 +206,15 @@
   };
   rofi_catppuccin = {
     pname = "rofi_catppuccin";
-    version = "b636a00fd40a7899a8206195464ae8b7f0450a6d";
+    version = "c24a212a6b07c2d45f32d01d7f10b4d88ddc9f45";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "rofi";
-      rev = "b636a00fd40a7899a8206195464ae8b7f0450a6d";
+      rev = "c24a212a6b07c2d45f32d01d7f10b4d88ddc9f45";
       fetchSubmodules = false;
-      sha256 = "sha256-zA8Zum19pDTgn0KdQ0gD2kqCOXK4OCHBidFpGwrJOqg=";
+      sha256 = "sha256-WGYEA4Q7UvSaRDjP/DiEtfXjvmWbewtdyJWRpjhbZgg=";
     };
-    date = "2024-06-20";
+    date = "2025-02-20";
   };
   starship_catppuccin = {
     pname = "starship_catppuccin";
