@@ -7,6 +7,11 @@
 {
   wayland.windowManager.hyprland = {
     inherit (osConfig.programs.hyprland) enable;
+
+    # Use packages from system itself.
+    package = null;
+    portalPackage = null;
+
     systemd.enableXdgAutostart = true;
     xwayland.enable = true;
     settings = {
