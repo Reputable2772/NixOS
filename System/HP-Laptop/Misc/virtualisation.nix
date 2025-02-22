@@ -3,9 +3,7 @@
   virtualisation = {
     podman = {
       enable = true;
-      package = pkgs.podman.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [ ./podman.patch ];
-      });
+      package = pkgs.podman;
       dockerCompat = true;
       # dockerSocket.enable = true;
       defaultNetwork.settings = {
