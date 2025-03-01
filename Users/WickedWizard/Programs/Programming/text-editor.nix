@@ -1,6 +1,11 @@
-{ osConfig, pkgs, ... }:
+{ osConfig, ... }:
 {
-  home.packages = with pkgs; [
-    (if osConfig.services.desktopManager.plasma6.enable then kdePackages.kate else gnome-text-editor)
+  services.flatpak.packages = [
+    (
+      if osConfig.services.xserver.desktopManager.gnome.enable then
+        "org.gnome.TextEditor"
+      else
+        "org.kde.kate"
+    )
   ];
 }
