@@ -3,15 +3,15 @@
 {
   arr_scripts = {
     pname = "arr_scripts";
-    version = "63373875a49fe147fe1fbf15d1c995aed1dcf08f";
+    version = "fd34c3169f29b723623d73f95709fe52cecafeb7";
     src = fetchFromGitHub {
       owner = "RandomNinjaAtk";
       repo = "arr-scripts";
-      rev = "63373875a49fe147fe1fbf15d1c995aed1dcf08f";
+      rev = "fd34c3169f29b723623d73f95709fe52cecafeb7";
       fetchSubmodules = false;
-      sha256 = "sha256-SqVLMNOycPit8imsa8ryhn0RJo5OR9rYf8VshioabfI=";
+      sha256 = "sha256-4kud7jvzSZqHN/cajP2N2AFDGPjo/L/XpH0oeSNZDRM=";
     };
-    date = "2025-02-19";
+    date = "2025-02-27";
   };
   bottom_catppuccin = {
     pname = "bottom_catppuccin";
@@ -146,15 +146,15 @@
   };
   joplin_catppuccin = {
     pname = "joplin_catppuccin";
-    version = "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9";
+    version = "93a1425f906f2e358d764930ab04d13c1c4458d6";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "joplin";
-      rev = "b0a886ce7ba71b48fdbf72ad27f3446400ebcdb9";
+      rev = "93a1425f906f2e358d764930ab04d13c1c4458d6";
       fetchSubmodules = false;
-      sha256 = "sha256-H19iaemj7XWsd3r7OBvQinrNKMiYGl53ArIp49gZExs=";
+      sha256 = "sha256-gZ4h9/b7FK/jNY0R7+PWgiD2ELqskCFHG2IkTIthkLI=";
     };
-    date = "2024-06-21";
+    date = "2025-02-27";
   };
   nix-fast-build = {
     pname = "nix-fast-build";
@@ -170,15 +170,15 @@
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "d90002a5315db3a43c39dc52c2a91a99c9330e1f";
+    version = "f8a11f3e53d18c176bea9feb466712a117286a42";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "d90002a5315db3a43c39dc52c2a91a99c9330e1f";
+      rev = "f8a11f3e53d18c176bea9feb466712a117286a42";
       fetchSubmodules = false;
-      sha256 = "sha256-rU4WTj+2E/+OblAeK0+nzJhisz2V2/KwHBiJVBRj+LQ=";
+      sha256 = "sha256-92vB2Mmpj4ir5UWJBqb/EKNLJcZ6ixZakDrFAe2pu9w=";
     };
-    date = "2024-09-14";
+    date = "2025-02-23";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
