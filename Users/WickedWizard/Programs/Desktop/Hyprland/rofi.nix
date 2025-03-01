@@ -21,14 +21,14 @@ in
   xdg.configFile.rofi = {
     inherit (hyprland) enable;
     target = "rofi/config.rasi";
-    source = "${sources.rofi_catppuccin.src}/basic/.config/rofi/config.rasi";
+    source = "${sources.rofi_catppuccin.src}/catppuccin-default.rasi";
   };
 
   home.file = {
     rofi_theme = {
       inherit (hyprland) enable;
       target = ".local/share/rofi/themes/catppuccin-mocha.rasi";
-      source = "${sources.rofi_catppuccin.src}/basic/.local/share/rofi/themes/catppuccin-mocha.rasi";
+      source = "${sources.rofi_catppuccin.src}/themes/catppuccin-mocha.rasi";
     };
     rofi_bluetooth = {
       inherit (hyprland) enable;
