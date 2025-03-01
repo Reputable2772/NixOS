@@ -4,6 +4,7 @@
     enable = true;
     update.onActivation = true;
     uninstallUnmanaged = true;
+    packages = [ "com.github.tchx84.Flatseal" ];
     remotes = [
       {
         name = "flathub";
