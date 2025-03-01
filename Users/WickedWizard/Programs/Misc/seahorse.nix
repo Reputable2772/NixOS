@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ seahorse ];
+  services.flatpak.packages = [ "org.gnome.seahorse.Application" ];
 }

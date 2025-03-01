@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ libreoffice-fresh ];
+  services.flatpak.packages = [ "org.libreoffice.LibreOffice" ];
 }

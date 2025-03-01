@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ vlc ];
+  services.flatpak.packages = [ "org.videolan.VLC" ];
 }
