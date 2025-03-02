@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ heroic ];
+  services.flatpak.packages = [ "com.heroicgameslauncher.hgl" ];
 }
