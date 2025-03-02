@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     gocryptfs
 
-    xwaylandvideobridge
+    kdePackages.xwaylandvideobridge
   ];
 
   wayland.windowManager.hyprland.settings.windowrulev2 = [
