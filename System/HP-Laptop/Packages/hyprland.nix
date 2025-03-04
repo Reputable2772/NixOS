@@ -1,6 +1,6 @@
 {
   programs.hyprland = {
-    enable = false;
+    enable = true;
     xwayland.enable = true;
     withUWSM = true;
   };
