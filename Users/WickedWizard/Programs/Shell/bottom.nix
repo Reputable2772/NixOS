@@ -6,6 +6,7 @@
       flags = {
         group_processes = true;
       };
-    } // builtins.fromTOML (builtins.readFile "${sources.bottom_catppuccin.src}/themes/mocha.toml");
+    };
+    # // builtins.fromTOML (builtins.readFile "${sources.bottom_catppuccin.src}/themes/mocha.toml");
   };
 }

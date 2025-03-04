@@ -10,18 +10,6 @@ fetch.github = "nickclyde/rofi-bluetooth"
 src.git = "https://github.com/catppuccin/bottom.git"
 fetch.github = "catppuccin/bottom"
 
-[starship_catppuccin]
-src.git = "https://github.com/catppuccin/starship.git"
-fetch.github = "catppuccin/starship"
-
-[foot_catppuccin]
-src.git = "https://github.com/catppuccin/foot.git"
-fetch.github = "catppuccin/foot"
-
-[dunst_catppuccin]
-src.git = "https://github.com/catppuccin/dunst.git"
-fetch.github = "catppuccin/dunst"
-
 [prismlauncher_catppuccin]
 src.git = "https://github.com/catppuccin/prismlauncher.git"
 fetch.github = "catppuccin/prismlauncher"
@@ -43,14 +31,6 @@ fetch.github = "rafaelmardojai/firefox-gnome-theme"
 src.manual = "latest"
 fetch.url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
 
-[hyprlock_catppuccin]
-src.git = "https://github.com/catppuccin/hyprlock.git"
-fetch.github = "catppuccin/hyprlock"
-
-[hyprland_catppuccin]
-src.git = "https://github.com/catppuccin/hyprland.git"
-fetch.github = "catppuccin/hyprland"
-
 [wickedwizard_picture]
 src.manual = "latest"
 fetch.url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg"
@@ -58,10 +38,6 @@ fetch.url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5
 [catppuccin_zsh_syntax_highlighting]
 src.git = "https://github.com/catppuccin/zsh-syntax-highlighting.git"
 fetch.github = "catppuccin/zsh-syntax-highlighting"
-
-[hyprlock_background]
-src.manual = "latest"
-fetch.url = "https://raw.githubusercontent.com/zhichaoh/catppuccin-wallpapers/main/os/nix-black-4k.png"
 
 [calibre_catppuccin]
 src.git = "https://github.com/catppuccin/calibre.git"
@@ -74,10 +50,6 @@ fetch.github = "RandomNinjaAtk/arr-scripts"
 [joplin_catppuccin]
 src.git = "https://github.com/catppuccin/joplin.git"
 fetch.github = "catppuccin/joplin"
-
-[hyprland_background]
-src.manual = "latest"
-fetch.url = "https://raw.githubusercontent.com/NixOS/nixos-artwork/master/wallpapers/nixos-wallpaper-catppuccin-mocha.png"
 
 [eza_themes]
 src.git = "https://github.com/eza-community/eza-themes.git"

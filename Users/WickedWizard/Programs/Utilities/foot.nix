@@ -1,9 +1,7 @@
-{ sources, lib', ... }:
+{ config, ... }:
 {
-  programs.foot = {
-    enable = true;
-    settings = { } // lib'.iniToNix "${sources.foot_catppuccin.src}/themes/catppuccin-mocha.ini";
-  };
+  programs.foot.enable = true;
+  stylix.targets.foot.enable = config.programs.foot.enable;
 
   dconf.settings."org/cinnamon/desktop/applications/terminal".exec = "foot";
 

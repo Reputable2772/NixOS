@@ -7,5 +7,5 @@
     ];
   };
 
-  xdg.configFile."obs-studio/themes/".source = "${sources.obs_catppuccin.src}/themes";
+  # xdg.configFile."obs-studio/themes/".source = "${sources.obs_catppuccin.src}/themes";
 }

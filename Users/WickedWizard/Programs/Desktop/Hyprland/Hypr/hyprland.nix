@@ -1,10 +1,12 @@
 {
   osConfig,
+  config,
   pkgs,
-  sources,
   ...
 }:
 {
+  stylix.targets.hyprland.enable = config.wayland.windowManager.hyprland.enable;
+
   wayland.windowManager.hyprland = {
     inherit (osConfig.programs.hyprland) enable;
 
@@ -19,28 +21,10 @@
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       ];
 
-      source = [
-        "${sources.hyprland_catppuccin.src}/themes/mocha.conf"
-      ];
-
       general = {
-        "col.active_border" = "$blue";
-        "col.inactive_border" = "$surface1";
         layout = "dwindle";
         resize_on_border = true;
         no_border_on_floating = true;
-      };
-
-      group = {
-        "col.border_inactive" = "$surface1";
-        "col.border_active" = "$blue";
-        "col.border_locked_active" = "$teal";
-
-        groupbar = {
-          text_color = "$text";
-          "col.active" = "$blue";
-          "col.inactive" = "$surface1";
-        };
       };
 
       cursor = {
@@ -56,7 +40,6 @@
 
       misc = {
         focus_on_activate = true;
-        background_color = "$base";
         disable_hyprland_logo = false;
         disable_splash_rendering = true;
         mouse_move_enables_dpms = true;
@@ -94,7 +77,6 @@
         rounding = 8;
         shadow = {
           enabled = true;
-          color = "rgba($baseAlpha99)";
           render_power = 2;
           range = 8;
         };

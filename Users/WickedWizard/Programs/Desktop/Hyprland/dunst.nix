@@ -1,14 +1,7 @@
+{ config, ... }:
 {
-  config,
-  sources,
-  lib',
-  ...
-}:
-{
-  services.dunst = {
-    inherit (config.wayland.windowManager.hyprland) enable;
-    settings = { } // lib'.iniToNix "${sources.dunst_catppuccin.src}/themes/mocha.conf";
-  };
+  services.dunst.enable = config.wayland.windowManager.hyprland.enable;
+  stylix.targets.dunst.enable = config.services.dunst.enable;
 
   wayland.windowManager.hyprland.settings = {
     bind = [

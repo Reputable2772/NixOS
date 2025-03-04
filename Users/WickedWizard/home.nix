@@ -3,6 +3,7 @@
     ./Programs
     ./Services
 
+    ./stylix.nix
     ./flatpak.nix
     ./secrets.nix
   ];

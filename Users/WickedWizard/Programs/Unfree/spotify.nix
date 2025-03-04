@@ -11,6 +11,7 @@ let
 in
 {
   services.flatpak.packages = lib.optional config.programs.spicetify.dontInstall "com.spotify.Client";
+  stylix.targets.spicetify.enable = false;
 
   imports = [
     spicetify-nix.homeManagerModules.default

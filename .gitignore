@@ -8,6 +8,7 @@
 
 # Config folders
 /Config/**/*
+!Config/wallpaper.jpg
 !/Config/mimeapps.list
 !/Config/*.age
 !/Config/config.nix

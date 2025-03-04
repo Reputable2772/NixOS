@@ -13,6 +13,7 @@ let
   };
 in
 {
+  stylix.targets.firefox.enable = false;
   home.packages = [ firefox-gnome-theme ];
   programs.firefox = {
     enable = true;

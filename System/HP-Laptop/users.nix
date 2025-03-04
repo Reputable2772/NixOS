@@ -39,6 +39,7 @@
     useGlobalPkgs = true;
     useUserPackages = lib.mkForce false;
     backupFileExtension = "backup.backup.backup";
+    verbose = true;
     # users = lib.attrsets.mapAttrs
     # (n: v:
     users = {

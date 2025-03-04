@@ -1,12 +1,5 @@
-{ config, sources, ... }:
+{ config, ... }:
 {
-  services.hyprpaper = {
-    inherit (config.wayland.windowManager.hyprland) enable;
-
-    settings = rec {
-      preload = sources.hyprland_background.src.outPath;
-      wallpaper = ", ${preload}";
-      unload = preload;
-    };
-  };
+  services.hyprpaper.enable = config.wayland.windowManager.hyprland.enable;
+  stylix.targets.hyprland.hyprpaper.enable = config.wayland.windowManager.hyprland.enable;
 }

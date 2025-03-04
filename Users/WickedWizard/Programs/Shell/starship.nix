@@ -1,18 +1,8 @@
-{ sources, ... }:
-let
-  flavour = "mocha";
-in
 {
+  # Should pickup theme from terminal itself.
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    settings =
-      {
-        palette = "catppuccin_${flavour}";
-      }
-      // builtins.fromTOML (
-        builtins.readFile "${sources.starship_catppuccin.src}/themes/${flavour}.toml"
-      );
   };
 }

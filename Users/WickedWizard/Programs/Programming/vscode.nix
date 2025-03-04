@@ -10,6 +10,8 @@
     nil
   ];
 
+  stylix.targets.vscode.enable = false;
+
   # All VSCode related issues
   # https://github.com/nix-community/home-manager/issues/3822
   # https://github.com/NixOS/nixpkgs/issues/261205

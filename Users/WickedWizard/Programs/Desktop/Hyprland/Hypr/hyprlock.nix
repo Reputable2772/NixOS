@@ -1,34 +1,57 @@
+{ config, sources, ... }:
 {
-  config,
-  sources,
-  pkgs,
-  ...
-}:
-{
-  programs.hyprlock = {
-    inherit (config.wayland.windowManager.hyprland) enable;
-    # This is required since I'd like to use the source, but patch only a few lines.
-    extraConfig = builtins.readFile "${
-      pkgs.stdenv.mkDerivation {
-        name = "hyprlock_catppuccin_patch";
-        src = sources.hyprlock_catppuccin.src;
-        patches = [ ./hyprlock.patch ];
-        dontBuild = true;
-        doCheck = false;
-        dontConfigure = true;
-        installPhase = ''
-          mkdir -p $out
-          cp -r * $out/
-        '';
-      }
-    }/hyprlock.conf";
+  stylix.targets.hyprlock = {
+    enable = true;
+    useWallpaper = true;
   };
 
-  # Specifically this file, because https://github.com/catppuccin/hyprlock/blob/d5a6767000409334be8413f19bfd1cf5b6bb5cc6/hyprlock.conf#L1
-  xdg.configFile."hypr/mocha.conf".source = "${sources.hyprland_catppuccin.src}/themes/mocha.conf";
+  programs.hyprlock = {
+    inherit (config.wayland.windowManager.hyprland) enable;
+    settings = {
+      general = {
+        disable_loading_bar = true;
+        hide_cursor = true;
+      };
+
+      background.blur_passes = 3;
+      input-field = {
+        size = "300, 60";
+        outline_thickness = 4;
+        dots_size = 0.2;
+        dots_spacing = 0.2;
+        dots_center = true;
+        fade_on_empty = false;
+        placeholder_text = ''<span foreground="##${config.lib.stylix.colors.base05}"><i>󰌾 Logged in as </i><span foreground="##${config.lib.stylix.colors.base0E}">$USER</span></span>'';
+        hide_input = false;
+        fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+        capslock_color = "rgb(${config.lib.stylix.colors.base0A})";
+        position = "0, -47";
+        halign = "center";
+        valign = "center";
+      };
+      time = {
+        text = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
+        color = "rgb(${config.lib.stylix.colors.base05})";
+        font_size = 25;
+        # TOOD: Find out using Stylix
+        # font_family = "$font";
+        position = "-30, -150";
+        halign = "right";
+        valign = "top";
+      };
+      image = {
+        path = "$HOME/.config/user.jpg";
+        size = 100;
+        # Could be base17, not sure.
+        border_color = "rgb(${config.lib.stylix.colors.base0E})";
+        position = "0, 75";
+        halign = "center";
+        valign = "center";
+      };
+    };
+  };
 
   xdg.configFile."user.jpg".source = sources.wickedwizard_picture.src;
-  xdg.configFile."lockscreen.png".source = sources.hyprlock_background.src;
 
   wayland.windowManager.hyprland.settings.bind = [
     "CTRL ALT, Delete, exec, hyprlock"

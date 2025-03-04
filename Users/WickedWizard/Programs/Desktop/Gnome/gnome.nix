@@ -8,6 +8,8 @@ let
   cond = osConfig.services.xserver.desktopManager.gnome.enable;
 in
 {
+  stylix.targets.gnome.enable = cond;
+
   # Required even if Gnome is not installed
   home.packages =
     with pkgs;
