@@ -11,7 +11,7 @@ let
 in
 {
   services.flatpak.packages = lib.optional config.programs.spicetify.dontInstall "com.spotify.Client";
-  stylix.targets.spicetify.enable = false;
+  stylix.targets.spicetify.enable = true;
 
   imports = [
     spicetify-nix.homeManagerModules.default
@@ -21,8 +21,6 @@ in
     enable = true;
     # Set to true to use flatpak installation.
     dontInstall = true;
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
     alwaysEnableDevTools = true;
     /**
       This is a modification of https://github.com/Gerg-L/spicetify-nix/blob/master/pkgs/spicetifyBuilder.nix
