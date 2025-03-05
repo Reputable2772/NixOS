@@ -8,6 +8,9 @@
     package = pkgs.catppuccin-cursors.mochaDark;
   };
 
+  # Should be done by stylix itself. danth/stylix#478
+  home.pointerCursor.hyprcursor.enable = true;
+
   services.flatpak.overrides.global.Context = {
     filesystems = [
       "xdg-data/icons:ro"
