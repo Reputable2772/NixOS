@@ -5,7 +5,7 @@
     ./avizo.nix
     ./copyq.nix
     ./dunst.nix
-    ./rofi.nix
+    ./wofi.nix
     ./waybar.nix
     ./wlogout.nix
   ];
