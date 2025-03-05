@@ -14,8 +14,4 @@
         on-click = lib.getExe pkgs.wlogout;
         tooltip = false;
       };
-
-  wayland.windowManager.hyprland.settings.bind = [
-    "CTRL ALT, Delete, exec, wlogout"
-  ];
 }
