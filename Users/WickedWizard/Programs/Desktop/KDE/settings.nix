@@ -2,8 +2,6 @@
   inputs,
   osConfig,
   config,
-  pkgs,
-  lib,
   ...
 }:
 {
@@ -12,14 +10,6 @@
   ];
 
   stylix.targets.kde.enable = config.programs.plasma.enable;
-
-  # Needs to be done manually due to the autostart module.
-  xdg.configFile."autostart/plasma-manager-autostart.desktop".enable = lib.mkForce false;
-  # https://github.com/nix-community/plasma-manager/blob/trunk/modules/startup.nix#L210-L216
-  programs.autostart.packages = lib.optional config.programs.plasma.enable (
-    pkgs.writeTextDir "share/applications/plasma-manager-autostart.desktop"
-      config.xdg.configFile."autostart/plasma-manager-autostart.desktop".text
-  );
 
   programs.plasma = {
     enable = osConfig.services.desktopManager.plasma6.enable;

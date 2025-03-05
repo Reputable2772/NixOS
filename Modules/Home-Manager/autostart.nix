@@ -45,5 +45,6 @@ in
         ln -s $file $out/
       done
     '';
+    xdg.configFile."autostart".recursive = true;
   };
 }
