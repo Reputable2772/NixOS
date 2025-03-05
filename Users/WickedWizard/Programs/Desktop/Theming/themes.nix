@@ -35,23 +35,20 @@ in
     /**
       GTK4 - The flatpak theme requires HM Toplevel symlink, and all the other files referenced by it.
         The package/share/themes/<name>/gtk-4.0/gtk.css is automatically referenced by the toplevel HM gtk.css file
-        and thus is required.
+        only when the value is set using gtk.theme. We have no way of detecting this, and run as if the file was referenced, anyway.
 
       GTK3 - The flatpak theme requires HM Toplevel symlink only.
         The package/share/themes/<name>/gtk-3.0/gtk.css is not automatically referenced by the toplevel HM gtk.css file,
         and needs to be manually symlinked by us.
     */
-    (pkgs.writeShellScript "flatpak-gtk-themes" (
-      lib.optionalString (config.gtk.theme ? name && config.gtk.theme ? package) ''
-        ${pkgs.flatpak}/bin/flatpak --user override --filesystem=${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css:ro
-        ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink $HOME/.config/gtk-4.0/gtk.css):ro
-        ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink $HOME/.config/gtk-4.0/settings.ini):ro
-      ''
-      + lib.optionalString (config.gtk.gtk3.extraCss != "") ''
-        ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink $HOME/.config/gtk-3.0/gtk.css):ro
-        ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink $HOME/.config/gtk-3.0/settings.ini):ro
-      ''
-    ))
+    (pkgs.writeShellScript "flatpak-gtk-themes" ''
+      ${pkgs.flatpak}/bin/flatpak --user override --filesystem="${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css":ro
+      [ -L "$HOME/.config/gtk-4.0/gtk.css" ] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-4.0/gtk.css"):ro
+      [ -L "$HOME/.config/gtk-4.0/settings.ini" ] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-4.0/settings.ini"):ro
+
+      [ -L "$HOME/.config/gtk-3.0/gtk.css" ] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-3.0/gtk.css"):ro
+      [ -L "$HOME/.config/gtk-3.0/settings.ini"] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-3.0/settings.ini"):ro
+    '')
   ];
   /**
     The Flatpak versions for the runtimes for Kvantum seems to
