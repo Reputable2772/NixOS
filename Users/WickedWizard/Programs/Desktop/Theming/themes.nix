@@ -47,7 +47,7 @@ in
       [ -L "$HOME/.config/gtk-4.0/settings.ini" ] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-4.0/settings.ini"):ro
 
       [ -L "$HOME/.config/gtk-3.0/gtk.css" ] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-3.0/gtk.css"):ro
-      [ -L "$HOME/.config/gtk-3.0/settings.ini"] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-3.0/settings.ini"):ro
+      [ -L "$HOME/.config/gtk-3.0/settings.ini" ] && ${pkgs.flatpak}/bin/flatpak --user override --filesystem=$(readlink "$HOME/.config/gtk-3.0/settings.ini"):ro
     '')
   ];
   /**
