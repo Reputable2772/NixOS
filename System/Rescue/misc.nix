@@ -10,5 +10,5 @@
   services.gnome.evolution-data-server.enable = lib.mkForce false;
   services.gnome.gnome-online-accounts.enable = lib.mkForce false;
   services.gnome.tracker-miners.enable = lib.mkForce false;
-  services.gnome.tracker.enable = lib.mkForce false;
+  services.gnome.tinysparql.enable = lib.mkForce false;
 }

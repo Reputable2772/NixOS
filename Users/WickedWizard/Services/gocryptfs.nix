@@ -44,9 +44,9 @@ in
       Type = "forking";
       Restart = "on-failure";
       RestartSec = 5;
-      ExecStartPre = script "gocryptfs-premount.sh" (map_cmd (
-        n: v: "mkdir -p ${v.mountpoint}"
-      )) [ ] [ ] { };
+      ExecStartPre =
+        script "gocryptfs-premount.sh" (map_cmd (n: v: "mkdir -p ${v.mountpoint}")) [ ] [ ]
+          { };
 
       ExecStart = script "gocryptfs-mount.sh" (map_cmd (
         n: v:
@@ -57,9 +57,13 @@ in
         }"
       )) [ pkgs.gocryptfs ] [ "cannot:${lib.getExe' pkgs.gocryptfs "gocryptfs"}" ] { };
 
-      ExecStop = script "gocryptfs-unmount.sh" (map_cmd (n: v: "fusermount -u ${v.mountpoint}")) [
-        pkgs.fuse
-      ] [ ] { external = [ "fusermount" ]; };
+      ExecStop =
+        script "gocryptfs-unmount.sh" (map_cmd (n: v: "fusermount -u ${v.mountpoint}"))
+          [
+            pkgs.fuse
+          ]
+          [ ]
+          { external = [ "fusermount" ]; };
 
       # Force gocryptfs and others to use the fusermount wrapper in /run/wrappers/bin, otherwise permissions error occurs.
       Environment = [ "PATH=/run/wrappers/bin" ];

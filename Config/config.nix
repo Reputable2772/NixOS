@@ -314,7 +314,7 @@ rec {
   important-files.age - Contains the password for Gocryptfs mount.
 
   duckdns.age - Contains DUCKDNS_TOKEN from duckdns
-  domains.age - Contains DOMAIN and EXTERNAL_DOMAIN. (Legacy behaviour, both should be merged into one soon).abort
+  domains.age - Contains DOMAIN and EXTERNAL_DOMAIN. (Legacy behaviour, both should be merged into one soon).
   email.age - Contains your email for Caddy, Let's Encrypt
   push-notifications.age - Contains Bitwarden Push Notification keys. (PUSH_INSTALLATION_ID, PUSH_INSTALLATION_KEY). More info - https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
   proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)
