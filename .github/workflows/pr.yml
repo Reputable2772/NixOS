@@ -26,8 +26,6 @@ jobs:
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
 
-    - uses: DeterminateSystems/magic-nix-cache-action@main
-
     - name: "Build both closures"
       id: build
       # nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"

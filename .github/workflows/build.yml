@@ -27,8 +27,6 @@ jobs:
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
 
-    - uses: DeterminateSystems/magic-nix-cache-action@main
-
     - name: "Check Flake"
       run: nix develop . --command check
 

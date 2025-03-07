@@ -25,9 +25,6 @@ jobs:
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
 
-
-    - uses: DeterminateSystems/magic-nix-cache-action@main
-
     - name: "Update flake.lock and nvfetcher"
       run: |
         nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee flake-update.txt
