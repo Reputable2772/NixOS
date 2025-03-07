@@ -1,6 +1,7 @@
 { config, ... }:
 {
-  services.dunst.enable = config.wayland.windowManager.hyprland.enable;
+  services.dunst.enable =
+    config.wayland.windowManager.hyprland.enable && !config.programs.hyprpanel.enable;
   stylix.targets.dunst.enable = config.services.dunst.enable;
 
   wayland.windowManager.hyprland.settings = {

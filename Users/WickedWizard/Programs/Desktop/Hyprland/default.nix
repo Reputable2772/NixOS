@@ -5,8 +5,9 @@
     ./avizo.nix
     ./copyq.nix
     ./dunst.nix
+    ./hyprpanel.nix
+    # ./waybar.nix
     ./wofi.nix
-    ./waybar.nix
     ./wlogout.nix
   ];
 }

@@ -6,7 +6,8 @@ in
 {
   stylix.targets.avizo.enable = config.services.avizo.enable;
 
-  services.avizo.enable = config.wayland.windowManager.hyprland.enable;
+  services.avizo.enable =
+    config.wayland.windowManager.hyprland.enable && !config.programs.hyprpanel.enable;
 
   wayland.windowManager.hyprland.settings = {
     bind = [

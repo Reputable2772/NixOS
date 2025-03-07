@@ -248,7 +248,7 @@ in
 {
 
   programs.waybar = {
-    inherit (config.wayland.windowManager.hyprland) enable;
+    enable = config.wayland.windowManager.hyprland.enable && !config.programs.hyprpanel.enable;
     settings = {
       mainBar = waybar;
     };
