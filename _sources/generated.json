@@ -20,27 +20,6 @@
         },
         "version": "fd34c3169f29b723623d73f95709fe52cecafeb7"
     },
-    "bottom_catppuccin": {
-        "cargoLocks": null,
-        "date": "2024-09-17",
-        "extract": null,
-        "name": "bottom_catppuccin",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "bottom",
-            "rev": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2",
-            "sha256": "sha256-Vi438I+YVvoD2xzq2t9hJ9R3a+2TlDdbakjFYFtjtXQ=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2"
-    },
     "calibre_catppuccin": {
         "cargoLocks": null,
         "date": "2024-09-14",

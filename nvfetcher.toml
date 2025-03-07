@@ -6,10 +6,6 @@ fetch.github = "catppuccin/rofi"
 src.git = "https://github.com/nickclyde/rofi-bluetooth.git"
 fetch.github = "nickclyde/rofi-bluetooth"
 
-[bottom_catppuccin]
-src.git = "https://github.com/catppuccin/bottom.git"
-fetch.github = "catppuccin/bottom"
-
 [prismlauncher_catppuccin]
 src.git = "https://github.com/catppuccin/prismlauncher.git"
 fetch.github = "catppuccin/prismlauncher"

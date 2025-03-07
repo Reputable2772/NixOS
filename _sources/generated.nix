@@ -18,18 +18,6 @@
     };
     date = "2025-02-27";
   };
-  bottom_catppuccin = {
-    pname = "bottom_catppuccin";
-    version = "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "bottom";
-      rev = "ed09bd5a5dd78d83acdc8ff5fdec40a6340ed1c2";
-      fetchSubmodules = false;
-      sha256 = "sha256-Vi438I+YVvoD2xzq2t9hJ9R3a+2TlDdbakjFYFtjtXQ=";
-    };
-    date = "2024-09-17";
-  };
   calibre_catppuccin = {
     pname = "calibre_catppuccin";
     version = "27bd12d2d8dcd24b9ce7cae32135fbd41b896921";
