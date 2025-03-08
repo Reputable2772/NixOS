@@ -17,6 +17,8 @@ in
     spicetify-nix.homeManagerModules.default
   ];
 
+  home.packages = [ spicePkgs.spicetify-cli ];
+
   programs.spicetify = {
     enable = true;
     # Set to true to use flatpak installation.
@@ -69,7 +71,7 @@ in
       if config.programs.spicetify.dontInstall then
         (pkgs.makeDesktopItem {
           name = "Spotify";
-          exec = "flatpak run com.spotify.Client";
+          exec = "${spicePkgs.spicetify-cli}/bin/spicetify && flatpak run com.spotify.Client";
           desktopName = "spotify";
           categories = [ "Applications" ];
         })
