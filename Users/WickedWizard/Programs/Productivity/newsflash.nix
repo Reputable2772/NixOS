@@ -1,11 +1,9 @@
-{ pkgs, ... }:
 {
-  # TODO: Convert to flatpak.
-  home.packages = with pkgs; [ newsflash ];
+  services.flatpak.packages = [ "io.gitlab.news_flash.NewsFlash" ];
 
   wayland.windowManager.hyprland.settings.windowrulev2 = [
     "workspace 2, initialTitle:(Newsflash)"
   ];
 
-  programs.autostart.packages = with pkgs; [ newsflash ];
+  programs.autostart.flatpaks = [ "io.gitlab.news_flash.NewsFlash" ];
 }
