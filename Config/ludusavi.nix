@@ -58,8 +58,9 @@
       path = "${home}/.local/share/Steam";
       store = "steam";
     }
+    # Heroic is now a flatpak.
     {
-      path = "${home}/.config/heroic";
+      path = "${home}/.var/app/com.heroicgameslauncher.hgl/config/heroic";
       store = "heroic";
     }
     {
