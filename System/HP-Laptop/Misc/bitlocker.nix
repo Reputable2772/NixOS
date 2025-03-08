@@ -14,7 +14,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.strings) concatStringsSep;
 
-  only =
+  onlyIf =
     cond:
     mkIf (
       config'.system.${config.networking.hostName}.mounts ? bitlocker
@@ -22,15 +22,15 @@ let
     ) cond;
 in
 {
-  systemd.generators.systemd-cryptsetup-generator = only "${config.systemd.package}/lib/systemd/system-generators/systemd-cryptsetup-generator";
+  systemd.generators.systemd-cryptsetup-generator = onlyIf "${config.systemd.package}/lib/systemd/system-generators/systemd-cryptsetup-generator";
 
-  age.secrets = only (
+  age.secrets = onlyIf (
     mapAttrs (n: v: {
       file = ./. + "../../../../Config/${n}.age";
     }) config'.system.${config.networking.hostName}.mounts.bitlocker
   );
 
-  environment.etc.crypttab.text = only (
+  environment.etc.crypttab.text = onlyIf (
     concatStringsSep "\n" (
       mapAttrsToList (
         n: v:
@@ -41,7 +41,7 @@ in
     )
   );
 
-  fileSystems = only (
+  fileSystems = onlyIf (
     mapAttrs' (
       n: v:
       nameValuePair v.mountpoint {

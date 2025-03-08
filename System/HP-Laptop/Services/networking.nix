@@ -1,5 +1,7 @@
 { lib, ... }:
 {
+  # Make this ports configurable by HM as well.
+
   networking = {
     hostName = "hp-laptop";
     firewall = {

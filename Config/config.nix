@@ -59,6 +59,7 @@ rec {
   users = {
     wickedwizard = rec {
       home = _home.wickedwizard or "";
+      wallpaper = ./wallpaper.jpg;
       /**
         There needs to be a corresponding age file, with the name
         `user-backup.age`, use system encryption keys only.

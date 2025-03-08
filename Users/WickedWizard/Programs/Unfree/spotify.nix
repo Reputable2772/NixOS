@@ -71,7 +71,7 @@ in
       if config.programs.spicetify.dontInstall then
         (pkgs.makeDesktopItem {
           name = "Spotify";
-          exec = "${spicePkgs.spicetify-cli}/bin/spicetify && flatpak run com.spotify.Client";
+          exec = ''"${spicePkgs.spicetify-cli}/bin/spicetify && flatpak run com.spotify.Client"'';
           desktopName = "spotify";
           categories = [ "Applications" ];
         })

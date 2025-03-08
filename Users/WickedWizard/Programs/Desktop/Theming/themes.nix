@@ -57,7 +57,7 @@ in
     However, this is a tedious process with a lot of breakages.
     Installing kvantum and setting the environment variable does
     not work most of the time. Moreover, there seems to be no way to
-    configure Qt5ct and Qt6ct within Flatpaks, leaving a lot to be desired.appstream
+    configure Qt5ct and Qt6ct within Flatpaks, leaving a lot to be desired.
 
     Below are the remnants of the failed work.
   */

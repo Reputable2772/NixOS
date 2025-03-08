@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   networking = {
     firewall = {
@@ -15,10 +14,6 @@
       dns = "none";
     };
   };
-
-  environment.systemPackages = [
-    (pkgs.writeScriptBin "stubby-hash-generator" "echo | ${pkgs.openssl}/bin/openssl s_client -connect $1 2>/dev/null | ${pkgs.openssl}/bin/openssl x509 -pubkey -noout | ${pkgs.openssl}/bin/openssl pkey -pubin -outform der | ${pkgs.openssl}/bin/openssl dgst -sha256 -binary | ${pkgs.openssl}/bin/openssl enc -base64")
-  ];
 
   services.dnscrypt-proxy2 = {
     enable = true;

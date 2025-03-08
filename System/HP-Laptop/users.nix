@@ -11,7 +11,7 @@
 {
   # Needs to be set here or else shell won't work
   programs.zsh.enable = true;
-  # Shell autocomplete
+  # Shell autocomplete for HM's ZSH.
   environment.pathsToLink = [ "/share/zsh" ];
 
   age.secrets.wickedwizardPassword.file = ../../Config/wickedwizardPassword.age;
@@ -40,26 +40,19 @@
     useUserPackages = lib.mkForce false;
     backupFileExtension = "backup.backup.backup";
     verbose = true;
-    # users = lib.attrsets.mapAttrs
-    # (n: v:
     users = {
       wickedwizard = {
         imports = [
           ../../Modules/Home-Manager
           ../../Users/WickedWizard/home.nix
           {
-            home = {
-              # username = n;
-              # homeDirectory = v.home;
-              stateVersion = "23.05";
-            };
+            home.stateVersion = "23.05";
             _module.args.config' = config'.users.wickedwizard;
           }
         ];
       };
     };
 
-    # (lib.attrsets.filterAttrs (n: v: v.isNormalUser && builtins.pathExists ../../Users/${v.description}/home.nix) config.users.users);
     extraSpecialArgs = {
       inherit inputs lib' sources;
     };

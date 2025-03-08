@@ -9,6 +9,7 @@ let
   cfg = config.programs.autostart;
 in
 {
+  # TODO: Add option for flatpaks.
   options.programs.autostart = {
     enable = mkOption {
       type = types.bool;

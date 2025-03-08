@@ -1,6 +1,11 @@
-{ config, pkgs, ... }:
 {
-  services.xserver.enable = false;
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  services.xserver.enable = lib.mkDefault false;
   services.xserver.desktopManager.gnome.enable = false;
   services.xserver.displayManager.gdm.enable = config.services.xserver.desktopManager.gnome.enable;
 

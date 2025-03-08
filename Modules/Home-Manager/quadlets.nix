@@ -53,7 +53,7 @@ in
         ++ (mapAttrsToList (
           n: v:
           let
-            # Don't override if a user already set ExecStartPre
+            # Don't override if a user already set ExecStartPre. Accomplished by recursiveUpdate
             val = recursiveUpdate (optionalAttrs
               (
                 cfg.mkdir

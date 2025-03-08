@@ -39,9 +39,6 @@
         "CTRL ALT, E, workspace, empty"
         "SUPER CTRL, E, movetoworkspace, empty"
 
-        # Fix buffer overflow wireplumber
-        "CTRL ALT SHIFT, F, exec, systemctl --user restart wireplumber"
-
         # Misc
         "CTRL SHIFT, Q, killactive"
         "ALT, F, togglefloating"

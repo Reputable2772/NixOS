@@ -1,10 +1,9 @@
 {
   imports = [
     ./appimage.nix
-    ./envfs.nix
     ./environment.nix
+    ./fhsenv.nix
     ./misc.nix
-    ./nix-ld.nix
     ./nix.nix
     ./packages.nix
     ./secrets.nix

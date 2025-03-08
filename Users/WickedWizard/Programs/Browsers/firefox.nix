@@ -7,6 +7,7 @@
   sources,
   ...
 }:
+# Try converting to Flatpak. Seems improbable for now.
 let
   firefox-gnome-theme = pkgs.callPackage ../../../../Packages/firefox-gnome-theme.nix {
     inherit sources;

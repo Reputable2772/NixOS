@@ -17,7 +17,7 @@
     kernel.sysctl = {
       "kernel.sysrq" = 1;
 
-      # Required for caddy.
+      # Required for caddy. Make it possible for HM to configure this.
       "net.ipv4.ip_unprivileged_port_start" = 80;
       "net.core.rmem_max" = 7500000;
       "net.core.wmem_max" = 7500000;

@@ -1,5 +1,5 @@
 {
   nixpkgs.config.permittedInsecurePackages = [
-    "electron-31.7.7"
+    # "electron-31.7.7"
   ];
 }

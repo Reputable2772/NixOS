@@ -2,7 +2,12 @@
 
 # TODO: Connected device and battery for bluetooth device.
 # Blocker: Jas-SinghFSU/HyprPanel#772
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 let
   accent = config.lib.stylix.colors.withHashtag.base0D;
   accent-alt = config.lib.stylix.colors.withHashtag.base03;
@@ -25,6 +30,10 @@ let
 in
 {
   imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+
+  # Forced due to this
+  # https://github.com/Jas-SinghFSU/HyprPanel/blob/2be9f1ef6c2df2ecf0eebe5a039e8029d8d151cd/nix/module.nix#L639
+  nixpkgs.overlays = lib.mkForce null;
 
   programs.hyprpanel = {
     enable = config.wayland.windowManager.hyprland.enable;
