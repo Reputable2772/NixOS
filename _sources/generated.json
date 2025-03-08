@@ -163,7 +163,7 @@
     },
     "obs_catppuccin": {
         "cargoLocks": null,
-        "date": "2025-02-23",
+        "date": "2025-03-03",
         "extract": null,
         "name": "obs_catppuccin",
         "passthru": null,
@@ -175,12 +175,12 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "obs",
-            "rev": "f8a11f3e53d18c176bea9feb466712a117286a42",
-            "sha256": "sha256-92vB2Mmpj4ir5UWJBqb/EKNLJcZ6ixZakDrFAe2pu9w=",
+            "rev": "3f8af3bf1a1742529259a19d923277786b99e3ef",
+            "sha256": "sha256-+X2ZkteIHVq9eP8yrzAERVp7IC2V9MWfcsJsBb+WBd0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f8a11f3e53d18c176bea9feb466712a117286a42"
+        "version": "3f8af3bf1a1742529259a19d923277786b99e3ef"
     },
     "prismlauncher_catppuccin": {
         "cargoLocks": null,
