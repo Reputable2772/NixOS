@@ -9,7 +9,6 @@ let
   cfg = config.programs.autostart;
 in
 {
-  # TODO: Add option for flatpaks.
   options.programs.autostart = {
     enable = mkOption {
       type = types.bool;
@@ -32,9 +31,26 @@ in
       type = types.listOf types.path;
       description = lib.mdDoc "Path to the desktop file that needs to be autostarted";
     };
+
+    flatpaks = mkOption {
+      default = [ ];
+      example = ''[ "io.gitlab.news_flash.NewsFlash" ]'';
+      type = types.listOf types.str;
+      description = "Flatpaks that need to be autostarted.";
+    };
   };
 
   config = mkIf cfg.enable {
+    programs.autostart.packages = lists.map (
+      n:
+      pkgs.makeDesktopItem {
+        name = n;
+        exec = "flatpak run ${n}";
+        desktopName = n;
+        categories = [ "Applications" ];
+      }
+    ) cfg.flatpaks;
+
     xdg.configFile."autostart".source = pkgs.runCommand "" { } ''
       mkdir $out
 
