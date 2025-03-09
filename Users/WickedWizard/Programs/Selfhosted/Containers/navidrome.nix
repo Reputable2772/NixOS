@@ -11,9 +11,9 @@ in
   programs.quadlets.quadlets."navidrome.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "deluan/navidrome:latest";
-      Network = "systemd-caddy";
       Volume = utils.mapVolume "navidrome" [
         "data:/data"
+        # TODO: Symlink this to $HOME/Documents/Music
         "music:/music:ro"
       ];
     } // utils.appendEnv "navidrome";

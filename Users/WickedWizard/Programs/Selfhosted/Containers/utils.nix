@@ -36,11 +36,6 @@ rec {
       Restart = "always";
       TimeoutStartSec = 300;
     };
-    /**
-      Podman ships a file podman-user-wait-network-online.service located in /etc/systemd/user.
-      It incorrectly assumes 'sh' in PATH and causes issues. virutalistaion.podman.package is modified
-      at system-level to fix this.
-    */
     Unit = {
       Wants = [ "network-online.target" ];
       After = [ "network-online.target" ];
@@ -56,6 +51,7 @@ rec {
       Container = {
         ContainerName = name;
         PodmanArgs = "--network-alias ${name} --user 0:0";
+        Network = network;
       };
 
       # We convert the raw network name to service name.

@@ -129,7 +129,6 @@ in
     (lib.attrsets.recursiveUpdate {
       Container = {
         Image = "localhost/caddy";
-        Network = "systemd-caddy";
         PublishPort = [
           "80:80"
           "443:443"

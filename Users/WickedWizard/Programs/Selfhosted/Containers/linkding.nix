@@ -11,7 +11,6 @@ in
   programs.quadlets.quadlets."linkding.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "docker.io/sissbruecker/linkding:latest";
-      Network = "systemd-caddy";
       Volume = utils.mapVolume "linkding" [
         "data:/etc/linkding/data"
       ];

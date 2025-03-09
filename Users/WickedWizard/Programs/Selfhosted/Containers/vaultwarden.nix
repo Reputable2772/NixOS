@@ -11,7 +11,6 @@ in
   programs.quadlets.quadlets."vaultwarden.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "docker.io/vaultwarden/server:latest";
-      Network = "systemd-caddy";
       Volume = utils.mapVolume "vaultwarden" [
         ":/data"
       ];

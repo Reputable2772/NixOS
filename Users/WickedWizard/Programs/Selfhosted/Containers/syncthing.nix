@@ -11,7 +11,6 @@ in
   programs.quadlets.quadlets."syncthing.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "lscr.io/linuxserver/syncthing:latest";
-      Network = "systemd-caddy";
       PublishPort = [
         "22000:22000/tcp"
         "22000:22000/udp"

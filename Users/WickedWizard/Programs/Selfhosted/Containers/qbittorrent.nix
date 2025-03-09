@@ -17,7 +17,6 @@ in
   programs.quadlets.quadlets."qbittorrent.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "lscr.io/linuxserver/qbittorrent:latest";
-      Network = "systemd-caddy";
       PublishPort = [
         "61851:61851/tcp"
         "61851:61851/udp"

@@ -15,7 +15,6 @@ in
         "/dev/net/tun:/dev/net/tun"
       ];
       Image = "docker.io/qmcgaw/gluetun";
-      Network = "systemd-caddy";
       Volume = utils.mapVolume "gluetun" [
         "config:/config"
       ];

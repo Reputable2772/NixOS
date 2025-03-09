@@ -13,7 +13,6 @@ in
   programs.quadlets.quadlets."ente_museum.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "ghcr.io/ente-io/server";
-      Network = "systemd-caddy";
       Volume = utils.mapVolume "ente_museum" [
         "logs:/var/logs"
         # TODO: Write these two YAML file declaratively.
