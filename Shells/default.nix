@@ -107,5 +107,10 @@
         echo "Last working Nixpkgs Revision: $rev, evaluated at $evalDate"
       '';
     }
+    {
+      help = "Open a nix repl for current system";
+      name = "repl";
+      command = "nixos-rebuild --flake . repl";
+    }
   ];
 }
