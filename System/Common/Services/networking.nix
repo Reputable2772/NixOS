@@ -1,3 +1,4 @@
+{ config, lib, ... }:
 {
   networking = {
     firewall = {
@@ -7,7 +8,6 @@
 
     nameservers = [
       "127.0.0.1"
-      "::1"
       "1.1.1.1"
     ];
     networkmanager = {
@@ -15,6 +15,10 @@
       dns = "none";
     };
   };
+
+  environment.etc."resolv.conf".text = lib.concatMapStringsSep "\n" (
+    x: "nameserver ${x}"
+  ) config.networking.nameservers;
 
   services.dnscrypt-proxy2 = {
     enable = true;
