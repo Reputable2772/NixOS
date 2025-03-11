@@ -8,6 +8,8 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  containers.caddy.services.baikal = "baikal:80";
+
   programs.quadlets.quadlets."baikal.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "docker.io/ckulka/baikal:nginx";

@@ -8,6 +8,8 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  containers.caddy.services.syncthing = "syncthing:8384";
+
   programs.quadlets.quadlets."syncthing.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "lscr.io/linuxserver/syncthing:latest";

@@ -8,6 +8,8 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  containers.caddy.services.navidrome = "navidrome:4533";
+
   programs.quadlets.quadlets."navidrome.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Image = "deluan/navidrome:latest";

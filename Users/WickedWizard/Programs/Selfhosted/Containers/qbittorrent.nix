@@ -8,6 +8,8 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  containers.caddy.services.qbittorrent = "qbittorrent:8516";
+
   /**
     * Do not turn on
     * Reannounce to all trackers when IP or port changed:

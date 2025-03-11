@@ -9,6 +9,8 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  containers.caddy.services.ente = "ente_museum:8080";
+
   # Museum is the main Ente server.
   programs.quadlets.quadlets."ente_museum.container" = lib.attrsets.recursiveUpdate {
     Container = {
