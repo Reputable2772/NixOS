@@ -8,6 +8,10 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
+  system-config.firewall = rec {
+    allowedTCPPorts = [ 61851 ];
+    allowedUDPPorts = allowedTCPPorts;
+  };
   containers.caddy.services.qbittorrent = "qbittorrent:8516";
 
   /**

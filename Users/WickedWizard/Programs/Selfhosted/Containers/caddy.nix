@@ -104,6 +104,14 @@ in
   };
 
   config = {
+    system-config.firewall = rec {
+      allowedUDPPorts = [
+        80
+        443
+      ];
+      allowedTCPPorts = allowedUDPPorts;
+    };
+
     # recursiveUpdate is not used on purpose.
     systemd.user.services.caddy-image = utils.defaults // {
       Service = {

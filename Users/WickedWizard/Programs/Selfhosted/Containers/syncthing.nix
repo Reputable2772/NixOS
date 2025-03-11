@@ -9,6 +9,13 @@ let
 in
 {
   containers.caddy.services.syncthing = "syncthing:8384";
+  system-config.firewall = {
+    allowedTCPPorts = [ 22000 ];
+    allowedUDPPorts = [
+      22000
+      21027
+    ];
+  };
 
   programs.quadlets.quadlets."syncthing.container" = lib.attrsets.recursiveUpdate {
     Container = {
