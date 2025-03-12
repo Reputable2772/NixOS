@@ -14,7 +14,10 @@
     package = null;
     portalPackage = null;
 
-    systemd.enable = !osConfig.programs.hyprland.withUWSM;
+    systemd = {
+      enable = !osConfig.programs.hyprland.withUWSM;
+      enableXdgAutostart = true;
+    };
     xwayland.enable = true;
     settings = {
       exec-once = [
