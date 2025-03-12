@@ -14,13 +14,10 @@ in
     Container = {
       Image = "deluan/navidrome:latest";
       Volume =
-        (utils.mapVolume "navidrome" [
+        [ config'.containers.navidrome.custom.music.libraryPath ]
+        ++ utils.mapVolume "navidrome" [
           "data:/data"
-        ])
-        ++ lib.optional (
-          config'.containers ? navidrome.custom.music.libraryPath
-          && config'.containers.navidrome.custom.music.libraryPath != null
-        ) config'.containers.navidrome.custom.music.libraryPath;
+        ];
     } // utils.appendEnv "navidrome";
   } (utils.containerDefaults "navidrome" "systemd-caddy");
 }

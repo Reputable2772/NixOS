@@ -148,7 +148,7 @@ rec {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@hp-laptop";
         };
       };
-      containers = {
+      containers = rec {
         caddy = {
           # Setting it to null or omitting it will use the default directory
           dir = null;
@@ -187,6 +187,15 @@ rec {
             "PUID=0"
             "PGID=0"
           ];
+          /**
+            Host path to be mounted over to the container
+            for copying over downloads from qBittorrent.
+
+            The container path should be same inside
+            all the containers.
+          */
+          custom.downloadPath = qbittorrent.custom.downloadPath;
+          custom.music.libraryPath = navidrome.custom.music.libraryPath;
         };
         qbittorrent = {
           dir = null;
@@ -198,6 +207,7 @@ rec {
             "PGID=0"
             "TORRENTING_PORT=61851"
           ];
+          custom.downloadPath = "${dir.base}/Media/Torrents:/downloads";
         };
         vaultwarden = {
           dir = null;
@@ -243,8 +253,12 @@ rec {
             "ND_SCANSCHEDULE=1h"
             "ND_LOGLEVEL=info"
             "ND_SESSIONTIMEOUT=24h"
+            # Look below.
+            "ND_MUSICFOLDER=/music"
+            # Relative to MusicFolder. So, the location of this folder is /music/playlists
+            "ND_PLAYLISTSPATH=playlists"
           ];
-          custom.music.libraryPath = "${dir.base}/Media/Music:/music:ro";
+          custom.music.libraryPath = "${dir.base}/Media/Music:/music";
         };
         linkding = {
           dir = null;

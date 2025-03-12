@@ -25,10 +25,11 @@ in
         "61851:61851"
         "61851:61851/udp"
       ];
-      Volume = utils.mapVolume "qbittorrent" [
-        "config:/config"
-        "Downloads:/downloads"
-      ];
+      Volume =
+        [ config'.containers.qbittorrent.custom.downloadPath ]
+        ++ utils.mapVolume "qbittorrent" [
+          "config:/config"
+        ];
       # Arch wiki - https://wiki.archlinux.org/title/Podman#Quadlet
     } // utils.appendEnv "qbittorrent";
   } (utils.containerDefaults "qbittorrent" "systemd-caddy");
