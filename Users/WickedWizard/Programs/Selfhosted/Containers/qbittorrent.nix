@@ -30,7 +30,6 @@ in
         ++ utils.mapVolume "qbittorrent" [
           "config:/config"
         ];
-      # Arch wiki - https://wiki.archlinux.org/title/Podman#Quadlet
     } // utils.appendEnv "qbittorrent";
   } (utils.containerDefaults "qbittorrent" "systemd-caddy");
 }

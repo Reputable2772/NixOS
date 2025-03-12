@@ -207,7 +207,7 @@ rec {
             "PGID=0"
             "TORRENTING_PORT=61851"
           ];
-          custom.downloadPath = "${dir.base}/Media/Torrents:/downloads";
+          custom.downloadPath = "${dir.base}/Media/Torrents:/data/downloads";
         };
         vaultwarden = {
           dir = null;
@@ -254,11 +254,11 @@ rec {
             "ND_LOGLEVEL=info"
             "ND_SESSIONTIMEOUT=24h"
             # Look below.
-            "ND_MUSICFOLDER=/music"
-            # Relative to MusicFolder. So, the location of this folder is /music/playlists
+            "ND_MUSICFOLDER=/data/music"
+            # Relative to MusicFolder. So, the location of this folder is /data/music/playlists
             "ND_PLAYLISTSPATH=playlists"
           ];
-          custom.music.libraryPath = "${dir.base}/Media/Music:/music";
+          custom.music.libraryPath = "${dir.base}/Media/Music:/data/music";
         };
         linkding = {
           dir = null;
