@@ -7,6 +7,6 @@
     ./feishin.nix
     ./ip-update.nix
     ./podman.nix
-    ./qbittorrent.nix
+    # ./qbittorrent.nix
   ];
 }
