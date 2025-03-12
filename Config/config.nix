@@ -244,6 +244,7 @@ rec {
             "ND_LOGLEVEL=info"
             "ND_SESSIONTIMEOUT=24h"
           ];
+          custom.music.libraryPath = "${dir.base}/Media/Music:/music:ro";
         };
         linkding = {
           dir = null;
