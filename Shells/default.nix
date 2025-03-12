@@ -49,6 +49,9 @@
       command = ''
         sudo nix-collect-garbage --delete-older-than 2d
         nix-collect-garbage --delete-older-than 2d
+
+        # Update bootloader entries
+        sudo /run/current-system/bin/switch-to-configuration boot
       '';
     }
     {
