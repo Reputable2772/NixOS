@@ -6,18 +6,6 @@
   dockerTools,
 }:
 {
-  arr_scripts = {
-    pname = "arr_scripts";
-    version = "fd34c3169f29b723623d73f95709fe52cecafeb7";
-    src = fetchFromGitHub {
-      owner = "RandomNinjaAtk";
-      repo = "arr-scripts";
-      rev = "fd34c3169f29b723623d73f95709fe52cecafeb7";
-      fetchSubmodules = false;
-      sha256 = "sha256-4kud7jvzSZqHN/cajP2N2AFDGPjo/L/XpH0oeSNZDRM=";
-    };
-    date = "2025-02-27";
-  };
   calibre_catppuccin = {
     pname = "calibre_catppuccin";
     version = "27bd12d2d8dcd24b9ce7cae32135fbd41b896921";

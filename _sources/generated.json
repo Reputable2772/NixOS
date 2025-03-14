@@ -1,25 +1,4 @@
 {
-    "arr_scripts": {
-        "cargoLocks": null,
-        "date": "2025-02-27",
-        "extract": null,
-        "name": "arr_scripts",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "RandomNinjaAtk",
-            "repo": "arr-scripts",
-            "rev": "fd34c3169f29b723623d73f95709fe52cecafeb7",
-            "sha256": "sha256-4kud7jvzSZqHN/cajP2N2AFDGPjo/L/XpH0oeSNZDRM=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "fd34c3169f29b723623d73f95709fe52cecafeb7"
-    },
     "calibre_catppuccin": {
         "cargoLocks": null,
         "date": "2024-09-14",
