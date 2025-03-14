@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ gnome-clocks ];
+  services.flatpak.packages = [ "org.gnome.clocks" ];
 }

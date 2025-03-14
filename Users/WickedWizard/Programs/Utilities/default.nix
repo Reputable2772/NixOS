@@ -1,9 +1,9 @@
 {
   imports = [
+    ./ark.nix
     ./calculator.nix
     ./clock.nix
     ./evince.nix
-    ./file-roller.nix
     ./fontconfig.nix
     ./foot.nix
     ./keepassxc.nix
