@@ -1,14 +1,16 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
-  home.packages = [
-    (if config.wayland.windowManager.hyprland.enable then pkgs.qalculate-gtk else pkgs.gnome-calculator)
-  ];
+  home.packages = lib.optional (!config.programs.gnome.enable) pkgs.qalculate-qt;
+
+  services.flatpak.packages = lib.optional config.programs.gnome.enable "org.gnome.Calculator";
 
   wayland.windowManager.hyprland.settings.bind = [
-    ", XF86Calculator, exec, qalculate-gtk"
+    "SUPER, Equal, exec, flatpak run io.github.Qalculate"
+    ", XF86Calculator, exec, flatpak run io.github.Qalculate"
   ];
 }

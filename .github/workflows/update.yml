@@ -52,6 +52,8 @@ jobs:
         (grep -E "→" nvfetcher-update.txt || echo "No changes!") >> changelog.txt
         echo "\`\`\`" >> changelog.txt
 
+        nix fmt
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:

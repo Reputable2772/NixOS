@@ -134,7 +134,19 @@
           inherit (lib.strings) hasSuffix;
         in
         {
-          formatter = pkgs.nixfmt-rfc-style;
+          # Taken from https://github.com/NixOS/nixfmt/issues/273#issuecomment-2563424097
+          formatter = pkgs.writeShellApplication {
+            name = "nixfmt-wrapper";
+
+            runtimeInputs = [
+              pkgs.fd
+              pkgs.nixfmt-rfc-style
+            ];
+
+            text = ''
+              fd "$@" -t f -e nix -x nixfmt '{}'
+            '';
+          };
 
           # Installation hooks need to setup manually in each devshell.
           pre-commit.check.enable = true;
