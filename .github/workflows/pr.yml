@@ -56,4 +56,8 @@ jobs:
       with:
         filePath: ./comment.txt
 
+    - name: "Push to Cachix"
+      run: |
+        CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} echo $(realpath result_new) | cachix push spearman4157
+
 # TODO: Flakes and Sources changelog from their respective git repositories.
