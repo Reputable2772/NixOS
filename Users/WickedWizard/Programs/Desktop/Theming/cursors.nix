@@ -6,6 +6,7 @@
   stylix.cursor = {
     name = "catppuccin-mocha-dark-cursors";
     package = pkgs.catppuccin-cursors.mochaDark;
+    size = 32;
   };
 
   # Should be done by stylix itself. danth/stylix#478
