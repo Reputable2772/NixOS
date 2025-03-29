@@ -87,15 +87,15 @@
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "a994c89a88578d003796b51df67e3623bd864449";
+    version = "58a80435caf1ff4f62b94592f508fba4c3776c97";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "a994c89a88578d003796b51df67e3623bd864449";
+      rev = "58a80435caf1ff4f62b94592f508fba4c3776c97";
       fetchSubmodules = false;
-      sha256 = "sha256-jeQrbdtIFSvDIrVIFrgV0emDHu1mH6SWt5BSUmK0et4=";
+      sha256 = "sha256-2CuaMd+9GHK18M971+pVltPC9h59LYDXEAEkEq+tRw8=";
     };
-    date = "2025-03-10";
+    date = "2025-03-23";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
