@@ -52,13 +52,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v136";
+    version = "v137";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v136";
+      rev = "v137";
       fetchSubmodules = false;
-      sha256 = "sha256-1+NdJ67l7M/LG91Tn7ebInBS/HwOpjty+LQJK99PoH0=";
+      sha256 = "sha256-oiHLDHXq7ymsMVYSg92dD1OLnKLQoU/Gf2F1GoONLCE=";
     };
   };
   joplin_catppuccin = {
@@ -75,15 +75,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "0ef0c6065345426fb4872c9ee75a58c11f62d3f8";
+    version = "2fadd8696095bde39531e3815deea894a00b9b4a";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "0ef0c6065345426fb4872c9ee75a58c11f62d3f8";
+      rev = "2fadd8696095bde39531e3815deea894a00b9b4a";
       fetchSubmodules = false;
-      sha256 = "sha256-lOMeXwNYIiX+/8unr+6blKkeWBJ2TRfJ2xGJ1Xo/qFw=";
+      sha256 = "sha256-qd5SlOzyBHk3BGtL3sBGw22JonJ9Go3P32O1YURRlNk=";
     };
-    date = "2025-03-13";
+    date = "2025-04-05";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
@@ -111,15 +111,15 @@
   };
   rofi-bluetooth = {
     pname = "rofi-bluetooth";
-    version = "9d91c048ff129819f4c6e9e48a17bd54343bbffb";
+    version = "034b05f52e2f48e4e1f6ae19eae9f30e4a9e6791";
     src = fetchFromGitHub {
       owner = "nickclyde";
       repo = "rofi-bluetooth";
-      rev = "9d91c048ff129819f4c6e9e48a17bd54343bbffb";
+      rev = "034b05f52e2f48e4e1f6ae19eae9f30e4a9e6791";
       fetchSubmodules = false;
-      sha256 = "sha256-1Xe3QFThIvJDCUznDP5ZBzwZEMuqmxpDIV+BcVvQDG8=";
+      sha256 = "sha256-o0Sr3/888L/2KzZZP/EcXx+8ZUzdHB/I/VIeVuJvJks=";
     };
-    date = "2023-02-03";
+    date = "2025-04-03";
   };
   rofi_catppuccin = {
     pname = "rofi_catppuccin";
