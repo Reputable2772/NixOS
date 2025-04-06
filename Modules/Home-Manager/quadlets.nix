@@ -18,15 +18,13 @@ let
     ;
   inherit (lib.lists) optional;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.strings) concatMapStringsSep concatStringsSep replaceStrings;
+  inherit (lib.strings) concatMapStringsSep replaceStrings;
 
   cfg = config.programs.quadlets;
 
-  contents =
-    [
-      "mkdir -p $out $out/source $out/units"
-    ]
-    ++ (mapAttrsToList (
+  quadlets = pkgs.buildEnv {
+    name = "quadlets";
+    paths = mapAttrsToList (
       n: v:
       let
         # Don't override if a user already set ExecStartPre. Accomplished by recursiveUpdate
@@ -49,18 +47,10 @@ let
             ];
           }
         ) v;
-        file = pkgs.writeTextDir n (lib'.toSystemdUnit val);
       in
-      ''
-        cp ${file}/* $out/source
-        QUADLET_UNIT_DIRS=${file} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
-
-        for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
-          substituteInPlace $out/units/$file \
-            --replace-warn ${file}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR}
-        done
-      ''
-    ) cfg.quadlets);
+      pkgs.writeTextDir n (lib'.toSystemdUnit val)
+    ) cfg.quadlets;
+  };
 in
 {
   options.programs.quadlets = {
@@ -91,7 +81,20 @@ in
 
   config = lib.mkIf cfg.enable {
     xdg.configFile."systemd/user/" = {
-      source = "${pkgs.runCommand "quadlet-generator" { } (concatStringsSep "\n" contents)}/units";
+      source = "${
+        pkgs.runCommand "quadlet-generator" { } ''
+            mkdir -p $out $out/src $out/units
+
+            ln -s ${quadlets} $out/src
+
+            QUADLET_UNIT_DIRS=${quadlets} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
+
+          for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
+            substituteInPlace $out/units/$file \
+              --replace-warn ${quadlets}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR}
+          done
+        ''
+      }/units";
       recursive = true;
     };
 
