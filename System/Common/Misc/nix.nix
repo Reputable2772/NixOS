@@ -25,6 +25,7 @@
       experimental-features = [
         "flakes"
         "nix-command"
+        "pipe-operator"
       ];
       # Fixes NixOS/nix#9574
       nix-path = config.nix.nixPath;
