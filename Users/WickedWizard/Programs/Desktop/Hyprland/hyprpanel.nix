@@ -39,8 +39,8 @@ in
     enable = config.wayland.windowManager.hyprland.enable;
     hyprland.enable = true;
     overwrite.enable = true;
-    overlay.enable = false;
-    layout = {
+    overlay.enable = true;
+    settings.layout = {
       "bar.layouts" = {
         "*" = {
           "left" = [
