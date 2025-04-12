@@ -43,11 +43,21 @@ in
       HealthStartupInterval = "1s";
       Notify = "healthy";
       Image = "postgres:15";
-      Volume = utils.mapVolume "ente_postgres" [
-        "data:/var/lib/postgresql/data"
-      ];
+      # We use the volume here, since the postgresql user does
+      # not run as root, causing permission issues when trying to backup
+      # the directory. Using volumes and `podman volume export` can fix this.
+      Volume = [ "ente_postgres.volume:/var/lib/postgresql/data" ];
     } // utils.appendEnv "ente_postgres";
   } (utils.containerDefaults "ente_postgres" "systemd-caddy");
+
+  programs.quadlets.quadlets."ente_postgres.volume" = lib.attrsets.recursiveUpdate utils.defaults {
+    Unit.Description = "Ente Postgres Volume";
+    Volume.VolumeName = "ente_postgres";
+    Service = {
+      Type = "oneshot";
+      Restart = "on-failure";
+    };
+  };
 
   # Containers below are only required to run Ente Photos.
 
