@@ -16,9 +16,9 @@ let
     optionalAttrs
     recursiveUpdate
     ;
-  inherit (lib.lists) optional;
+  inherit (lib.lists) filter map optional;
   inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.strings) concatMapStringsSep replaceStrings;
+  inherit (lib.strings) concatMapStringsSep hasSuffix replaceStrings;
 
   cfg = config.programs.quadlets;
 
@@ -39,11 +39,18 @@ let
           )
           {
             Service.ExecStartPre = [
-              (pkgs.writeShellScript "${n}-mkdir" (
-                concatMapStringsSep "\n" (
-                  x: "${pkgs.coreutils}/bin/mkdir -p ${builtins.elemAt (builtins.split ":" x) 0}"
-                ) v.Container.Volume
-              ))
+              # (pkgs.writeShellScript "${n}-mkdir" (
+              #   concatMapStringsSep "\n" (
+              #     x: "${pkgs.coreutils}/bin/mkdir -p ${builtins.elemAt (builtins.split ":" x) 0}"
+              #   ) v.Container.Volume
+              # ))
+              (
+                v.Container.Volume
+                |> map (x: builtins.elemAt (builtins.split ":" x) 0)
+                |> filter (x: !(hasSuffix ".volume" x))
+                |> concatMapStringsSep "\n" (x: "${pkgs.coreutils}/bin/mkdir -p ${x}")
+                |> pkgs.writeShellScript "${n}-mkdir"
+              )
             ];
           }
         ) v;
@@ -101,7 +108,11 @@ in
     home.packages = optional cfg.restart-all-units (
       pkgs.writeShellScriptBin "restart-all-podman-units" "systemctl --user restart ${
         concatMapStringsSep " " (
-          x: replaceStrings [ ".container" ".network" ] [ ".service" "-network.service" ] x
+          x:
+          replaceStrings
+            [ ".container" ".network" ".volume" ]
+            [ ".service" "-network.service" "-volume.service" ]
+            x
         ) (attrNames cfg.quadlets)
       }"
     );
