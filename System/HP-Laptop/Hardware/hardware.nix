@@ -25,7 +25,7 @@
 
   boot.initrd.systemd.tpm2.enable = true;
   security.tpm2.enable = true;
-  boot.kernelParams = [ "resume_offset=6344704" ];
+  boot.kernelParams = [ "resume_offset=3604480" ];
   boot.resumeDevice = "/dev/disk/by-uuid/67372b15-575e-455e-bf77-9959cdd78a62";
 
   fileSystems."/boot" = {
