@@ -4,6 +4,8 @@
   ...
 }:
 {
+  # Runs on xwayland by default(?). Change it in chrome://flags
+
   services.flatpak = {
     packages = [ "io.github.ungoogled_software.ungoogled_chromium" ];
     overrides."io.github.ungoogled_software.ungoogled_chromium" =
