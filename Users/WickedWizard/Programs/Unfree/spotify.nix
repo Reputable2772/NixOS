@@ -10,19 +10,18 @@ let
   spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
 in
 {
-  services.flatpak.packages = lib.optional config.programs.spicetify.dontInstall "com.spotify.Client";
+  services.flatpak.packages = lib.optional (!config.programs.spicetify.enable) "com.spotify.Client";
   stylix.targets.spicetify.enable = true;
 
   imports = [
     spicetify-nix.homeManagerModules.default
   ];
 
-  home.packages = [ spicePkgs.spicetify-cli ];
+  home.packages = [ config.programs.spicetify.spicetifyPackage ];
 
   programs.spicetify = {
-    enable = true;
-    # Set to true to use flatpak installation.
-    dontInstall = true;
+    # Set to true to use flatpak installation. The module does its thing even with false set.
+    enable = false;
     alwaysEnableDevTools = true;
     /**
       This is a modification of https://github.com/Gerg-L/spicetify-nix/blob/master/pkgs/spicetifyBuilder.nix
@@ -35,7 +34,7 @@ in
     extraCommands = ''
       mkdir -p $out/src $out/src/Backup
       cp -r {Themes,Extensions,CustomApps} $out/src
-      cp -ra ${spicePkgs.spicetify-cli}/bin/{jsHelper,css-map.json} $out/src
+      cp -ra ${config.programs.spicetify.spicetifyPackage}/share/spicetify/{jsHelper,css-map.json} $out/src
 
       sed "s|${
         if pkgs.stdenv.isLinux then
@@ -48,7 +47,7 @@ in
     '';
     # Flatpak takes care of this.
     windowManagerPatch =
-      config.wayland.windowManager.hyprland.enable && !config.programs.spicetify.dontInstall;
+      config.wayland.windowManager.hyprland.enable && config.programs.spicetify.enable;
 
     enabledExtensions = with spicePkgs.extensions; [
       autoVolume
@@ -61,17 +60,17 @@ in
 
   # Look at programs.spicetify.extraCommands for how this works.
   xdg.configFile.spicetify = {
-    enable = config.programs.spicetify.dontInstall;
+    enable = !config.programs.spicetify.enable;
     recursive = true;
     source = "${config.programs.spicetify.spicedSpotify.outPath}/src";
   };
 
   programs.autostart.packages = [
     (
-      if config.programs.spicetify.dontInstall then
+      if !config.programs.spicetify.enable then
         (pkgs.makeDesktopItem {
           name = "Spotify";
-          exec = ''"${spicePkgs.spicetify-cli}/bin/spicetify && flatpak run com.spotify.Client"'';
+          exec = pkgs.writeShellScript "spicetify-flatpak-start" "${config.programs.spicetify.spicetifyPackage}/bin/spicetify && flatpak run com.spotify.Client";
           desktopName = "spotify";
           categories = [ "Applications" ];
         })

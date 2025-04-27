@@ -85,7 +85,7 @@ in
       } // base;
 
       programs.zsh = {
-        initExtra = cfg.rcExtra;
+        initContent = cfg.rcExtra;
       } // base;
     };
 }
