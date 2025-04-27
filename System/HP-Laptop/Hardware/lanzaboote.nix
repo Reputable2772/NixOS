@@ -11,7 +11,7 @@
   ];
 
   nix.settings = {
-    substituters = [ "https://lanzaboote.cachix.org/" ];
+    substituters = [ "https://lanzaboote.cachix.org?priority=40" ];
     trusted-public-keys = [ "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk=" ];
   };
 
