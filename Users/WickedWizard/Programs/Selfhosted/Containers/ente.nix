@@ -12,21 +12,27 @@ in
   containers.caddy.services.ente = "ente_museum:8080";
 
   # Museum is the main Ente server.
-  programs.quadlets.quadlets."ente_museum.container" = lib.attrsets.recursiveUpdate {
-    Container = {
-      Image = "ghcr.io/ente-io/server";
-      Volume = utils.mapVolume "ente_museum" [
-        "logs:/var/logs"
-        # TODO: Write these two YAML file declaratively.
-        "museum.yaml:/museum.yaml:ro"
-        "credentials.yaml:/credentials.yaml"
-        "data:/data:ro"
-      ];
-    } // utils.appendEnv "ente_museum";
-    Service.ExecStartPre = [
-      "${lib.getExe osConfig.virtualisation.podman.package} wait --condition healthy ente_postgres"
-    ];
-  } (utils.containerDefaults "ente_museum" "systemd-caddy");
+  programs.quadlets.quadlets."ente_museum.container" =
+    lib.attrsets.recursiveUpdate (utils.containerDefaults "ente_museum" "systemd-caddy")
+      {
+        Container = {
+          Image = "ghcr.io/ente-io/server";
+          Volume = utils.mapVolume "ente_museum" [
+            "logs:/var/logs"
+            # TODO: Write these two YAML file declaratively.
+            "museum.yaml:/museum.yaml:ro"
+            "credentials.yaml:/credentials.yaml"
+            "data:/data:ro"
+          ];
+        } // utils.appendEnv "ente_museum";
+        Service.ExecStartPre = [
+          "${lib.getExe osConfig.virtualisation.podman.package} wait --condition healthy ente_postgres"
+        ];
+        Unit = {
+          After = [ "ente_postgres.service" ];
+          Requires = [ "ente_postgres.service" ];
+        };
+      };
 
   programs.quadlets.quadlets."ente_postgres.container" = lib.attrsets.recursiveUpdate {
     Container = {
