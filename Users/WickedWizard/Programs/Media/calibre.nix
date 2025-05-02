@@ -10,7 +10,7 @@ let
   };
 in
 {
-  home.packages = [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.calibre ];
+  # home.packages = [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.calibre ];
 
   xdg.mimeApps.defaultApplications = {
     "image/vnd.djvu" = "calibre-ebook-viewer.desktop";
