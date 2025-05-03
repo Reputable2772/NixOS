@@ -74,6 +74,7 @@ rec {
             map (x: "${base}/${x}") [
               "Android"
               "Applications"
+              "Applications/Containers/Backup"
               "Books"
               "Browsers"
               "Coding"
@@ -149,6 +150,15 @@ rec {
         };
       };
       containers = rec {
+        # Not a container, refer to Users/WickedWizard/Programs/Selfhosted/backup.nix.
+        # Can contain the path with docker mount path, or without. Doesn't matter.
+        backup = {
+          blacklistedPaths = [
+            lidarr.custom.downloadPath
+            lidarr.custom.music.libraryPath
+          ] ++ syncthing.custom.folders;
+          location = "${dir.base}/Applications/Containers/Backup";
+        };
         caddy = {
           # Setting it to null or omitting it will use the default directory
           dir = null;
@@ -217,6 +227,7 @@ rec {
             "ROCKET_PORT=80"
             "PUSH_ENABLED=true"
             "LOG_FILE=/data/vaultwarden.log"
+            "EXPERIMENTAL_CLIENT_FEATURE_FLAGS=fido2-vault-credentials,ssh-key-vault-item,ssh-agent"
           ];
         };
         syncthing = {

@@ -2,6 +2,7 @@
   imports = [
     ./Containers
 
+    ./backup.nix
     ./bitwarden.nix
     ./ente-auth.nix
     ./feishin.nix
