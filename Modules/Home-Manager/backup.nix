@@ -20,7 +20,7 @@ in
     };
 
     preBackupScript = mkOption {
-      type = types.str;
+      type = types.listOf types.str;
       default = "";
       description = ''
         Bash script to run before backup.

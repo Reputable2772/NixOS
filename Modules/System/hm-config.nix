@@ -42,6 +42,12 @@ in
         };
       };
     };
+
+    nixpkgs.config.permittedInsecurePackages = mkOption {
+      description = "Permitted Insecure Packages";
+      default = [ ];
+      type = types.listOf types.str;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -64,6 +70,12 @@ in
           "allowedUDPPorts"
         ];
       };
+
+      nixpkgs.config.permittedInsecurePackages = mkMergeListOptions [
+        "nixpkgs"
+        "config"
+        "permittedInsecurePackages"
+      ];
     };
   };
 }

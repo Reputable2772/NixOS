@@ -1,5 +1,5 @@
+{ config, ... }:
 {
-  nixpkgs.config.permittedInsecurePackages = [
-    # "electron-31.7.7"
-  ];
+  nixpkgs.config.permittedInsecurePackages =
+    [ ] ++ config.hm-config.nixpkgs.config.permittedInsecurePackages;
 }
