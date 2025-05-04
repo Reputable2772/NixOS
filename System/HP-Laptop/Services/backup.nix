@@ -11,7 +11,7 @@ in
     inherit (v.programs.backup) repository;
     initialize = true;
     backupCleanupCommand = "chown -R ${n}:${config.users.users.${n}.group} ${v.programs.backup.repository}/*";
-    backupPrepareCommand = v.programs.backup.preBackupScript;
+    backupPrepareCommand = lib.concatStringsSep "\n" v.programs.backup.preBackupScript;
     paths = v.programs.backup.paths.include;
     exclude = v.programs.backup.paths.exclude;
     passwordFile = config.age.secrets."${n}-backup".path;

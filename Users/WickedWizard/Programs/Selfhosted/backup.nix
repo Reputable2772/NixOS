@@ -31,9 +31,11 @@ let
     ;
 in
 {
-  programs.backup.preBackupScript = pkgs.writeShellScript "backup-containers" ''
-    systemctl --user start containers-backup.service
-  '';
+  programs.backup.preBackupScript = [
+    ''
+      systemctl --user start containers-backup.service
+    ''
+  ];
 
   systemd.user.services.containers-backup = {
     Unit = {
