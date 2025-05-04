@@ -36,8 +36,4 @@ in
       type = types.listOf types.str;
     };
   };
-
-  config = {
-    system-config.nixpkgs.config.permittedInsecurePackages = [ "electron-33.4.11" ];
-  };
 }
