@@ -9,7 +9,7 @@
     let
       _agenix = pkgs.applyPatches {
         name = "agenix-patched";
-        src = inputs.agenix.outPath;
+        src = inputs.agenix;
         patches = [ ./agenix.patch ];
       };
       agenix_args = inputs.agenix.inputs // {
