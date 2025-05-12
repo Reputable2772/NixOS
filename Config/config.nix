@@ -73,7 +73,7 @@ rec {
           include =
             map (x: "${base}/${x}") [
               "Android"
-              "Applications"
+              # "Applications"
               "Applications/Containers/Backup"
               "Books"
               "Browsers"
@@ -165,7 +165,6 @@ rec {
           # A list of all the agenix file names to be used, without the age suffix.
           # Content of each agenix file is mentioned below.
           envFiles = [
-            "duckdns"
             "domains"
             "email"
           ];
@@ -322,7 +321,6 @@ rec {
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # Container files
-  "duckdns.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
@@ -340,8 +338,7 @@ rec {
 
   important-files.age - Contains the password for Gocryptfs mount.
 
-  duckdns.age - Contains DUCKDNS_TOKEN from duckdns
-  domains.age - Contains DOMAIN and EXTERNAL_DOMAIN. (Legacy behaviour, both should be merged into one soon).
+  domains.age - Contains DOMAIN and EXTERNAL_DOMAIN and their respective DuckDNS and Cloudflare tokens. (Legacy behaviour, both should be merged into one soon).
   email.age - Contains your email for Caddy, Let's Encrypt
   push-notifications.age - Contains Bitwarden Push Notification keys. (PUSH_INSTALLATION_ID, PUSH_INSTALLATION_KEY). More info - https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
   proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)

@@ -9,14 +9,18 @@
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "ip-update-service" ''
         source ${config.age.secrets.domains.path}
-        source ${config.age.secrets.duckdns.path}
 
         ip=$(ip -4 addr show wlo1 | awk '/inet/ {print $2}' | awk -F/ '{print $1}')
         ip6=$(curl -L "https://ipv6.seeip.org/")
         secret=$(echo $DUCKDNS_TOKEN)
         domain=$(echo $DOMAIN)
 
-        curl -G --data-urlencode "token=$secret" --data-urlencode "domains=$DOMAIN" --data-urlencode "ip=$ip" --data-urlencode "verbose=true" --data-urlencode "ipv6=$ip6" https://www.duckdns.org/update
+        curl -X GET "https://www.duckdns.org/update"
+          --data-urlencode "token=$secret" \
+          --data-urlencode "domains=$DOMAIN" \
+          --data-urlencode "ip=$ip" \
+          --data-urlencode "verbose=true" \
+          --data-urlencode "ipv6=$ip6"
       '';
     };
   };
