@@ -20,9 +20,11 @@ let
       (default) {
         tls {
           dns duckdns {env.DUCKDNS_TOKEN}
+          dns cloudflare {env.CF_API_TOKEN}
 
           # Since my ISP sucks.
-          propagation_timeout -1
+          propagation_timeout 20m
+          dns_ttl 1m
         }
 
         header {
@@ -82,7 +84,8 @@ let
     FROM docker.io/caddy:builder AS builder
 
     RUN xcaddy build \
-        --with github.com/caddy-dns/duckdns
+        --with github.com/caddy-dns/duckdns \
+        --with github.com/caddy-dns/cloudflare
 
     FROM docker.io/caddy:latest
 
