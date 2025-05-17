@@ -63,27 +63,27 @@
   };
   joplin_catppuccin = {
     pname = "joplin_catppuccin";
-    version = "93a1425f906f2e358d764930ab04d13c1c4458d6";
+    version = "96d4311a079a5cd1c990d654853a63df0d962027";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "joplin";
-      rev = "93a1425f906f2e358d764930ab04d13c1c4458d6";
+      rev = "96d4311a079a5cd1c990d654853a63df0d962027";
       fetchSubmodules = false;
-      sha256 = "sha256-gZ4h9/b7FK/jNY0R7+PWgiD2ELqskCFHG2IkTIthkLI=";
+      sha256 = "sha256-XJOCk6Gts7n3sqWM2kTJ1X5T/QoKMBLCEmR+dhJ6+IM=";
     };
-    date = "2025-02-27";
+    date = "2025-05-11";
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "a803b722190a857768b06b4a804aee53c26ee49b";
+    version = "765c14ec198730fd1b0648078da6d6dfe9e11d51";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "a803b722190a857768b06b4a804aee53c26ee49b";
+      rev = "765c14ec198730fd1b0648078da6d6dfe9e11d51";
       fetchSubmodules = false;
-      sha256 = "sha256-44GrKkww1p4XOANN2WpXonMsnP8+SPi4wrvERWCSb7g=";
+      sha256 = "sha256-9rJA5yrv4tkhRZdDaCE4sX8MRzLMUk0HSU6koXGD1P8=";
     };
-    date = "2025-05-10";
+    date = "2025-05-17";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
