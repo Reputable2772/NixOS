@@ -16,7 +16,9 @@
 
   age.secrets.wickedwizardPassword.file = ../../Config/wickedwizardPassword.age;
   age.secrets.rootPassword.file = ../../Config/rootPassword.age;
+  age.secrets.guestPassword.file = ../../Config/guestPassword.age;
 
+  users.mutableUsers = false;
   users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
   users.users.wickedwizard = {
     isNormalUser = true;
@@ -35,6 +37,18 @@
     hashedPasswordFile = config.age.secrets.wickedwizardPassword.path;
   };
 
+  users.users.guest = {
+    isNormalUser = true;
+    home = "/home/guest";
+    description = "Guest";
+    extraGroups = [
+      "input"
+      "video"
+      "render"
+    ];
+    hashedPasswordFile = config.age.secrets.guestPassword.path;
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = lib.mkForce false;
@@ -48,6 +62,17 @@
           {
             home.stateVersion = "23.05";
             _module.args.config' = config'.users.wickedwizard;
+          }
+        ];
+      };
+
+      guest = {
+        imports = [
+          ../../Modules/Home-Manager
+          ../../Users/Guest/home.nix
+          {
+            home.stateVersion = "23.05";
+            _module.args.config' = config'.users.guest;
           }
         ];
       };

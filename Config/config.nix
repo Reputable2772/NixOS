@@ -302,6 +302,7 @@ rec {
         # };
       };
     };
+    guest = { };
   };
 
   # All files should be in the same directory as this file.
@@ -310,6 +311,7 @@ rec {
   # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
   "wickedwizardPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "rootPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "guestPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
 
   # Bitlocker age files
   "windows.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
