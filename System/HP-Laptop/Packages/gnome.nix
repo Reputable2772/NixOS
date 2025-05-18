@@ -10,9 +10,6 @@
   services.xserver.displayManager.gdm.enable = config.services.xserver.desktopManager.gnome.enable;
 
   environment.gnome.excludePackages = with pkgs; [
-    gnome-photos
-    gnome-console
-    gnome-calculator
     gnome-tour
     gnome-maps
     epiphany
@@ -20,7 +17,6 @@
     cheese
     gnome-music
     geary
-    gnome-software
     totem
     tali
     iagno
