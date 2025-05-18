@@ -12,7 +12,7 @@ in
   options.programs.autostart = {
     enable = mkOption {
       type = types.bool;
-      default = !config.programs.gnome.enable;
+      default = false;
       description = ''
         Enable Autostart Home-Manager Module
       '';
