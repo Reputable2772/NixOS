@@ -104,8 +104,7 @@ in
       "theme.osd.margins" = "0px 0px 0px 10px";
       "theme.osd.muted_zero" = true;
       "menus.clock.time.military" = true;
-      "menus.clock.weather.location" = "";
-      "menus.clock.weather.unit" = "metric";
+      "menus.clock.weather.enabled" = false;
       "menus.dashboard.powermenu.confirmation" = false;
       "menus.dashboard.powermenu.avatar.image" = "~/.config/user.jpg";
       "menus.dashboard.shortcuts.enabled" = true;
