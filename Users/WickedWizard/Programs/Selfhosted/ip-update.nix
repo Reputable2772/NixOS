@@ -15,7 +15,7 @@
         secret=$(echo $DUCKDNS_TOKEN)
         domain=$(echo $DOMAIN)
 
-        curl -X GET "https://www.duckdns.org/update"
+        curl -G "https://www.duckdns.org/update" \
           --data-urlencode "token=$secret" \
           --data-urlencode "domains=$DOMAIN" \
           --data-urlencode "ip=$ip" \
