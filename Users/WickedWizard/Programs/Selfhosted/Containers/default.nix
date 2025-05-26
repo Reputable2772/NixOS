@@ -6,7 +6,7 @@
     ./ente.nix
     # ./gluetun.nix
     ./lib.nix
-    ./lidarr.nix
+    # ./lidarr.nix
     ./linkding.nix
     ./navidrome.nix
     # ./qbittorrent.nix

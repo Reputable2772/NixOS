@@ -12,6 +12,8 @@
 { pkgs, ... }:
 {
   containers.caddy.services.qbittorrent = "host.containers.internal:63214";
+  system-config.firewall.allowedTCPPorts = [ 61851 ];
+  system-config.firewall.allowedUDPPorts = [ 61851 ];
 
   # Set ports, passwords, minimized window on startup and other configuration manually through web UI.
   home.packages = with pkgs; [ qbittorrent ];
