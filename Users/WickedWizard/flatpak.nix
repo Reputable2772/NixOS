@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   services.flatpak = {
     enable = true;
@@ -16,6 +16,10 @@
       }
     ];
   };
+
+  wayland.windowManager.hyprland.settings.exec-once = [
+    "${pkgs.systemd}/bin/systemctl --user restart flatpak-managed-install.service"
+  ];
 
   imports = [
     inputs.nix-flatpak.homeManagerModules.nix-flatpak

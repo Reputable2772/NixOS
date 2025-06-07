@@ -22,6 +22,7 @@
     settings = {
       exec-once = [
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "${pkgs.systemd}/bin/systemctl --user daemon-reload"
       ];
 
       general = {
