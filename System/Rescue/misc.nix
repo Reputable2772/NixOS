@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   services.openssh.enable = lib.mkForce false;
   services.avahi.enable = lib.mkForce false;

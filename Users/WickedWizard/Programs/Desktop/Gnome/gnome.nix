@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cond = osConfig.services.xserver.desktopManager.gnome.enable;
+  cond = osConfig.services.desktopManager.gnome.enable;
 in
 {
   stylix.targets.gnome.enable = cond;

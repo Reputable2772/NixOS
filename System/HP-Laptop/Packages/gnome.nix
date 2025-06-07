@@ -6,8 +6,8 @@
 }:
 {
   services.xserver.enable = lib.mkDefault false;
-  services.xserver.desktopManager.gnome.enable = false;
-  services.xserver.displayManager.gdm.enable = config.services.xserver.desktopManager.gnome.enable;
+  services.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = config.services.desktopManager.gnome.enable;
 
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour
