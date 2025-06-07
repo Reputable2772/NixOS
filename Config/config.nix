@@ -74,7 +74,7 @@ rec {
             map (x: "${base}/${x}") [
               "Android"
               # "Applications"
-              "Applications/Containers/Backup"
+              # "Applications/Containers/Backup"
               "Books"
               "Browsers"
               "Coding"
@@ -158,6 +158,7 @@ rec {
             lidarr.custom.music.libraryPath
           ] ++ syncthing.custom.folders;
           location = "${dir.base}/Applications/Containers/Backup";
+          pwdFile = "containers-backup-pwd";
         };
         caddy = {
           # Setting it to null or omitting it will use the default directory
@@ -323,6 +324,7 @@ rec {
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # Container files
+  "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
