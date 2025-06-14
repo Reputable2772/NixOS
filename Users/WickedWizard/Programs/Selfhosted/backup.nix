@@ -67,7 +67,7 @@ in
       Type = "oneshot";
       ExecStartPre = pkgs.writeShellScript "pre-containers-backup" ''
         mkdir -p ${tmpLocation}
-        cat ${pkgs.writeText "staticPaths" (lib.concatLines (lib.flatten paths))} >> ${tmpLocation}/paths.txt
+        cat ${pkgs.writeText "staticPaths" (lib.concatLines (lib.flatten paths))} > ${tmpLocation}/paths.txt
       '';
       ExecStart = pkgs.writeShellScript "containers-backup" (
         concatStringsSep "\n" [
