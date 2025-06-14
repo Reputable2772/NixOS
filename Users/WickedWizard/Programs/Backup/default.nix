@@ -1,7 +1,7 @@
 {
   imports = [
     ./backup.nix
-    # ./filen.nix
+    ./filen.nix
     ./rclone.nix
   ];
 }
