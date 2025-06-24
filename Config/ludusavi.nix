@@ -55,7 +55,7 @@
   };
   roots = [
     {
-      path = "${home}/.local/share/Steam";
+      path = "${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam";
       store = "steam";
     }
     # Heroic is now a flatpak.
@@ -64,8 +64,8 @@
       store = "heroic";
     }
     {
-      database = "${home}/.local/share/lutris/pga.db";
-      path = "${home}/.local/share/lutris";
+      database = "${home}/.var/app/net.lutris.Lutris/.local/share/lutris/pga.db";
+      path = "${home}/.var/app/net.lutris.Lutris/.local/share/lutris";
       store = "lutris";
     }
   ];
