@@ -5,7 +5,7 @@
     ./flatpak.nix
     ./gamemode.nix
     ./gnome.nix
-    ./gnome-specialisation.nix
+    # ./gnome-specialisation.nix
     ./hyprland.nix
     ./insecure.nix
     ./kde.nix
