@@ -8,7 +8,7 @@ let
   utils = import ./utils.nix { inherit config config' lib; };
 in
 {
-  containers.caddy.extraConfig = [
+  containers.caddy.servicesExtraConfig = [
     ''
       @vaultwarden host vaultwarden.{env.DOMAIN} vaultwarden.{env.EXTERNAL_DOMAIN}
       handle @vaultwarden {

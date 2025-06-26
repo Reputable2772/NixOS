@@ -55,11 +55,7 @@ let
         admin :2019
       }
 
-      {env.DOMAIN} {env.EXTERNAL_DOMAIN} {
-        import default
-
-        reverse_proxy baikal:80
-      }
+      ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
 
       *.{env.DOMAIN} *.{env.EXTERNAL_DOMAIN} {
         import default
@@ -73,7 +69,7 @@ let
           '') cfg.services
         )}
 
-        ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
+        ${optionalString (cfg.servicesExtraConfig != [ ]) (concatStringsSep "\n" cfg.servicesExtraConfig)}
       }
     '';
     checkPhase = ''
@@ -99,9 +95,14 @@ in
       description = "List of services for caddy to reverse proxy to.";
       type = types.attrs;
     };
-    extraConfig = mkOption {
+    servicesExtraConfig = mkOption {
       default = [ ];
       description = "Extraconfig to add to caddy reverse proxy.";
+      type = types.listOf types.str;
+    };
+    extraConfig = mkOption {
+      default = [ ];
+      description = "Extraconfig added directly to caddy settings.";
       type = types.listOf types.str;
     };
   };
