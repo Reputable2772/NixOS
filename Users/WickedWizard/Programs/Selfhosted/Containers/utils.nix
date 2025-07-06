@@ -5,22 +5,20 @@
 }:
 rec {
   # Appends base part of volume path from config'.
-  mapVolume =
-    name: vol:
-    lib.lists.map (
-      v:
-      (
-        if config'.containers.${name} ? dir && config'.containers.${name}.dir != null then
-          config'.containers.${name}.dir
-        else
-          "${config'.dir.containers}/${
-            lib.strings.toUpper (lib.strings.substring 0 1 name)
-            + lib.strings.substring 1 (lib.strings.stringLength name + 1) name
-          }"
-      )
-      + "/"
-      + v
-    ) vol;
+  mapVolume = name: vol: lib.lists.map (v: (getVol name) + v) vol;
+
+  getVol =
+    cname:
+    (
+      if config'.containers.${cname} ? dir && config'.containers.${cname}.dir != null then
+        config'.containers.${cname}.dir
+      else
+        "${config'.dir.containers}/${
+          lib.strings.toUpper (lib.strings.substring 0 1 cname)
+          + lib.strings.substring 1 (lib.strings.stringLength cname + 1) cname
+        }"
+    )
+    + "/";
 
   appendEnv = name: {
     Environment = lib.optionals (
