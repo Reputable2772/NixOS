@@ -91,12 +91,12 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v137",
-            "sha256": "sha256-oiHLDHXq7ymsMVYSg92dD1OLnKLQoU/Gf2F1GoONLCE=",
+            "rev": "v140",
+            "sha256": "sha256-/pTDAny47X1og2pSAoMY/GfJ9teSOEQZAENhszPJMKo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v137"
+        "version": "v140"
     },
     "joplin_catppuccin": {
         "cargoLocks": null,
@@ -121,7 +121,7 @@
     },
     "nix-fast-build": {
         "cargoLocks": null,
-        "date": "2025-07-02",
+        "date": "2025-07-19",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -133,12 +133,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "64b4f81619f1691dba8d886458911d553632b8bb",
-            "sha256": "sha256-vLGqlaHsvgvA1ozdcMtCGentlDru5UkvPt6f8uJ1gYI=",
+            "rev": "663f68f1f5a283e8a6d5b929104f7b4b084c47bd",
+            "sha256": "sha256-SHEo4FrCcWiX0q2FzDIotscihn5kI1InoagdZfWGDxA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "64b4f81619f1691dba8d886458911d553632b8bb"
+        "version": "663f68f1f5a283e8a6d5b929104f7b4b084c47bd"
     },
     "obs_catppuccin": {
         "cargoLocks": null,
@@ -205,7 +205,7 @@
     },
     "rofi_catppuccin": {
         "cargoLocks": null,
-        "date": "2025-02-20",
+        "date": "2025-07-19",
         "extract": null,
         "name": "rofi_catppuccin",
         "passthru": null,
@@ -217,12 +217,12 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "rofi",
-            "rev": "c24a212a6b07c2d45f32d01d7f10b4d88ddc9f45",
-            "sha256": "sha256-WGYEA4Q7UvSaRDjP/DiEtfXjvmWbewtdyJWRpjhbZgg=",
+            "rev": "71fb15577ccb091df2f4fc1f65710edbc61b5a53",
+            "sha256": "sha256-81eeFjwM/haPjIEWkZPp1JSDwhWbWDAuKtWiCg7P9Q0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c24a212a6b07c2d45f32d01d7f10b4d88ddc9f45"
+        "version": "71fb15577ccb091df2f4fc1f65710edbc61b5a53"
     },
     "wickedwizard_picture": {
         "cargoLocks": null,
