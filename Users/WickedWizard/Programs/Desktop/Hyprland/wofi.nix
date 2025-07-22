@@ -56,7 +56,7 @@
     ];
   };
 
-  programs.hyprpanel.override = {
+  programs.hyprpanel.settings = {
     "menus.dashboard.shortcuts.left.shortcut4.command" = "wofi";
     "menus.dashboard.shortcuts.left.shortcut4.icon" = "";
     "menus.dashboard.shortcuts.left.shortcut4.tooltip" = "Search Apps";

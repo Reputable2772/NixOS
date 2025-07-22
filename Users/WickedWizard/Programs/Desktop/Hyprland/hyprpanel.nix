@@ -2,12 +2,7 @@
 
 # TODO: Connected device and battery for bluetooth device.
 # Blocker: Jas-SinghFSU/HyprPanel#772
-{
-  inputs,
-  config,
-  lib,
-  ...
-}:
+{ config, ... }:
 let
   accent = config.lib.stylix.colors.withHashtag.base0D;
   accent-alt = config.lib.stylix.colors.withHashtag.base03;
@@ -29,17 +24,8 @@ let
   position = "top";
 in
 {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-
-  # Forced due to this
-  # https://github.com/Jas-SinghFSU/HyprPanel/blob/2be9f1ef6c2df2ecf0eebe5a039e8029d8d151cd/nix/module.nix#L639
-  nixpkgs.overlays = lib.mkForce null;
-
   programs.hyprpanel = {
     enable = config.wayland.windowManager.hyprland.enable;
-    hyprland.enable = true;
-    overwrite.enable = true;
-    overlay.enable = true;
     settings.layout = {
       "bar.layouts" = {
         "*" = {
@@ -65,7 +51,7 @@ in
       };
     };
 
-    override = {
+    settings = {
       "theme.font.name" = font;
       "theme.font.size" = "${fontSize}px";
       "theme.bar.outer_spacing" = "${if floating && transparent then "0" else "8"}px";
@@ -93,7 +79,7 @@ in
       "bar.windowtitle.label" = true;
       "bar.volume.label" = false;
       "bar.network.truncation_size" = 12;
-      "bar.bluetooth.label" = false;
+      bar.bluetooth.label = false;
       "bar.clock.format" = "%a %b %d  %H:%M";
       "bar.notifications.show_total" = true;
       "theme.notification.border_radius" = "${toString rounding}px";
