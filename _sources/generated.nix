@@ -32,15 +32,15 @@
   };
   eza_themes = {
     pname = "eza_themes";
-    version = "57149851f07b3ee6ca94f5fe3d9d552f73f8b8b4";
+    version = "17095bff4792eecd7f4f1ed8301b15000331c906";
     src = fetchFromGitHub {
       owner = "eza-community";
       repo = "eza-themes";
-      rev = "57149851f07b3ee6ca94f5fe3d9d552f73f8b8b4";
+      rev = "17095bff4792eecd7f4f1ed8301b15000331c906";
       fetchSubmodules = false;
-      sha256 = "sha256-vu6QLz0RvPavpD2VED25D2PJlHgQ8Yis+DnL+BPlvHw=";
+      sha256 = "sha256-2WTbCQlhwMo5cOn3KwtNiIst0tNfASfZnPNsNBs+gcU=";
     };
-    date = "2025-02-19";
+    date = "2025-08-03";
   };
   filen = {
     pname = "filen";
@@ -52,13 +52,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v140";
+    version = "v142";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v140";
+      rev = "v142";
       fetchSubmodules = false;
-      sha256 = "sha256-/pTDAny47X1og2pSAoMY/GfJ9teSOEQZAENhszPJMKo=";
+      sha256 = "sha256-kyxuK5Fras7QYiJmUomqdq8NlgWV66hmNvxcJnGCpUE=";
     };
   };
   joplin_catppuccin = {
@@ -75,27 +75,27 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "663f68f1f5a283e8a6d5b929104f7b4b084c47bd";
+    version = "135fd0edf1dff4128f6f38822dbb24f333b8073f";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "663f68f1f5a283e8a6d5b929104f7b4b084c47bd";
+      rev = "135fd0edf1dff4128f6f38822dbb24f333b8073f";
       fetchSubmodules = false;
-      sha256 = "sha256-SHEo4FrCcWiX0q2FzDIotscihn5kI1InoagdZfWGDxA=";
+      sha256 = "sha256-ai5enFBtuTqdAnJs2fG4TatnvmJtAPEgMf3oA726FBc=";
     };
-    date = "2025-07-19";
+    date = "2025-08-31";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "58a80435caf1ff4f62b94592f508fba4c3776c97";
+    version = "05c55ffe499c183c98be469147f602c3f8e84b87";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "58a80435caf1ff4f62b94592f508fba4c3776c97";
+      rev = "05c55ffe499c183c98be469147f602c3f8e84b87";
       fetchSubmodules = false;
-      sha256 = "sha256-2CuaMd+9GHK18M971+pVltPC9h59LYDXEAEkEq+tRw8=";
+      sha256 = "sha256-ezz3euxO5lxyVaVFDPjNowpivAm9tRGHt8SbflAdkA8=";
     };
-    date = "2025-03-23";
+    date = "2025-07-29";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
