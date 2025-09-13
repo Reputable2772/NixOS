@@ -75,15 +75,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "135fd0edf1dff4128f6f38822dbb24f333b8073f";
+    version = "dad0194a9d3a85dfeb47e501771d189adf010037";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "135fd0edf1dff4128f6f38822dbb24f333b8073f";
+      rev = "dad0194a9d3a85dfeb47e501771d189adf010037";
       fetchSubmodules = false;
-      sha256 = "sha256-ai5enFBtuTqdAnJs2fG4TatnvmJtAPEgMf3oA726FBc=";
+      sha256 = "sha256-7+MiBVudtoRIZNXgcHocKNiri6VxSoSoYMLpvhTiiW4=";
     };
-    date = "2025-08-31";
+    date = "2025-09-07";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
@@ -99,15 +99,15 @@
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
-    version = "2edbdf5295bc3c12c3dd53b203ab91028fce2c54";
+    version = "1ef0e745286ce32750abc3bc5d3ca8073a623b60";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "prismlauncher";
-      rev = "2edbdf5295bc3c12c3dd53b203ab91028fce2c54";
+      rev = "1ef0e745286ce32750abc3bc5d3ca8073a623b60";
       fetchSubmodules = false;
-      sha256 = "sha256-+yGrSZztf2sZ9frPT3ydIJDavo4eXs03cQWfdTAmn3w=";
+      sha256 = "sha256-RN1VM29OH75GHSHgpu3HW8YSonIEnX7MZzCObJ6BwtQ=";
     };
-    date = "2024-06-11";
+    date = "2025-09-08";
   };
   rofi-bluetooth = {
     pname = "rofi-bluetooth";
