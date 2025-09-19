@@ -5,6 +5,7 @@
     # nixpkgs.follows = "nixos-cosmic/nixpkgs";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
