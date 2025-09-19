@@ -11,6 +11,7 @@
       systemd-boot.enable = true;
       systemd-boot.rebootForBitlocker = true;
       systemd-boot.editor = false;
+      systemd-boot.netbootxyz.enable = true;
       efi.canTouchEfiVariables = true;
       timeout = 3;
     };
