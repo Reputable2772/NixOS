@@ -1,7 +1,7 @@
 {
-  services.logind = {
-    powerKey = "lock";
-    powerKeyLongPress = "suspend";
-    lidSwitch = "suspend";
+  services.logind.settings.Login = {
+    HandlePowerKey = "lock";
+    HandlePowerKeyLongPress = "suspend";
+    HandleLidSwitch = "suspend";
   };
 }
