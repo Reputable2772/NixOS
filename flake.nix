@@ -73,7 +73,7 @@
       systems = import systems;
 
       flake.nixosConfigurations = {
-        "hp-laptop" =
+        "lenovo-laptop" =
           let
             system = "x86_64-linux";
             pkgs = nixpkgs.legacyPackages.${system};
@@ -94,7 +94,7 @@
             };
             modules = [
               ./System/Common
-              ./System/HP-Laptop
+              ./System/Lenovo-Laptop
 
               (
                 { config, ... }:

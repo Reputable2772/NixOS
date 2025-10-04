@@ -24,7 +24,7 @@ rec {
   system = {
     timezone = "Asia/Kolkata";
     locale = "en_IN";
-    hp-laptop = {
+    lenovo-laptop = {
       secrets = {
         /**
           The SSH Keys for encrypting system related secrets.
@@ -37,7 +37,7 @@ rec {
         */
         encryption = {
           pkeyfile = "${flake.dir.config}/SSH/Encryption/Encryption";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@hp-laptop";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@lenovo-laptop";
         };
       };
 
@@ -133,12 +133,12 @@ rec {
           # The SSH Key that is used for authentication by Git
           authentication = {
             pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Authentication/Authentication";
-            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@hp-laptop";
+            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@lenovo-laptop";
           };
           # The SSH Key that is used for signing by Git
           signing = {
             pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Signing/Signing";
-            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@hp-laptop";
+            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@lenovo-laptop";
           };
         };
       };
@@ -146,7 +146,7 @@ rec {
         # Passwords should not be set for this key, look above.
         encryption = {
           pkeyfile = "${flake.dir.config}/SSH/User-Encryption/User-Encryption";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@hp-laptop";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@lenovo-laptop";
         };
       };
       containers = rec {
@@ -156,7 +156,8 @@ rec {
           blacklistedPaths = [
             lidarr.custom.downloadPath
             lidarr.custom.music.libraryPath
-          ] ++ syncthing.custom.folders;
+          ]
+          ++ syncthing.custom.folders;
           location = "${dir.base}/Applications/Containers/Backup";
           pwdFile = "containers-backup-pwd";
         };
@@ -310,15 +311,15 @@ rec {
 
   # Agenix config
   # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
-  "wickedwizardPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
-  "rootPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
-  "guestPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "wickedwizardPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+  "rootPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+  "guestPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
   # Bitlocker age files
-  "windows.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
   # Backup age files
-  "wickedwizard-backup.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "wickedwizard-backup.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
   # Gocryptfs age files
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];

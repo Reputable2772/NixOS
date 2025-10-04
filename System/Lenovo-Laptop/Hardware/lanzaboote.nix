@@ -17,7 +17,7 @@
 
   boot.loader.systemd-boot.enable = lib.mkForce (!config.boot.lanzaboote.enable);
   boot.lanzaboote = {
-    enable = true;
+    enable = false;
     pkiBundle = "${config'.flake.dir.config}/secureboot/${config.networking.hostName}";
     settings = {
       editor = null;
