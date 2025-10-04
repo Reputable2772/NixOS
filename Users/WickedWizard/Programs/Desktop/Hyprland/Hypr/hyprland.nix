@@ -104,10 +104,6 @@
         new_on_top = true;
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_min_speed_to_force = 5;
-      };
     };
   };
 }
