@@ -10,6 +10,7 @@
     ./git.nix
     ./jq.nix
     ./nix-index.nix
+    ./power-usage.nix
     ./starship.nix
     ./tmux.nix
     ./zoxide.nix
