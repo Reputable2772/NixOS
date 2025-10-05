@@ -25,6 +25,9 @@ rec {
     timezone = "Asia/Kolkata";
     locale = "en_IN";
     lenovo-laptop = {
+      # The name of network interface, that has an IPv4 address
+      # and is connected to the intenet, behind CGNAT
+      publicNetworkInterface = "wlp0s20f3";
       secrets = {
         /**
           The SSH Keys for encrypting system related secrets.
@@ -43,14 +46,14 @@ rec {
 
       mounts = {
         # Need to have a corresponding age file with the object name, if you want to provide authentication.
-        bitlocker = {
-          windows = {
-            source = "/dev/nvme0n1p4";
-            mountpoint = "/mnt/Windows";
-            authentication = true;
-            fsType = "ntfs";
-          };
-        };
+        # bitlocker = {
+        #   windows = {
+        #     source = "/dev/nvme0n1p4";
+        #     mountpoint = "/mnt/Windows";
+        #     authentication = true;
+        #     fsType = "ntfs";
+        #   };
+        # };
       };
     };
     rescue = { };
@@ -59,6 +62,8 @@ rec {
   users = {
     wickedwizard = rec {
       home = _home.wickedwizard or "";
+      # Copy from above, used in DuckDNS updating.
+      publicNetworkInterface = system.lenovo-laptop.publicNetworkInterface;
       wallpaper = ./wallpaper.jpg;
       /**
         There needs to be a corresponding age file, with the name

@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  config',
+  pkgs,
+  ...
+}:
 {
   systemd.user.services.ip-update = {
     Unit = {
@@ -10,7 +15,7 @@
       ExecStart = pkgs.writeShellScript "ip-update-service" ''
         source ${config.age.secrets.domains.path}
 
-        ip=$(ip -4 addr show wlo1 | awk '/inet/ {print $2}' | awk -F/ '{print $1}')
+        ip=$(ip -4 addr show ${config'.publicNetworkInterface} | awk '/inet/ {print $2}' | awk -F/ '{print $1}')
         ip6=$(curl -L "https://ipv6.seeip.org/")
         secret=$(echo $DUCKDNS_TOKEN)
         domain=$(echo $DOMAIN)
