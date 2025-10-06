@@ -19,7 +19,7 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.initrd.luks.devices.nixos.device = "/dev/disk/by-uuid/ca45b52f-3d82-4dba-96a1-f62e44c7a6cc";
 
