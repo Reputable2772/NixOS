@@ -5,8 +5,8 @@
       enable = true;
     };
     hostName = "lenovo-laptop";
-    # networkmanager.connectionConfig = {
-    #   "wifi.powersave" = lib.mkForce 2;
-    # };
+    networkmanager.connectionConfig = {
+      "wifi.powersave" = lib.mkForce 3;
+    };
   };
 }
