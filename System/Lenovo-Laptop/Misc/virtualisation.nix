@@ -13,5 +13,21 @@
     };
     containers.enable = true;
     oci-containers.backend = "podman";
+
+    libvirtd = {
+      enable = true;
+      # TPM Emulation
+      qemu = {
+        swtpm.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
+    };
+    spiceUSBRedirection.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    gnome-boxes
+    dnsmasq
+    phodav
+  ];
 }

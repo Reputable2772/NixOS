@@ -32,6 +32,10 @@
       "input"
       "video"
       "render"
+
+      # Needed for virtualisation, Misc/virtualisation.nix
+      "kvm"
+      "libvirtd"
     ];
     shell = pkgs.zsh;
     hashedPasswordFile = config.age.secrets.wickedwizardPassword.path;
