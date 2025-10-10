@@ -90,15 +90,16 @@ in
     xdg.configFile."systemd/user/" = {
       source = "${
         pkgs.runCommand "quadlet-generator" { } ''
-            mkdir -p $out $out/src $out/units
+          mkdir -p $out $out/src $out/units
 
-            ln -s ${quadlets} $out/src
+          ln -s ${quadlets} $out/src
 
-            QUADLET_UNIT_DIRS=${quadlets} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
+          QUADLET_UNIT_DIRS=${quadlets} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
 
           for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
             substituteInPlace $out/units/$file \
-              --replace-warn ${quadlets}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR}
+              --replace-warn ${quadlets}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
+              --replace-warn \\x20 " "
           done
         ''
       }/units";
