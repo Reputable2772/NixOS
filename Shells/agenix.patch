@@ -1,6 +1,6 @@
 --- a/pkgs/agenix.sh
 +++ b/pkgs/agenix.sh
-@@ -115,7 +115,7 @@ function cleanup {
+@@ -115,11 +115,11 @@ function cleanup {
  trap "cleanup" 0 2 3 15
  
  function keys {
@@ -8,8 +8,13 @@
 +    (@nixInstantiate@ --json --eval --strict -E "(let _rules = import $RULES; rules = if (builtins.isFunction _rules) then _rules {} else _rules; in rules.\"$1\".publicKeys)" | @jqBin@ -r .[]) || exit 1
  }
  
+ function armor {
+-    (@nixInstantiate@ --json --eval --strict -E "(let rules = import $RULES; in (builtins.hasAttr \"armor\" rules.\"$1\" && rules.\"$1\".armor))") || exit 1
++    (@nixInstantiate@ --json --eval --strict -E "(let _rules = import $RULES; rules = if (builtins.isFunction _rules) then _rules {} else _rules; in (builtins.hasAttr \"armor\" rules.\"$1\" && rules.\"$1\".armor))") || exit 1
+ }
+ 
  function decrypt {
-@@ -189,7 +189,7 @@ function edit {
+@@ -197,7 +197,7 @@ function edit {
  }
  
  function rekey {
