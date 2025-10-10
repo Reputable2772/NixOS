@@ -15,5 +15,5 @@
   programs.autostart.packages = with pkgs; [ bitwarden ];
 
   services.ssh-agent.enable = lib.mkForce false;
-  home.sessionVariables.SSH_AUTH_SOCK = "$''{HOME:-${config.home.homeDirectory}}/.bitwarden-ssh-agent.sock";
+  home.sessionVariables.SSH_AUTH_SOCK = "$\{HOME:-${config.home.homeDirectory}}/.bitwarden-ssh-agent.sock";
 }
