@@ -58,22 +58,21 @@ in
       idle-delay = mkUint32 120;
     };
 
-    "org/gnome/desktop/wm/keybindings" =
-      {
-        move-to-workspace-left = [ "<Control><Super>Left" ];
-        move-to-workspace-right = [ "<Control><Super>Right" ];
-        switch-applications = [ ];
-        switch-applications-backward = [ ];
-        switch-to-workspace-left = [ "<Control><Alt>Left" ];
-        switch-to-workspace-right = [ "<Control><Alt>Right" ];
-        switch-windows = [ "<Alt>Tab" ];
-        switch-windows-backward = [ "<Shift><Alt>Tab" ];
-        toggle-fullscreen = [ "<Super>f" ];
-      }
-      // numAttrFunc (
-        x: nameValuePair "move-to-workspace-${toString x}" [ "<Control><Super>${toString x}" ]
-      )
-      // numAttrFunc (x: nameValuePair "switch-to-workspace-${toString x}" [ "<Super>${toString x}" ]);
+    "org/gnome/desktop/wm/keybindings" = {
+      move-to-workspace-left = [ "<Control><Super>Left" ];
+      move-to-workspace-right = [ "<Control><Super>Right" ];
+      switch-applications = [ ];
+      switch-applications-backward = [ ];
+      switch-to-workspace-left = [ "<Control><Alt>Left" ];
+      switch-to-workspace-right = [ "<Control><Alt>Right" ];
+      switch-windows = [ "<Alt>Tab" ];
+      switch-windows-backward = [ "<Shift><Alt>Tab" ];
+      toggle-fullscreen = [ "<Super>f" ];
+    }
+    // numAttrFunc (
+      x: nameValuePair "move-to-workspace-${toString x}" [ "<Control><Super>${toString x}" ]
+    )
+    // numAttrFunc (x: nameValuePair "switch-to-workspace-${toString x}" [ "<Super>${toString x}" ]);
 
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";

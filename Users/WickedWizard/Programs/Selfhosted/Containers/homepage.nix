@@ -24,6 +24,7 @@ in
       Volume = utils.mapVolume "homepage" [
         "config:/app/config"
       ];
-    } // utils.appendEnv "homepage";
+    }
+    // utils.appendEnv "homepage";
   } (utils.containerDefaults "homepage" "systemd-caddy");
 }

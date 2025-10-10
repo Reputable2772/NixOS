@@ -24,7 +24,8 @@ in
             "credentials.yaml:/credentials.yaml"
             "data:/data:ro"
           ];
-        } // utils.appendEnv "ente_museum";
+        }
+        // utils.appendEnv "ente_museum";
         # Service.ExecStartPre = [
         #   "${lib.getExe osConfig.virtualisation.podman.package} wait --condition healthy ente_postgres"
         # ];
@@ -46,7 +47,8 @@ in
       # not run as root, causing permission issues when trying to backup
       # the directory. Using volumes and `podman volume export` can fix this.
       Volume = [ "ente_postgres.volume:/var/lib/postgresql/data" ];
-    } // utils.appendEnv "ente_postgres";
+    }
+    // utils.appendEnv "ente_postgres";
   } (utils.containerDefaults "ente_postgres" "systemd-caddy");
 
   programs.quadlets.quadlets."ente_postgres.volume" = lib.attrsets.recursiveUpdate utils.defaults {

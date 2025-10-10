@@ -17,6 +17,7 @@ in
         "config:/var/www/baikal/config"
         "data:/var/www/baikal/Specific"
       ];
-    } // utils.appendEnv "baikal";
+    }
+    // utils.appendEnv "baikal";
   } (utils.containerDefaults "baikal" "systemd-caddy");
 }

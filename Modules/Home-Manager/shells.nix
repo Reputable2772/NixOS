@@ -82,10 +82,12 @@ in
     {
       programs.bash = {
         bashrcExtra = cfg.rcExtra;
-      } // base;
+      }
+      // base;
 
       programs.zsh = {
         initContent = cfg.rcExtra;
-      } // base;
+      }
+      // base;
     };
 }

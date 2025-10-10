@@ -133,15 +133,15 @@ in
             "80:80"
             "443:443"
           ];
-          Volume =
-            [
-              "${caddyFile}:/etc/caddy/Caddyfile"
-            ]
-            ++ utils.mapVolume "caddy" [
-              "config:/config"
-              "data:/data"
-            ];
-        } // utils.appendEnv "caddy";
+          Volume = [
+            "${caddyFile}:/etc/caddy/Caddyfile"
+          ]
+          ++ utils.mapVolume "caddy" [
+            "config:/config"
+            "data:/data"
+          ];
+        }
+        // utils.appendEnv "caddy";
       } (utils.containerDefaults "caddy" "systemd-caddy"))
       // {
         Unit = {

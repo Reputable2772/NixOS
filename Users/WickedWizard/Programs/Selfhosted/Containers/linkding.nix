@@ -16,6 +16,7 @@ in
       Volume = utils.mapVolume "linkding" [
         "data:/etc/linkding/data"
       ];
-    } // utils.appendEnv "linkding";
+    }
+    // utils.appendEnv "linkding";
   } (utils.containerDefaults "linkding" "systemd-caddy");
 }

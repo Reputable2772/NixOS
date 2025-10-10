@@ -18,6 +18,7 @@ in
       Volume = utils.mapVolume "gluetun" [
         "config:/config"
       ];
-    } // utils.appendEnv "gluetun";
+    }
+    // utils.appendEnv "gluetun";
   } (utils.containerDefaults "gluetun" "systemd-caddy");
 }

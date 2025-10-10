@@ -25,11 +25,13 @@ in
         "61851:61851"
         "61851:61851/udp"
       ];
-      Volume =
-        [ config'.containers.qbittorrent.custom.downloadPath ]
-        ++ utils.mapVolume "qbittorrent" [
-          "config:/config"
-        ];
-    } // utils.appendEnv "qbittorrent";
+      Volume = [
+        config'.containers.qbittorrent.custom.downloadPath
+      ]
+      ++ utils.mapVolume "qbittorrent" [
+        "config:/config"
+      ];
+    }
+    // utils.appendEnv "qbittorrent";
   } (utils.containerDefaults "qbittorrent" "systemd-caddy");
 }

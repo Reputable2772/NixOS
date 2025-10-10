@@ -31,6 +31,7 @@ in
       Volume = utils.mapVolume "vaultwarden" [
         ":/data"
       ];
-    } // utils.appendEnv "vaultwarden";
+    }
+    // utils.appendEnv "vaultwarden";
   } (utils.containerDefaults "vaultwarden" "systemd-caddy");
 }

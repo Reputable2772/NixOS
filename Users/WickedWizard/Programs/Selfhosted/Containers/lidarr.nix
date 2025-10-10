@@ -25,16 +25,16 @@ in
         Group = 0;
         Image = "ghcr.io/linuxserver-labs/prarr:lidarr-plugins";
         User = 0;
-        Volume =
-          [
-            config'.containers.lidarr.custom.music.libraryPath
-            config'.containers.qbittorrent.custom.downloadPath
-          ]
-          ++ utils.mapVolume "lidarr" [
-            "config:/config"
-            "Imports:/imports"
-          ];
-      } // utils.appendEnv "lidarr";
+        Volume = [
+          config'.containers.lidarr.custom.music.libraryPath
+          config'.containers.qbittorrent.custom.downloadPath
+        ]
+        ++ utils.mapVolume "lidarr" [
+          "config:/config"
+          "Imports:/imports"
+        ];
+      }
+      // utils.appendEnv "lidarr";
     } (utils.containerDefaults "lidarr" "systemd-caddy")
   );
 }

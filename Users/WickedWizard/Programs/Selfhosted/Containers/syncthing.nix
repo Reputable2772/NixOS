@@ -30,6 +30,7 @@ in
           "config:/config"
         ]
         ++ config'.containers.syncthing.custom.folders;
-    } // utils.appendEnv "syncthing";
+    }
+    // utils.appendEnv "syncthing";
   } (utils.containerDefaults "syncthing" "systemd-caddy");
 }
