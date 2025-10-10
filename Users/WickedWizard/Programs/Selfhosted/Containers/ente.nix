@@ -26,9 +26,9 @@ in
           ];
         }
         // utils.appendEnv "ente_museum";
-        # Service.ExecStartPre = [
-        #   "${lib.getExe osConfig.virtualisation.podman.package} wait --condition healthy ente_postgres"
-        # ];
+        Service.ExecStartPre = [
+          "${lib.getExe osConfig.virtualisation.podman.package} wait --condition healthy ente_postgres"
+        ];
         Unit = {
           After = [ "ente_postgres.service" ];
           Requires = [ "ente_postgres.service" ];
@@ -38,10 +38,12 @@ in
   programs.quadlets.quadlets."ente_postgres.container" = lib.attrsets.recursiveUpdate {
     Container = {
       Network = "systemd-caddy";
-      # HealthCmd = ''pg_isready -q -d ''${ENTE_DB_NAME} -U ''${ENTE_DB_USER}'';
-      # HealthStartPeriod = "40s";
-      # HealthStartupInterval = "1s";
-      # Notify = "healthy";
+      # We use a double dollar '$$' here to escape the variable for systemd, as given here
+      # https://github.com/containers/podman/discussions/25053#discussioncomment-11890600
+      HealthCmd = "pg_isready -d $$\{ENTE_DB_NAME} -U $$\{ENTE_DB_USER}";
+      HealthStartPeriod = "40s";
+      HealthStartupInterval = "1s";
+      Notify = "healthy";
       Image = "postgres:15";
       # We use the volume here, since the postgresql user does
       # not run as root, causing permission issues when trying to backup
