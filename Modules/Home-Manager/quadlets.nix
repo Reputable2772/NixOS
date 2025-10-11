@@ -14,7 +14,6 @@ let
     hasAttrByPath
     mapAttrsToList
     optionalAttrs
-    recursiveUpdate
     ;
   inherit (lib.lists) filter map optional;
   inherit (lib.options) mkEnableOption mkOption;
@@ -27,8 +26,8 @@ let
     paths = mapAttrsToList (
       n: v:
       let
-        # Don't override if a user already set ExecStartPre. Accomplished by recursiveUpdate
-        val = recursiveUpdate (optionalAttrs
+        # Merge mkdir script and pre-defined ExecStartPre
+        val = lib'.deepMerge (optionalAttrs
           (
             cfg.mkdir
             && hasAttrByPath [
