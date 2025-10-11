@@ -13,6 +13,7 @@
   ];
 
   stylix.targets.vscode.enable = false;
+  system-config.nixpkgs.config.allowUnfreePredicate = [ "vscode" ];
 
   # All VSCode related issues
   # https://github.com/nix-community/home-manager/issues/3822
@@ -20,23 +21,26 @@
   # https://github.com/NixOS/nixpkgs/issues/218031
 
   programs.vscode = {
-    package = pkgs.vscodium;
     enable = true;
     profiles.default = {
-      extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-        eamodio.gitlens
-        github.vscode-github-actions
-        editorconfig.editorconfig
-        catppuccin.catppuccin-vsc-icons
-        catppuccin.catppuccin-vsc
-        pkief.material-icon-theme
-        rust-lang.rust-analyzer
-        # arcticicestudio.nord-visual-studio-code
-        mkhl.direnv
-        oderwat.indent-rainbow
-        jnoortheen.nix-ide
-        usernamehw.errorlens
-      ];
+      extensions =
+        with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
+        [
+          eamodio.gitlens
+          # ms-vscode.cpptools
+          # ms-vscode.cmake-tools
+          github.vscode-github-actions
+          editorconfig.editorconfig
+          catppuccin.catppuccin-vsc-icons
+          catppuccin.catppuccin-vsc
+          pkief.material-icon-theme
+          oderwat.indent-rainbow
+          jnoortheen.nix-ide
+          usernamehw.errorlens
+        ]
+        ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.open-vsx; [
+          mkhl.direnv
+        ]);
       userSettings = {
         "editor.minimap.enabled" = false;
         "explorer.confirmDragAndDrop" = false;
