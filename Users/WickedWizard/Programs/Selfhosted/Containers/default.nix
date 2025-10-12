@@ -8,7 +8,7 @@
     ./lib.nix
     # ./lidarr.nix
     ./linkding.nix
-    ./navidrome.nix
+    # ./navidrome.nix
     # ./qbittorrent.nix
     ./syncthing.nix
     ./vaultwarden.nix
