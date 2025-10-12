@@ -1,5 +1,6 @@
 {
   imports = [
+    ./affine.nix
     ./baikal.nix
     ./caddy.nix
     ./caddy-network.nix

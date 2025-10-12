@@ -307,6 +307,26 @@ rec {
         #   env = null;
         #   envFiles = null;
         # };
+        affine_server = {
+          dir = "${dir.containers}/Affine/server";
+          envFiles = [ "affine" ];
+          env = null;
+        };
+        affine_migration = {
+          dir = "${dir.containers}/Affine/migration";
+          envFiles = [ "affine" ];
+          env = null;
+        };
+        affine_postgres = {
+          dir = "${dir.containers}/Affine/postgres";
+          envFiles = [ "affine" ];
+          env = null;
+        };
+        affine_redis = {
+          dir = "${dir.containers}/Affine/redis";
+          envFiles = null;
+          env = null;
+        };
       };
     };
     guest = { };
@@ -336,6 +356,7 @@ rec {
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "affine.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
 
 /**
@@ -354,4 +375,7 @@ rec {
   proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)
   ente.age - Contains POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, ENTE_DB_NAME, ENTE_DB_USER, ENTE_DB_PASSWORD. They match respectively. (i.e. POSTGRES_DB should have same value as ENTE_DB_NAME)
     Also contains MINIO_ROOT_USER, MINIO_ROOT_PASSWORD.
+  affine.age - Contains DB_DATABASE, DB_USERNAME, DB_PASSWORD, POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD. They match respectively. It also contains DATABASE_URL, which is in the format of
+    DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@affine_postgres:5432/${DB_DATABASE}
+    Nested environment variables as shown above do not work, so set the value directly.
 */
