@@ -20,56 +20,78 @@ let
       (default) {
         tls {
           dns duckdns {env.DUCKDNS_TOKEN}
-          dns cloudflare {env.CF_API_TOKEN}
 
           # Since my ISP sucks.
-          propagation_timeout 20m
-          dns_ttl 1m
+          propagation_timeout -1
+          resolvers 1.1.1.1
         }
 
-        header {
-          Strict-Transport-Security "max-age=31536000;"
-          X-XSS-Protection "1; mode=block"
-          X-Frame-Options "SAMEORIGIN"
-          X-Robots-Tag "none"
-          -Server
+        bind fd/5 {
+          protocols h1 h2
         }
-        encode gzip
+        bind fdgram/3 {
+          protocols h3
+        }
+        log main
       }
 
       {
         # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-        log {
-          output file {env.LOG_FILE} {
-            roll_size 10MB
-            roll_keep 10
-          }
-          format console {
-            time_format iso8601
+        log main {
+          include http.log.access.main
+          output file /var/log/caddy/access.log
+          format transform `{request>host}: {request>remote_ip} - {request>user_id} [{ts}] "{request>method} {request>uri} {request>proto}" {status} {size} "{request>headers>Referer>[0]}" "{request>headers>User-Agent>[0]}"` {
+            time_format "02/Jan/2006:15:04:05 -0700"
           }
         }
 
-        servers {
-          metrics
+        log none {
+          include http.log.access.none
+          output discard
+          format console
         }
-        admin :2019
+
+        admin unix//run/admin.sock
+        auto_https disable_redirects
+      }
+
+      http:// {
+        bind fd/4 {
+          protocols h1
+        }
+        redir https://{host}{uri} 308
+        log main
+      }
+
+      {env.DOMAIN} {
+        import default
+        log main
+        respond "{http.request.remote.host}"
       }
 
       ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
-
-      *.{env.DOMAIN} *.{env.EXTERNAL_DOMAIN} {
+      *.{env.DOMAIN} {
         import default
+        log main
 
         ${optionalString (cfg.services != { }) (
           concatMapAttrsStringSep "\n" (n: v: ''
-            @${n} host ${n}.{env.DOMAIN} ${n}.{env.EXTERNAL_DOMAIN}
+            @${n} host ${n}.{env.DOMAIN}
             handle @${n} {
               reverse_proxy ${v}
             }
           '') cfg.services
         )}
 
-        ${optionalString (cfg.servicesExtraConfig != [ ]) (concatStringsSep "\n" cfg.servicesExtraConfig)}
+        ${optionalString (cfg.servicesExtraConfig != { }) (
+          # Handling is done by the extraConfig, like in vaultwarden.nix
+          concatMapAttrsStringSep "\n" (n: v: ''
+            @${n} host ${n}.{env.DOMAIN}
+              handle @${n} {
+                ${v}
+              }
+          '') cfg.servicesExtraConfig
+        )}
       }
     '';
     checkPhase = ''
@@ -81,7 +103,8 @@ let
 
     RUN xcaddy build \
         --with github.com/caddy-dns/duckdns \
-        --with github.com/caddy-dns/cloudflare
+        --with github.com/caddy-dns/cloudflare \
+        --with github.com/caddyserver/transform-encoder
 
     FROM docker.io/caddy:latest
 
@@ -96,9 +119,9 @@ in
       type = types.attrs;
     };
     servicesExtraConfig = mkOption {
-      default = [ ];
+      default = { };
       description = "Extraconfig to add to caddy reverse proxy.";
-      type = types.listOf types.str;
+      type = types.attrs;
     };
     extraConfig = mkOption {
       default = [ ];
@@ -116,6 +139,25 @@ in
       allowedTCPPorts = allowedUDPPorts;
     };
 
+    containers.caddy.servicesExtraConfig.test = ''
+      respond "{{.RemoteIP}}"
+    '';
+
+    systemd.user.sockets.caddy = {
+      Socket = {
+        BindIPv6Only = "both";
+        # fdgram/3
+        ListenDatagram = [ "[::]:443" ];
+        ListenStream = [
+          # fd/4
+          "[::]:80"
+          # fd/5
+          "[::]:443"
+        ];
+      };
+      Install.WantedBy = [ "sockets.target" ];
+    };
+
     # recursiveUpdate is not used on purpose.
     systemd.user.services.caddy-image = utils.defaults // {
       Service = {
@@ -129,10 +171,6 @@ in
       (lib.attrsets.recursiveUpdate {
         Container = {
           Image = "localhost/caddy";
-          PublishPort = [
-            "80:80"
-            "443:443"
-          ];
           Volume = [
             "${caddyFile}:/etc/caddy/Caddyfile"
           ]
