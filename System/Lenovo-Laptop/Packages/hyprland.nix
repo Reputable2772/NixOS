@@ -6,7 +6,7 @@
 }:
 {
   programs.hyprland = {
-    enable = false;
+    enable = true;
     xwayland.enable = true;
     # Been causing issues with multiple HM services, including but not limited to
     # xdg-desktop-portal*, flatpak-managed-install, etc.

@@ -5,8 +5,8 @@
   ...
 }:
 {
-  services.xserver.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services.xserver.enable = lib.mkDefault false;
+  services.desktopManager.gnome.enable = false;
   services.displayManager.gdm.enable = config.services.desktopManager.gnome.enable;
 
   environment.gnome.excludePackages = with pkgs; [
