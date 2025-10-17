@@ -22,13 +22,13 @@
 
   programs.vscode = {
     enable = true;
+    package = pkgs.vscodium-fhs;
     profiles.default = {
       extensions =
         with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
         [
+          # vadimcn.vscode-lldb
           eamodio.gitlens
-          # ms-vscode.cpptools
-          # ms-vscode.cmake-tools
           github.vscode-github-actions
           editorconfig.editorconfig
           catppuccin.catppuccin-vsc-icons
@@ -41,6 +41,9 @@
         ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.open-vsx; [
           mkhl.direnv
         ]);
+      # ++ [
+      #   inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-universal.vadimcn.vscode-lldb
+      # ];
       userSettings = {
         "editor.minimap.enabled" = false;
         "explorer.confirmDragAndDrop" = false;
