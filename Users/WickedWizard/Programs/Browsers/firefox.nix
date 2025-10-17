@@ -36,7 +36,12 @@ in
 
   programs.autostart.packages = with pkgs; [ firefox ];
 
-  wayland.windowManager.hyprland.settings.bind = [
-    "SUPER, V, exec, firefox"
-  ];
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "SUPER, V, exec, firefox"
+    ];
+    windowrulev2 = [
+      "workspace 1, initialClass:(firefox)"
+    ];
+  };
 }

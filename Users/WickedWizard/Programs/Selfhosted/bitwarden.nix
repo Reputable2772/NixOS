@@ -12,6 +12,10 @@
     bitwarden-cli
   ];
 
+  wayland.windowManager.hyprland.settings.windowrulev2 = [
+    "workspace 2, initialClass:(Bitwarden)"
+  ];
+
   programs.autostart.packages = with pkgs; [ bitwarden ];
 
   services.ssh-agent.enable = lib.mkForce false;

@@ -28,7 +28,12 @@
 
   programs.autostart.packages = [ config.programs.librewolf.package ];
 
-  wayland.windowManager.hyprland.settings.bind = [
-    "SUPER, B, exec, librewolf"
-  ];
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "SUPER, B, exec, librewolf"
+    ];
+    windowrulev2 = [
+      "workspace 3, initialClass:(librewolf)"
+    ];
+  };
 }
