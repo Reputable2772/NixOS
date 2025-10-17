@@ -46,14 +46,14 @@ rec {
 
       mounts = {
         # Need to have a corresponding age file with the object name, if you want to provide authentication.
-        # bitlocker = {
-        #   windows = {
-        #     source = "/dev/nvme0n1p4";
-        #     mountpoint = "/mnt/Windows";
-        #     authentication = true;
-        #     fsType = "ntfs";
-        #   };
-        # };
+        bitlocker = {
+          windows = {
+            source = "/dev/nvme0n1p4";
+            mountpoint = "/mnt/Windows";
+            authentication = true;
+            fsType = "ntfs";
+          };
+        };
       };
     };
     rescue = { };

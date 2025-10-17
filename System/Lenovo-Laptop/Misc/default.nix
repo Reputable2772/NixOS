@@ -1,6 +1,6 @@
 {
   imports = [
-    #./bitlocker.nix
+    ./bitlocker.nix
     ./fonts.nix
     ./lts-kernel.nix
     ./power.nix
