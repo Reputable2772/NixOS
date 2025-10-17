@@ -79,13 +79,13 @@
       decoration = {
         rounding = 8;
         shadow = {
-          enabled = true;
+          enabled = false;
           render_power = 2;
           range = 8;
         };
         dim_inactive = false;
         blur = {
-          enabled = true;
+          enabled = false;
           size = 8;
           passes = 3;
           noise = 1.2e-2;
@@ -103,7 +103,6 @@
       master = {
         new_on_top = true;
       };
-
     };
   };
 }

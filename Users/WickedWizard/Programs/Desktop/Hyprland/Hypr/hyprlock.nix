@@ -54,6 +54,7 @@
   xdg.configFile."user.jpg".source = sources.wickedwizard_picture.src;
 
   wayland.windowManager.hyprland.settings.bind = [
-    "CTRL ALT, Delete, exec, hyprlock"
+    # "CTRL ALT, Delete, exec, hyprlock"
+    "CTRL ALT, Delete, exec, systemctl suspend"
   ];
 }
