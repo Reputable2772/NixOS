@@ -43,7 +43,7 @@
     },
     "eza_themes": {
         "cargoLocks": null,
-        "date": "2025-08-03",
+        "date": "2025-10-12",
         "extract": null,
         "name": "eza_themes",
         "passthru": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "eza-community",
             "repo": "eza-themes",
-            "rev": "17095bff4792eecd7f4f1ed8301b15000331c906",
-            "sha256": "sha256-2WTbCQlhwMo5cOn3KwtNiIst0tNfASfZnPNsNBs+gcU=",
+            "rev": "c03051f67e84110fbae91ab7cbc377b3460f035c",
+            "sha256": "sha256-qEC7H9/ghnjkwmMZ788TSgS9ysyIfD+3NHCjxq0Dps0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "17095bff4792eecd7f4f1ed8301b15000331c906"
+        "version": "c03051f67e84110fbae91ab7cbc377b3460f035c"
     },
     "filen": {
         "cargoLocks": null,
@@ -91,16 +91,16 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "v142",
-            "sha256": "sha256-kyxuK5Fras7QYiJmUomqdq8NlgWV66hmNvxcJnGCpUE=",
+            "rev": "v143",
+            "sha256": "sha256-0E3TqvXAy81qeM/jZXWWOTZ14Hs1RT7o78UyZM+Jbr4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v142"
+        "version": "v143"
     },
     "joplin_catppuccin": {
         "cargoLocks": null,
-        "date": "2025-05-11",
+        "date": "2025-09-16",
         "extract": null,
         "name": "joplin_catppuccin",
         "passthru": null,
@@ -112,16 +112,16 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "joplin",
-            "rev": "96d4311a079a5cd1c990d654853a63df0d962027",
-            "sha256": "sha256-XJOCk6Gts7n3sqWM2kTJ1X5T/QoKMBLCEmR+dhJ6+IM=",
+            "rev": "780ff535705411a92cb8d939b51a0e9abf5b8688",
+            "sha256": "sha256-xl9zjVQUHCT3yo5GAsjcfBh1yVM4ryYj/u1v0ws4Ik8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "96d4311a079a5cd1c990d654853a63df0d962027"
+        "version": "780ff535705411a92cb8d939b51a0e9abf5b8688"
     },
     "nix-fast-build": {
         "cargoLocks": null,
-        "date": "2025-08-31",
+        "date": "2025-10-12",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -133,12 +133,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "135fd0edf1dff4128f6f38822dbb24f333b8073f",
-            "sha256": "sha256-ai5enFBtuTqdAnJs2fG4TatnvmJtAPEgMf3oA726FBc=",
+            "rev": "078a515dda7eeb95a2b18a6701ab04d1dfba6410",
+            "sha256": "sha256-iLqu80M3eLSd5NF2VVVtm12mKzOUtXL4k90LS7kjYhE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "135fd0edf1dff4128f6f38822dbb24f333b8073f"
+        "version": "078a515dda7eeb95a2b18a6701ab04d1dfba6410"
     },
     "obs_catppuccin": {
         "cargoLocks": null,
@@ -163,7 +163,7 @@
     },
     "prismlauncher_catppuccin": {
         "cargoLocks": null,
-        "date": "2024-06-11",
+        "date": "2025-09-08",
         "extract": null,
         "name": "prismlauncher_catppuccin",
         "passthru": null,
@@ -175,12 +175,12 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "prismlauncher",
-            "rev": "2edbdf5295bc3c12c3dd53b203ab91028fce2c54",
-            "sha256": "sha256-+yGrSZztf2sZ9frPT3ydIJDavo4eXs03cQWfdTAmn3w=",
+            "rev": "1ef0e745286ce32750abc3bc5d3ca8073a623b60",
+            "sha256": "sha256-RN1VM29OH75GHSHgpu3HW8YSonIEnX7MZzCObJ6BwtQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2edbdf5295bc3c12c3dd53b203ab91028fce2c54"
+        "version": "1ef0e745286ce32750abc3bc5d3ca8073a623b60"
     },
     "rofi-bluetooth": {
         "cargoLocks": null,
