@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -24,23 +19,19 @@
     enable = true;
     package = pkgs.vscodium-fhs;
     profiles.default = {
-      extensions =
-        with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace;
-        [
-          # vadimcn.vscode-lldb
-          eamodio.gitlens
-          github.vscode-github-actions
-          editorconfig.editorconfig
-          catppuccin.catppuccin-vsc-icons
-          catppuccin.catppuccin-vsc
-          pkief.material-icon-theme
-          oderwat.indent-rainbow
-          jnoortheen.nix-ide
-          usernamehw.errorlens
-        ]
-        ++ (with inputs.nix-vscode-extensions.extensions.${pkgs.system}.open-vsx; [
-          mkhl.direnv
-        ]);
+      extensions = pkgs.nix4vscode.forVscode [
+        "vadimcn.vscode-lldb"
+        "llvm-vs-code-extensions.vscode-clangd"
+        "eamodio.gitlens"
+        "github.vscode-github-actions"
+        "editorconfig.editorconfig"
+        "catppuccin.catppuccin-vsc"
+        "pkief.material-icon-theme"
+        "oderwat.indent-rainbow"
+        "jnoortheen.nix-ide"
+        "usernamehw.errorlens"
+        "mkhl.direnv"
+      ];
       # ++ [
       #   inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-universal.vadimcn.vscode-lldb
       # ];

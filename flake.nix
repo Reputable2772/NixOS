@@ -29,7 +29,10 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix4vscode = {
+      url = "github:nix-community/nix4vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-index-database.url = "github:nix-community/nix-index-database";
     menucalc = {
       url = "github:sumnerevans/menu-calc";
