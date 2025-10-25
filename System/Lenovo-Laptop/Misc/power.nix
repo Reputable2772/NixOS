@@ -6,6 +6,7 @@
 }:
 {
   services.power-profiles-daemon.enable = lib.mkForce (!config.programs.hyprland.enable);
+  powerManagement.powertop.enable = true;
   services.tlp.enable = config.programs.hyprland.enable;
   environment.systemPackages = lib.optional config.services.tlp.enable (
     pkgs.callPackage ../../../Packages/tlpui.nix { }
@@ -48,7 +49,7 @@
     # Set to 0 to disable, 1 to enable TLP.
     # Default: 1
 
-    #TLP_ENABLE=1
+    TLP_ENABLE=1
 
     # Control how warnings about invalid settings are issued:
     #   0=disabled,
@@ -57,7 +58,7 @@
     #   3=combination of 1 and 2
     # Default: 3
 
-    #TLP_WARN_LEVEL=3
+    TLP_WARN_LEVEL=3
 
     # Colorize error, warning, notice and success messages. Colors are specified
     # with ANSI codes:
@@ -111,7 +112,7 @@
     #   active, passive, guided(*).
     # Default: <none>
     CPU_DRIVER_OPMODE_ON_AC=active
-    CPU_DRIVER_OPMODE_ON_BAT=passive
+    CPU_DRIVER_OPMODE_ON_BAT=active
 
     # Select a CPU frequency scaling governor.
     # Intel CPU with intel_pstate driver or
@@ -368,8 +369,8 @@
     # Wi-Fi power saving mode: on=enable, off=disable.
     # Default: off (AC), on (BAT)
 
-    #WIFI_PWR_ON_AC=off
-    #WIFI_PWR_ON_BAT=on
+    WIFI_PWR_ON_AC=off
+    WIFI_PWR_ON_BAT=on
 
     # Disable Wake-on-LAN: Y/N.
     # Default: Y
@@ -403,7 +404,7 @@
     # Default: on (AC), auto (BAT)
 
     RUNTIME_PM_ON_AC=auto
-    #RUNTIME_PM_ON_BAT=auto
+    RUNTIME_PM_ON_BAT=auto
 
     # Exclude listed PCIe device adresses from Runtime PM.
     # Note: this preserves the kernel driver default, to force a certain state
