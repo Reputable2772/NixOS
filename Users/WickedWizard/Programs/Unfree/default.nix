@@ -1,7 +1,7 @@
 {
   imports = [
     ./discord.nix
-    ./spotify.nix
+    # ./spotify.nix
     ./steam.nix
     ./telegram.nix
   ];
