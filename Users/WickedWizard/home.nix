@@ -13,7 +13,8 @@
     ./secrets.nix
   ];
 
-  xdg.mimeApps.enable = true;
+  programs.mimeApps.enable = true;
+  programs.mimeApps.useXdgMimeAppsDefaultApplications = true;
   programs.home-manager.enable = true;
   programs.autostart.enable = true;
 
