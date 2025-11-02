@@ -34,6 +34,8 @@ let
     ]).content;
 in
 {
+  home.packages = with pkgs; [ gocryptfs ];
+
   age.secrets = validMounts [
     (filterAttrs (n: v: v ? authentication && v.authentication))
     (mapAttrs' (n: v: nameValuePair n { file = ./. + "../../../../Config/${n}.age"; }))

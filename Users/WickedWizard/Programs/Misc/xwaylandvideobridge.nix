@@ -1,8 +1,7 @@
 { pkgs, ... }:
 {
+  # NixOS/nixpkgs#455529
   home.packages = with pkgs; [
-    gocryptfs
-
     kdePackages.xwaylandvideobridge
   ];
 

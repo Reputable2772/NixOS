@@ -32,15 +32,15 @@
   };
   eza_themes = {
     pname = "eza_themes";
-    version = "17095bff4792eecd7f4f1ed8301b15000331c906";
+    version = "c03051f67e84110fbae91ab7cbc377b3460f035c";
     src = fetchFromGitHub {
       owner = "eza-community";
       repo = "eza-themes";
-      rev = "17095bff4792eecd7f4f1ed8301b15000331c906";
+      rev = "c03051f67e84110fbae91ab7cbc377b3460f035c";
       fetchSubmodules = false;
-      sha256 = "sha256-2WTbCQlhwMo5cOn3KwtNiIst0tNfASfZnPNsNBs+gcU=";
+      sha256 = "sha256-qEC7H9/ghnjkwmMZ788TSgS9ysyIfD+3NHCjxq0Dps0=";
     };
-    date = "2025-08-03";
+    date = "2025-10-12";
   };
   filen = {
     pname = "filen";
@@ -75,15 +75,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "078a515dda7eeb95a2b18a6701ab04d1dfba6410";
+    version = "441818b78c2a686bd3970eac3afe6a5b0ad4eb06";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "078a515dda7eeb95a2b18a6701ab04d1dfba6410";
+      rev = "441818b78c2a686bd3970eac3afe6a5b0ad4eb06";
       fetchSubmodules = false;
-      sha256 = "sha256-iLqu80M3eLSd5NF2VVVtm12mKzOUtXL4k90LS7kjYhE=";
+      sha256 = "sha256-Wcc8G6u5+X15593UFrBxYA28AHU7CCrr3s/rJL1v7gU=";
     };
-    date = "2025-10-12";
+    date = "2025-11-02";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";

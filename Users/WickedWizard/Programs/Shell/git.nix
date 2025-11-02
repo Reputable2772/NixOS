@@ -12,12 +12,9 @@ in
 {
   programs.git = {
     enable = true;
-    userEmail = config'.git.email;
-    userName = config'.git.username;
-    signing.signByDefault = lib.mkIf (config'.git.secrets.signing ? key) true;
-    signing.key = null;
-    signing.format = "ssh";
-    extraConfig = {
+    settings = {
+      user.email = config'.git.email;
+      user.name = config'.git.username;
       core = {
         autocrlf = "input";
       };
@@ -26,6 +23,9 @@ in
       };
       user.signingkey = config'.git.secrets.signing.key;
     };
+    signing.signByDefault = lib.mkIf (config'.git.secrets.signing ? key) true;
+    signing.key = null;
+    signing.format = "ssh";
   };
 
   home.file.ssh_config = {

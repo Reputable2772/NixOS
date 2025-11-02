@@ -10,7 +10,7 @@
   replaceVars,
   tlp,
   usbutils,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 python3Packages.buildPythonPackage rec {
   pname = "tlpui";
@@ -38,7 +38,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   build-system = [
-    wrapGAppsHook
+    wrapGAppsHook3
     python3Packages.poetry-core
   ];
 
