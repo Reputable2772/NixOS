@@ -1,9 +1,10 @@
 {
   # Don't upgrade evince to papers. It doesn't have a resizable left bar.
   services.flatpak.packages = [ "org.gnome.Evince" ];
+  programs.mimeApps.flatpaks = [ "org.gnome.Evince" ];
 
   xdg.mimeApps.defaultApplications = {
-    "application/pdf" = "org.gnome.Evince";
+    "application/pdf" = "org.gnome.Evince.desktop";
   };
 
   dconf.settings."org/gnome/evince/default" = {
