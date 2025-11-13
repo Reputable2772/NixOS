@@ -1,6 +1,6 @@
 {
   imports = [
-    ./joplin.nix
+    # ./joplin.nix
     ./kde-connect.nix
     ./libreoffice.nix
     # ./logseq.nix

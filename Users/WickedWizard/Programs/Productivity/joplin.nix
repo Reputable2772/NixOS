@@ -1,5 +1,7 @@
 { sources, ... }:
 {
+  # Used in Syncthing and backup.
+
   # Convert to stylix as well
   services.flatpak.packages = [ "net.cozic.joplin_desktop" ];
   # programs.autostart.packages = with pkgs; [ joplin-desktop ];

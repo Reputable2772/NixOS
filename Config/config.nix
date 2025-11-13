@@ -87,7 +87,7 @@ rec {
               "Games/Linux/Minecraft"
               "Games/Saves"
               "Important-Files"
-              "Joplin"
+              # "Joplin"
             ]
             ++ [
               "/mnt/Windows/Backup"
@@ -253,7 +253,7 @@ rec {
               "Android/Tasker:/android-tasker"
               "Books:/books"
               "Important-Files:/important-files"
-              "Joplin:/joplin"
+              # "Joplin:/joplin"
               "Study-Materials:/study-materials"
             ];
           };
