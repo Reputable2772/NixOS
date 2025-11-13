@@ -4,6 +4,6 @@
     ./firefox.nix
     ./junction.nix
     ./librewolf.nix
-    ./tor.nix
+    # ./tor.nix
   ];
 }

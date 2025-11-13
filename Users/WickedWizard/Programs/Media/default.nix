@@ -1,12 +1,12 @@
 {
   imports = [
-    ./calibre.nix
-    ./freetube.nix
+    # ./calibre.nix
+    # ./freetube.nix
     ./image-viewer.nix
     ./mpv.nix
     ./obs-studio.nix
     ./playerctl.nix
-    ./spotube.nix
+    # ./spotube.nix
     ./vlc.nix
   ];
 }
