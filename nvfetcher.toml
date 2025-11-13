@@ -22,11 +22,6 @@ fetch.github = "Mic92/nix-fast-build"
 src.github = "rafaelmardojai/firefox-gnome-theme"
 fetch.github = "rafaelmardojai/firefox-gnome-theme"
 
-# TODO: Set this to update automatically.
-[filen]
-src.manual = "latest"
-fetch.url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
-
 [wickedwizard_picture]
 src.manual = "latest"
 fetch.url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg"

@@ -1,9 +1,6 @@
-{ pkgs, sources, ... }:
-let
-  filen = pkgs.callPackage ../../../../Packages/filen.nix { inherit sources; };
-in
+{ pkgs, ... }:
 {
-  home.packages = [ filen ];
+  home.packages = with pkgs; [ filen-desktop ];
 
-  programs.autostart.packages = [ filen ];
+  programs.autostart.packages = with pkgs; [ filen-desktop ];
 }

@@ -62,21 +62,6 @@
         },
         "version": "c03051f67e84110fbae91ab7cbc377b3460f035c"
     },
-    "filen": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "filen",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=",
-            "type": "url",
-            "url": "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage"
-        },
-        "version": "latest"
-    },
     "firefox-gnome-theme": {
         "cargoLocks": null,
         "date": null,
