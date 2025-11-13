@@ -15,7 +15,7 @@ let
       )
     );
 in
-import ../config-module.nix {
+import ../Common/config-module.nix {
   inherit lib;
   name = "hm-config";
   config = mkIf cfg.enable {
