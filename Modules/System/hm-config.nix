@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  lib',
+  ...
+}:
 let
   inherit (lib.attrsets) attrValues mapAttrs getAttrFromPath;
   inherit (lib.lists) flatten;
@@ -19,6 +24,8 @@ import ../Common/config-module.nix {
   inherit lib;
   name = "hm-config";
   config = mkIf cfg.enable {
+    environment.etc = cfg.environment.etc;
+
     hm-config = {
       firewall = {
         allowedTCPPortRanges = mkMergeListOptions [
@@ -50,6 +57,11 @@ import ../Common/config-module.nix {
         "config"
         "allowUnfreePredicate"
       ];
+
+      environment.etc = lib.foldl' lib'.deepMerge { } (mkMergeListOptions [
+        "environment"
+        "etc"
+      ]);
     };
   };
 }

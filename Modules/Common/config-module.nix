@@ -45,6 +45,12 @@ in
       default = [ ];
       type = types.listOf types.str;
     };
+
+    environment.etc = mkOption {
+      description = "Symlinking Files to environment.etc";
+      default = { };
+      type = types.attrs;
+    };
   };
 
   inherit config;
