@@ -12,6 +12,9 @@
     bitwarden-cli
   ];
 
+  system-config.environment.etc."polkit-1/actions/com.bitwarden.Bitwarden.policy".source =
+    "${pkgs.bitwarden-desktop}/share/polkit-1/actions/com.bitwarden.Bitwarden.policy";
+
   wayland.windowManager.hyprland.settings.windowrulev2 = [
     "workspace 2, initialClass:(Bitwarden)"
   ];
