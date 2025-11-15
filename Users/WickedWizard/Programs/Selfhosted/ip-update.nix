@@ -23,7 +23,6 @@
         curl -G "https://www.duckdns.org/update" \
           --data-urlencode "token=$secret" \
           --data-urlencode "domains=$DOMAIN" \
-          --data-urlencode "ip=$ip" \
           --data-urlencode "verbose=true" \
           --data-urlencode "ipv6=$ip6"
       '';
