@@ -99,7 +99,8 @@ in
     };
 
     Timer = {
-      OnCalendar = [ "*-*-* 00/12:00:00" ];
+      OnCalendar = [ "*-*-* 21:00:00" ];
+      Persistent = true;
     };
 
     Install = {
