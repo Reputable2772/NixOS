@@ -39,7 +39,12 @@ let
         # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
         log main {
           include http.log.access.main
-          output file /var/log/caddy/access.log
+          output file /var/log/caddy/access.log {
+            roll_local_time
+            roll_keep 90
+            roll_keep_for 2160h
+          }
+
           format transform `{request>host}: {request>remote_ip} - {request>user_id} [{ts}] "{request>method} {request>uri} {request>proto}" {status} {size} "{request>headers>Referer>[0]}" "{request>headers>User-Agent>[0]}"` {
             time_format "02/Jan/2006:15:04:05 -0700"
           }
