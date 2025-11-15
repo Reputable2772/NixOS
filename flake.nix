@@ -5,7 +5,6 @@
     # nixpkgs.follows = "nixos-cosmic/nixpkgs";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -34,10 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database.url = "github:nix-community/nix-index-database";
-    menucalc = {
-      url = "github:sumnerevans/menu-calc";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,8 +46,9 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     # Require manual updates, nix flake update will not work.
+    # We don't really want it to work either.
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
