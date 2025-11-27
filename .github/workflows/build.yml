@@ -23,6 +23,7 @@ jobs:
     - name: "Install Nix"
       uses: cachix/install-nix-action@v26
       with:
+        install_url: https://install.lix.systems/lix
         extra_nix_config: |
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
