@@ -5,13 +5,16 @@ set -e
 ci() {
 	ci_increase_storage
 
-	nix-fast-build --debug --no-nom --out-link hp-laptop --flake .#nixosConfigurations.hp-laptop.config.system.build.toplevel
+	# Inherited from devenv's ci shell.
+	check
+
+	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
 
 	# The variable `attr` is not checked for nullish values
 	# https://github.com/Mic92/nix-fast-build/blob/f024a66e6a1f83de95aba109287a97dd6ca76127/nix_fast_build/__init__.py#L605
-	mv hp-laptop- hp-laptop
+	mv lenovo-laptop- lenovo-laptop
 
-	echo $(realpath hp-laptop) | cachix push spearman4157
+	echo $(realpath lenovo-laptop) | cachix push spearman4157
 }
 
 ci_get() {
