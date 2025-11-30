@@ -20,12 +20,14 @@ jobs:
         echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
         echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
 
-    - uses: canidae-solutions/lix-quick-install-action@v3
+    - uses: samueldr/lix-gha-installer-action@latest
       name: "Install Lix"
       with:
-        lix_conf: |
+        extra_nix_config: |
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
+          experimental-features = flakes nix-command pipe-operators
+          accept-flake-config = true
 
     - name: "Build Packages"
       run: |
