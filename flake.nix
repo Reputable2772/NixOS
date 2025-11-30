@@ -71,13 +71,13 @@
 
       systems = import systems;
 
-      flake.nixosConfigurations = {
-        "lenovo-laptop" =
-          let
-            system = "x86_64-linux";
-            pkgs = nixpkgs.legacyPackages.${system};
-          in
-          nixpkgs.lib.nixosSystem {
+      flake.nixosConfigurations =
+        let
+          system = "x86_64-linux";
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          "lenovo-laptop" = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs;
@@ -92,9 +92,9 @@
               };
             };
             modules = [
+              ./Modules/System
               ./System/Common
               ./System/Lenovo-Laptop
-
               (
                 { config, ... }:
                 {
@@ -106,19 +106,19 @@
             ];
           };
 
-        "rescue" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-
-            config' = import ./Config/config.nix { };
+          "rescue" = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit inputs;
+              lib' = import ./lib { inherit pkgs; };
+              config' = import ./Config/config.nix { };
+            };
+            modules = [
+              ./System/Common
+              ./System/Rescue
+            ];
           };
-          modules = [
-            ./System/Common
-            ./System/Rescue
-          ];
         };
-      };
 
       perSystem =
         {
