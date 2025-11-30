@@ -11,6 +11,8 @@ ci() {
 	nix --version
 	nix config show
 
+	cat "$LIX_CONF_FILE"
+
 	# Inherited from devenv's ci shell.
 	check
 
