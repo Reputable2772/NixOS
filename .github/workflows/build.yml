@@ -26,6 +26,7 @@ jobs:
         lix_conf: |
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
+          experimental-features = flakes nix-command pipe-operator
 
     - name: "Build Packages"
       run: |
