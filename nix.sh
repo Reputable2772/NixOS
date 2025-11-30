@@ -9,7 +9,7 @@ ci() {
 	nix config show
 
 	# Inherited from devenv's ci shell.
-	check
+	nix flake check --extra-experimental-features "flakes nix-command pipe-operators"
 
 	# Set here and not in Lix Install Actions because
 	# https://github.com/canidae-solutions/lix-quick-install-action/blob/51fe8b3eafcb89b46341a8088ab0d3a849efbf5b/nix-quick-install.sh#L107
