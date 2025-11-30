@@ -8,7 +8,7 @@ ci() {
 	# Inherited from devenv's ci shell.
 	check
 
-	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
+	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel --option experimental-featuers "flakes nix-command pipe-operator"
 
 	# The variable `attr` is not checked for nullish values
 	# https://github.com/Mic92/nix-fast-build/blob/f024a66e6a1f83de95aba109287a97dd6ca76127/nix_fast_build/__init__.py#L605
