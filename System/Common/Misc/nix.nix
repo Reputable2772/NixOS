@@ -25,6 +25,7 @@
       experimental-features = [
         "flakes"
         "nix-command"
+        # pipe-operator for Lix, pipe-operators for Nix.
         "pipe-operator"
       ];
       # Fixes NixOS/nix#9574
