@@ -56,7 +56,6 @@
   outputs =
     {
       nixpkgs,
-      self,
       devshell,
       flake-parts,
       git-hooks,
@@ -69,6 +68,7 @@
         git-hooks.flakeModule
       ];
 
+      debug = true;
       systems = import systems;
 
       flake.nixosConfigurations =
@@ -123,9 +123,7 @@
       perSystem =
         {
           config,
-          system,
           pkgs,
-          self',
           ...
         }:
         let
