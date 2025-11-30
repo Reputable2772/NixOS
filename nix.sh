@@ -5,7 +5,8 @@ set -e
 ci() {
 	ci_increase_storage
 
-	echo "experimental-features = flake nix-command pipe-operators" >> /etc/nix/nix.conf
+	LIX_CONF_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/nix/nix.conf"
+	echo "experimental-features = flake nix-command pipe-operators" >> "$LIX_CONF_FILE"
 
 	# Inherited from devenv's ci shell.
 	check
