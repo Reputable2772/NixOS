@@ -5,12 +5,14 @@ set -e
 ci() {
 	ci_increase_storage
 
+	echo "experimental-features = flake nix-command pipe-operators" >> /etc/nix/nix.conf
+
 	# Inherited from devenv's ci shell.
 	check
 
 	# Set here and not in Lix Install Actions because
 	# https://github.com/canidae-solutions/lix-quick-install-action/blob/51fe8b3eafcb89b46341a8088ab0d3a849efbf5b/nix-quick-install.sh#L107
-	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel --option extra-experimental-features "flakes nix-command pipe-operators"
+	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
 
 	# The variable `attr` is not checked for nullish values
 	# https://github.com/Mic92/nix-fast-build/blob/f024a66e6a1f83de95aba109287a97dd6ca76127/nix_fast_build/__init__.py#L605
