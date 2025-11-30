@@ -5,7 +5,7 @@
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
   ];
 
-  isoImage.isoBaseName = "rescue";
+  image.baseName = "rescue";
 
   networking.hostName = "rescue";
 }

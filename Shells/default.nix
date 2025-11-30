@@ -30,7 +30,8 @@
         # args of the unpatched flake.
 
         # This hack is needed since agenix's src is a single file, and that cannot be patched.
-        ((import "${_agenix}/flake.nix").outputs agenix_args).packages.${pkgs.system}.agenix
+        ((import "${_agenix}/flake.nix").outputs agenix_args)
+        .packages.${pkgs.stdenv.hostPlatform.system}.agenix
       ];
 
       startup.pre-commit.text = config.pre-commit.installationScript;
@@ -64,7 +65,7 @@
       name = "switch";
       command = ''
         echo "Builiding"
-        nixos-rebuild --flake . --use-remote-sudo switch
+        nixos-rebuild --flake . --sudo switch
       '';
     }
     {

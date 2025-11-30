@@ -62,10 +62,9 @@
     users = {
       wickedwizard = {
         imports = [
-          ../../Modules/Home-Manager
           ../../Users/WickedWizard/home.nix
           {
-            home.stateVersion = "23.05";
+            home.stateVersion = "26.05";
             _module.args.config' = config'.users.wickedwizard;
           }
         ];
@@ -73,10 +72,9 @@
 
       guest = {
         imports = [
-          ../../Modules/Home-Manager
           ../../Users/Guest/home.nix
           {
-            home.stateVersion = "23.05";
+            home.stateVersion = "26.05";
             _module.args.config' = config'.users.guest;
           }
         ];

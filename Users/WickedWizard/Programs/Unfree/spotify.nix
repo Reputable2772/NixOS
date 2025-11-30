@@ -7,7 +7,7 @@
 }:
 let
   inherit (inputs) spicetify-nix;
-  spicePkgs = spicetify-nix.legacyPackages.${pkgs.system};
+  spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   services.flatpak.packages = lib.optional (!config.programs.spicetify.enable) "com.spotify.Client";

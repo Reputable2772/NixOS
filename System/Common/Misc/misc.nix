@@ -6,7 +6,7 @@
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "26.05";
 
-  system.extraSystemBuilderCmds = "ln -s ${../../..} $out/src";
+  system.systemBuilderCommands = "ln -s ${../../..} $out/src";
 }
