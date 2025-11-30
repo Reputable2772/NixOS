@@ -8,6 +8,9 @@ ci() {
 	LIX_CONF_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/nix/nix.conf"
 	echo "experimental-features = flakes nix-command pipe-operators" >> "$LIX_CONF_FILE"
 
+	nix --version
+	nix config show
+
 	# Inherited from devenv's ci shell.
 	check
 
