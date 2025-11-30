@@ -58,6 +58,7 @@
     useUserPackages = lib.mkForce false;
     backupFileExtension = "backup.backup.backup";
     verbose = true;
+    sharedModules = [ ../../Modules/Home-Manager ];
     users = {
       wickedwizard = {
         imports = [
