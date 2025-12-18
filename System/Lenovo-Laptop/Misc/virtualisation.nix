@@ -15,7 +15,7 @@
     oci-containers.backend = "podman";
 
     libvirtd = {
-      enable = true;
+      enable = false;
       # TPM Emulation
       qemu.swtpm.enable = true;
     };
