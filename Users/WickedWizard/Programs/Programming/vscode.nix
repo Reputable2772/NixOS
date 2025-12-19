@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 {
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -19,7 +24,7 @@
     enable = true;
     package = pkgs.vscodium-fhs;
     profiles.default = {
-      extensions = pkgs.nix4vscode.forVscode [
+      extensions = inputs.nix4vscode.lib.${pkgs.system}.forOpenVsx [
         "vadimcn.vscode-lldb"
         "llvm-vs-code-extensions.vscode-clangd"
         "eamodio.gitlens"
@@ -32,9 +37,6 @@
         "usernamehw.errorlens"
         "mkhl.direnv"
       ];
-      # ++ [
-      #   inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace-universal.vadimcn.vscode-lldb
-      # ];
       userSettings = {
         "editor.minimap.enabled" = false;
         "explorer.confirmDragAndDrop" = false;
