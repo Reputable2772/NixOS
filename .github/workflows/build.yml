@@ -26,7 +26,7 @@ jobs:
         extra_nix_config: |
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
-          experimental-features = flakes nix-command pipe-operator
+          experimental-features = flakes nix-command pipe-operators pipe-operator
           accept-flake-config = true
 
     - name: "Build Packages"
