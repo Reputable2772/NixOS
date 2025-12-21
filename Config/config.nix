@@ -129,6 +129,8 @@ rec {
         config = "${flake.dir.self}/Config";
         # Where to store all container data. Set to null to disable containers.
         containers = "${base}/Applications/Containers";
+        # Where Obsidian Notes are stored.
+        notes = "${base}/Notes";
       };
       git = {
         # The username and email to set for Git.
@@ -255,6 +257,7 @@ rec {
               "Important-Files:/important-files"
               # "Joplin:/joplin"
               "Study-Materials:/study-materials"
+              "Notes:/notes"
             ];
           };
         };
