@@ -25,7 +25,7 @@ jobs:
         extra_nix_config: |
           trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
-          experimental-features = flakes nix-command pipe-operator
+          experimental-features = flakes nix-command pipe-operator pipe-operators
           accept-flake-config = true
     - name: "Build both closures"
       id: build
@@ -35,8 +35,8 @@ jobs:
       # mv result_new- result_new
       run: |
         ./nix.sh ci_increase_storage
-        nix build --out-link result_old github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel
-        nix build --out-link result_new .#nixosConfigurations.hp-laptop.config.system.build.toplevel
+        nix build --out-link result_old github:${{ github.repository }}#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
+        nix build --out-link result_new .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
 
     - name: "Diff Profile Closures"
       id: profile-diff

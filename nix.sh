@@ -8,8 +8,7 @@ ci() {
 	# Inherited from devenv's ci shell.
 	check
 
-	# Set here and not in Lix Install Actions because
-	# https://github.com/canidae-solutions/lix-quick-install-action/blob/51fe8b3eafcb89b46341a8088ab0d3a849efbf5b/nix-quick-install.sh#L107
+	# nix-fast-build uses its own version of Nix, and doesn't use Lix.
 	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
 
 	# The variable `attr` is not checked for nullish values
