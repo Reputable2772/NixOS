@@ -1,16 +1,12 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   services.flatpak.packages = [ "re.sonny.Junction" ];
 
   systemd.user.services."flatpak-managed-install".Service = {
     ExecStartPost = [
       (pkgs.writeShellScript "flatpak-junction-overrides" ''
-        # Allow XDG_DATA_DIRS entirely, with sandbox overrides from https://github.com/flatpak/flatpak/blob/main/common/flatpak-run.c#L552
-
-        ${pkgs.flatpak}/bin/flatpak --user override --env=XDG_DATA_DIRS="/app/share:/usr/share:$XDG_DATA_DIRS" re.sonny.Junction
-        for path in $(echo $XDG_DATA_DIRS | ${pkgs.coreutils-full}/bin/tr ':' '\n'); do
-          ${pkgs.flatpak}/bin/flatpak --user override --filesystem="$path" re.sonny.Junction
-        done
+        rm -rf ${config.home.homeDirectory}/.local/share/applications
+        ln -s ${config.home.homeDirectory}/.nix-profile/share/applications ${config.home.homeDirectory}/.local/share/
       '')
     ];
   };
