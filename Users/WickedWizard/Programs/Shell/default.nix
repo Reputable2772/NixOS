@@ -13,6 +13,7 @@
     ./power-usage.nix
     ./starship.nix
     ./tmux.nix
+    ./witr.nix
     ./zoxide.nix
     ./zsh.nix
   ];
