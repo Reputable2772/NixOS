@@ -52,6 +52,7 @@ rec {
             mountpoint = "/mnt/Windows";
             authentication = true;
             fsType = "ntfs";
+            nofail = true;
           };
         };
       };

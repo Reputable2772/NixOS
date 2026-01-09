@@ -1,6 +1,7 @@
 {
   config,
   config',
+  pkgs,
   lib,
   ...
 }:
@@ -8,11 +9,10 @@ let
   inherit (lib.attrsets)
     mapAttrs
     mapAttrs'
-    mapAttrsToList
     nameValuePair
     ;
   inherit (lib.modules) mkIf;
-  inherit (lib.strings) concatStringsSep;
+  inherit (lib.strings) optionalString;
 
   onlyIf =
     cond:
@@ -22,23 +22,38 @@ let
     ) cond;
 in
 {
-  systemd.generators.systemd-cryptsetup-generator = onlyIf "${config.systemd.package}/lib/systemd/system-generators/systemd-cryptsetup-generator";
-
   age.secrets = onlyIf (
     mapAttrs (n: v: {
       file = ./. + "../../../../Config/${n}.age";
     }) config'.system.${config.networking.hostName}.mounts.bitlocker
   );
 
-  environment.etc.crypttab.text = onlyIf (
-    concatStringsSep "\n" (
-      mapAttrsToList (
-        n: v:
-        "${n} ${v.source} ${
-          if v.authentication then "${config.age.secrets.${n}.path} " else "- noauto,"
-        }bitlk"
-      ) config'.system.${config.networking.hostName}.mounts.bitlocker
-    )
+  systemd.services = onlyIf (
+    mapAttrs' (
+      n: v:
+      nameValuePair "bitlocker-${n}" {
+        description = "Unlock ${n} BitLocker volume";
+        wantedBy = [ "multi-user.target" ];
+        after = [
+          "local-fs.target"
+          "agenix.service"
+        ];
+        wants = [ "agenix.service" ];
+
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+
+          ExecStart = ''
+            ${pkgs.cryptsetup}/bin/cryptsetup open \
+              --type bitlk \
+              ${optionalString v.authentication "--key-file ${config.age.secrets.${n}.path}"} \
+              ${v.source} ${n}
+          '';
+          ConditionPathExists = "!/dev/mapper/${n}";
+        };
+      }
+    ) config'.system.${config.networking.hostName}.mounts.bitlocker
   );
 
   fileSystems = onlyIf (
@@ -50,6 +65,14 @@ in
         ];
         device = "/dev/mapper/${n}";
         inherit (v) fsType;
+        options = [
+          "rw"
+          "uid=1000"
+          "gid=100"
+          "x-systemd.after=bitlocker-${n}.service"
+          "x-systemd.requires=bitlocker-${n}.service"
+        ]
+        ++ lib.optional v.nofail "nofail";
       }
     ) config'.system.${config.networking.hostName}.mounts.bitlocker
   );
