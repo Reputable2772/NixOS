@@ -49,10 +49,10 @@
       "SUPER, R, exec, wofi --show run"
       "SUPER, period, exec, ${pkgs.wofi-emoji}/bin/wofi-emoji"
     ];
-    windowrulev2 = [
-      "float, initialClass:wofi"
-      "stayfocused, initialClass:wofi"
-      "dimaround on, initialClass:wofi"
+    windowrule = [
+      "match:initial_class wofi, float on"
+      "match:initial_class wofi, stay_focused on"
+      "match:initial_class wofi, dim_around on"
     ];
   };
 

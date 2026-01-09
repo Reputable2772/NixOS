@@ -32,8 +32,8 @@
     bind = [
       "SUPER, B, exec, librewolf"
     ];
-    windowrulev2 = [
-      "workspace 3, initialClass:(librewolf)"
+    windowrule = [
+      "match:initial_class (librewolf), workspace 3"
     ];
   };
 }

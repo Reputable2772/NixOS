@@ -15,8 +15,8 @@
   system-config.environment.etc."polkit-1/actions/com.bitwarden.Bitwarden.policy".source =
     "${pkgs.bitwarden-desktop}/share/polkit-1/actions/com.bitwarden.Bitwarden.policy";
 
-  wayland.windowManager.hyprland.settings.windowrulev2 = [
-    "workspace 2, initialClass:(Bitwarden)"
+  wayland.windowManager.hyprland.settings.windowrule = [
+    "match:initial_class (Bitwarden), workspace 2"
   ];
 
   programs.autostart.packages = with pkgs; [ bitwarden-desktop ];

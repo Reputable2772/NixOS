@@ -40,8 +40,8 @@ in
     bind = [
       "SUPER, V, exec, firefox"
     ];
-    windowrulev2 = [
-      "workspace 1, initialClass:(firefox)"
+    windowrule = [
+      "match:initial_class (firefox), workspace 1"
     ];
   };
 }

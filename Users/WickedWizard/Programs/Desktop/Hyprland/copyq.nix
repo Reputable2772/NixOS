@@ -18,11 +18,10 @@
       "SUPER, C, exec, copyq toggle"
     ];
     windowrule = [
-      "float, initialClass:com.github.hluk.copyq"
-      "float, initialClass:com.github.hluk.copyq"
-      "opaque, initialClass:com.github.hluk.copyq"
-      "dimaround, initialClass:com.github.hluk.copyq"
-      "stayfocused, initialClass:com.github.hluk.copyq"
+      "match:initial_class com.github.hluk.copyq, float on"
+      "match:initial_class com.github.hluk.copyq, opaque on"
+      "match:initial_class com.github.hluk.copyq, dim_around on"
+      "match:initial_class com.github.hluk.copyq, stay_focused on"
     ];
   };
 }

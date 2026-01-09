@@ -19,8 +19,8 @@
     Version=2
   '';
 
-  wayland.windowManager.hyprland.settings.windowrulev2 = [
-    "workspace 2, initialClass:(thunderbird)"
+  wayland.windowManager.hyprland.settings.windowrule = [
+    "match:initial_class (thunderbird), workspace 2"
   ];
 
   programs.autostart.packages = with pkgs; [ thunderbird ];

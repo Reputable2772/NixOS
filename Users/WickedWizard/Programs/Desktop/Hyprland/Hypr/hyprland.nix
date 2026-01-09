@@ -28,7 +28,6 @@
       general = {
         layout = "dwindle";
         resize_on_border = true;
-        no_border_on_floating = true;
       };
 
       cursor = {
@@ -40,6 +39,7 @@
 
       monitor = [
         "eDP-1,1920x1080@60,0x0,1"
+        "HDMI-A-1,1024x768@60,1920x0,1,transform,0"
       ];
 
       misc = {
