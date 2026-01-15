@@ -13,5 +13,6 @@
     # ./qbittorrent.nix
     ./syncthing.nix
     ./vaultwarden.nix
+    ./wud.nix
   ];
 }
