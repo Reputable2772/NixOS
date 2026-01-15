@@ -24,18 +24,22 @@
     enable = true;
     package = pkgs.vscodium-fhs;
     profiles.default = {
-      extensions = inputs.nix4vscode.lib.${pkgs.system}.forOpenVsx [
-        "vadimcn.vscode-lldb"
-        "llvm-vs-code-extensions.vscode-clangd"
+      extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
         "eamodio.gitlens"
         "github.vscode-github-actions"
         "editorconfig.editorconfig"
+        "usernamehw.errorlens"
+        "oderwat.indent-rainbow"
         "catppuccin.catppuccin-vsc"
         "pkief.material-icon-theme"
-        "oderwat.indent-rainbow"
-        "jnoortheen.nix-ide"
-        "usernamehw.errorlens"
+
+        # Nix
         "mkhl.direnv"
+        "jnoortheen.nix-ide"
+
+        # C/C++
+        "vadimcn.vscode-lldb"
+        "llvm-vs-code-extensions.vscode-clangd"
       ];
       userSettings = {
         "editor.minimap.enabled" = false;
