@@ -33,7 +33,6 @@ in
       n: v:
       nameValuePair "bitlocker-${n}" {
         description = "Unlock ${n} BitLocker volume";
-        wantedBy = [ "multi-user.target" ];
         after = [
           "local-fs.target"
           "agenix.service"
@@ -67,10 +66,13 @@ in
         inherit (v) fsType;
         options = [
           "rw"
+          "noauto"
           "uid=1000"
           "gid=100"
           "x-systemd.after=bitlocker-${n}.service"
           "x-systemd.requires=bitlocker-${n}.service"
+          "x-systemd.automount"
+          "x-systemd.idle-timeout=5min"
         ]
         ++ lib.optional v.nofail "nofail";
       }
