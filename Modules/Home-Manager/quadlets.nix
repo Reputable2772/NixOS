@@ -47,8 +47,8 @@ let
                 v.Container.Volume
                 |> map (x: builtins.elemAt (builtins.split ":" x) 0)
                 |> filter (x: !(hasSuffix ".volume" x))
-                |> concatMapStringsSep "\n" (x: "${pkgs.coreutils}/bin/mkdir -p ${x}")
-                |> pkgs.writeShellScript "${n}-mkdir"
+                |> concatMapStringsSep "\n" (x: "[[ ! -e ${x} ]] && ${pkgs.coreutils}/bin/mkdir -p ${x}")
+                |> (a: pkgs.writeShellScript "${n}-mkdir" (a + "\nexit 0\n"))
               )
             ];
           }
