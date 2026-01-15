@@ -162,8 +162,8 @@ rec {
         # Can contain the path with docker mount path, or without. Doesn't matter.
         backup = {
           blacklistedPaths = [
-            lidarr.custom.downloadPath
-            lidarr.custom.music.libraryPath
+            # lidarr.custom.downloadPath
+            # lidarr.custom.music.libraryPath
           ]
           ++ syncthing.custom.folders;
           location = "${dir.base}/Applications/Containers/Backup";
@@ -186,48 +186,48 @@ rec {
           envFiles = null;
           env = null;
         };
-        gluetun = {
-          dir = null;
-          # Proton VPN's OpenVPN user and password.
-          envFiles = [ "proton-openvpn" ];
-          env = [
-            "DOT=off"
-            "DNS_KEEP_NAMESERVER=on"
-            "FREE_ONLY=on"
-            "VPN_SERVICE_PROVIDER=protonvpn"
-            "SERVER_COUNTRIES=Netherlands"
-          ];
-        };
-        lidarr = {
-          dir = null;
-          envFiles = [ ];
-          env = [
-            "TZ=${system.timezone}"
-            "PUID=0"
-            "PGID=0"
-          ];
-          /**
-            Host path to be mounted over to the container
-            for copying over downloads from qBittorrent.
+        # gluetun = {
+        #   dir = null;
+        #   # Proton VPN's OpenVPN user and password.
+        #   envFiles = [ "proton-openvpn" ];
+        #   env = [
+        #     "DOT=off"
+        #     "DNS_KEEP_NAMESERVER=on"
+        #     "FREE_ONLY=on"
+        #     "VPN_SERVICE_PROVIDER=protonvpn"
+        #     "SERVER_COUNTRIES=Netherlands"
+        #   ];
+        # };
+        # lidarr = {
+        #   dir = null;
+        #   envFiles = [ ];
+        #   env = [
+        #     "TZ=${system.timezone}"
+        #     "PUID=0"
+        #     "PGID=0"
+        #   ];
+        #   /**
+        #     Host path to be mounted over to the container
+        #     for copying over downloads from qBittorrent.
 
-            The container path should be same inside
-            all the containers.
-          */
-          custom.downloadPath = qbittorrent.custom.downloadPath;
-          custom.music.libraryPath = navidrome.custom.music.libraryPath;
-        };
-        qbittorrent = {
-          dir = null;
-          envFiles = null;
-          env = [
-            "TZ=${system.timezone}"
-            "WEBUI_PORT=8516"
-            "PUID=0"
-            "PGID=0"
-            "TORRENTING_PORT=61851"
-          ];
-          custom.downloadPath = "${dir.base}/Media/Torrents:/data/downloads";
-        };
+        #     The container path should be same inside
+        #     all the containers.
+        #   */
+        #   custom.downloadPath = qbittorrent.custom.downloadPath;
+        #   custom.music.libraryPath = navidrome.custom.music.libraryPath;
+        # };
+        # qbittorrent = {
+        #   dir = null;
+        #   envFiles = null;
+        #   env = [
+        #     "TZ=${system.timezone}"
+        #     "WEBUI_PORT=8516"
+        #     "PUID=0"
+        #     "PGID=0"
+        #     "TORRENTING_PORT=61851"
+        #   ];
+        #   custom.downloadPath = "${dir.base}/Media/Torrents:/data/downloads";
+        # };
         vaultwarden = {
           dir = null;
           envFiles = [ "push-notifications" ];
@@ -262,25 +262,25 @@ rec {
             ];
           };
         };
-        homepage = {
-          dir = null;
-          envFiles = null;
-          env = null;
-        };
-        navidrome = {
-          dir = null;
-          envFiles = null;
-          env = [
-            "ND_SCANSCHEDULE=1h"
-            "ND_LOGLEVEL=info"
-            "ND_SESSIONTIMEOUT=24h"
-            # Look below.
-            "ND_MUSICFOLDER=/data/music"
-            # Relative to MusicFolder. So, the location of this folder is /data/music/playlists
-            "ND_PLAYLISTSPATH=playlists"
-          ];
-          custom.music.libraryPath = "${dir.base}/Media/Music:/data/music";
-        };
+        # homepage = {
+        #   dir = null;
+        #   envFiles = null;
+        #   env = null;
+        # };
+        # navidrome = {
+        #   dir = null;
+        #   envFiles = null;
+        #   env = [
+        #     "ND_SCANSCHEDULE=1h"
+        #     "ND_LOGLEVEL=info"
+        #     "ND_SESSIONTIMEOUT=24h"
+        #     # Look below.
+        #     "ND_MUSICFOLDER=/data/music"
+        #     # Relative to MusicFolder. So, the location of this folder is /data/music/playlists
+        #     "ND_PLAYLISTSPATH=playlists"
+        #   ];
+        #   custom.music.libraryPath = "${dir.base}/Media/Music:/data/music";
+        # };
         linkding = {
           dir = null;
           envFiles = null;
@@ -311,26 +311,26 @@ rec {
         #   env = null;
         #   envFiles = null;
         # };
-        affine_server = {
-          dir = "${dir.containers}/Affine/server";
-          envFiles = [ "affine" ];
-          env = null;
-        };
-        affine_migration = {
-          dir = "${dir.containers}/Affine/migration";
-          envFiles = [ "affine" ];
-          env = null;
-        };
-        affine_postgres = {
-          dir = "${dir.containers}/Affine/postgres";
-          envFiles = [ "affine" ];
-          env = null;
-        };
-        affine_redis = {
-          dir = "${dir.containers}/Affine/redis";
-          envFiles = null;
-          env = null;
-        };
+        # affine_server = {
+        #   dir = "${dir.containers}/Affine/server";
+        #   envFiles = [ "affine" ];
+        #   env = null;
+        # };
+        # affine_migration = {
+        #   dir = "${dir.containers}/Affine/migration";
+        #   envFiles = [ "affine" ];
+        #   env = null;
+        # };
+        # affine_postgres = {
+        #   dir = "${dir.containers}/Affine/postgres";
+        #   envFiles = [ "affine" ];
+        #   env = null;
+        # };
+        # affine_redis = {
+        #   dir = "${dir.containers}/Affine/redis";
+        #   envFiles = null;
+        #   env = null;
+        # };
       };
     };
     guest = { };
