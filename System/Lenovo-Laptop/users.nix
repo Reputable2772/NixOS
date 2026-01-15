@@ -56,6 +56,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = lib.mkForce false;
+    startAsUserService = true;
     backupFileExtension = "backup.backup.backup";
     verbose = true;
     sharedModules = [ ../../Modules/Home-Manager ];
