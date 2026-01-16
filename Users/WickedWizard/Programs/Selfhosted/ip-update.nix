@@ -24,7 +24,7 @@
           --data-urlencode "token=$secret" \
           --data-urlencode "domains=$DOMAIN" \
           --data-urlencode "verbose=true" \
-          --data-urlencode "ipv6=$ip6"
+          --data-urlencode "ip=$ip"
       '';
     };
   };
