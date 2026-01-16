@@ -12,6 +12,9 @@
   services.flatpak.overrides.global.Context.filesystems = [ "xdg-config/Mangohud:ro" ];
 
   services.flatpak.packages = [
+    # Don't know which, these 'just' work with Lutris
+    "runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/23.08"
     "runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/24.08"
+    "runtime/org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08"
   ];
 }
