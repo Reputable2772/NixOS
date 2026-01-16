@@ -6,70 +6,38 @@
   ...
 }:
 let
-  inherit (lib.attrsets)
-    filterAttrs
-    mapAttrs'
-    mapAttrsToList
-    nameValuePair
-    ;
-  inherit (lib.strings) concatStringsSep;
-  inherit (lib.trivial) pipe;
-  script =
-    name: script: extra_pkgs: execer: fake:
-    (pkgs.resholve.writeScript name {
-      interpreter = lib.getExe pkgs.bash;
-      inputs = with pkgs; [ coreutils ] ++ extra_pkgs;
-      inherit execer fake;
-    } script).outPath;
-  validMounts =
-    _pipe:
-    lib.mkIf (config'.mounts ? gocryptfs && config'.mounts.gocryptfs != null) (
-      pipe config'.mounts.gocryptfs _pipe
-    );
-  map_cmd =
-    cmd:
-    (validMounts [
-      (mapAttrsToList cmd)
-      (concatStringsSep "\n")
-    ]).content;
+  cfg = config'.mounts.gocryptfs or { };
+  enabled = cfg != { };
 in
 {
-  home.packages = with pkgs; [ gocryptfs ];
+  home.packages = lib.optionals enabled [ pkgs.gocryptfs ];
 
-  age.secrets = validMounts [
-    (filterAttrs (n: v: v ? authentication && v.authentication))
-    (mapAttrs' (n: v: nameValuePair n { file = ./. + "../../../../Config/${n}.age"; }))
-  ];
+  age.secrets = lib.mkIf enabled (
+    lib.mapAttrs' (n: _: {
+      name = n;
+      value.file = ./. + "../../../../Config/${n}.age";
+    }) (lib.filterAttrs (_: v: v.authentication or false) cfg)
+  );
 
-  systemd.user.services.gocryptfs = {
-    Service = {
-      Type = "forking";
-      Restart = "on-failure";
-      RestartSec = 5;
-      ExecStartPre =
-        script "gocryptfs-premount.sh" (map_cmd (n: v: "mkdir -p ${v.mountpoint}")) [ ] [ ]
-          { };
-
-      ExecStart = script "gocryptfs-mount.sh" (map_cmd (
-        n: v:
-        "gocryptfs ${v.source} ${v.mountpoint} ${
-          lib.optionalString (
-            v ? authentication && v.authentication
-          ) "-passfile ${config.age.secrets.${n}.path}"
-        }"
-      )) [ pkgs.gocryptfs ] [ "cannot:${lib.getExe' pkgs.gocryptfs "gocryptfs"}" ] { };
-
-      ExecStop =
-        script "gocryptfs-unmount.sh" (map_cmd (n: v: "fusermount -u ${v.mountpoint}"))
-          [
-            pkgs.fuse
-          ]
-          [ ]
-          { external = [ "fusermount" ]; };
-
-      # Force gocryptfs and others to use the fusermount wrapper in /run/wrappers/bin, otherwise permissions error occurs.
-      Environment = [ "PATH=/run/wrappers/bin" ];
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
+  systemd.user.services = lib.mkIf enabled (
+    lib.mapAttrs' (n: v: {
+      name = "gocryptfs-${n}";
+      value = {
+        Unit.Description = "Mount gocryptfs: ${n}";
+        Service = {
+          Type = "simple";
+          Restart = "on-failure";
+          RestartSec = "5s";
+          Environment = [ "PATH=/run/wrappers/bin" ];
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${v.mountpoint}";
+          ExecStart =
+            "${lib.getExe' pkgs.gocryptfs "gocryptfs"} -f "
+            + lib.optionalString (v.authentication or false) "-passfile ${config.age.secrets.${n}.path} "
+            + "${v.source} ${v.mountpoint}";
+          ExecStop = "fusermount -u -z ${v.mountpoint}";
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
+    }) cfg
+  );
 }
