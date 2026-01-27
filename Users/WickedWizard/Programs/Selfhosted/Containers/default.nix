@@ -10,6 +10,7 @@
     # ./lidarr.nix
     ./linkding.nix
     # ./navidrome.nix
+    ./ollama.nix
     # ./qbittorrent.nix
     ./syncthing.nix
     ./vaultwarden.nix

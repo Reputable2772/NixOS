@@ -336,6 +336,16 @@ rec {
           envFiles = [ "wud" ];
           env = null;
         };
+        ollama = {
+          dir = null;
+          envFiles = null;
+          env = [
+            "OLLAMA_VULKAN=1"
+            "OLLAMA_KEEP_ALIVE=10m"
+            "OLLAMA_NUM_CTX=8192"
+            "OLLAMA_LOAD_TIMEOUT=15m"
+          ];
+        };
       };
     };
     guest = { };
