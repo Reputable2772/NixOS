@@ -161,6 +161,9 @@ rec {
         # Not a container, refer to Users/WickedWizard/Programs/Selfhosted/backup.nix.
         # Can contain the path with docker mount path, or without. Doesn't matter.
         backup = {
+          blacklistedContainers = [
+            "ollama.container"
+          ];
           blacklistedPaths = [
             # lidarr.custom.downloadPath
             # lidarr.custom.music.libraryPath

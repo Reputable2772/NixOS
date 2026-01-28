@@ -6,7 +6,12 @@
   ...
 }:
 let
-  inherit (config'.containers.backup) pwdFile blacklistedPaths location;
+  inherit (config'.containers.backup)
+    pwdFile
+    blacklistedContainers
+    blacklistedPaths
+    location
+    ;
   tmpLocation = "${config.home.homeDirectory}/tmp-container-backup";
   containerCommand =
     cmd:
@@ -34,7 +39,10 @@ let
   paths = mapAttrsToList (
     qname: qval:
     if
-      hasAttrByPath [ "Container" "ContainerName" ] qval && hasAttrByPath [ "Container" "Volume" ] qval
+      hasAttrByPath [ "Container" "ContainerName" ] qval
+      # Container must not be blacklisted.
+      && !(elem qname blacklistedContainers || elem qval.Container.ContainerName blacklistedContainers)
+      && hasAttrByPath [ "Container" "Volume" ] qval
     then
       map (
         vname:
