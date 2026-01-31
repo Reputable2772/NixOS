@@ -1,6 +1,6 @@
 {
     "calibre_catppuccin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-09-14",
         "extract": null,
         "name": "calibre_catppuccin",
@@ -21,7 +21,7 @@
         "version": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921"
     },
     "catppuccin_zsh_syntax_highlighting": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2024-07-20",
         "extract": null,
         "name": "catppuccin_zsh_syntax_highlighting",
@@ -42,7 +42,7 @@
         "version": "7926c3d3e17d26b3779851a2255b95ee650bd928"
     },
     "eza_themes": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-12-15",
         "extract": null,
         "name": "eza_themes",
@@ -63,7 +63,7 @@
         "version": "1239cb1dd23fa8b70865550db77701b164a53cde"
     },
     "firefox-gnome-theme": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "firefox-gnome-theme",
@@ -84,7 +84,7 @@
         "version": "v143"
     },
     "joplin_catppuccin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-16",
         "extract": null,
         "name": "joplin_catppuccin",
@@ -105,8 +105,8 @@
         "version": "780ff535705411a92cb8d939b51a0e9abf5b8688"
     },
     "nix-fast-build": {
-        "cargoLocks": null,
-        "date": "2026-01-04",
+        "cargoLock": null,
+        "date": "2026-01-18",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -118,15 +118,15 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "8bdcf0842574b902143871a27064131d9e526b94",
-            "sha256": "sha256-+sU5tsQqo5//LqE18IOX7YC/kD0eNZo3LHD/+mx4pXs=",
+            "rev": "87930e949d526b5ebdea7109275b3d35b124386a",
+            "sha256": "sha256-U7wjqn3tNt+okbxPNOFy7Rr9NUvWYL7SXBhr1oaRI60=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8bdcf0842574b902143871a27064131d9e526b94"
+        "version": "87930e949d526b5ebdea7109275b3d35b124386a"
     },
     "obs_catppuccin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-07-29",
         "extract": null,
         "name": "obs_catppuccin",
@@ -147,7 +147,7 @@
         "version": "05c55ffe499c183c98be469147f602c3f8e84b87"
     },
     "prismlauncher_catppuccin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-09-08",
         "extract": null,
         "name": "prismlauncher_catppuccin",
@@ -168,7 +168,7 @@
         "version": "1ef0e745286ce32750abc3bc5d3ca8073a623b60"
     },
     "rofi-bluetooth": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-04-14",
         "extract": null,
         "name": "rofi-bluetooth",
@@ -189,7 +189,7 @@
         "version": "0cca4d4aa1c82c9373ce5da781d73683a29484c6"
     },
     "rofi_catppuccin": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": "2025-07-19",
         "extract": null,
         "name": "rofi_catppuccin",
@@ -210,7 +210,7 @@
         "version": "71fb15577ccb091df2f4fc1f65710edbc61b5a53"
     },
     "wickedwizard_picture": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "wickedwizard_picture",
