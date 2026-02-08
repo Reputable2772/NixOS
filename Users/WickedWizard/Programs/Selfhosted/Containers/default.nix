@@ -11,6 +11,7 @@
     ./linkding.nix
     # ./navidrome.nix
     ./ollama.nix
+    ./podman-socket-proxy.nix
     # ./qbittorrent.nix
     ./syncthing.nix
     ./vaultwarden.nix

@@ -349,6 +349,11 @@ rec {
             "OLLAMA_LOAD_TIMEOUT=15m"
           ];
         };
+        podman-socket-proxy = {
+          dir = null;
+          env = null;
+          envFiles = null;
+        };
       };
     };
     guest = { };
