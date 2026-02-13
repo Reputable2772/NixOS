@@ -24,7 +24,7 @@
         jq
         hydra-check
         config.formatter
-        nixfmt-rfc-style
+        nixfmt
         nix-diff
         # A weird, but working hack. We import outputs of the patched flake, and then pass it the
         # args of the unpatched flake.

@@ -138,7 +138,7 @@
 
             runtimeInputs = [
               pkgs.fd
-              pkgs.nixfmt-rfc-style
+              pkgs.nixfmt
             ];
 
             text = ''
@@ -152,7 +152,7 @@
             commitizen.enable = true;
             nixfmt-rfc-style = {
               enable = true;
-              package = pkgs.nixfmt-rfc-style;
+              package = pkgs.nixfmt;
             };
           };
 
