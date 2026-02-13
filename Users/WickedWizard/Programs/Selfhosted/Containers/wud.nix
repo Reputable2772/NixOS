@@ -2,6 +2,7 @@
   config,
   config',
   lib,
+  lib',
   ...
 }:
 let
@@ -20,7 +21,7 @@ in
   programs.quadlets.quadlets."wud.container" =
     lib.attrsets.recursiveUpdate (utils.containerDefaults "wud" "systemd-caddy")
       {
-        Container = utils.appendEnv "wud" // {
+        Container = lib'.deepMerge {
           Image = "ghcr.io/getwud/wud:main";
           Network = [
             "systemd-caddy"
@@ -35,6 +36,6 @@ in
             "WUD_WATCHER_DOCKER_WATCHBYDEFAULT=true"
             "WUD_WATCHER_DOCKER_WATCHALL=true"
           ];
-        };
+        } (utils.appendEnv "wud");
       };
 }

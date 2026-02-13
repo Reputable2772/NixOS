@@ -337,7 +337,7 @@ rec {
         wud = {
           dir = null;
           envFiles = [ "wud" ];
-          env = null;
+          env = [ "TZ=${system.timezone}" ];
         };
         ollama = {
           dir = null;
@@ -406,5 +406,5 @@ rec {
   affine.age - Contains DB_DATABASE, DB_USERNAME, DB_PASSWORD, POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD. They match respectively. It also contains DATABASE_URL, which is in the format of
     DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@affine_postgres:5432/${DB_DATABASE}
     Nested environment variables as shown above do not work, so set the value directly.
-  wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
+  wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
 */
