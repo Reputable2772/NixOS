@@ -6,13 +6,13 @@
     ./caddy-network.nix
     ./ente.nix
     # ./gluetun.nix
-    ./lib.nix
     # ./lidarr.nix
     ./linkding.nix
     # ./navidrome.nix
     ./ollama.nix
     ./podman-socket-proxy.nix
     # ./qbittorrent.nix
+    ./secrets-loader.nix
     ./syncthing.nix
     ./vaultwarden.nix
     ./wud.nix
