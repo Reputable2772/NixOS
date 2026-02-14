@@ -1,22 +1,14 @@
 {
-  config,
-  config',
-  lib,
-  ...
-}:
-let
-  utils = import ./utils.nix { inherit config config' lib; };
-in
-{
   containers.caddy.services.linkding = "linkding:9090";
 
-  programs.quadlets.quadlets."linkding.container" = lib.attrsets.recursiveUpdate {
+  programs.quadlets.quadlets."linkding.container" = {
     Container = {
+      ContainerName = "linkding";
+      Network = "systemd-caddy";
       Image = "docker.io/sissbruecker/linkding:latest";
-      Volume = utils.mapVolume "linkding" [
+      Volume = [
         "data:/etc/linkding/data"
       ];
-    }
-    // utils.appendEnv "linkding";
-  } (utils.containerDefaults "linkding" "systemd-caddy");
+    };
+  };
 }

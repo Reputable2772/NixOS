@@ -1,7 +1,6 @@
 {
   osConfig,
   config,
-  config',
   lib,
   pkgs,
   ...
@@ -13,7 +12,6 @@ let
 
   cfg = config.containers.caddy;
 
-  utils = import ./utils.nix { inherit config config' lib; };
   caddyFile = pkgs.writeTextFile {
     name = "Caddyfile";
     text = ''
@@ -163,34 +161,30 @@ in
       Install.WantedBy = [ "sockets.target" ];
     };
 
-    # recursiveUpdate is not used on purpose.
-    systemd.user.services.caddy-image = utils.defaults // {
+    systemd.user.services.caddy-image = {
       Service = {
         ExecStart = "${lib.getExe osConfig.virtualisation.podman.package} image build -t caddy -f ${containerfile}";
         Restart = "on-failure";
         Type = "oneshot";
       };
+      Install.WantedBy = [ "default.target" ];
     };
 
-    programs.quadlets.quadlets."caddy.container" =
-      (lib.attrsets.recursiveUpdate {
-        Container = {
-          Image = "localhost/caddy";
-          Volume = [
-            "${caddyFile}:/etc/caddy/Caddyfile"
-          ]
-          ++ utils.mapVolume "caddy" [
-            "config:/config"
-            "data:/data"
-          ];
-        }
-        // utils.appendEnv "caddy";
-      } (utils.containerDefaults "caddy" "systemd-caddy"))
-      // {
-        Unit = {
-          After = [ "caddy-image.service" ];
-          Requires = [ "caddy-image.service" ];
-        };
+    programs.quadlets.quadlets."caddy.container" = {
+      Container = {
+        ContainerName = "caddy";
+        Network = "systemd-caddy";
+        Image = "localhost/caddy";
+        Volume = [
+          "${caddyFile}:/etc/caddy/Caddyfile:noMap"
+          "config:/config"
+          "data:/data"
+        ];
       };
+      Unit = {
+        After = [ "caddy-image.service" ];
+        Requires = [ "caddy-image.service" ];
+      };
+    };
   };
 }

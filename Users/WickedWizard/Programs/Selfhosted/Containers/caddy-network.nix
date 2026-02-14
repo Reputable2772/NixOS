@@ -1,14 +1,13 @@
 {
-  config,
-  config',
-  lib,
-  ...
-}:
-let
-  utils = import ./utils.nix { inherit config config' lib; };
-in
-{
   programs.quadlets.quadlets."systemd-caddy.network" = {
+    __options = {
+      mkdir = false;
+      appendEnv = false;
+      appendEnvFiles = false;
+      unitDefaults = true;
+      addNetworkDependency = false;
+      mapVolumes = false;
+    };
     Network = {
       NetworkName = "systemd-caddy";
       Driver = "bridge";
@@ -23,13 +22,6 @@ in
         "10.89.0.0/24"
         "fdd6:61c:2978:8345::/64"
       ];
-    };
-  }
-  // utils.defaults
-  // {
-    Service = {
-      Restart = "on-failure";
-      TimeoutStartSec = 300;
     };
   };
 }

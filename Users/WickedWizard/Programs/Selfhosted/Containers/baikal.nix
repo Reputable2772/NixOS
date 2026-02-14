@@ -1,23 +1,15 @@
 {
-  config,
-  config',
-  lib,
-  ...
-}:
-let
-  utils = import ./utils.nix { inherit config config' lib; };
-in
-{
   containers.caddy.services.baikal = "baikal:80";
 
-  programs.quadlets.quadlets."baikal.container" = lib.attrsets.recursiveUpdate {
+  programs.quadlets.quadlets."baikal.container" = {
     Container = {
+      ContainerName = "baikal";
+      Network = "systemd-caddy";
       Image = "docker.io/ckulka/baikal:nginx";
-      Volume = utils.mapVolume "baikal" [
+      Volume = [
         "config:/var/www/baikal/config"
         "data:/var/www/baikal/Specific"
       ];
-    }
-    // utils.appendEnv "baikal";
-  } (utils.containerDefaults "baikal" "systemd-caddy");
+    };
+  };
 }

@@ -1,13 +1,4 @@
 {
-  config,
-  config',
-  lib,
-  ...
-}:
-let
-  utils = import ./utils.nix { inherit config config' lib; };
-in
-{
   containers.caddy.servicesExtraConfig.vaultwarden = ''
     @admin {
       path /admin*
@@ -20,13 +11,14 @@ in
     }
   '';
 
-  programs.quadlets.quadlets."vaultwarden.container" = lib.attrsets.recursiveUpdate {
+  programs.quadlets.quadlets."vaultwarden.container" = {
     Container = {
+      ContainerName = "vaultwarden";
+      Network = "systemd-caddy";
       Image = "docker.io/vaultwarden/server:latest";
-      Volume = utils.mapVolume "vaultwarden" [
+      Volume = [
         ":/data"
       ];
-    }
-    // utils.appendEnv "vaultwarden";
-  } (utils.containerDefaults "vaultwarden" "systemd-caddy");
+    };
+  };
 }
