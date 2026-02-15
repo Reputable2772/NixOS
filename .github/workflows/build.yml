@@ -29,6 +29,15 @@ jobs:
           experimental-features = flakes nix-command pipe-operators pipe-operator
           accept-flake-config = true
 
-    - name: "Build Packages"
+    - uses: cachix/cachix-action@v15
+      with:
+        name: spearman4157
+        authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+    - name: "Free up Space"
+      run: ./nix.sh ci_increase_storage
+
+    - name: Build & push all outputs
       run: |
-        nix develop .#ci --command bash -c "CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }} ./nix.sh ci"
+        nix develop .#ci --command bash -c "nix-build-all --override-input flake . --out-link flake --cachix-cache spearman4157"
+
