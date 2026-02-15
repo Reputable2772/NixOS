@@ -27,38 +27,40 @@ jobs:
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
           experimental-features = flakes nix-command pipe-operator pipe-operators
           accept-flake-config = true
+
+    - uses: cachix/cachix-action@v15
+      with:
+        name: spearman4157
+        authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+    - name: "Free up Space"
+      run: ./nix.sh ci_increase_storage
+
     - name: "Build both closures"
       id: build
-      # nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_old --flake github:${{ github.repository }}#nixosConfigurations.hp-laptop.config.system.build.toplevel"
-      # nix develop .#ci --command bash -c "nix-fast-build --debug --no-nom --out-link result_new --flake .#nixosConfigurations.hp-laptop.config.system.build.toplevel"
-      # mv result_old- result_old
-      # mv result_new- result_new
       run: |
-        ./nix.sh ci_increase_storage
-        nix build --out-link result_old github:${{ github.repository }}#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
-        nix build --out-link result_new .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
+        nix develop .#ci --command bash -euo pipefail <<'OUTER'
+        nix-build-all --override-input flake . --out-link newFlake --cachix-cache spearman4157
+        nix-build-all --override-input flake github:${{ github.repository }} --out-link oldFlake
+        OUTER
 
     - name: "Diff Profile Closures"
       id: profile-diff
       run: |
         echo "Profile diff:" >> comment.txt
         echo "\`\`\`" >> comment.txt
-        nix store diff-closures ./result_old ./result_new 2>&1 | tee -a comment.txt
+        nix store diff-closures ./oldFlake ./newFlake 2>&1 | tee -a comment.txt
         echo "\`\`\`" >> comment.txt
 
     - name: "Generate Vulnix Report"
       id: vulnix
       run: |
         echo "Vulnerabilities in closure: " >> comment.txt
-        nix shell nixpkgs#vulnix --command bash -c "vulnix ./result_new 2>&1 | tee -a comment.txt"
+        nix shell nixpkgs#vulnix --command bash -c "vulnix ./newFlake 2>&1 | tee -a comment.txt"
 
     - name: PR comment with file
       uses: thollander/actions-comment-pull-request@v2
       with:
         filePath: ./comment.txt
-
-    - name: "Push to Cachix"
-      run: |
-        nix develop .#ci --command bash -c "echo $(realpath result_new) | CACHIX_AUTH_TOKEN=${{ secrets.CACHIX_AUTH_TOKEN }}  cachix push spearman4157"
 
 # TODO: Flakes and Sources changelog from their respective git repositories.

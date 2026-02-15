@@ -44,6 +44,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    devour-flake = {
+      url = "github:srid/devour-flake";
+      flake = false;
+    };
 
     # Require manual updates, nix flake update will not work.
     # We don't really want it to work either.
