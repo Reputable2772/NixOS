@@ -42,6 +42,8 @@ jobs:
         nix develop .#ci --command bash -euo pipefail <<'OUTER'
         nix-build-all --override-input flake . --out-link newFlake --cachix-cache spearman4157
         nix-build-all --override-input flake github:${{ github.repository }} --out-link oldFlake
+        mv newFlake- newFlake
+        mv oldFlake- oldFlake
         OUTER
 
     - name: "Diff Profile Closures"
