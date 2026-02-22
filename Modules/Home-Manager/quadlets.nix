@@ -37,6 +37,20 @@ let
     ;
 
   cfg = config.programs.quadlets;
+  qType =
+    with types;
+    let
+      primitive = oneOf [
+        bool
+        int
+        str
+        path
+      ];
+    in
+    attrsOf (attrsOf (attrsOf (either primitive (listOf primitive))))
+    // {
+      description = "Quadlet configuration.";
+    };
   defaultOptions = {
     mkdir = true;
     appendEnv = true;
@@ -145,14 +159,14 @@ let
     qName: qVal:
     let
       # Merge container & default options.
-      containerOptions = defaultOptions // (qVal.__options or { });
+      quadletOptions = defaultOptions // (qVal.__options or { });
 
       # Map only volumes separately, since volumes have to be overwritten entirely,
       # rather than be merged.
       mappedVolumes =
         if
           (
-            containerOptions.mapVolumes
+            quadletOptions.mapVolumes
             && (hasAttrByPath [
               "Container"
               "Volume"
@@ -163,11 +177,11 @@ let
         else
           qVal;
       val = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes [
-        (f: optionalAttrs containerOptions.unitDefaults (unitDefaults f))
-        (f: optionalAttrs containerOptions.mkdir (mkdirOp f))
-        (f: optionalAttrs containerOptions.appendEnv (appendEnv f))
-        (f: optionalAttrs containerOptions.appendEnvFiles (appendEnvFiles f))
-        (f: optionalAttrs containerOptions.addNetworkDependency (networkDependency f))
+        (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f))
+        (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
+        (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
+        (f: optionalAttrs quadletOptions.appendEnvFiles (appendEnvFiles f))
+        (f: optionalAttrs quadletOptions.addNetworkDependency (networkDependency f))
       ];
     in
     val
@@ -185,37 +199,11 @@ in
     enable = mkEnableOption "Podman's Quadlets";
     quadlets = mkOption {
       default = { };
-      type =
-        with types;
-        let
-          primitive = oneOf [
-            bool
-            int
-            str
-            path
-          ];
-        in
-        attrsOf (attrsOf (attrsOf (either primitive (listOf primitive))))
-        // {
-          description = "Quadlet configuration.";
-        };
+      type = qType;
       description = "All the quadlets that need to have systemd unit files generated";
     };
     finalQuadlets = mkOption {
-      type =
-        with types;
-        let
-          primitive = oneOf [
-            bool
-            int
-            str
-            path
-          ];
-        in
-        attrsOf (attrsOf (attrsOf (either primitive (listOf primitive))))
-        // {
-          description = "Quadlet configuration.";
-        };
+      type = qType;
       description = "Final Quadlet Configuration";
       default = finalConfig;
       readOnly = true;
