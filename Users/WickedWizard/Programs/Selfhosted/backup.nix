@@ -12,7 +12,7 @@ let
     blacklistedPaths
     location
     ;
-  tmpLocation = "${config.home.homeDirectory}/tmp-container-backup";
+  tmpLocation = "${config.home.homeDirectory}/.cache/containers-backup";
   containerCommand =
     cmd:
     "systemctl --user ${cmd} "
@@ -22,12 +22,11 @@ let
         [ ".container" ".network" ".volume" ]
         [ ".service" "-network.service" "-volume.service" ]
         x
-    ) (attrNames config.programs.quadlets.quadlets));
+    ) (attrNames config.programs.quadlets.finalQuadlets));
 
   inherit (lib.attrsets) attrNames hasAttrByPath mapAttrsToList;
   inherit (lib.lists) elem elemAt;
   inherit (lib.strings)
-    concatStringsSep
     concatMapStringsSep
     concatMapAttrsStringSep
     hasSuffix
@@ -61,58 +60,41 @@ let
       "${tmpLocation}/${qval.Volume.VolumeName}"
     else
       ""
-  ) config.programs.quadlets.quadlets;
+  ) config.programs.quadlets.finalQuadlets;
 in
 {
   age.secrets.containers-backup-pwd.file = ./. + "../../../../../Config/${pwdFile}.age";
 
-  systemd.user.services.containers-backup = {
-    Unit = {
-      Description = "Containers backup";
-    };
+  services.restic = {
+    enable = true;
+    backups.containers = {
+      repository = location;
+      paths = lib.flatten paths;
+      passwordFile = config.age.secrets.containers-backup-pwd.path;
+      backupPrepareCommand = "${pkgs.writeShellScript "container-backup-prepare" (
+        "mkdir -p ${tmpLocation}\n"
+        + (concatMapAttrsStringSep "\n" (
+          qname: qval:
+          if hasAttrByPath [ "Volume" "VolumeName" ] qval then
+            "${pkgs.podman}/bin/podman volume export ${qval.Volume.VolumeName} --output ${tmpLocation}/${qval.Volume.VolumeName}.tar.gz"
+          else
+            ""
+        ) config.programs.quadlets.finalQuadlets)
+        + "\n"
+        + (containerCommand "stop")
+        + "\n"
+      )}";
+      backupCleanupCommand = "${pkgs.writeShellScript "container-backup-cleanup" (
+        containerCommand "stop"
+      )}";
 
-    Service = {
-      Type = "oneshot";
-      ExecStartPre = pkgs.writeShellScript "pre-containers-backup" ''
-        mkdir -p ${tmpLocation}
-        cat ${pkgs.writeText "staticPaths" (lib.concatLines (lib.flatten paths))} > ${tmpLocation}/paths.txt
-      '';
-      ExecStart = pkgs.writeShellScript "containers-backup" (
-        concatStringsSep "\n" [
-          (containerCommand "stop")
-          # Create volume.tar.gz files for volume backups only.
-          (concatMapAttrsStringSep "\n" (
-            qname: qval:
-            if hasAttrByPath [ "Volume" "VolumeName" ] qval then
-              ''
-                mkdir -p ${tmpLocation}/${qval.Volume.VolumeName}
-                ${pkgs.podman}/bin/podman volume export ${qval.Volume.VolumeName} --output ${tmpLocation}/${qval.Volume.VolumeName}/${qval.Volume.VolumeName}.tar.gz
-              ''
-            else
-              ""
-          ) config.programs.quadlets.quadlets)
-          # Setting this environment variable directly inside Service.Environment doesn't work for some reason.
-          "export RESTIC_PASSWORD_FILE=${config.age.secrets.containers-backup-pwd.path}"
-          "export RESTIC_REPOSITORY=${location}"
-          "${pkgs.restic}/bin/restic backup --files-from=${tmpLocation}/paths.txt"
-          (containerCommand "start")
-        ]
-      );
-    };
-  };
-
-  systemd.user.timers.containers-backup = {
-    Unit = {
-      Description = "Backup Podman Containers regularly.";
-    };
-
-    Timer = {
-      OnCalendar = [ "*-*-* 21:00:00" ];
-      Persistent = true;
-    };
-
-    Install = {
-      WantedBy = [ "timers.target" ];
+      initialize = true;
+      timerConfig = {
+        OnCalendar = "*-*-* 21:00:00";
+        Persistent = true;
+      };
+      inhibitsSleep = true;
+      extraBackupArgs = [ "--compression max" ];
     };
   };
 }
