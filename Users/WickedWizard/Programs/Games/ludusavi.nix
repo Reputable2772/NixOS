@@ -9,7 +9,7 @@
   home.packages = with pkgs; [ ludusavi ];
 
   # We need backup for ludusavi.
-  programs.backup.preBackupScript = [
+  services.restic.preBackupScript = [
     ''
       ${lib.getExe pkgs.ludusavi} --config ${config.xdg.configHome}/ludusavi backup --force
     ''

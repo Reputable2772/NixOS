@@ -68,7 +68,7 @@ rec {
       wallpaper = ./wallpaper.jpg;
       /**
         There needs to be a corresponding age file, with the name
-        `user-backup.age`, use system encryption keys only.
+        `user-backup.age`, use user encryption keys only.
       */
       backup = rec {
         # Internal variables
@@ -371,7 +371,7 @@ rec {
   "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
   # Backup age files
-  "wickedwizard-backup.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+  "wickedwizard-backup.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # Gocryptfs age files
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
