@@ -88,7 +88,7 @@ rec {
               "Games/Linux/Minecraft"
               "Games/Saves"
               "Important-Files"
-              # "Joplin"
+              "Notes"
             ]
             ++ [
               "/mnt/Windows/Backup"
