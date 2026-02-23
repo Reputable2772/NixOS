@@ -178,7 +178,7 @@
               )
               (
                 filterAttrs (n: v: hasSuffix "nix" v) (
-                  (import ./lib { inherit pkgs; }).recurseDirectory ./Shells false
+                  (import ./lib { inherit pkgs; }).readDirectory ./Shells false
                 )
               );
         };

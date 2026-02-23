@@ -1,5 +1,5 @@
-# The name is a bit misleading, but what this function essentially does is to read a directory, fetch all the nix files
-# and form an attrset with file name as key and value as path to file.
+# Read all the regular files in a directory, and then give an attrset
+# containing all files and their paths.
 { lib }:
 let
   inherit (lib.attrsets) filterAttrs mapAttrs' nameValuePair;

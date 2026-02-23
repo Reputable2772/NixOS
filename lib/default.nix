@@ -4,7 +4,7 @@ let
 in
 {
   absoluteToRelativePath = import ./absoluteToRelativePath.nix { inherit lib; };
-  recurseDirectory = import ./recurseDirectory.nix { inherit lib; };
+  readDirectory = import ./readDirectory.nix { inherit lib; };
   toSystemdUnit = import ./toSystemdUnit.nix { inherit lib; };
   deepMerge = import ./deepMerge.nix;
 
