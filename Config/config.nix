@@ -129,7 +129,7 @@ rec {
         # Where to store generic undeclarative user config. Should be gitignored
         config = "${flake.dir.self}/Config";
         # Where to store all container data. Set to null to disable containers.
-        containers = "${base}/Applications/Containers";
+        containers = "${home}/Containers";
         # Where Obsidian Notes are stored.
         notes = "${base}/Notes";
       };
@@ -169,7 +169,7 @@ rec {
             # lidarr.custom.music.libraryPath
           ]
           ++ syncthing.custom.folders;
-          location = "${dir.base}/Applications/Containers/Backup";
+          location = "${dir.base}/Applications/Containers-Backup";
           pwdFile = "containers-backup-pwd";
         };
         caddy = {
