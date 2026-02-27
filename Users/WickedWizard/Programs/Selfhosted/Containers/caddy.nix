@@ -146,6 +146,11 @@ in
       respond "{{.RemoteIP}}"
     '';
 
+    programs.quadlets.extraServices = [
+      "caddy-image.service"
+      "caddy.socket"
+    ];
+
     systemd.user.sockets.caddy = {
       Socket = {
         BindIPv6Only = "both";

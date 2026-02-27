@@ -24,7 +24,6 @@ let
     foldl'
     filter
     map
-    optional
     ;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings)
@@ -208,8 +207,21 @@ in
       default = finalConfig;
       readOnly = true;
     };
-    restart-all-units = mkEnableOption "creating a script that restarts all units" // {
-      default = true;
+    extraServices = mkOption {
+      default = [ ];
+      type = types.listOf types.str;
+      description = "A list of extra systemd services that are relied upon by containers.";
+    };
+    servicesList = mkOption {
+      type = types.str;
+      description = "A list of all the systemd services that are used to control quadlets.";
+      default = concatMapStringsSep " " (
+        x:
+        replaceStrings
+          [ ".container" ".network" ".volume" ]
+          [ ".service" "-network.service" "-volume.service" ]
+          x
+      ) ((attrNames cfg.quadlets) ++ cfg.extraServices);
     };
   };
 
@@ -232,17 +244,5 @@ in
       }/units";
       recursive = true;
     };
-
-    home.packages = optional cfg.restart-all-units (
-      pkgs.writeShellScriptBin "restart-all-podman-units" "systemctl --user restart ${
-        concatMapStringsSep " " (
-          x:
-          replaceStrings
-            [ ".container" ".network" ".volume" ]
-            [ ".service" "-network.service" "-volume.service" ]
-            x
-        ) (attrNames cfg.quadlets)
-      }"
-    );
   };
 }
