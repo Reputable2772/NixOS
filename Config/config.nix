@@ -79,8 +79,7 @@ rec {
           include =
             map (x: "${base}/${x}") [
               "Android"
-              # "Applications"
-              # "Applications/Containers/Backup"
+              "Applications"
               "Books"
               "Browsers"
               "Coding"
@@ -156,6 +155,8 @@ rec {
           pkeyfile = "${flake.dir.config}/SSH/User-Encryption/User-Encryption";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@lenovo-laptop";
         };
+        # The age file that is to be used by rclone. Set to null to disable.
+        rcloneAgeFile = "rclone";
       };
       containers = rec {
         # Not a container, refer to Users/WickedWizard/Programs/Selfhosted/backup.nix.
@@ -375,6 +376,9 @@ rec {
 
   # Gocryptfs age files
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+
+  # Rclone config file
+  "rclone.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # Container files
   "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
