@@ -14,24 +14,18 @@ let
     ;
   tmpLocation = "${config.home.homeDirectory}/.cache/containers-backup";
   containerCommand =
-    cmd:
-    "systemctl --user ${cmd} "
-    + (concatMapStringsSep " " (
-      x:
-      replaceStrings
-        [ ".container" ".network" ".volume" ]
-        [ ".service" "-network.service" "-volume.service" ]
-        x
-    ) (attrNames config.programs.quadlets.finalQuadlets));
+    cmd: "${pkgs.systemd}/bin/systemctl --user ${cmd} " + config.programs.quadlets.servicesList;
 
-  inherit (lib.attrsets) attrNames hasAttrByPath mapAttrsToList;
+  inherit (lib.attrsets)
+    filterAttrs
+    hasAttrByPath
+    mapAttrsToList
+    ;
   inherit (lib.lists) elem elemAt;
   inherit (lib.strings)
-    concatMapStringsSep
     concatMapAttrsStringSep
     hasSuffix
     optionalString
-    replaceStrings
     splitString
     ;
 
@@ -57,7 +51,7 @@ let
         ) src
       ) qval.Container.Volume
     else if hasAttrByPath [ "Volume" "VolumeName" ] qval then
-      "${tmpLocation}/${qval.Volume.VolumeName}"
+      "${tmpLocation}/${qval.Volume.VolumeName}.tar.gz"
     else
       ""
   ) config.programs.quadlets.finalQuadlets;
@@ -70,23 +64,26 @@ in
     backups.containers = {
       repository = location;
       paths = lib.flatten paths;
-      passwordFile = config.age.secrets.containers-backup-pwd.path;
-      backupPrepareCommand = "${pkgs.writeShellScript "container-backup-prepare" (
-        "mkdir -p ${tmpLocation}\n"
-        + (concatMapAttrsStringSep "\n" (
-          qname: qval:
-          if hasAttrByPath [ "Volume" "VolumeName" ] qval then
+      passwordFile =
+        lib.replaceStrings [ "$\{XDG_RUNTIME_DIR}" ] [ "%t" ]
+          config.age.secrets.containers-backup-pwd.path;
+      backupPrepareCommand = ''
+        ${(containerCommand "stop")}
+        mkdir -p ${tmpLocation}
+
+        # Needed for volume export, since it uses setuidmap & setgidmap
+        export PATH="/run/wrappers/bin:$PATH"
+        ${concatMapAttrsStringSep "\n"
+          (
+            qname: qval:
             "${pkgs.podman}/bin/podman volume export ${qval.Volume.VolumeName} --output ${tmpLocation}/${qval.Volume.VolumeName}.tar.gz"
-          else
-            ""
-        ) config.programs.quadlets.finalQuadlets)
-        + "\n"
-        + (containerCommand "stop")
-        + "\n"
-      )}";
-      backupCleanupCommand = "${pkgs.writeShellScript "container-backup-cleanup" (
-        containerCommand "stop"
-      )}";
+          )
+          (
+            filterAttrs (n: v: hasAttrByPath [ "Volume" "VolumeName" ] v) config.programs.quadlets.finalQuadlets
+          )
+        }
+      '';
+      backupCleanupCommand = containerCommand "start";
 
       initialize = true;
       timerConfig = {
@@ -97,4 +94,8 @@ in
       extraBackupArgs = [ "--compression max" ];
     };
   };
+
+  # Needed for volume export, since it uses setuidmap & setgidmap
+  systemd.user.services.restic-backups-containers.Service.Delegate = true;
+  systemd.user.services.restic-backups-containers.Service.PrivateTmp = lib.mkForce false;
 }

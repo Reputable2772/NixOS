@@ -1,7 +1,6 @@
 {
   config',
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -31,10 +30,10 @@ in
         inherit (config'.backup.paths) exclude;
 
         initialize = true;
-        backupPrepareCommand = "${pkgs.writeShellScript "wickedwizard-prebackup" (
-          lib.concatStringsSep "\n" cfg.preBackupScript
-        )}";
-        passwordFile = config.age.secrets."${config.home.username}-backup".path;
+        backupPrepareCommand = lib.concatStringsSep "\n" cfg.preBackupScript;
+        passwordFile =
+          lib.replaceStrings [ "$\{XDG_RUNTIME_DIR}" ] [ "%t" ]
+            config.age.secrets."${config.home.username}-backup".path;
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;

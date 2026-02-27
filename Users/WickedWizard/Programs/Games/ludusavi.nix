@@ -11,7 +11,7 @@
   # We need backup for ludusavi.
   services.restic.preBackupScript = [
     ''
-      ${lib.getExe pkgs.ludusavi} --config ${config.xdg.configHome}/ludusavi backup --force
+      ${lib.getExe pkgs.ludusavi} --try-manifest-update --config ${config.xdg.configHome}/ludusavi backup --force
     ''
   ];
 
