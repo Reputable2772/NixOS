@@ -84,7 +84,8 @@ rec {
               "Browsers"
               "Coding"
               "Config"
-              "Games/Linux/Minecraft"
+              # Games/Linux/Minecraft now points to a symlink for Games/Minecraft
+              "Games/Minecraft"
               "Games/Saves"
               "Important-Files"
               "Notes"

@@ -3,6 +3,8 @@
   games ? "",
 }:
 {
+  release.check = true;
+  manifest.enable = true;
   backup = {
     filter = {
       cloud = {
@@ -24,20 +26,21 @@
         deflate.level = 6;
         zstd.level = 10;
       };
-      zip.compression = "zstd";
+      zip.compression = "deflate";
     };
     ignoredGames = [ ];
     path = "${games}/Saves";
     retention = {
-      differential = 0;
-      full = 1;
+      differential = 1;
+      full = 3;
     };
     sort = {
-      key = "name";
+      key = "status";
       reversed = false;
     };
     toggledPaths = { };
     toggledRegistry = { };
+    onlyConstructive = false;
   };
   customGames = [ ];
   language = "en-US";
@@ -52,20 +55,20 @@
     };
     toggledPaths = { };
     toggledRegistry = { };
+    reverseRedirects = false;
   };
   roots = [
     {
       path = "${home}/.var/app/com.valvesoftware.Steam/.local/share/Steam";
       store = "steam";
     }
-    # Heroic is now a flatpak.
     {
       path = "${home}/.var/app/com.heroicgameslauncher.hgl/config/heroic";
       store = "heroic";
     }
     {
-      database = "${home}/.var/app/net.lutris.Lutris/.local/share/lutris/pga.db";
-      path = "${home}/.var/app/net.lutris.Lutris/.local/share/lutris";
+      database = "${home}/.var/app/net.lutris.Lutris/data/lutris/pga.db";
+      path = "${home}/.var/app/net.lutris.Lutris/data/lutris";
       store = "lutris";
     }
   ];
@@ -76,4 +79,10 @@
     showUnscannedGames = true;
   };
   theme = "dark";
+  cloud = {
+    remote = null;
+    path = "ludusavi-backup";
+    synchronize = true;
+  };
+  apps = { };
 }
