@@ -60,7 +60,7 @@ rec {
     rescue = { };
   };
 
-  users = {
+  users = rec {
     wickedwizard = rec {
       home = _home.wickedwizard or "";
       # Copy from above, used in DuckDNS updating.
@@ -256,15 +256,20 @@ rec {
           # Applicable on a per-container basis only.
           custom = {
             # Internal and external mapping of folders for Syncthing
-            folders = map (x: dir.base + "/" + x) [
-              "Android/Backups:/android-backups"
-              "Android/Tasker:/android-tasker"
-              "Books:/books"
-              "Important-Files:/important-files"
-              # "Joplin:/joplin"
-              "Study-Materials:/study-materials"
-              "Notes:/notes"
-            ];
+            folders =
+              map (x: dir.base + "/" + x) [
+                "Android/Backups:/android-backups"
+                "Android/Tasker:/android-tasker"
+                "Books:/books"
+                "Important-Files:/important-files"
+                # "Joplin:/joplin"
+                "Study-Materials:/study-materials"
+                "Notes:/notes"
+              ]
+              ++ [
+                "${backup.location}:/containers-backup"
+                "${wickedwizard.backup.repository}:/backup"
+              ];
           };
         };
         # homepage = {
