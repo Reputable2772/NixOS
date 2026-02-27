@@ -74,7 +74,7 @@ rec {
         # Internal variables
         base = "${home}/Documents";
 
-        repository = "${base}/Backup";
+        repository = "${home}/Backup";
         paths = {
           include =
             map (x: "${base}/${x}") [
