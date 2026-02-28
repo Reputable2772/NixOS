@@ -137,12 +137,12 @@ let
     {
       Install.WantedBy = [ "default.target" ];
       Service = {
-        Restart = if isContainer then "always" else "on-failure";
+        Restart = if (isContainer qVal) then "always" else "on-failure";
         TimeoutStartSec = 300;
-        Type = if isContainer then "notify" else "oneshot";
+        Type = if (isContainer qVal) then "notify" else "oneshot";
       };
     }
-    // optionalAttrs isContainer {
+    // optionalAttrs (isContainer qVal) {
       Container.PodmanArgs = "--network-alias ${qVal.Container.ContainerName} --user 0:0";
     };
   networkDependency = qVal: {
@@ -167,7 +167,8 @@ let
       mappedVolumes =
         if
           (
-            quadletOptions.mapVolumes
+            (isContainer qVal)
+            && quadletOptions.mapVolumes
             && (hasAttrByPath [
               "Container"
               "Volume"
@@ -177,13 +178,17 @@ let
           (recursiveUpdate qVal (volumeMapper qVal))
         else
           qVal;
-      val = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes [
-        (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f))
-        (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
-        (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
-        (f: optionalAttrs quadletOptions.appendEnvFiles (appendEnvFiles f))
-        (f: optionalAttrs quadletOptions.addNetworkDependency (networkDependency f))
-      ];
+      val = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes (
+        [
+          (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f))
+        ]
+        ++ (lib.optionals (isContainer qVal) [
+          (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
+          (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
+          (f: optionalAttrs quadletOptions.appendEnvFiles (appendEnvFiles f))
+          (f: optionalAttrs quadletOptions.addNetworkDependency (networkDependency f))
+        ])
+      );
     in
     val
   ) cfg.quadlets;
