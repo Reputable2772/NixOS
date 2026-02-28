@@ -60,6 +60,7 @@ let
     mapVolumes = true;
   };
 
+  isContainer = q: hasAttrByPath [ "Container" "ContainerName" ] q;
   getVol =
     cname:
     (
@@ -136,11 +137,12 @@ let
     {
       Install.WantedBy = [ "default.target" ];
       Service = {
-        Restart = if (qVal ? Container) then "always" else "on-failure";
+        Restart = if isContainer then "always" else "on-failure";
         TimeoutStartSec = 300;
+        Type = if isContainer then "notify" else "oneshot";
       };
     }
-    // optionalAttrs (qVal ? Container) {
+    // optionalAttrs isContainer {
       Container.PodmanArgs = "--network-alias ${qVal.Container.ContainerName} --user 0:0";
     };
   networkDependency = qVal: {
