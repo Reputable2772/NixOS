@@ -8,6 +8,7 @@
     # ./gluetun.nix
     # ./lidarr.nix
     ./linkding.nix
+    ./n8n.nix
     # ./navidrome.nix
     ./ollama.nix
     ./podman-socket-proxy.nix

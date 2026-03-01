@@ -361,6 +361,19 @@ rec {
           env = null;
           envFiles = null;
         };
+        n8n = {
+          dir = null;
+          env = [
+            "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true"
+            "N8N_PROTOCOL=https"
+            "N8N_RUNNERS_ENABLED=true"
+            "NODE_ENV=production"
+            "GENERIC_TIMEZONE=${system.timezone}"
+            "TZ=${system.timezone}"
+            "N8N_RESTRICT_FILE_ACCESS_TO=/files/"
+          ];
+          envFiles = [ "n8n" ];
+        };
       };
     };
     guest = { };
@@ -395,6 +408,7 @@ rec {
   "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "affine.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
 
 /**
@@ -417,4 +431,5 @@ rec {
     DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@affine_postgres:5432/${DB_DATABASE}
     Nested environment variables as shown above do not work, so set the value directly.
   wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
+  n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL
 */
