@@ -35,7 +35,7 @@ in
           lib.replaceStrings [ "$\{XDG_RUNTIME_DIR}" ] [ "%t" ]
             config.age.secrets."${config.home.username}-backup".path;
         timerConfig = {
-          OnCalendar = "daily";
+          OnCalendar = "*-*-* 21:00:00";
           Persistent = true;
         };
         inhibitsSleep = true;
