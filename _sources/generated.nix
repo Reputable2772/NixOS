@@ -32,15 +32,15 @@
   };
   eza_themes = {
     pname = "eza_themes";
-    version = "1239cb1dd23fa8b70865550db77701b164a53cde";
+    version = "add4c72c546992b8db674d6d3eea315bf2111b9a";
     src = fetchFromGitHub {
       owner = "eza-community";
       repo = "eza-themes";
-      rev = "1239cb1dd23fa8b70865550db77701b164a53cde";
+      rev = "add4c72c546992b8db674d6d3eea315bf2111b9a";
       fetchSubmodules = false;
-      sha256 = "sha256-WcwzKm2mi/tyA+zZCpyvTdrOrZ1R1ENA3t622SGzFas=";
+      sha256 = "sha256-toqj3bv2kCC2FHbGfeFpS3g9DoxQeZ7cwPYVpD8cfgg=";
     };
-    date = "2025-12-15";
+    date = "2026-03-04";
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
@@ -79,15 +79,15 @@
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "05c55ffe499c183c98be469147f602c3f8e84b87";
+    version = "c5357ce7b0fb8c73aab0a80739832474087b1af6";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "05c55ffe499c183c98be469147f602c3f8e84b87";
+      rev = "c5357ce7b0fb8c73aab0a80739832474087b1af6";
       fetchSubmodules = false;
-      sha256 = "sha256-ezz3euxO5lxyVaVFDPjNowpivAm9tRGHt8SbflAdkA8=";
+      sha256 = "sha256-Uk4a0HKaeyQilgBiPsuAWQubk1yZdyirNcfhYJEL+lQ=";
     };
-    date = "2025-07-29";
+    date = "2026-03-01";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";

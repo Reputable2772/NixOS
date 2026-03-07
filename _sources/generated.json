@@ -43,7 +43,7 @@
     },
     "eza_themes": {
         "cargoLock": null,
-        "date": "2025-12-15",
+        "date": "2026-03-04",
         "extract": null,
         "name": "eza_themes",
         "passthru": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "eza-community",
             "repo": "eza-themes",
-            "rev": "1239cb1dd23fa8b70865550db77701b164a53cde",
-            "sha256": "sha256-WcwzKm2mi/tyA+zZCpyvTdrOrZ1R1ENA3t622SGzFas=",
+            "rev": "add4c72c546992b8db674d6d3eea315bf2111b9a",
+            "sha256": "sha256-toqj3bv2kCC2FHbGfeFpS3g9DoxQeZ7cwPYVpD8cfgg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1239cb1dd23fa8b70865550db77701b164a53cde"
+        "version": "add4c72c546992b8db674d6d3eea315bf2111b9a"
     },
     "firefox-gnome-theme": {
         "cargoLock": null,
@@ -127,7 +127,7 @@
     },
     "obs_catppuccin": {
         "cargoLock": null,
-        "date": "2025-07-29",
+        "date": "2026-03-01",
         "extract": null,
         "name": "obs_catppuccin",
         "passthru": null,
@@ -139,12 +139,12 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "obs",
-            "rev": "05c55ffe499c183c98be469147f602c3f8e84b87",
-            "sha256": "sha256-ezz3euxO5lxyVaVFDPjNowpivAm9tRGHt8SbflAdkA8=",
+            "rev": "c5357ce7b0fb8c73aab0a80739832474087b1af6",
+            "sha256": "sha256-Uk4a0HKaeyQilgBiPsuAWQubk1yZdyirNcfhYJEL+lQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "05c55ffe499c183c98be469147f602c3f8e84b87"
+        "version": "c5357ce7b0fb8c73aab0a80739832474087b1af6"
     },
     "prismlauncher_catppuccin": {
         "cargoLock": null,
