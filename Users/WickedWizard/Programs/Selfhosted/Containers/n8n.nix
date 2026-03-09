@@ -1,3 +1,4 @@
+{ config', lib, ... }:
 {
   containers.caddy.services.n8n = "n8n:5678";
 
@@ -5,11 +6,11 @@
     Container = {
       ContainerName = "n8n";
       Image = "docker.n8n.io/n8nio/n8n";
-      Network = [ "systemd-caddy" ];
+      Network = "systemd-caddy";
       Volume = [
         "n8n.volume:/root/.n8n"
-        "files:/files"
-      ];
+      ]
+      ++ lib.lists.map (v: "${v}:noMap") config'.containers.n8n.custom.volumeMounts;
     };
   };
 

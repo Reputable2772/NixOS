@@ -373,6 +373,9 @@ rec {
             "N8N_RESTRICT_FILE_ACCESS_TO=/files/"
           ];
           envFiles = [ "n8n" ];
+          custom.volumeMounts = [
+            "${dir.notes}:/files/obsidian"
+          ];
         };
       };
     };
