@@ -9,7 +9,7 @@
       Volume = [
         "data:/root/.ollama"
       ];
-      AddDevice = "/dev/dri";
+      # AddDevice = "/dev/dri";
       GroupAdd = "keep-groups";
     };
   };

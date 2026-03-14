@@ -350,7 +350,9 @@ rec {
           dir = null;
           envFiles = null;
           env = [
-            "OLLAMA_VULKAN=1"
+            # "OLLAMA_VULKAN=1"
+            "OLLAMA_NUM_GPU=0"
+            "OLLAMA_INTEL_GPU=false"
             "OLLAMA_KEEP_ALIVE=10m"
             "OLLAMA_NUM_CTX=8192"
             "OLLAMA_LOAD_TIMEOUT=15m"
