@@ -31,14 +31,6 @@ in
     };
 
     programs.quadlets.quadlets."podman-socket.network" = {
-      __options = {
-        mkdir = false;
-        appendEnv = false;
-        appendEnvFiles = false;
-        unitDefaults = true;
-        addNetworkDependency = false;
-        mapVolumes = false;
-      };
       Network = {
         NetworkName = "podman-socket";
         Driver = "bridge";

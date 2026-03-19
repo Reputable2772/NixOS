@@ -1,13 +1,5 @@
 {
   programs.quadlets.quadlets."systemd-caddy.network" = {
-    __options = {
-      mkdir = false;
-      appendEnv = false;
-      appendEnvFiles = false;
-      unitDefaults = true;
-      addNetworkDependency = false;
-      mapVolumes = false;
-    };
     Network = {
       NetworkName = "systemd-caddy";
       Driver = "bridge";

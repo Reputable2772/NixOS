@@ -48,20 +48,8 @@
   };
 
   programs.quadlets.quadlets."ente_postgres.volume" = {
-    __options = {
-      mkdir = false;
-      appendEnv = false;
-      appendEnvFiles = false;
-      unitDefaults = true;
-      addNetworkDependency = false;
-      mapVolumes = false;
-    };
     Unit.Description = "Ente Postgres Volume";
     Volume.VolumeName = "ente_postgres";
-    Service = {
-      Type = "oneshot";
-      Restart = "on-failure";
-    };
   };
 
   # Containers below are only required to run Ente Photos.
