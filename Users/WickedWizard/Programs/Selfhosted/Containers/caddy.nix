@@ -185,6 +185,9 @@ in
           "config:/config"
           "data:/data"
         ];
+        # Can't get WUD to watch the Docker Registry
+        # for caddy itself. Therefore, we'll turn it off for onw.
+        Label = [ "wud.watch=false" ];
       };
       Unit = {
         After = [ "caddy-image.service" ];

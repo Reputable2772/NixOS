@@ -10,7 +10,7 @@
     Container = {
       ContainerName = "linkding";
       Network = "systemd-caddy";
-      Image = "docker.io/sissbruecker/linkding:latest";
+      Image = "ghcr.io/sissbruecker/linkding:latest";
       Volume = [
         "linkding.volume:/etc/linkding/data"
       ];

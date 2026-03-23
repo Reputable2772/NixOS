@@ -9,6 +9,7 @@
       Volume = [
         "data:/root/.ollama"
       ];
+      Label = [ "wud.watch.digest=true" ];
       # AddDevice = "/dev/dri";
       GroupAdd = "keep-groups";
     };

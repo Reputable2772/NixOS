@@ -17,7 +17,7 @@
     Container = {
       ContainerName = "syncthing";
       Network = "systemd-caddy";
-      Image = "lscr.io/linuxserver/syncthing:latest";
+      Image = "ghcr.io/linuxserver/syncthing:latest";
       PublishPort = [
         "22000:22000/tcp"
         "22000:22000/udp"

@@ -39,7 +39,8 @@
       HealthStartPeriod = "40s";
       HealthStartupInterval = "1s";
       Notify = "healthy";
-      Image = "postgres:15";
+      Image = "docker.io/library/postgres:15";
+      Label = [ "wud.watch.digest=true" ];
       # We use the volume here, since the postgresql user does
       # not run as root, causing permission issues when trying to backup
       # the directory. Using volumes and `podman volume export` can fix this.

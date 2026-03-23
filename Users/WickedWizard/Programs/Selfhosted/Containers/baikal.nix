@@ -6,6 +6,7 @@
       ContainerName = "baikal";
       Network = "systemd-caddy";
       Image = "docker.io/ckulka/baikal:nginx";
+      Label = [ "wud.watch.digest=true" ];
       Volume = [
         "config:/var/www/baikal/config"
         "data:/var/www/baikal/Specific"

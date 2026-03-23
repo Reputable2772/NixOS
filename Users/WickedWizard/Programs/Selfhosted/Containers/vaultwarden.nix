@@ -15,7 +15,7 @@
     Container = {
       ContainerName = "vaultwarden";
       Network = "systemd-caddy";
-      Image = "docker.io/vaultwarden/server:latest";
+      Image = "ghcr.io/dani-garcia/vaultwarden:latest";
       Volume = [
         ":/data"
       ];

@@ -11,7 +11,7 @@
   programs.quadlets.quadlets."wud.container" = {
     Container = {
       ContainerName = "wud";
-      Image = "ghcr.io/getwud/wud:main";
+      Image = "ghcr.io/getwud/wud:latest";
       Network = [
         "systemd-caddy"
         "podman-socket"
@@ -24,6 +24,8 @@
         "WUD_WATCHER_DOCKER_WATCHATSTART=true"
         "WUD_WATCHER_DOCKER_WATCHBYDEFAULT=true"
         "WUD_WATCHER_DOCKER_WATCHALL=true"
+
+        "WUD_REGISTRY_CUSTOM_N8N_URL=https://docker.n8n.io"
       ];
     };
   };

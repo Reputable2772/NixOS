@@ -22,7 +22,7 @@ in
       Container = {
         ContainerName = "podman-socket-proxy";
         Network = "podman-socket";
-        Image = "tecnativa/docker-socket-proxy:latest";
+        Image = "ghcr.io/linuxserver/socket-proxy:latest";
         Volume = [
           "/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro:noMap"
         ];
