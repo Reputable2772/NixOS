@@ -10,6 +10,7 @@
     settings = {
       general = {
         lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${lib.getExe pkgs.hyprlock}";
+        unlock_cmd = "${pkgs.procps}/bin/pkill -USR1 hyprlock";
         before_sleep_cmd = "${pkgs.systemd}/bin/loginctl lock-session";
         after_sleep_cmd = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
       };
