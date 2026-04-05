@@ -44,13 +44,13 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v143";
+    version = "v149.1";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v143";
+      rev = "v149.1";
       fetchSubmodules = false;
-      sha256 = "sha256-0E3TqvXAy81qeM/jZXWWOTZ14Hs1RT7o78UyZM+Jbr4=";
+      sha256 = "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU=";
     };
   };
   joplin_catppuccin = {
@@ -67,15 +67,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "066bb98bf0b8f7e648a2c1dd5216d307d936e302";
+    version = "bfc06c68a9c7ac7a931487d21aa7cf0fb29a75ae";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "066bb98bf0b8f7e648a2c1dd5216d307d936e302";
+      rev = "bfc06c68a9c7ac7a931487d21aa7cf0fb29a75ae";
       fetchSubmodules = false;
-      sha256 = "sha256-7XLKuyLDsQAy5Ssf4r7EpPT7DHPwI3/TgYl7wfuNkAg=";
+      sha256 = "sha256-xl/XzBrlbELlqvuWLDvjqHRc61WR5SeYBMVJInhDuSA=";
     };
-    date = "2026-03-22";
+    date = "2026-03-29";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
