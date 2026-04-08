@@ -13,7 +13,6 @@
   ];
 
   stylix.targets.vscode.enable = false;
-  system-config.nixpkgs.config.allowUnfreePredicate = [ "vscode" ];
 
   # All VSCode related issues
   # https://github.com/nix-community/home-manager/issues/3822
