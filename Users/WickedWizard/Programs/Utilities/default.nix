@@ -1,6 +1,7 @@
 {
   imports = [
     ./ark.nix
+    ./bottles.nix
     ./calculator.nix
     ./clock.nix
     ./converseen.nix
