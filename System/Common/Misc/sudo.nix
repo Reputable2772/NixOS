@@ -7,6 +7,7 @@
       Defaults timestamp_timeout=10
       Defaults insults
       Defaults pwfeedback
+      Defaults lecture=never
     '';
   };
 }
