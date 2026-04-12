@@ -21,15 +21,15 @@
   boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.initrd.luks.devices.nixos.device = "/dev/disk/by-uuid/ca45b52f-3d82-4dba-96a1-f62e44c7a6cc";
-
   boot.initrd.systemd.tpm2.enable = true;
   security.tpm2.enable = true;
-  boot.kernelParams = [ "resume_offset=3604480" ];
-  boot.resumeDevice = "/dev/disk/by-uuid/67372b15-575e-455e-bf77-9959cdd78a62";
+
+  boot.initrd.luks.devices."nixos".device = "/dev/disk/by-uuid/e0220470-e7d1-4e21-99b5-0721a8c7d773";
+  boot.kernelParams = [ "resume_offset=533760" ];
+  boot.resumeDevice = "/dev/mapper/nixos";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7414-0099";
+    device = "/dev/disk/by-uuid/BAD9-F77E";
     fsType = "vfat";
     options = [
       "fmask=0022"
@@ -37,21 +37,49 @@
     ];
   };
 
+  fileSystems."/" = {
+    device = "/dev/mapper/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=root" ];
+  };
+
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/6436f2a5-ac3d-4f5c-925a-185628ad4a98";
-    fsType = "ext4";
+    device = "/dev/mapper/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=home" ];
     neededForBoot = true;
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/67372b15-575e-455e-bf77-9959cdd78a62";
-    fsType = "ext4";
+  fileSystems."/nix" = {
+    device = "/dev/mapper/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=nix" ];
+    neededForBoot = true;
+  };
+
+  fileSystems."/persist" = {
+    device = "/dev/mapper/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=persist" ];
+    neededForBoot = true;
+  };
+
+  fileSystems."/var/log" = {
+    device = "/dev/mapper/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=log" ];
+    neededForBoot = true;
+  };
+
+  fileSystems."/swap" = {
+    device = "/dev/mapper/nixos";
+    fsType = "btrfs";
+    options = [ "subvol=swap" ];
   };
 
   swapDevices = [
     {
-      device = "/swap";
-      size = 10240;
+      device = "/swap/swapfile";
     }
   ];
 
