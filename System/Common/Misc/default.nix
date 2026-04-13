@@ -5,6 +5,7 @@
     ./fhsenv.nix
     ./impermanence.nix
     ./misc.nix
+    ./nh.nix
     ./nix.nix
     ./packages.nix
     ./secrets.nix
