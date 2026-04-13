@@ -14,6 +14,7 @@
       "/var/lib/bluetooth"
       "/etc/NetworkManager/system-connections"
       "/var/lib/sbctl"
+      "/var/lib/upower"
     ];
     files = [
       "/etc/machine-id"
