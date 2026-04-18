@@ -186,11 +186,11 @@ rec {
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
         };
-        baikal = {
-          dir = null;
-          envFiles = null;
-          env = null;
-        };
+        # baikal = {
+        #   dir = null;
+        #   envFiles = null;
+        #   env = null;
+        # };
         # gluetun = {
         #   dir = null;
         #   # Proton VPN's OpenVPN user and password.
