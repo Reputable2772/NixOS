@@ -106,7 +106,7 @@
     },
     "nix-fast-build": {
         "cargoLock": null,
-        "date": "2026-04-09",
+        "date": "2026-04-12",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -118,12 +118,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "1030b0cfaca52f95769d0998ea366946144cd47c",
-            "sha256": "sha256-IJSKVJ0+MXMMLiViVlfEDpfA339fNHYdMoLa69HhlXg=",
+            "rev": "67df5acda0e22b97e17d5eed579b969ddb9ea06c",
+            "sha256": "sha256-fVTG9Uw7wfKmjYSu0CuB+kdvs9p4MrPimjtUtgWOPJE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1030b0cfaca52f95769d0998ea366946144cd47c"
+        "version": "67df5acda0e22b97e17d5eed579b969ddb9ea06c"
     },
     "obs_catppuccin": {
         "cargoLock": null,
