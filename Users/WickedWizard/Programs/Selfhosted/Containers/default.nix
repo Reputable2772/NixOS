@@ -8,6 +8,7 @@
     ./n8n.nix
     ./ollama.nix
     ./podman-socket-proxy.nix
+    ./radicale.nix
     ./secrets-loader.nix
     ./syncthing.nix
     ./vaultwarden.nix

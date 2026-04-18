@@ -379,6 +379,11 @@ rec {
             "${dir.notes}:/files/obsidian"
           ];
         };
+        radicale = {
+          dir = null;
+          env = [ "TZ=${system.timezone}" ];
+          envFiles = null;
+        };
       };
     };
     guest = { };
@@ -414,6 +419,7 @@ rec {
   "affine.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 }
 
 /**
@@ -437,4 +443,5 @@ rec {
     Nested environment variables as shown above do not work, so set the value directly.
   wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
   n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL
+  radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
 */
