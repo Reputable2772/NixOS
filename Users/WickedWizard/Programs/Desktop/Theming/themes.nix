@@ -31,6 +31,10 @@ in
     platform = "qtct";
   };
 
+  # https://discuss.kde.org/t/broken-kde-connect-theme/18451
+  # KDE Connect does not theme correctly otherwise.
+  home.packages = lib.optional kde-disabled pkgs.kdePackages.qqc2-desktop-style;
+
   systemd.user.services."flatpak-managed-install".Service.ExecStartPost = [
     /**
       GTK4 - The flatpak theme requires HM Toplevel symlink, and all the other files referenced by it.
