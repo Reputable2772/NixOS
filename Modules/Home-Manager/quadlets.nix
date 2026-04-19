@@ -55,7 +55,6 @@ let
     appendEnv = true;
     appendEnvFiles = true;
     unitDefaults = true;
-    addNetworkDependency = true;
     # Opt out either with this flag, or by setting :noMap at the end of a specific volume
     mapVolumes = true;
   };
@@ -145,17 +144,6 @@ let
     // optionalAttrs (isContainer qVal) {
       Container.PodmanArgs = "--network-alias ${qVal.Container.ContainerName} --user 0:0";
     };
-  networkDependency = qVal: {
-    Unit = rec {
-      Requires = map (n: "${n}-network.service") (
-        if typeOf qVal.Container.Network == "string" then
-          [ qVal.Container.Network ]
-        else
-          (qVal.Container.Network or [ ])
-      );
-      After = Requires;
-    };
-  };
   finalConfig = mapAttrs (
     qName: qVal:
     let
@@ -186,7 +174,6 @@ let
           (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
           (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
           (f: optionalAttrs quadletOptions.appendEnvFiles (appendEnvFiles f))
-          (f: optionalAttrs quadletOptions.addNetworkDependency (networkDependency f))
         ])
       );
     in
