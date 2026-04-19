@@ -10,7 +10,7 @@
   programs.quadlets.quadlets."ente_museum.container" = {
     Container = {
       ContainerName = "ente_museum";
-      Network = "systemd-caddy";
+      Network = "systemd-caddy.network";
       Image = "ghcr.io/ente-io/server";
       Volume = [
         "logs:/var/logs"
@@ -32,7 +32,7 @@
   programs.quadlets.quadlets."ente_postgres.container" = {
     Container = {
       ContainerName = "ente_postgres";
-      Network = "systemd-caddy";
+      Network = "systemd-caddy.network";
       # We use a double dollar '$$' here to escape the variable for systemd, as given here
       # https://github.com/containers/podman/discussions/25053#discussioncomment-11890600
       HealthCmd = "pg_isready -d $$\{ENTE_DB_NAME} -U $$\{ENTE_DB_USER}";
@@ -70,7 +70,7 @@
   #       };
   #     }
   #     (
-  #       (lib.attrsets.removeAttrs (utils.containerDefaults "ente_socat" "systemd-caddy") [ "Container" ])
+  #       (lib.attrsets.removeAttrs (utils.containerDefaults "ente_socat" "systemd-caddy.network") [ "Container" ])
   #       // {
   #         Container = {
   #           ContainerName = "ente_socat";
@@ -82,19 +82,19 @@
   # programs.quadlets.quadlets."ente_minio.container" = lib.attrsets.recursiveUpdate {
   #   Container = {
   #     Image = "docker.io/minio/minio";
-  #     Network = "systemd-caddy";
+  #     Network = "systemd-caddy.network";
   #     Exec = "server /data --address \":3200\" --console-address \":3201\"";
   #     Volume = utils.mapVolume "ente_minio" [
   #       "data:/data"
   #     ];
   #   } // utils.appendEnv "ente_minio";
-  # } (utils.containerDefaults "ente_minio" "systemd-caddy");
+  # } (utils.containerDefaults "ente_minio" "systemd-caddy.network");
 
   # programs.quadlets.quadlets."ente_minio-provision.container" = lib.attrsets.recursiveUpdate {
   #   Container = {
   #     Entrypoint = "/provision.sh";
   #     Image = "docker.io/minio/mc";
-  #     Network = "systemd-caddy";
+  #     Network = "systemd-caddy.network";
   #     Volume = utils.mapVolume "ente_minio-provision" [
   #       # TODO: Get this file declaratively from Github.
   #       "provision.sh:/provision.sh:ro"
@@ -106,5 +106,5 @@
   #     Requires = [ "ente_minio.service" ];
   #     After = [ "ente_minio.service" ];
   #   };
-  # } (utils.containerDefaults "ente_minio-provision" "systemd-caddy");
+  # } (utils.containerDefaults "ente_minio-provision" "systemd-caddy.network");
 }

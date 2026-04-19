@@ -14,7 +14,7 @@
   programs.quadlets.quadlets."vaultwarden.container" = {
     Container = {
       ContainerName = "vaultwarden";
-      Network = "systemd-caddy";
+      Network = "systemd-caddy.network";
       Image = "ghcr.io/dani-garcia/vaultwarden:latest";
       Volume = [
         ":/data"

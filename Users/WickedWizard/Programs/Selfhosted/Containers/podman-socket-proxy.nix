@@ -21,7 +21,7 @@ in
     programs.quadlets.quadlets."podman-socket-proxy.container" = {
       Container = {
         ContainerName = "podman-socket-proxy";
-        Network = "podman-socket";
+        Network = "podman-socket.network";
         Image = "ghcr.io/linuxserver/socket-proxy:latest";
         Volume = [
           "$\{XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock:ro:noMap"

@@ -13,8 +13,8 @@
       ContainerName = "wud";
       Image = "ghcr.io/getwud/wud:latest";
       Network = [
-        "systemd-caddy"
-        "podman-socket"
+        "systemd-caddy.network"
+        "podman-socket.network"
       ];
       Environment = [
         "WUD_WATCHER_DOCKER_HOST=podman-socket-proxy"

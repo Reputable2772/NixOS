@@ -178,7 +178,7 @@ in
     programs.quadlets.quadlets."caddy.container" = {
       Container = {
         ContainerName = "caddy";
-        Network = "systemd-caddy";
+        Network = "systemd-caddy.network";
         Image = "localhost/caddy";
         Volume = [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
