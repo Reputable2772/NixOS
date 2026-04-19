@@ -50,6 +50,17 @@ let
     // {
       description = "Quadlet configuration.";
     };
+
+  unitNameConvertor =
+    x:
+    replaceStrings
+      [ ".container" ".network" ".volume" ]
+      [ ".service" "-network.service" "-volume.service" ]
+      x;
+
+  # All the below code -
+  # Pre-processes all quadlets written by user,
+  # and stores them into finalConfig.
   defaultOptions = {
     mkdir = true;
     appendEnv = true;
@@ -60,7 +71,7 @@ let
   };
 
   isContainer = q: hasAttrByPath [ "Container" "ContainerName" ] q;
-  getVol =
+  getVolPathFromConfig =
     cname:
     (
       if config'.containers.${cname} ? dir && config'.containers.${cname}.dir != null then
@@ -73,26 +84,29 @@ let
     )
     + "/";
   volumeMapper = qVal: {
-    Container.Volume =
-      lib.optionals
-        (
-          hasAttrByPath [
-            "Container"
-            "Volume"
-          ] qVal
-          && (qVal.Container.Volume != null || qVal.Container.Volume != [ ])
-        )
-        (
-          map (
-            vol:
-            # Skip mapping volumes if they have a :noMap suffix, or if they are a Podman Volume.
-            if ((hasSuffix ":noMap" vol) || (hasSuffix ".volume" (elemAt (splitString ":" vol) 0))) then
-              (removeSuffix ":noMap" vol)
-            else
-              ((getVol qVal.Container.ContainerName) + vol)
-          ) qVal.Container.Volume
-        );
+    Container.Volume = map (
+      vol:
+      # Skip mapping volumes if they have a :noMap suffix, or if they are a Podman Volume.
+      if ((hasSuffix ":noMap" vol) || (hasSuffix ".volume" (elemAt (splitString ":" vol) 0))) then
+        (removeSuffix ":noMap" vol)
+      else
+        ((getVolPathFromConfig qVal.Container.ContainerName) + vol)
+    ) qVal.Container.Volume;
   };
+
+  unitDefaults =
+    qVal:
+    {
+      Install.WantedBy = [ "default.target" ];
+      Service = {
+        Restart = if (isContainer qVal) then "always" else "on-failure";
+        TimeoutStartSec = 300;
+        Type = if (isContainer qVal) then "notify" else "oneshot";
+      };
+    }
+    // optionalAttrs (isContainer qVal) {
+      Container.PodmanArgs = "--network-alias ${qVal.Container.ContainerName} --user 0:0";
+    };
 
   mkdirOp = qVal: {
     Service.ExecStartPre =
@@ -112,12 +126,14 @@ let
           |> (a: pkgs.writeShellScript "${qVal.Container.ContainerName}-mkdir" (a + "\nexit 0\n"))
         );
   };
+
   appendEnv = qVal: {
     Container.Environment = lib.optionals (
       config'.containers.${qVal.Container.ContainerName} ? env
       && config'.containers.${qVal.Container.ContainerName}.env != null
     ) config'.containers.${qVal.Container.ContainerName}.env;
   };
+
   appendEnvFiles = qVal: {
     Container.EnvironmentFile =
       lib.optionals
@@ -131,19 +147,7 @@ let
           ) config'.containers.${qVal.Container.ContainerName}.envFiles
         );
   };
-  unitDefaults =
-    qVal:
-    {
-      Install.WantedBy = [ "default.target" ];
-      Service = {
-        Restart = if (isContainer qVal) then "always" else "on-failure";
-        TimeoutStartSec = 300;
-        Type = if (isContainer qVal) then "notify" else "oneshot";
-      };
-    }
-    // optionalAttrs (isContainer qVal) {
-      Container.PodmanArgs = "--network-alias ${qVal.Container.ContainerName} --user 0:0";
-    };
+
   finalConfig = mapAttrs (
     qName: qVal:
     let
@@ -161,6 +165,7 @@ let
               "Container"
               "Volume"
             ] qVal)
+            && qVal.Container.Volume != null
           )
         then
           (recursiveUpdate qVal (volumeMapper qVal))
@@ -209,13 +214,7 @@ in
     servicesList = mkOption {
       type = types.str;
       description = "A list of all the systemd services that are used to control quadlets.";
-      default = concatMapStringsSep " " (
-        x:
-        replaceStrings
-          [ ".container" ".network" ".volume" ]
-          [ ".service" "-network.service" "-volume.service" ]
-          x
-      ) ((attrNames cfg.quadlets) ++ cfg.extraServices);
+      default = concatMapStringsSep " " unitNameConvertor ((attrNames cfg.quadlets) ++ cfg.extraServices);
     };
   };
 
