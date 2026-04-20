@@ -12,6 +12,7 @@ let
       htpasswd_filename = userFilePath;
       htpasswd_encryption = "autodetect";
     };
+    storage.filesystem_folder = "/data";
 
     server.hosts = "0.0.0.0:5232, [::]:5232";
   };
@@ -55,9 +56,9 @@ in
         "${config.age.secrets.radicale.path}:${userFilePath}:noMap"
       ];
 
-      HealthCmd = "curl --fail http://127.0.0.1:5232 || exit 1";
-      HealthInterval = "30s";
-      HealthRetries = 3;
+      # HealthCmd = "curl --fail http://127.0.0.1:5232 || exit 1";
+      # HealthInterval = "30s";
+      # HealthRetries = 3;
     };
   };
 }
