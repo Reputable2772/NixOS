@@ -12,10 +12,11 @@ let
   inherit (lib) types;
   inherit (lib.attrsets)
     attrNames
+    filterAttrs
     hasAttrByPath
-    mapAttrsToList
     optionalAttrs
     mapAttrs
+    getAttrFromPath
     recursiveUpdate
     removeAttrs
     ;
@@ -23,14 +24,17 @@ let
     elemAt
     foldl'
     filter
+    isList
     map
     ;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings)
     concatMapStringsSep
+    concatStringsSep
+    hasInfix
     hasSuffix
+    optionalString
     replaceStrings
-    typeOf
     splitString
     removeSuffix
     ;
@@ -168,10 +172,11 @@ let
             && qVal.Container.Volume != null
           )
         then
+          # recursiveUpdate is used on purpose here, since it overwrites lists instead of merging them.
           (recursiveUpdate qVal (volumeMapper qVal))
         else
           qVal;
-      val = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes (
+      preProcess = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes (
         [
           (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f))
         ]
@@ -182,15 +187,18 @@ let
         ])
       );
     in
-    val
+    # Remove __options if defined.
+    removeAttrs preProcess [ "__options" ]
   ) cfg.quadlets;
 
-  quadlets = pkgs.buildEnv {
-    name = "quadlets";
-    paths = mapAttrsToList (
-      qName: qVal: pkgs.writeTextDir qName (lib'.toSystemdUnit (removeAttrs qVal [ "__options" ]))
-    ) finalConfig;
-  };
+  volumesList =
+    finalConfig
+    |> (filterAttrs (qName: qVal: hasAttrByPath [ "Volume" "VolumeName" ] qVal))
+    |> mapAttrs (volName: volVal: pkgs.writeTextDir volName (lib'.toSystemdUnit volVal));
+  networksList =
+    finalConfig
+    |> (filterAttrs (qName: qVal: hasAttrByPath [ "Network" "NetworkName" ] qVal))
+    |> mapAttrs (netName: netVal: pkgs.writeTextDir netName (lib'.toSystemdUnit netVal));
 in
 {
   options.programs.quadlets = {
@@ -218,24 +226,77 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    xdg.configFile."systemd/user/" = {
-      source = "${
-        pkgs.runCommand "quadlet-generator" { } ''
-          mkdir -p $out $out/src $out/units
+  config = lib.mkIf cfg.enable (
+    let
+      generatedQuadlets = mapAttrs (
+        qName: qVal:
+        pkgs.runCommand "quadlet-generator-${qName}" { } (
+          let
+            convertToList =
+              val:
+              if ((hasAttrByPath val qVal) && (getAttrFromPath val qVal != null)) then
+                (
+                  let
+                    retVal = (getAttrFromPath val qVal);
+                  in
+                  if isList retVal then retVal else [ retVal ]
+                )
+              else
+                [ ];
 
-          ln -s ${quadlets} $out/src
+            networks = map (network: networksList.${network}) (convertToList [
+              "Container"
+              "Network"
+            ]);
+            volumes = map (vol: volumesList.${elemAt (splitString ":" vol) 0}) (
+              filter (vol: hasInfix ".volume" vol) (convertToList [
+                "Container"
+                "Volume"
+              ])
+            );
 
-          QUADLET_UNIT_DIRS=${quadlets} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out/units
+            quadletFile = pkgs.writeTextDir qName (lib'.toSystemdUnit qVal);
+          in
+          ''
+            QUADLET_UNIT_DIRS=${quadletFile}${
+              optionalString (networks != [ ]) (":" + (concatStringsSep ":" networks))
+            }${
+              optionalString (volumes != [ ]) (":" + (concatStringsSep ":" volumes))
+            } ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
 
-          for file in $(find $out/units -type f -exec realpath --relative-to $out/units {} \;); do
-            substituteInPlace $out/units/$file \
-              --replace-warn ${quadlets}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
-              --replace-warn \\x20 " "
-          done
-        ''
-      }/units";
-      recursive = true;
-    };
-  };
+            for file in $(find $out -type f -exec realpath --relative-to $out {} \;); do
+              substituteInPlace $out/$file \
+                --replace-warn ${quadletFile}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
+                --replace-warn \\x20 " "
+            done
+          ''
+        )
+      ) finalConfig;
+
+      mapDirToXdg =
+        prefix: dir:
+        lib.foldl' (acc: ext: acc // ext) { } (
+          lib.mapAttrsToList (
+            name: type:
+            let
+              path = "${dir}/${name}";
+              targetPath = "${prefix}/${name}";
+            in
+            if type == "directory" then
+              mapDirToXdg targetPath path
+            else
+              {
+                "${targetPath}" = {
+                  source = path;
+                };
+              }
+          ) (builtins.readDir dir)
+        );
+    in
+    {
+      xdg.configFile = foldl' (acc: pkg: acc // mapDirToXdg "systemd/user" pkg) { } (
+        builtins.attrValues generatedQuadlets
+      );
+    }
+  );
 }
