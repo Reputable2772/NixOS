@@ -9,7 +9,8 @@
   # making it infinitely more useful.
   home.packages = with pkgs; [
     bitwarden-desktop
-    bitwarden-cli
+    # https://socket.dev/blog/bitwarden-cli-compromised
+    # bitwarden-cli
   ];
 
   system-config.environment.etc."polkit-1/actions/com.bitwarden.Bitwarden.policy".source =
