@@ -167,6 +167,26 @@
         },
         "version": "1ef0e745286ce32750abc3bc5d3ca8073a623b60"
     },
+    "radicale_birthday_hook": {
+        "cargoLock": null,
+        "date": "2025-02-04",
+        "extract": null,
+        "name": "radicale_birthday_hook",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3",
+            "sha256": "sha256-X/tahL01rGyc6eg1UqXhINi0mbuhwdzi4cYN8B0K+5c=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/iBigQ/radicale-birthday-calendar.git"
+        },
+        "version": "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3"
+    },
     "rofi-bluetooth": {
         "cargoLock": null,
         "date": "2025-04-14",

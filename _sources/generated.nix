@@ -101,6 +101,20 @@
     };
     date = "2025-09-08";
   };
+  radicale_birthday_hook = {
+    pname = "radicale_birthday_hook";
+    version = "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3";
+    src = fetchgit {
+      url = "https://github.com/iBigQ/radicale-birthday-calendar.git";
+      rev = "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-X/tahL01rGyc6eg1UqXhINi0mbuhwdzi4cYN8B0K+5c=";
+    };
+    date = "2025-02-04";
+  };
   rofi-bluetooth = {
     pname = "rofi-bluetooth";
     version = "0cca4d4aa1c82c9373ce5da781d73683a29484c6";

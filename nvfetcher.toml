@@ -41,3 +41,7 @@ fetch.github = "catppuccin/joplin"
 [eza_themes]
 src.git = "https://github.com/eza-community/eza-themes.git"
 fetch.github = "eza-community/eza-themes"
+
+[radicale_birthday_hook]
+src.git = "https://github.com/iBigQ/radicale-birthday-calendar.git"
+fetch.git = "https://github.com/iBigQ/radicale-birthday-calendar.git"
