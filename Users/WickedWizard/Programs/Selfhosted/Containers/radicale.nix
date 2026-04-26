@@ -56,9 +56,9 @@ in
         "${config.age.secrets.radicale.path}:${userFilePath}:noMap"
       ];
 
-      # HealthCmd = "curl --fail http://127.0.0.1:5232 || exit 1";
-      # HealthInterval = "30s";
-      # HealthRetries = 3;
+      HealthCmd = "curl --fail http://127.0.0.1:5232 || exit 1";
+      HealthInterval = "30s";
+      HealthRetries = 3;
     };
   };
 }
