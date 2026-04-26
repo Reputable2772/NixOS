@@ -15,6 +15,7 @@
       "/etc/NetworkManager/system-connections"
       "/var/lib/sbctl"
       "/var/lib/upower"
+      "/var/lib/fprint"
     ];
     files = [
       "/etc/machine-id"
