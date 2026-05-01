@@ -10,6 +10,7 @@
     ./fontconfig.nix
     ./foot.nix
     # ./kitty.nix
+    ./mindwtr.nix
     ./nemo.nix
     ./protonvpn.nix
   ];
