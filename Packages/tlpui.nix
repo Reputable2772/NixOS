@@ -31,7 +31,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   # ignore test/test_tlp_settings.py asit relies on opening a gui which is non-trivial
-  pytestFlagsArray = [ "--ignore=test/test_tlp_settings.py" ];
+  pytestFlags = [ "--ignore=test/test_tlp_settings.py" ];
   nativeCheckInputs = [
     gobject-introspection
     python3Packages.pytestCheckHook
