@@ -63,7 +63,7 @@ in
     enable = true;
     backups.containers = {
       repository = location;
-      paths = lib.flatten paths;
+      paths = lib.filter (v: v != "") (lib.flatten paths);
       passwordFile =
         lib.replaceStrings [ "$\{XDG_RUNTIME_DIR}" ] [ "%t" ]
           config.age.secrets.containers-backup-pwd.path;

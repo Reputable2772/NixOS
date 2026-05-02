@@ -46,15 +46,15 @@ rec {
 
       mounts = {
         # Need to have a corresponding age file with the object name, if you want to provide authentication.
-        bitlocker = {
-          windows = {
-            source = "/dev/nvme0n1p4";
-            mountpoint = "/mnt/Windows";
-            authentication = true;
-            fsType = "ntfs";
-            nofail = true;
-          };
-        };
+        # bitlocker = {
+        #   windows = {
+        #     source = "/dev/nvme0n1p4";
+        #     mountpoint = "/mnt/Windows";
+        #     authentication = true;
+        #     fsType = "ntfs";
+        #     nofail = true;
+        #   };
+        # };
       };
     };
     rescue = { };
@@ -76,23 +76,21 @@ rec {
 
         repository = "${home}/Backup";
         paths = {
-          include =
-            map (x: "${base}/${x}") [
-              "Android"
-              "Applications"
-              "Books"
-              "Browsers"
-              "Coding"
-              "Config"
-              # Games/Linux/Minecraft now points to a symlink for Games/Minecraft
-              "Games/Minecraft"
-              "Games/Saves"
-              "Important-Files"
-              "Notes"
-            ]
-            ++ [
-              "/mnt/Windows/Backup"
-            ];
+          include = map (x: "${base}/${x}") [
+            "Android"
+            "Applications"
+            "Books"
+            "Browsers"
+            "Coding"
+            "Config"
+            # Games/Linux/Minecraft now points to a symlink for Games/Minecraft
+            "Games/Minecraft"
+            "Games/Saves"
+            "Important-Files"
+            "Study-Materials"
+            "Misc"
+            "Notes"
+          ];
           exclude = [ ];
         };
         # Ludusavi is a backup tool for Games.
