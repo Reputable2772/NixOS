@@ -13,7 +13,6 @@ let
 
   # Taken from https://github.com/iBigQ/radicale-birthday-calendar/issues/6#issuecomment-3797883142
   # and modified to use python binary from venv and use find instead of grep from busybox
-  # (busybox grep doesn't support --include)
   birthdayHookShFile = pkgs.writeTextFile {
     name = "create_birthday_hook.sh";
     executable = true;
@@ -95,7 +94,6 @@ in
 
       Volume = [
         "data:/data"
-        "radicale/users:/etc/radicale/users"
         "${pkgs.writeText "radicale-config" radicaleConfig}:/config/config:ro:noMap"
         "${config.age.secrets.radicale.path}:${userFilePath}:noMap"
         "${birthdayHookShFile}:${birthdayHookSh}:noMap"
