@@ -9,4 +9,6 @@
       ];
     };
   };
+
+  programs.autostart.flatpaks = [ "md.obsidian.Obsidian" ];
 }

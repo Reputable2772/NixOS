@@ -51,7 +51,7 @@ in
       }
     ) cfg.flatpaks;
 
-    xdg.configFile."autostart".source = pkgs.runCommand "" { } ''
+    xdg.configFile."autostart".source = pkgs.runCommand "autostart-applications" { } ''
       mkdir $out
 
       for dir in ${strings.escapeShellArgs cfg.packages}; do
