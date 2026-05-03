@@ -14,6 +14,8 @@
       enable = true;
       dns = "none";
     };
+    # Set below, not necessary.
+    resolvconf.enable = false;
   };
 
   environment.etc."resolv.conf".text = lib.concatMapStringsSep "\n" (
