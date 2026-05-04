@@ -90,6 +90,7 @@ rec {
             "Study-Materials"
             "Misc"
             "Notes"
+            "MindWTR"
           ];
           exclude = [ ];
         };
@@ -130,6 +131,8 @@ rec {
         containers = "${home}/Containers";
         # Where Obsidian Notes are stored.
         notes = "${base}/Notes";
+        # Where MindWTR is stored.
+        mindwtr = "${base}/MindWTR";
       };
       git = {
         # The username and email to set for Git.
@@ -221,6 +224,7 @@ rec {
                 # "Joplin:/joplin"
                 "Study-Materials:/study-materials"
                 "Notes:/notes"
+                "MindWTR:/mindwtr"
               ]
               ++ [
                 "${backup.location}:/containers-backup"
