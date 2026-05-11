@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  lib',
   ...
 }:
 {
@@ -22,41 +23,48 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium-fhs;
-    profiles.default = {
-      extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
-        "eamodio.gitlens"
-        "github.vscode-github-actions"
-        "editorconfig.editorconfig"
-        "usernamehw.errorlens"
-        "oderwat.indent-rainbow"
-        "catppuccin.catppuccin-vsc"
-        "pkief.material-icon-theme"
+    profiles = rec {
+      default = {
+        extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
+          "eamodio.gitlens"
+          "github.vscode-github-actions"
+          "editorconfig.editorconfig"
+          "usernamehw.errorlens"
+          "oderwat.indent-rainbow"
+          "catppuccin.catppuccin-vsc"
+          "pkief.material-icon-theme"
 
-        # Nix
-        "mkhl.direnv"
-        "jnoortheen.nix-ide"
+          # Nix
+          "mkhl.direnv"
+          "jnoortheen.nix-ide"
 
-        # C/C++
-        "vadimcn.vscode-lldb"
-        "llvm-vs-code-extensions.vscode-clangd"
-      ];
-      userSettings = {
-        "editor.minimap.enabled" = false;
-        "explorer.confirmDragAndDrop" = false;
-        "diffEditor.ignoreTrimWhitespace" = false;
-        "editor.formatOnSave" = true;
-        "editor.formatOnType" = true;
-        "editor.formatOnPaste" = true;
+          # C/C++
+          "vadimcn.vscode-lldb"
+          "llvm-vs-code-extensions.vscode-clangd"
+        ];
+        userSettings = {
+          "editor.minimap.enabled" = false;
+          "explorer.confirmDragAndDrop" = false;
+          "diffEditor.ignoreTrimWhitespace" = false;
+          "editor.formatOnSave" = true;
+          "editor.formatOnType" = true;
+          "editor.formatOnPaste" = true;
 
-        # Catppuccin
-        "catppuccin.italicKeywords" = true;
-        "catppuccin.boldKeywords" = true;
-        "catppuccin.italicComments" = true;
-        "workbench.iconTheme" = "material-icon-theme";
-        "workbench.colorTheme" = "Catppuccin Mocha";
-        "editor.semanticHighlighting.enabled" = true;
-        "terminal.integrated.minimumContrastRatio" = 1;
-        "window.titleBarStyle" = "custom";
+          # Catppuccin
+          "catppuccin.italicKeywords" = true;
+          "catppuccin.boldKeywords" = true;
+          "catppuccin.italicComments" = true;
+          "workbench.iconTheme" = "material-icon-theme";
+          "workbench.colorTheme" = "Catppuccin Mocha";
+          "editor.semanticHighlighting.enabled" = true;
+          "terminal.integrated.minimumContrastRatio" = 1;
+          "window.titleBarStyle" = "custom";
+        };
+      };
+      rust = lib'.deepMerge default {
+        extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
+          "rust-lang.rust-analyzer"
+        ];
       };
     };
   };
