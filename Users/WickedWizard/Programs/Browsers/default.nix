@@ -5,5 +5,6 @@
     ./junction.nix
     ./librewolf.nix
     # ./tor.nix
+    ./zen.nix
   ];
 }
