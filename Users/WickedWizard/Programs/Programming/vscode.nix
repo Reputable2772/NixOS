@@ -20,7 +20,7 @@
   # https://github.com/NixOS/nixpkgs/issues/261205
   # https://github.com/NixOS/nixpkgs/issues/218031
 
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
     package = pkgs.vscodium-fhs;
     profiles = rec {
