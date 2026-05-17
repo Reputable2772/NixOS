@@ -9,6 +9,7 @@
 
   wayland.windowManager.hyprland = {
     inherit (osConfig.programs.hyprland) enable;
+    configType = "hyprlang";
 
     # Use packages from system itself.
     package = null;
