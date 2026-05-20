@@ -21,6 +21,7 @@
     };
     xwayland.enable = true;
     settings = {
+      debug.error_position = 1;
       exec-once = [
         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "${pkgs.systemd}/bin/systemctl --user daemon-reload"
@@ -49,7 +50,6 @@
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
         vrr = true;
-        vfr = true;
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
         force_default_wallpaper = 1;
@@ -97,7 +97,6 @@
       };
 
       dwindle = {
-        pseudotile = "yes";
         preserve_split = "yes";
       };
 

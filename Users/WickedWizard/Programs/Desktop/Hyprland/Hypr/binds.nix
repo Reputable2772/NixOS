@@ -45,7 +45,7 @@
         "SUPER, F, fullscreen"
         "SUPER, O, fullscreenstate, -1 2"
         "SUPER, P, pseudo,"
-        "SUPER SHIFT, P, togglesplit"
+        "SUPER SHIFT, P, layoutmsg, togglesplit"
         "SUPER CTRL, P, pin"
         "SUPER, M, fullscreen, 1"
         "SUPER, space, togglefloating"
