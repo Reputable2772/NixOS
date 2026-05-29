@@ -244,10 +244,12 @@ in
               else
                 [ ];
 
-            networks = map (network: networksList.${network}) (convertToList [
-              "Container"
-              "Network"
-            ]);
+            networks = map (network: networksList.${network}) (
+              filter (net: hasSuffix ".network" net) (convertToList [
+                "Container"
+                "Network"
+              ])
+            );
             volumes = map (vol: volumesList.${elemAt (splitString ":" vol) 0}) (
               filter (vol: hasInfix ".volume" vol) (convertToList [
                 "Container"
