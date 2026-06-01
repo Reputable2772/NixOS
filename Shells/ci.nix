@@ -17,6 +17,7 @@
         name = "nix-build-all";
         text = ''
           nix-fast-build \
+            --skip-cached \
             --flake ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
             --no-nom \
             "$@"

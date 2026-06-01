@@ -40,8 +40,8 @@ jobs:
       id: build
       run: |
         nix develop .#ci --command bash -euo pipefail <<'OUTER'
-        nix-build-all --override-input flake . --out-link newFlake --cachix-cache spearman4157
-        nix-build-all --override-input flake github:${{ github.repository }} --out-link oldFlake
+        nix-build-all --systems x86_64-linux --override-input flake . --out-link newFlake --cachix-cache spearman4157
+        nix-build-all --systems x86_64-linux --override-input flake github:${{ github.repository }} --out-link oldFlake
         mv newFlake- newFlake
         mv oldFlake- oldFlake
         OUTER
