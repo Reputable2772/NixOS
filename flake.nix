@@ -73,7 +73,6 @@
         git-hooks.flakeModule
       ];
 
-      debug = true;
       systems = import systems;
 
       flake.nixosConfigurations =

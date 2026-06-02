@@ -13,6 +13,8 @@
     # bitwarden-cli
   ];
 
+  system-config.nixpkgs.config.permittedInsecurePackages = [ "electron-39.8.10" ];
+
   system-config.environment.etc."polkit-1/actions/com.bitwarden.Bitwarden.policy".source =
     "${pkgs.bitwarden-desktop}/share/polkit-1/actions/com.bitwarden.Bitwarden.policy";
 
