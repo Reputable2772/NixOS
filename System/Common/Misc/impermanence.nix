@@ -9,7 +9,7 @@
     directories = [
       "/var/log"
       "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
+      "/var/lib/systemd"
 
       "/var/lib/bluetooth"
       "/etc/NetworkManager/system-connections"
