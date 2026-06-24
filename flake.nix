@@ -53,7 +53,7 @@
     # Require manual updates, nix flake update will not work.
     # We don't really want it to work either.
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.0.0";
+      url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
