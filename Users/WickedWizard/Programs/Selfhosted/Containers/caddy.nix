@@ -1,5 +1,4 @@
 {
-  osConfig,
   config,
   lib,
   pkgs,
@@ -101,18 +100,6 @@ let
       ${lib.getExe pkgs.caddy} fmt $out --overwrite
     '';
   };
-  containerfile = pkgs.writeText "caddy-containerfile" ''
-    FROM docker.io/caddy:builder AS builder
-
-    RUN xcaddy build \
-        --with github.com/caddy-dns/duckdns \
-        --with github.com/caddy-dns/cloudflare \
-        --with github.com/caddyserver/transform-encoder
-
-    FROM docker.io/caddy:latest
-
-    COPY --from=builder /usr/bin/caddy /usr/bin/caddy
-  '';
 in
 {
   options.containers.caddy = {
@@ -166,20 +153,11 @@ in
       Install.WantedBy = [ "sockets.target" ];
     };
 
-    systemd.user.services.caddy-image = {
-      Service = {
-        ExecStart = "${lib.getExe osConfig.virtualisation.podman.package} image build -t caddy -f ${containerfile}";
-        Restart = "on-failure";
-        Type = "oneshot";
-      };
-      Install.WantedBy = [ "default.target" ];
-    };
-
     programs.quadlets.quadlets."caddy.container" = {
       Container = {
         ContainerName = "caddy";
         Network = "systemd-caddy.network";
-        Image = "localhost/caddy";
+        Image = "caddy-image.build";
         Volume = [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
           "config:/config"
@@ -189,10 +167,23 @@ in
         # for caddy itself. Therefore, we'll turn it off for onw.
         Label = [ "wud.watch=false" ];
       };
-      Unit = {
-        After = [ "caddy-image.service" ];
-        Requires = [ "caddy-image.service" ];
-      };
+    };
+
+    programs.quadlets.quadlets."caddy-image.build".Build = {
+      ImageTag = "localhost/caddy";
+      File = pkgs.writeText "caddy-containerfile" ''
+        FROM docker.io/caddy:builder AS builder
+
+        RUN xcaddy build \
+          --with github.com/caddy-dns/duckdns \
+          --with github.com/caddy-dns/cloudflare \
+          --with github.com/caddyserver/transform-encoder
+
+        FROM docker.io/caddy:latest
+
+        COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+      '';
     };
   };
+
 }
