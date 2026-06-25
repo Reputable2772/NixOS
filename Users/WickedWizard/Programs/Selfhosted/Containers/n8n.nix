@@ -1,4 +1,9 @@
-{ config', lib, ... }:
+{
+  config',
+  pkgs,
+  lib,
+  ...
+}:
 {
   containers.caddy.services.n8n = "n8n:5678";
 
@@ -11,7 +16,12 @@
         "systemd-caddy.network"
         "n8n.network"
       ];
-      Environment = [ "N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0" ];
+      Environment = [
+        "N8N_RUNNERS_ENABLED=true"
+        "N8N_RUNNERS_MODE=external"
+        "N8N_NATIVE_PYTHON_RUNNER=true"
+        "N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0"
+      ];
       Volume = [
         "n8n.volume:/root/.n8n"
       ]
@@ -26,6 +36,31 @@
       Network = "n8n.network";
       Environment = [
         "N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679"
+      ];
+      Volume = [
+        "${
+          pkgs.writeText "n8n-task-runners" (
+            builtins.toJSON {
+              task-runners = [
+                {
+                  runner-type = "javascript";
+                  env-overrides = {
+                    NODE_FUNCTION_ALLOW_BUILTIN = "fs";
+                    # NODE_FUNCTION_ALLOW_EXTERNAL = "moment,uuid";
+                  };
+                }
+                {
+                  runner-type = "python";
+                  env-overrides = {
+                    PYTHONPATH = "/opt/runners/task-runner-python";
+                    N8N_RUNNERS_STDLIB_ALLOW = "json";
+                    # N8N_RUNNERS_EXTERNAL_ALLOW = "numpy,pandas";
+                  };
+                }
+              ];
+            }
+          )
+        }:/etc/n8n-task-runners.json:noMap"
       ];
     };
   };
