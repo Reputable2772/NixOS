@@ -295,6 +295,8 @@ rec {
             "N8N_RESTRICT_FILE_ACCESS_TO=/files/"
             "N8Ns_RUNNERS_MODE=external"
             "N8N_NATIVE_PYTHON_RUNNER=true"
+            # Since I'm using reverse proxy setup with N8N_HOST env var.
+            "N8N_PROXY_HOPS=1"
           ];
           envFiles = [ "n8n" ];
           custom.volumeMounts = [
