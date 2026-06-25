@@ -232,7 +232,7 @@ in
         qName: qVal:
         pkgs.runCommand "quadlet-generator-${qName}" { } (
           let
-            convertToList =
+            normalizeList =
               val:
               if ((hasAttrByPath val qVal) && (getAttrFromPath val qVal != null)) then
                 (
@@ -245,13 +245,13 @@ in
                 [ ];
 
             networks = map (network: networksList.${network}) (
-              filter (net: hasSuffix ".network" net) (convertToList [
+              filter (net: hasSuffix ".network" net) (normalizeList [
                 "Container"
                 "Network"
               ])
             );
             volumes = map (vol: volumesList.${elemAt (splitString ":" vol) 0}) (
-              filter (vol: hasInfix ".volume" vol) (convertToList [
+              filter (vol: hasInfix ".volume" vol) (normalizeList [
                 "Container"
                 "Volume"
               ])
