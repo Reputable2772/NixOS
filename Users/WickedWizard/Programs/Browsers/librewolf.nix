@@ -1,21 +1,12 @@
 {
-  config,
   config',
   lib,
   ...
 }:
 {
-  programs.librewolf = {
-    enable = true;
-    settings = {
-      "privacy.resistFingerprinting.letterboxing" = true;
-      "network.http.referer.XOriginPolicy" = 2;
-      "privacy.clearOnShutdown.history" = false;
-      "privacy.clearOnShutdown.downloads" = false;
-    };
-  };
+  services.flatpak.packages = [ "io.gitlab.librewolf-community" ];
 
-  home.file.".librewolf/profiles.ini".text = ''
+  home.file.".var/app/io.gitlab.librewolf-community/profiles.ini".text = ''
     [Profile0]
     Name=Default
     IsRelative=0
@@ -26,7 +17,7 @@
     Version=2
   '';
 
-  programs.autostart.packages = [ config.programs.librewolf.package ];
+  programs.autostart.flatpaks = [ "io.gitlab.librewolf-community" ];
 
   wayland.windowManager.hyprland.settings = {
     bind = [
