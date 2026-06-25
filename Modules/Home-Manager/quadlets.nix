@@ -199,6 +199,10 @@ let
     finalConfig
     |> (filterAttrs (qName: qVal: hasAttrByPath [ "Network" "NetworkName" ] qVal))
     |> mapAttrs (netName: netVal: pkgs.writeTextDir netName (lib'.toSystemdUnit netVal));
+  buildsList =
+    finalConfig
+    |> (filterAttrs (qName: qVal: hasAttrByPath [ "Build" "ImageTag" ] qVal))
+    |> (mapAttrs (bName: bVal: pkgs.writeTextDir bName (lib'.toSystemdUnit bVal)));
 in
 {
   options.programs.quadlets = {
@@ -256,14 +260,19 @@ in
                 "Volume"
               ])
             );
+            builds =
+              if ((hasAttrByPath [ "Container" "Image" ] qVal) && hasSuffix ".build" qVal.Container.Image) then
+                buildsList.${qVal.Container.Image}
+              else
+                "";
 
             quadletFile = pkgs.writeTextDir qName (lib'.toSystemdUnit qVal);
           in
           ''
             QUADLET_UNIT_DIRS=${quadletFile}${
               optionalString (networks != [ ]) (":" + (concatStringsSep ":" networks))
-            }${
-              optionalString (volumes != [ ]) (":" + (concatStringsSep ":" volumes))
+            }${optionalString (volumes != [ ]) (":" + (concatStringsSep ":" volumes))}${
+              optionalString (builds != "") (":" + builds)
             } ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
 
             for file in $(find $out -type f -exec realpath --relative-to $out {} \;); do
