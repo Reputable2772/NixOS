@@ -289,16 +289,22 @@ rec {
           env = [
             "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true"
             "N8N_PROTOCOL=https"
-            "N8N_RUNNERS_ENABLED=true"
             "NODE_ENV=production"
             "GENERIC_TIMEZONE=${system.timezone}"
             "TZ=${system.timezone}"
             "N8N_RESTRICT_FILE_ACCESS_TO=/files/"
+            "N8Ns_RUNNERS_MODE=external"
+            "N8N_NATIVE_PYTHON_RUNNER=true"
           ];
           envFiles = [ "n8n" ];
           custom.volumeMounts = [
             "${dir.notes}:/files/obsidian"
           ];
+        };
+        n8n-runner = {
+          dir = null;
+          env = null;
+          envFiles = [ "n8n" ];
         };
         radicale = {
           dir = null;
@@ -363,6 +369,6 @@ rec {
     DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@affine_postgres:5432/${DB_DATABASE}
     Nested environment variables as shown above do not work, so set the value directly.
   wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
-  n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL
+  n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL, N8N_RUNNERS_AUTH_TOKEN
   radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
 */
