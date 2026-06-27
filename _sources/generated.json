@@ -106,7 +106,7 @@
     },
     "nix-fast-build": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-27",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -118,16 +118,16 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "1a6fda534f88e82420cbbaa781b9db9f9fc66c6d",
-            "sha256": "sha256-8iwszBEigYqIU4jIZ8gB31SRLnQ/OBZ5CNiVq/Q3wgY=",
+            "rev": "c632a8b5acec04c929d521cf1d0af5707e11b9e3",
+            "sha256": "sha256-Mwowugw1fYT10OPipRy9Xg7v4juvR/se5flIThpYU8A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1a6fda534f88e82420cbbaa781b9db9f9fc66c6d"
+        "version": "c632a8b5acec04c929d521cf1d0af5707e11b9e3"
     },
     "obs_catppuccin": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-20",
         "extract": null,
         "name": "obs_catppuccin",
         "passthru": null,
@@ -139,12 +139,12 @@
             "name": null,
             "owner": "catppuccin",
             "repo": "obs",
-            "rev": "d70e36b0074d535e82c3e8f09a9fe0db662bc056",
-            "sha256": "sha256-jUXdfXXKjxgN7XDkIqCLWigjcyiwnoZJCF69d9s1PRs=",
+            "rev": "054a297d303a5bac4f1652a13b17d78a13201c0e",
+            "sha256": "sha256-zFg7dgxLIK3K1KpLdEgphH2JpdMwVTovr+oKiAqdLEE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d70e36b0074d535e82c3e8f09a9fe0db662bc056"
+        "version": "054a297d303a5bac4f1652a13b17d78a13201c0e"
     },
     "prismlauncher_catppuccin": {
         "cargoLock": null,
