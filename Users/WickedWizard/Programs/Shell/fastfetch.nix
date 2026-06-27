@@ -11,5 +11,6 @@
     fastfetch
   '';
 
-  xdg.configFile."fastfetch/config.jsonc".source = "${pkgs.fastfetch.src}/presets/examples/7.jsonc";
+  xdg.configFile."fastfetch/config.jsonc".source =
+    "${pkgs.fastfetch-unwrapped.src}/presets/examples/7.jsonc";
 }
