@@ -42,7 +42,6 @@ jobs:
         nix develop .#ci --command bash -euo pipefail <<'OUTER'
         nix-build-all --systems x86_64-linux --override-input flake . --out-link newFlake --cachix-cache spearman4157
         nix-build-all --systems x86_64-linux --override-input flake github:${{ github.repository }} --out-link oldFlake
-        ls
         mv newFlake- newFlake
         mv oldFlake- oldFlake
         OUTER
