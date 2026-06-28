@@ -67,27 +67,27 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "1a6fda534f88e82420cbbaa781b9db9f9fc66c6d";
+    version = "c632a8b5acec04c929d521cf1d0af5707e11b9e3";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "1a6fda534f88e82420cbbaa781b9db9f9fc66c6d";
+      rev = "c632a8b5acec04c929d521cf1d0af5707e11b9e3";
       fetchSubmodules = false;
-      sha256 = "sha256-8iwszBEigYqIU4jIZ8gB31SRLnQ/OBZ5CNiVq/Q3wgY=";
+      sha256 = "sha256-Mwowugw1fYT10OPipRy9Xg7v4juvR/se5flIThpYU8A=";
     };
-    date = "2026-06-18";
+    date = "2026-06-27";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
-    version = "d70e36b0074d535e82c3e8f09a9fe0db662bc056";
+    version = "054a297d303a5bac4f1652a13b17d78a13201c0e";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "obs";
-      rev = "d70e36b0074d535e82c3e8f09a9fe0db662bc056";
+      rev = "054a297d303a5bac4f1652a13b17d78a13201c0e";
       fetchSubmodules = false;
-      sha256 = "sha256-jUXdfXXKjxgN7XDkIqCLWigjcyiwnoZJCF69d9s1PRs=";
+      sha256 = "sha256-zFg7dgxLIK3K1KpLdEgphH2JpdMwVTovr+oKiAqdLEE=";
     };
-    date = "2026-06-18";
+    date = "2026-06-20";
   };
   prismlauncher_catppuccin = {
     pname = "prismlauncher_catppuccin";
