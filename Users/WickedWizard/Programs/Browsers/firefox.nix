@@ -33,7 +33,7 @@ in
     };
   };
 
-  programs.autostart.packages = with pkgs; [ firefox ];
+  # programs.autostart.packages = with pkgs; [ firefox ];
 
   wayland.windowManager.hyprland.settings = {
     bind = [
