@@ -15,6 +15,7 @@
       Network = [
         "systemd-caddy.network"
         "n8n.network"
+        "ollama.network"
       ];
       Environment = [
         "N8N_RUNNERS_ENABLED=true"
