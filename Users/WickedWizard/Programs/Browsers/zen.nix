@@ -9,6 +9,12 @@
         };
   };
 
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "SUPER, V, exec, app.zen_browser.zen"
+    ];
+  };
+
   programs.autostart.flatpaks = [ "app.zen_browser.zen" ];
 
   # Zen, for some reason, requires this file to be writable.
