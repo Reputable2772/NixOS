@@ -2,7 +2,7 @@
 {
   stylix.targets.hyprlock = {
     enable = true;
-    useWallpaper = true;
+    image.enable = true;
   };
 
   programs.hyprlock = {
