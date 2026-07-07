@@ -24,7 +24,7 @@ in
         Network = "podman-socket.network";
         Image = "ghcr.io/linuxserver/socket-proxy:latest";
         Volume = [
-          "$\{XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock:ro:noMap"
+          "\${XDG_RUNTIME_DIR}/podman/podman.sock:/var/run/docker.sock:ro:noMap"
         ];
         Environment = lib.mapAttrsToList (n: v: "${n}=${toString v}") cfg.allowedMethods;
       };

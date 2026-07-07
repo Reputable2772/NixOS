@@ -27,7 +27,7 @@ in
 
     files = mkOption {
       default = [ ];
-      example = literalExpression "\$\{pkgs.gnome.pomodoro\}/share/applications/org.gnome.Pomodoro.desktop";
+      example = literalExpression "\${pkgs.gnome.pomodoro}/share/applications/org.gnome.Pomodoro.desktop";
       type = types.listOf types.path;
       description = lib.mdDoc "Path to the desktop file that needs to be autostarted";
     };

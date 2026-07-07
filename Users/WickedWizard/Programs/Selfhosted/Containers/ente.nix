@@ -35,7 +35,7 @@
       Network = "systemd-caddy.network";
       # We use a double dollar '$$' here to escape the variable for systemd, as given here
       # https://github.com/containers/podman/discussions/25053#discussioncomment-11890600
-      HealthCmd = "pg_isready -d $$\{ENTE_DB_NAME} -U $$\{ENTE_DB_USER}";
+      HealthCmd = "pg_isready -d $\${ENTE_DB_NAME} -U $\${ENTE_DB_USER}";
       HealthStartPeriod = "40s";
       HealthStartupInterval = "1s";
       Notify = "healthy";

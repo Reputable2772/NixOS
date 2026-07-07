@@ -32,7 +32,7 @@ in
         initialize = true;
         backupPrepareCommand = lib.concatStringsSep "\n" cfg.preBackupScript;
         passwordFile =
-          lib.replaceStrings [ "$\{XDG_RUNTIME_DIR}" ] [ "%t" ]
+          lib.replaceStrings [ "\${XDG_RUNTIME_DIR}" ] [ "%t" ]
             config.age.secrets."${config.home.username}-backup".path;
         timerConfig = {
           OnCalendar = "*-*-* 21:00:00";
