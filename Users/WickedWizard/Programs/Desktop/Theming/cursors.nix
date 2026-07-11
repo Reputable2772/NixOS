@@ -9,6 +9,7 @@
     size = 32;
   };
 
+  home.pointerCursor.enable = true;
   # Should be done by stylix itself. danth/stylix#478
   home.pointerCursor.hyprcursor.enable = true;
 
