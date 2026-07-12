@@ -153,7 +153,30 @@
           # Installation hooks need to setup manually in each devshell.
           pre-commit.check.enable = true;
           pre-commit.settings.hooks = {
-            commitizen.enable = true;
+            commitizen = {
+              enable = true;
+              # Fixes commitizen-tools/commitizen#1864
+              # Waiting for NixOS/nixpkgs#539725. Patch taken from there.
+              package = pkgs.commitizen.overrideAttrs (oldAttrs: rec {
+                version = "4.16.4";
+                src = pkgs.fetchFromGitHub {
+                  owner = "commitizen-tools";
+                  repo = "commitizen";
+                  tag = "v${version}";
+                  hash = "sha256-lVc1Kdy/IWRa8uoPZfOSSa379bDDknE3dpm0U7DVv0s=";
+                };
+                postPatch = ''
+                  substituteInPlace pyproject.toml \
+                    --replace-fail "uv_build >= 0.9.17, <0.12" "uv-build"
+                '';
+                makeWrapperArgs = [
+                  "--prefix"
+                  "PATH"
+                  ":"
+                  (lib.makeBinPath [ pkgs.gitMinimal ])
+                ];
+              });
+            };
             nixfmt-rfc-style = {
               enable = true;
               package = pkgs.nixfmt;
