@@ -323,6 +323,45 @@ rec {
       };
     };
     guest = { };
+    selfhosted = rec {
+      home = _home.wickedwizard or "";
+      inherit (system.hp-laptop) secrets;
+      dir.containers = "${home}/Containers";
+      containers = {
+        minecraft = {
+          dir = null;
+          envFiles = null;
+          env = [
+            "EULA=TRUE"
+            "TYPE=FABRIC"
+            "MEMORY=5G"
+            "TZ=Asia/Kolkata"
+            "ONLINE_MODE=FALSE"
+            "ENFORCE_SECURE_PROFILE=FALSE"
+            "VERSION_FROM_MODRINTH_PROJECTS=FALSE"
+            "VERSION=26.1"
+            # fabrictailor,easyauth,ledge have not been released for 26.1
+            "MODRINTH_PROJECTS=fabric-api,fabric-language-kotlin,lithium,ferrite-core"
+            "OPS=wickedwizard3588"
+          ];
+        };
+        ollama = {
+          dir = null;
+          envFiles = null;
+          env = [
+            "GGML_VULKAN=1"
+            "OLLAMA_KEEP_ALIVE=10m"
+            "OLLAMA_IGPU_ENABLE=1"
+            "OLLAMA_LOAD_TIMEOUT=15m"
+          ];
+        };
+        ddns-updater = {
+          dir = null;
+          envFiles = [ "cloudflare-domains" ];
+          env = null;
+        };
+      };
+    };
   };
 
   # All files should be in the same directory as this file.
@@ -357,6 +396,9 @@ rec {
   "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+
+  # HP Laptop Container files
+  "cloudflare-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
 }
 
 /**
@@ -381,4 +423,6 @@ rec {
   wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
   n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL, N8N_RUNNERS_AUTH_TOKEN
   radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
+
+  cloudflare-domains.age - Contains CLOUDFLARE_API_TOKEN, IP6_DOMAINS and PROXIED for cloudflare-ddns updater.
 */
