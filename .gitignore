@@ -7,9 +7,4 @@
 /.pre-commit-config.yaml
 
 # Config folders
-/Config/**/*
-!Config/wallpaper.jpg
-!/Config/mimeapps.list
-!/Config/*.age
-!/Config/config.nix
-!/Config/ludusavi.nix
+Config/SSH
