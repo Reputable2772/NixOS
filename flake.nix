@@ -110,6 +110,35 @@
             ];
           };
 
+          "hp-laptop" = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs;
+              lib' = import ./lib { inherit pkgs; };
+              sources = import ./_sources/generated.nix {
+                inherit (pkgs)
+                  fetchurl
+                  fetchgit
+                  fetchFromGitHub
+                  dockerTools
+                  ;
+              };
+            };
+            modules = [
+              ./Modules/System
+              ./System/Common
+              ./System/HP-Laptop
+              (
+                { config, ... }:
+                {
+                  _module.args.config' = import ./Config/config.nix {
+                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
+                  };
+                }
+              )
+            ];
+          };
+
           "rescue" = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = {

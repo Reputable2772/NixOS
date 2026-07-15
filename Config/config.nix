@@ -57,6 +57,16 @@ rec {
         # };
       };
     };
+
+    hp-laptop = {
+      secrets = {
+        encryption = {
+          pkeyfile = "${flake.dir.config}/SSH/Encryption/HP-Encryption";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9rLYwb+3DofPSPGlif3FvrIb2V/ujfn3u7d/YmfU7s";
+        };
+      };
+    };
+
     rescue = { };
   };
 
@@ -275,7 +285,6 @@ rec {
             "OLLAMA_NUM_GPU=0"
             "OLLAMA_INTEL_GPU=false"
             "OLLAMA_KEEP_ALIVE=10m"
-            "OLLAMA_NUM_CTX=8192"
             "OLLAMA_LOAD_TIMEOUT=15m"
           ];
         };
@@ -323,6 +332,7 @@ rec {
   "wickedwizardPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
   "rootPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
   "guestPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+  "selfhostedPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
 
   # Bitlocker age files
   "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
