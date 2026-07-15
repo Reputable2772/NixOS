@@ -9,5 +9,7 @@
     "io.mpv.Mpv"
     "com.google.Chrome"
     "org.mozilla.firefox"
+    "org.gnome.Papers"
+    "org.libreoffice.LibreOffice"
   ];
 }
