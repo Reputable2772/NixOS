@@ -20,8 +20,6 @@ in
   };
 
   config = {
-    age.secrets."${config.home.username}-backup".file = ../../../../Config/wickedwizard-backup.age;
-
     services.restic = {
       enable = true;
       backups.${config.home.username} = {

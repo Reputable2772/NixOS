@@ -63,9 +63,6 @@ in
 {
   containers.caddy.services.radicale = "radicale:5232";
 
-  # Mounted directly as a file, not an environment variable.
-  age.secrets.radicale.file = ../../../../../Config/radicale.age;
-
   programs.quadlets.quadlets."radicale.container" = {
     Container = {
       Image = "docker.io/tomsquest/docker-radicale";
@@ -95,6 +92,7 @@ in
       Volume = [
         "data:/data"
         "${pkgs.writeText "radicale-config" radicaleConfig}:/config/config:ro:noMap"
+        # Mounted directly as a file, not an environment variable.
         "${config.age.secrets.radicale.path}:${userFilePath}:noMap"
         "${birthdayHookShFile}:${birthdayHookSh}:noMap"
         "${sources.radicale_birthday_hook.src}${birthdayHook}:${birthdayHook}:noMap"

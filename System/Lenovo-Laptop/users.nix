@@ -14,10 +14,6 @@
   # Shell autocomplete for HM's ZSH.
   environment.pathsToLink = [ "/share/zsh" ];
 
-  age.secrets.wickedwizardPassword.file = ../../Config/wickedwizardPassword.age;
-  age.secrets.rootPassword.file = ../../Config/rootPassword.age;
-  age.secrets.guestPassword.file = ../../Config/guestPassword.age;
-
   users.mutableUsers = false;
   users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
   users.users.wickedwizard = {

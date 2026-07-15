@@ -8,10 +8,6 @@
   ...
 }:
 {
-  age.secrets.selfhostedPassword.file = ../../Config/selfhostedPassword.age;
-  age.secrets.rootPassword.file = ../../Config/rootPassword.age;
-  age.secrets.guestPassword.file = ../../Config/guestPassword.age;
-
   users.mutableUsers = false;
   users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
   users.users.selfhosted = {

@@ -1,4 +1,7 @@
-{
+{ config', lib, ... }: {
+  programs.quadlets.enable =
+    config'.dir ? containers && lib.strings.typeOf config'.dir.containers == "string";
+
   imports = [
     # ./baikal.nix
     ./caddy.nix
@@ -9,7 +12,6 @@
     ./ollama.nix
     ./podman-socket-proxy.nix
     ./radicale.nix
-    ./secrets-loader.nix
     ./syncthing.nix
     ./vaultwarden.nix
     ./wud.nix

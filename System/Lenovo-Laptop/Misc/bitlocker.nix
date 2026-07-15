@@ -7,7 +7,6 @@
 }:
 let
   inherit (lib.attrsets)
-    mapAttrs
     mapAttrs'
     nameValuePair
     ;
@@ -22,12 +21,6 @@ let
     ) cond;
 in
 {
-  age.secrets = onlyIf (
-    mapAttrs (n: v: {
-      file = ./. + "../../../../Config/${n}.age";
-    }) config'.system.${config.networking.hostName}.mounts.bitlocker
-  );
-
   systemd.services = onlyIf (
     mapAttrs' (
       n: v:

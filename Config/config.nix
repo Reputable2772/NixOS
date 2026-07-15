@@ -383,7 +383,10 @@ rec {
   "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # Rclone config file
-  "rclone.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "rclone.age" = {
+    publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+    dontLoad = true;
+  };
 
   # Container files
   "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];

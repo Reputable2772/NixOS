@@ -7,7 +7,6 @@
 }:
 let
   inherit (config'.containers.backup)
-    pwdFile
     blacklistedContainers
     blacklistedPaths
     location
@@ -57,8 +56,6 @@ let
   ) config.programs.quadlets.finalQuadlets;
 in
 {
-  age.secrets.containers-backup-pwd.file = ./. + "../../../../../Config/${pwdFile}.age";
-
   services.restic = {
     enable = true;
     backups.containers = {

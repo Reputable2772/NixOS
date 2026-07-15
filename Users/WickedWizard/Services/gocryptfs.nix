@@ -12,13 +12,6 @@ in
 {
   home.packages = lib.optionals enabled [ pkgs.gocryptfs ];
 
-  age.secrets = lib.mkIf enabled (
-    lib.mapAttrs' (n: _: {
-      name = n;
-      value.file = ./. + "../../../../Config/${n}.age";
-    }) (lib.filterAttrs (_: v: v.authentication or false) cfg)
-  );
-
   systemd.user.services = lib.mkIf enabled (
     lib.mapAttrs' (n: v: {
       name = "gocryptfs-${n}";

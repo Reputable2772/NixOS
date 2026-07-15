@@ -10,7 +10,6 @@
     ./Services
 
     ./flatpak.nix
-    ./secrets.nix
   ];
 
   programs.mimeApps.enable = true;
