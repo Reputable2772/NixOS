@@ -22,7 +22,11 @@ let
   inherit (lib.strings) removeSuffix;
 
   ageFiles =
-    attrNames config' |> filter (v: config'.${v} ? publicKeys) |> (x: genAttrs x (v: config'.${v}));
+    attrNames config'
+    |> filter (
+      v: config'.${v} ? publicKeys && !(config'.${v} ? dontLoad && config'.${v}.dontLoad == true)
+    )
+    |> (x: genAttrs x (v: config'.${v}));
 
   systemPublicKeys =
     config'.system.${config.networking.hostName}.secrets
@@ -73,11 +77,18 @@ in
                 ];
               in
               {
-                age.identityPaths = lib.pipe (config'.secrets or { }) [
-                  (filterAttrs (n: v: v ? pkeyfile && v.pkeyfile != null))
-                  (mapAttrs (_: v: v.pkeyfile))
-                  attrValues
-                ];
+                age.identityPaths =
+                  lib.pipe (config'.secrets or { }) [
+                    (filterAttrs (n: v: v ? pkeyfile && v.pkeyfile != null))
+                    (mapAttrs (_: v: v.pkeyfile))
+                    attrValues
+                  ]
+                  ++
+                  # Some users don't actually need agenix setup, but since this module
+                  # does it anyway, that's an issue.
+                  # age.identityPaths can never be empty. To fix that, well, we have
+                  # this beauty right here.
+                  [ "/some/random/trash/path" ];
 
                 age.secrets = lib.pipe ageFiles [
                   (filterAttrs (n: v: (intersectLists v.publicKeys publicKeys) != [ ]))
