@@ -28,8 +28,10 @@ let
     )
     |> (x: genAttrs x (v: config'.${v}));
 
+  secrets = config'.system.${config.networking.hostName}.secrets or { };
+
   systemPublicKeys =
-    config'.system.${config.networking.hostName}.secrets
+    secrets
     |> (filterAttrs (n: v: v ? key && v.key != null))
     |> mapAttrs (n: v: v.key)
     |> attrValues;
@@ -44,7 +46,7 @@ in
   config = mkMerge [
     {
       # SSH private keys for the system side.
-      age.identityPaths = lib.pipe config'.system.${config.networking.hostName}.secrets [
+      age.identityPaths = lib.pipe secrets [
         (filterAttrs (n: v: v ? pkeyfile && v.pkeyfile != null))
         (mapAttrs (_: v: v.pkeyfile))
         attrValues
@@ -70,25 +72,20 @@ in
 
             config =
               let
-                publicKeys = lib.pipe (config'.secrets or { }) [
+                userSecrets = config'.secrets or { };
+
+                publicKeys = lib.pipe userSecrets [
                   (filterAttrs (n: v: v ? key && v.key != null))
                   (mapAttrs (_: v: v.key))
                   attrValues
                 ];
               in
               {
-                age.identityPaths =
-                  lib.pipe (config'.secrets or { }) [
-                    (filterAttrs (n: v: v ? pkeyfile && v.pkeyfile != null))
-                    (mapAttrs (_: v: v.pkeyfile))
-                    attrValues
-                  ]
-                  ++
-                  # Some users don't actually need agenix setup, but since this module
-                  # does it anyway, that's an issue.
-                  # age.identityPaths can never be empty. To fix that, well, we have
-                  # this beauty right here.
-                  [ "/some/random/trash/path" ];
+                age.identityPaths = lib.pipe userSecrets [
+                  (filterAttrs (n: v: v ? pkeyfile && v.pkeyfile != null))
+                  (mapAttrs (_: v: v.pkeyfile))
+                  attrValues
+                ];
 
                 age.secrets = lib.pipe ageFiles [
                   (filterAttrs (n: v: (intersectLists v.publicKeys publicKeys) != [ ]))
