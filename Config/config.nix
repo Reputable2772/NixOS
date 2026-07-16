@@ -369,8 +369,14 @@ rec {
   # Agenix config
   # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
   "wickedwizardPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-  "rootPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-  "guestPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+  "rootPassword.age".publicKeys = [
+    system.lenovo-laptop.secrets.encryption.key
+    system.hp-laptop.secrets.encryption.key
+  ];
+  "guestPassword.age".publicKeys = [
+    system.lenovo-laptop.secrets.encryption.key
+    system.hp-laptop.secrets.encryption.key
+  ];
   "selfhostedPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
 
   # Bitlocker age files
