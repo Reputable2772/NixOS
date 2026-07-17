@@ -395,6 +395,7 @@ rec {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
     dontLoad = true;
   };
+  "cachix.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # Container files
   "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
@@ -415,12 +416,16 @@ rec {
 /**
   wickedwizardPassword.age - Contains the password for user wickedwizard in hashed form.
   rootPassword.age - Contains the password for user root in hashed form.
+  selfhostedPassword.age - Contains the password for user selfhosted in hashed form.
+  hp-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
 
   windows.age - Contains the Bitlocker recovery key.
 
   wickedwizard-backup.age - Contains the password for restic backup repository.
 
   important-files.age - Contains the password for Gocryptfs mount.
+  rclone.age - Contains the rclone.conf file, as-is.
+  cachix.age - Contains CACHIX_AUTH_TOKEN= (for cache) and CACHIX_DEPLOY_TOKEN= (for deployment)
 
   domains.age - Contains DOMAIN and EXTERNAL_DOMAIN and their respective DuckDNS and Cloudflare tokens. (Legacy behaviour, both should be merged into one soon).
   email.age - Contains your email for Caddy, Let's Encrypt
