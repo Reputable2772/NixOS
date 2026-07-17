@@ -39,7 +39,7 @@ rec {
           deployment tools like cachix-deploy, colmena, etc.
         */
         encryption = {
-          pkeyfile = "${flake.dir.config}/SSH/Encryption/Encryption";
+          pkeyfile = "/etc/ssh/Lenovo-Encryption";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@lenovo-laptop";
         };
       };
@@ -61,7 +61,7 @@ rec {
     hp-laptop = {
       secrets = {
         encryption = {
-          pkeyfile = "${flake.dir.config}/SSH/Encryption/HP-Encryption";
+          pkeyfile = "/etc/ssh/HP-Encryption";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9rLYwb+3DofPSPGlif3FvrIb2V/ujfn3u7d/YmfU7s";
         };
       };

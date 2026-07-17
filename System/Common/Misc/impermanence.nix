@@ -16,6 +16,7 @@
       "/var/lib/sbctl"
       "/var/lib/upower"
       "/var/lib/fprint"
+      "/etc/ssh"
     ];
     files = [
       "/etc/machine-id"
