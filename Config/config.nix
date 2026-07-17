@@ -379,6 +379,7 @@ rec {
     system.hp-laptop.secrets.encryption.key
   ];
   "selfhostedPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
 
   # Bitlocker age files
   "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
