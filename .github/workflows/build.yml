@@ -40,4 +40,4 @@ jobs:
     - name: Build & push all outputs
       run: |
         nix develop .#ci --command bash -c "nix-build-all --systems x86_64-linux --override-input flake . --out-link flake --cachix-cache spearman4157"
-
+        cat flake
