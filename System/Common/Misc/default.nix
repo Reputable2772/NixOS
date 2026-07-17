@@ -3,7 +3,6 @@
     ./appimage.nix
     ./environment.nix
     ./fhsenv.nix
-    ./impermanence.nix
     ./misc.nix
     ./nh.nix
     ./nix.nix
