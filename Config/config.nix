@@ -39,7 +39,8 @@ rec {
           deployment tools like cachix-deploy, colmena, etc.
         */
         encryption = {
-          pkeyfile = "/etc/ssh/Lenovo-Encryption";
+          # /persist because of impermanence nix-community/impermanence#301
+          pkeyfile = "/persist/etc/ssh/Lenovo-Encryption";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@lenovo-laptop";
         };
       };
