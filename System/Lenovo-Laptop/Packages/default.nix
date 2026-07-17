@@ -2,7 +2,6 @@
   imports = [
     ./adb.nix
     ./cosmic.nix
-    ./flatpak.nix
     ./gamemode.nix
     ./gnome.nix
     # ./gnome-specialisation.nix
