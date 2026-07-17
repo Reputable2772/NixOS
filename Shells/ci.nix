@@ -17,6 +17,7 @@
         name = "nix-build-all";
         text = ''
           nix-fast-build \
+            --nix-eval-jobs ${pkgs.lixPackageSets.latest.nix-eval-jobs}/bin/nix-eval-jobs \
             --flake ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
             --no-nom \
             "$@"
