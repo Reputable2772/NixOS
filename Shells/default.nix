@@ -116,5 +116,16 @@
       name = "repl";
       command = "nixos-rebuild --flake . repl";
     }
+    {
+      help = "Build all outputs of the flake.";
+      name = "build-all-outputs";
+      command = ''
+        nix build \
+          ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
+          --override-input flake ${inputs.self} \
+          --override-input nixpkgs ${inputs.nixpkgs}
+      '';
+      category = "Development";
+    }
   ];
 }
