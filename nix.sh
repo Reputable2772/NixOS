@@ -86,6 +86,13 @@ first_time_setup() {
 	echo "Setup completed."
 }
 
+find_blockers() {
+	find . \
+		-path '*/.*' -prune -o \
+		-type f \
+		-exec grep -nHE '[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+' {} + | sed -E 's|([A-Za-z0-9._-]+/[A-Za-z0-9._-]+)#([0-9]+)|https://github.com/\1/issues/\2|g'
+}
+
 case $1 in
 	"ci")
 		ci;;
