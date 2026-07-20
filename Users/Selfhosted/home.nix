@@ -2,6 +2,7 @@
   programs.home-manager.enable = true;
 
   programs.quadlets = {
+    enable = true;
     quadlets = {
       "minecraft.container" = {
         Container = {
