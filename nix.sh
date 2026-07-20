@@ -2,22 +2,6 @@
 
 set -e
 
-ci() {
-	ci_increase_storage
-
-	# Inherited from devenv's ci shell.
-	check
-
-	# nix-fast-build uses its own version of Nix, and doesn't use Lix.
-	nix-fast-build --debug --no-nom --out-link lenovo-laptop --flake .#nixosConfigurations.lenovo-laptop.config.system.build.toplevel
-
-	# The variable `attr` is not checked for nullish values
-	# https://github.com/Mic92/nix-fast-build/blob/f024a66e6a1f83de95aba109287a97dd6ca76127/nix_fast_build/__init__.py#L605
-	mv lenovo-laptop- lenovo-laptop
-
-	echo $(realpath lenovo-laptop) | cachix push spearman4157
-}
-
 ci_get() {
 	case $1 in
 		"trusted-substituters")
