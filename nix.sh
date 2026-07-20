@@ -13,19 +13,6 @@ ci_get() {
 	esac
 }
 
-ci_increase_storage() {
-	# large docker images
-    sudo docker image prune --all --force
-
-	# large packages
-	sudo apt-get purge -y '^llvm-.*' 'php.*' '^mongodb-.*' '^mysql-.*' azure-cli google-cloud-cli google-chrome-stable firefox powershell microsoft-edge-stable
-    sudo apt-get autoremove -y
-    sudo apt-get clean
-
-	# large folders
-    sudo rm -rf /var/lib/apt/lists/* /opt/hostedtoolcache /usr/local/games /usr/local/sqlpackage /usr/local/.ghcup /usr/local/share/powershell /usr/local/share/edge_driver /usr/local/share/gecko_driver /usr/local/share/chromium /usr/local/share/chromedriver-linux64 /usr/local/share/vcpkg /usr/local/lib/python* /usr/local/lib/node_modules /usr/local/julia* /opt/mssql-tools /etc/skel /usr/share/vim /usr/share/postgresql /usr/share/man /usr/share/apache-maven-* /usr/share/R /usr/share/alsa /usr/share/miniconda /usr/share/grub /usr/share/gradle-* /usr/share/locale /usr/share/texinfo /usr/share/kotlinc /usr/share/swift /usr/share/doc /usr/share/az_9.3.0 /usr/share/sbt /usr/share/ri /usr/share/icons /usr/share/java /usr/share/fonts /usr/lib/google-cloud-sdk /usr/lib/jvm /usr/lib/mono /usr/lib/R /usr/lib/postgresql /usr/lib/heroku /usr/lib/gcc /usr/share/dotnet /opt/ghc "/usr/local/share/boost" "$AGENT_TOOLSDIRECTORY"
-}
-
 dconf_nix() {
 	echo "Dumping."
 	dconf dump / | tee wickedwizard.dconf
@@ -83,8 +70,6 @@ case $1 in
 	# Meant for CI to get trusted-public-keys or trusted-substituters
 	"ci_get")
 		ci_get $2;;
-	"ci_increase_storage")
-		ci_increase_storage;;
 	"dconf")
 		dconf_nix;;
 	"first-time-setup")

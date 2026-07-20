@@ -14,6 +14,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Free Disk Space
+      uses: insightsengineering/disk-space-reclaimer@v1
+      with:
+        swap-storage: false
+
     - name: Substituters
       id: substituters
       run: |
@@ -28,9 +33,6 @@ jobs:
           substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
           experimental-features = flakes nix-command pipe-operator
           accept-flake-config = true
-
-    - name: "Free up Space"
-      run: ./nix.sh ci_increase_storage
 
     - name: Build & push all outputs
       env:
