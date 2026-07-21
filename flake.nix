@@ -65,6 +65,7 @@
       flake-parts,
       git-hooks,
       systems,
+      self,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -178,6 +179,16 @@
               fd "$@" -t f -e nix -x nixfmt '{}'
             '';
           };
+
+          packages.deploy = pkgs.writeText "deploy.json" (
+            builtins.toJSON {
+              agents = (
+                lib.mapAttrs (n: v: v.config.system.build.toplevel) (
+                  lib.filterAttrs (n: v: v.config.services.cachix-agent.enable) self.nixosConfigurations
+                )
+              );
+            }
+          );
 
           # Installation hooks need to setup manually in each devshell.
           pre-commit.check.enable = true;
