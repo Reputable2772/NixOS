@@ -9,12 +9,21 @@
     # Data recovery
     testdisk
     ddrescue
+    smartmontools
+    cryptsetup
 
     gparted
+
+    # Hardware/boot triage
+    efibootmgr
+    pciutils
+    usbutils
 
     # Utilities
     coreutils
     util-linux
+    rsync
+    tmux
 
     firefox
     nano

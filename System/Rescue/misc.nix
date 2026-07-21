@@ -11,4 +11,13 @@
   services.gnome.gnome-online-accounts.enable = lib.mkForce false;
   services.gnome.localsearch.enable = lib.mkForce false;
   services.gnome.tinysparql.enable = lib.mkForce false;
+  services.gnome.gnome-remote-desktop.enable = lib.mkForce false;
+  services.gnome.gnome-initial-setup.enable = lib.mkForce false;
+
+  zramSwap.enable = true;
+
+  services.timesyncd.enable = true;
+
+  documentation.man.enable = true;
+  documentation.nixos.enable = true;
 }
