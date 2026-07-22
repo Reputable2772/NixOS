@@ -8,7 +8,7 @@
   ...
 }:
 {
-  users.mutableUsers = false;
+  users.mutableUsers = true;
   users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
   users.users.selfhosted = {
     isNormalUser = true;
@@ -32,17 +32,18 @@
     linger = true;
   };
 
-  users.users.guest = {
+  users.users.vishnu = {
     isNormalUser = true;
     home = "/home/guest";
-    description = "Guest";
+    description = "Vishnu";
     extraGroups = [
       "input"
       "video"
       "render"
       "networkmanager"
     ];
-    hashedPasswordFile = config.age.secrets.guestPassword.path;
+    initialHashedPassword = "$y$j9T$T.1e5vo2lNood2mmpYVp8.$71pkBSAtLxcrN7qDsSuvB.40pmc7nC1tO0CrvL402xC";
+    # hashedPasswordFile = config.age.secrets.guestPassword.path;
   };
 
   home-manager = {
@@ -63,7 +64,7 @@
         ];
       };
 
-      guest = {
+      vishnu = {
         imports = [
           ../../Users/Guest/home.nix
           {
