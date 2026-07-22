@@ -1,8 +1,8 @@
 {
   imports = [
     ./cachix-agent.nix
-    ./fscrypt.nix
     ./gnome.nix
+    ./gocryptfs.nix
     ./hardware-configuration.nix
     ./lanzaboote.nix
     ./networking.nix
