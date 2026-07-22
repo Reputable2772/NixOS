@@ -5,6 +5,7 @@
     enable = true;
     quadlets = {
       "minecraft.container" = {
+        __options.networkNameAlias = false;
         Container = {
           ContainerName = "minecraft";
           Image = "docker.io/itzg/minecraft-server";
@@ -18,6 +19,7 @@
       };
 
       "ollama.container" = {
+        __options.networkNameAlias = false;
         Container = {
           ContainerName = "ollama";
           GroupAdd = "keep-groups";
@@ -35,6 +37,7 @@
       };
 
       "ddns-updater.container" = {
+        __options.networkNameAlias = false;
         Container = {
           ContainerName = "ddns-updater";
           Image = "docker.io/favonia/cloudflare-ddns:latest";

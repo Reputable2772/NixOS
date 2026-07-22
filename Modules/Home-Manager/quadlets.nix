@@ -70,6 +70,7 @@ let
     appendEnv = true;
     appendEnvFiles = true;
     unitDefaults = true;
+    networkNameAlias = true;
     # Opt out either with this flag, or by setting :noMap at the end of a specific volume
     mapVolumes = true;
   };
@@ -99,7 +100,7 @@ let
   };
 
   unitDefaults =
-    qVal:
+    qVal: qOpts:
     {
       Install.WantedBy = [ "default.target" ];
       Service = {
@@ -109,7 +110,7 @@ let
       };
     }
     // optionalAttrs (isContainer qVal) {
-      Container.PodmanArgs = "--network-alias ${qVal.Container.ContainerName} --user 0:0";
+      Container.PodmanArgs = "${lib.optionalString qOpts.networkNameAlias "--network-alias ${qVal.Container.ContainerName}"} --user 0:0";
     };
 
   mkdirOp = qVal: {
@@ -158,6 +159,14 @@ let
       # Merge container & default options.
       quadletOptions = defaultOptions // (qVal.__options or { });
 
+      /**
+        Ideal Preprocessing ordering -
+        unitDefaults -> appendEnv -> appendEnvFiles -> mapVolumes (special) -> mkdirOp
+
+        Current ordering
+        mapVolumes (special) -> unitDefaults -> mkdirOp -> appendEnv -> appendEnvFiles
+      */
+
       # Map only volumes separately, since volumes have to be overwritten entirely,
       # rather than be merged.
       mappedVolumes =
@@ -178,7 +187,9 @@ let
           qVal;
       preProcess = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes (
         [
-          (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f))
+          # Temp fix for hp-laptop not using bridge networking.
+          # TODO: Write a better pre-processing script later.
+          (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f quadletOptions))
         ]
         ++ (lib.optionals (isContainer qVal) [
           (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
