@@ -59,13 +59,14 @@ rec {
       };
     };
 
-    hp-laptop = {
+    hp-laptop = rec {
       secrets = {
         encryption = {
           pkeyfile = "/etc/ssh/HP-Encryption";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9rLYwb+3DofPSPGlif3FvrIb2V/ujfn3u7d/YmfU7s";
         };
       };
+      openssh = secrets.encryption;
     };
 
     rescue = { };

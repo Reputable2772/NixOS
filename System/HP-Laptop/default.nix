@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ./lanzaboote.nix
     ./networking.nix
+    ./openssh.nix
     ./users.nix
   ];
 }
