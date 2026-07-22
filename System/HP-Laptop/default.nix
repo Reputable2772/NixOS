@@ -8,5 +8,6 @@
     ./networking.nix
     ./openssh.nix
     ./users.nix
+    ./virtualisation.nix
   ];
 }
