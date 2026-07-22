@@ -14,6 +14,6 @@
       '';
     in
     [
-      "<volume user=\"vishnu\" fstype=\"fuse\" path=\"${gocryptfsWrapper}#/home/.vishnu-cipher\" mountpoint=\"/home/vishnu\" options=\"allow_other,quiet,noprealloc\" />"
+      "<volume user=\"vishnu\" fstype=\"fuse\" path=\"${gocryptfsWrapper}#/home/.vishnu-cipher\" mountpoint=\"/home/vishnu\" options=\"allow_other,quiet,noprealloc,nodev,nosuid\" />"
     ];
 }
