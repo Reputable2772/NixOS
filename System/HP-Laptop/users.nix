@@ -35,7 +35,7 @@
 
   users.users.vishnu = {
     isNormalUser = true;
-    home = "/home/guest";
+    home = "/home/vishnu";
     description = "Vishnu";
     extraGroups = [
       "input"
