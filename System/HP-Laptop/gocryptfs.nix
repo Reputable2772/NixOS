@@ -6,6 +6,6 @@
 
   security.pam.mount.enable = true;
   security.pam.mount.extraVolumes = [
-    ""
+    "<volume user=\"vishnu\" fstype=\"fuse\" path=\"${pkgs.gocryptfs}/bin/gocryptfs#/home/.vishnu-cipher\" mountpoint=\"/home/vishnu\" options=\"allow_other,quiet,noprealloc\" />"
   ];
 }
