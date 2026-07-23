@@ -326,7 +326,7 @@ rec {
     };
     guest = { };
     selfhosted = rec {
-      home = _home.wickedwizard or "";
+      home = _home.selfhosted or "";
       inherit (system.hp-laptop) secrets;
       dir.containers = "${home}/Containers";
       containers = {
