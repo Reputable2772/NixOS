@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     foot
+    tmux
   ];
 
   services.flatpak.packages = [
