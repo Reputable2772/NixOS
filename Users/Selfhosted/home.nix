@@ -4,19 +4,19 @@
   programs.quadlets = {
     enable = true;
     quadlets = {
-      "minecraft.container" = {
-        __options.networkNameAlias = false;
-        Container = {
-          ContainerName = "minecraft";
-          Image = "docker.io/itzg/minecraft-server";
-          PublishPort = [
-            "12365:25565"
-          ];
-          Volume = [
-            "data:/data"
-          ];
-        };
-      };
+      # "minecraft.container" = {
+      #   __options.networkNameAlias = false;
+      #   Container = {
+      #     ContainerName = "minecraft";
+      #     Image = "docker.io/itzg/minecraft-server";
+      #     PublishPort = [
+      #       "12365:25565"
+      #     ];
+      #     Volume = [
+      #       "data:/data"
+      #     ];
+      #   };
+      # };
 
       "ollama.container" = {
         __options.networkNameAlias = false;
