@@ -69,6 +69,16 @@ rec {
       openssh = secrets.encryption;
     };
 
+    oracle-server = rec {
+      secrets = {
+        encryption = {
+          pkeyfile = "/etc/ssh/Oracle-Encryption";
+          key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM= wickedwizard@lenovo-laptop";
+        };
+      };
+      openssh = secrets.encryption;
+    };
+
     rescue = { };
   };
 
@@ -374,13 +384,18 @@ rec {
   "rootPassword.age".publicKeys = [
     system.lenovo-laptop.secrets.encryption.key
     system.hp-laptop.secrets.encryption.key
+    system.oracle-server.secrets.encryption.key
   ];
   "guestPassword.age".publicKeys = [
     system.lenovo-laptop.secrets.encryption.key
     system.hp-laptop.secrets.encryption.key
   ];
-  "selfhostedPassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "selfhostedPassword.age".publicKeys = [
+    system.hp-laptop.secrets.encryption.key
+    system.oracle-server.secrets.encryption.key
+  ];
   "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+  "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
 
   # Bitlocker age files
   "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
@@ -419,6 +434,7 @@ rec {
   rootPassword.age - Contains the password for user root in hashed form.
   selfhostedPassword.age - Contains the password for user selfhosted in hashed form.
   hp-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
+  oracle-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
 
   windows.age - Contains the Bitlocker recovery key.
 

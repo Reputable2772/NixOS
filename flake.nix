@@ -80,6 +80,8 @@
         let
           system = "x86_64-linux";
           pkgs = nixpkgs.legacyPackages.${system};
+          armSystem = "aarch64-linux";
+          armPkgs = nixpkgs.legacyPackages.${armSystem};
         in
         {
           "lenovo-laptop" = nixpkgs.lib.nixosSystem {
@@ -129,6 +131,35 @@
               ./Modules/System
               ./System/Common
               ./System/HP-Laptop
+              (
+                { config, ... }:
+                {
+                  _module.args.config' = import ./Config/config.nix {
+                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
+                  };
+                }
+              )
+            ];
+          };
+
+          "oracle-server" = nixpkgs.lib.nixosSystem {
+            system = armSystem;
+            specialArgs = {
+              inherit inputs;
+              lib' = import ./lib { pkgs = armPkgs; };
+              sources = import ./_sources/generated.nix {
+                inherit (armPkgs)
+                  fetchurl
+                  fetchgit
+                  fetchFromGitHub
+                  dockerTools
+                  ;
+              };
+            };
+            modules = [
+              ./Modules/System
+              ./System/Common
+              ./System/Oracle
               (
                 { config, ... }:
                 {
