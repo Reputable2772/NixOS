@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  environment.systemPackages = [ pkgs.steam-run-free ];
+  # steam-run-free cannot run on arm systems (oracle-server)
+  environment.systemPackages = lib.optional pkgs.stdenv.isx86_64 pkgs.steam-run-free;
 }
