@@ -1,6 +1,7 @@
 {
   imports = [
     ./cachix-agent.nix
+    ./flatpak.nix
     ./gnome.nix
     ./gocryptfs.nix
     ./hardware-configuration.nix
