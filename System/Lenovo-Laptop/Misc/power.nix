@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -8,9 +7,7 @@
   services.power-profiles-daemon.enable = lib.mkForce (!config.programs.hyprland.enable);
   powerManagement.powertop.enable = true;
   services.tlp.enable = config.programs.hyprland.enable;
-  environment.systemPackages = lib.optional config.services.tlp.enable (
-    pkgs.callPackage ../../../Packages/tlpui.nix { }
-  );
+
   services.tlp.settings = {
     TLP_ENABLE = "1";
     TLP_WARN_LEVEL = "3";
