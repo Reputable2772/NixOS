@@ -122,7 +122,7 @@
       command = ''
         nix build \
           ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
-          --override-input flake ${inputs.self} \
+          --override-input flake . \
           --override-input nixpkgs ${inputs.nixpkgs}
       '';
       category = "Development";
