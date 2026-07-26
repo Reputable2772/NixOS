@@ -1,6 +1,11 @@
 {
   programs.home-manager.enable = true;
 
+  imports = [
+    ./bottom.nix
+    ./tmux.nix
+  ];
+
   programs.quadlets = {
     enable = true;
     quadlets = {
