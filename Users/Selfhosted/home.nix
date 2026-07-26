@@ -6,6 +6,8 @@
     ./tmux.nix
   ];
 
+  system-config.firewall.allowedTCPPorts = [ 11434 ];
+
   programs.quadlets = {
     enable = true;
     quadlets = {

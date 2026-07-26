@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
   networking = {
-    firewall = {
+    firewall = config.hm-config.firewall // {
       enable = true;
       logRefusedPackets = true;
     };
