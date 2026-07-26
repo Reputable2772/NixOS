@@ -25,7 +25,8 @@ let
 in
 {
   programs.hyprpanel = {
-    enable = config.wayland.windowManager.hyprland.enable;
+    enable = false;
+    # enable = config.wayland.windowManager.hyprland.enable;
     settings.layout = {
       "bar.layouts" = {
         "*" = {
