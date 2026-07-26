@@ -8,7 +8,13 @@ on:
 
 jobs:
   provide-data:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+
+    runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout"
       uses: actions/checkout@v4
@@ -41,8 +47,8 @@ jobs:
         CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       run: |
         nix develop .#ci --command bash -euo pipefail <<'OUTER'
-        nix-build-all --systems x86_64-linux --override-input flake . --out-link newFlake --cachix-cache spearman4157
-        nix-build-all --systems x86_64-linux --override-input flake github:${{ github.repository }} --out-link oldFlake
+        nix-build-all --systems $(uname -m)-linux --override-input flake . --out-link newFlake --cachix-cache spearman4157
+        nix-build-all --systems $(uname -m)-linux --override-input flake github:${{ github.repository }} --out-link oldFlake
         mv newFlake- newFlake
         mv oldFlake- oldFlake
         OUTER
@@ -50,6 +56,7 @@ jobs:
     - name: "Diff Profile Closures"
       id: profile-diff
       run: |
+        echo "Arch: \`$(uname -m)-linux\`" >> comment.txt
         echo "Profile diff:" >> comment.txt
         echo "\`\`\`" >> comment.txt
         nix store diff-closures ./oldFlake ./newFlake 2>&1 | tee -a comment.txt

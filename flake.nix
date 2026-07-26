@@ -215,7 +215,11 @@
             builtins.toJSON {
               agents = (
                 lib.mapAttrs (n: v: v.config.system.build.toplevel) (
-                  lib.filterAttrs (n: v: v.config.services.cachix-agent.enable) self.nixosConfigurations
+                  lib.filterAttrs (n: v: v.config.services.cachix-agent.enable) (
+                    lib.filterAttrs (
+                      n: v: v.pkgs.stdenv.hostPlatform.system == pkgs.stdenv.hostPlatform.system
+                    ) self.nixosConfigurations
+                  )
                 )
               );
             }

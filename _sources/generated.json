@@ -43,7 +43,7 @@
     },
     "eza_themes": {
         "cargoLock": null,
-        "date": "2026-03-04",
+        "date": "2026-07-19",
         "extract": null,
         "name": "eza_themes",
         "passthru": null,
@@ -55,12 +55,12 @@
             "name": null,
             "owner": "eza-community",
             "repo": "eza-themes",
-            "rev": "add4c72c546992b8db674d6d3eea315bf2111b9a",
-            "sha256": "sha256-toqj3bv2kCC2FHbGfeFpS3g9DoxQeZ7cwPYVpD8cfgg=",
+            "rev": "21184b55bfe34e8473c8160f9de0c03e4f76857f",
+            "sha256": "sha256-53J0plgB+d6b4LzSwrCezmIhfVm7WZrKMA1ORGdUtQU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "add4c72c546992b8db674d6d3eea315bf2111b9a"
+        "version": "21184b55bfe34e8473c8160f9de0c03e4f76857f"
     },
     "firefox-gnome-theme": {
         "cargoLock": null,
@@ -106,7 +106,7 @@
     },
     "nix-fast-build": {
         "cargoLock": null,
-        "date": "2026-07-05",
+        "date": "2026-07-19",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -118,12 +118,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "561be51b96d376c9c6c49a063cfdc83af81f4929",
-            "sha256": "sha256-9Fs2vjIdTaQQYPUsvU99X5f9cl8qkzT1dUgIC4A8A1M=",
+            "rev": "fff0af6d694ac24fea0995297959a63bb5ef74b4",
+            "sha256": "sha256-M2WwpS98MKC3EBWTTic4X6OUNjVQ866/AHZ7GYakSZQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "561be51b96d376c9c6c49a063cfdc83af81f4929"
+        "version": "fff0af6d694ac24fea0995297959a63bb5ef74b4"
     },
     "obs_catppuccin": {
         "cargoLock": null,

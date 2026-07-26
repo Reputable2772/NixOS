@@ -246,7 +246,6 @@ let
   '';
 in
 {
-
   programs.waybar = {
     enable = config.wayland.windowManager.hyprland.enable && !config.programs.hyprpanel.enable;
     settings = {
@@ -254,7 +253,7 @@ in
     };
     style = waybar_css;
 
-    # Fixes https://github.com/nix-community/home-manager/issues/3599
+    # Fixes nix-community/home-manager#3599
     systemd.enable = false;
   };
 }
