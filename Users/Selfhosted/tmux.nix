@@ -1,6 +1,8 @@
 { pkgs, ... }: {
   programs.tmux = {
     enable = true;
+    # NixOS/nixpkgs#546302
+    package = pkgs.tmux.override { withSystemd = false; };
     plugins = [
       {
         plugin = pkgs.tmuxPlugins.sysstat;
