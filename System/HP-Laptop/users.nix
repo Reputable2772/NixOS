@@ -57,10 +57,10 @@
     users = {
       selfhosted = {
         imports = [
-          ../../Users/Selfhosted/home.nix
+          ../../Users/Maintenance/home.nix
           {
             home.stateVersion = "26.05";
-            _module.args.config' = config'.users.selfhosted;
+            _module.args.config' = config'.users.maintenance;
           }
         ];
       };

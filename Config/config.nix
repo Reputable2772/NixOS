@@ -335,8 +335,8 @@ rec {
       };
     };
     guest = { };
-    selfhosted = rec {
-      home = _home.selfhosted or "";
+    maintenance = rec {
+      home = _home.maintenance or "";
       inherit (system.hp-laptop) secrets;
       dir.containers = "${home}/Containers";
       containers = {
@@ -357,20 +357,27 @@ rec {
             "OPS=wickedwizard3588"
           ];
         };
-        ollama = {
-          dir = null;
-          envFiles = null;
-          env = [
-            "GGML_VULKAN=1"
-            "OLLAMA_KEEP_ALIVE=10m"
-            "OLLAMA_IGPU_ENABLE=1"
-            "OLLAMA_LOAD_TIMEOUT=15m"
-          ];
-        };
         ddns-updater = {
           dir = null;
           envFiles = [ "cloudflare-domains" ];
           env = null;
+        };
+      };
+      selfhosted = {
+        home = _home.selfhosted or "";
+        inherit (system.oracle-server) secrets;
+        dir.containers = "/mnt/selfhosted/Containers";
+        containers = {
+          ollama = {
+            dir = null;
+            envFiles = null;
+            env = [
+              "GGML_VULKAN=1"
+              "OLLAMA_KEEP_ALIVE=10m"
+              "OLLAMA_IGPU_ENABLE=1"
+              "OLLAMA_LOAD_TIMEOUT=15m"
+            ];
+          };
         };
       };
     };
@@ -426,7 +433,7 @@ rec {
   "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   # HP Laptop Container files
-  "cloudflare-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
+  "cloudflare-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
 }
 
 /**
