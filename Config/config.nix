@@ -363,21 +363,21 @@ rec {
           env = null;
         };
       };
-      selfhosted = {
-        home = _home.selfhosted or "";
-        inherit (system.oracle-server) secrets;
-        dir.containers = "/mnt/selfhosted/Containers";
-        containers = {
-          ollama = {
-            dir = null;
-            envFiles = null;
-            env = [
-              "GGML_VULKAN=1"
-              "OLLAMA_KEEP_ALIVE=10m"
-              "OLLAMA_IGPU_ENABLE=1"
-              "OLLAMA_LOAD_TIMEOUT=15m"
-            ];
-          };
+    };
+    selfhosted = {
+      home = _home.selfhosted or "";
+      inherit (system.oracle-server) secrets;
+      dir.containers = "/mnt/selfhosted/Containers";
+      containers = {
+        ollama = {
+          dir = null;
+          envFiles = null;
+          env = [
+            "GGML_VULKAN=1"
+            "OLLAMA_KEEP_ALIVE=10m"
+            "OLLAMA_IGPU_ENABLE=1"
+            "OLLAMA_LOAD_TIMEOUT=15m"
+          ];
         };
       };
     };

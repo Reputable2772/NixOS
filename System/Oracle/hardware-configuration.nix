@@ -23,6 +23,10 @@
     device = "/dev/sda1";
     fsType = "ext4";
   };
+  fileSystems."/mnt" = {
+    device = "/dev/disk/by-uuid/d563b8d8-11c4-405b-b726-8a61e9a15d7f";
+    fsType = "ext4";
+  };
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;

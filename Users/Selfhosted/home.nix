@@ -42,21 +42,6 @@
           ];
         };
       };
-
-      "ddns-updater.container" = {
-        __options.networkNameAlias = false;
-        Container = {
-          ContainerName = "ddns-updater";
-          Image = "docker.io/favonia/cloudflare-ddns:latest";
-          Network = "host";
-          User = "1000:1000";
-
-          ReadOnly = true;
-          SecurityLabelDisable = true;
-          NoNewPrivileges = true;
-          DropCapability = "all";
-        };
-      };
     };
   };
 }
