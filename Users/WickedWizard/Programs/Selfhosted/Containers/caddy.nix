@@ -10,11 +10,63 @@ let
   inherit (lib.strings) concatMapAttrsStringSep concatStringsSep optionalString;
 
   cfg = config.containers.caddy;
-
   caddyFile = pkgs.writeTextFile {
     name = "Caddyfile";
     text = ''
-      (default) {
+      {
+        # Master Access File
+        # Captures ONLY HTTP requests across all domains.
+        log master_access {
+          include http.log.access
+          output file /var/log/caddy/master_access.json.log {
+            roll_size 50MiB
+            roll_keep 30
+          }
+          format json
+        }
+
+        # Master Error Files (Stderr & File)
+        # Captures system and TLS errors and writes to both outputs.
+        log system_errors_console {
+          level ERROR
+          output stderr
+          format transform `🚨 [{ts}] [{logger}] {msg} {error}` {
+            time_format "15:04:05"
+          }
+        }
+
+        log system_errors_file {
+          level ERROR
+          output file /var/log/caddy/master_errors.log {
+            roll_size 10MiB
+            roll_keep 10
+          }
+          format transform `🚨 [{ts}] [{logger}] {msg} {error}` {
+            time_format "15:04:05"
+          }
+        }
+
+        admin unix//run/admin.sock
+        auto_https disable_redirects
+      }
+
+      http:// {
+        bind fd/4 {
+          protocols h1
+        }
+        redir https://{host}{uri} 308
+
+        # HTTP Redirect Log
+        log {
+          output file /var/log/caddy/http_redirects.combined.log {
+            roll_size 10MiB
+            roll_keep 10
+          }
+          format transform "{combined_log}"
+        }
+      }
+
+      (wildcard_dns) {
         tls {
           dns duckdns {env.DUCKDNS_TOKEN}
 
@@ -29,52 +81,18 @@ let
         bind fdgram/3 {
           protocols h3
         }
-        log main
-      }
-
-      {
-        # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-        log main {
-          include http.log.access.main
-          output file /var/log/caddy/access.log {
-            roll_local_time
-            roll_keep 90
-            roll_keep_for 2160h
-          }
-
-          format transform `{request>host}: {request>remote_ip} - {request>user_id} [{ts}] "{request>method} {request>uri} {request>proto}" {status} {size} "{request>headers>Referer>[0]}" "{request>headers>User-Agent>[0]}"` {
-            time_format "02/Jan/2006:15:04:05 -0700"
-          }
-        }
-
-        log none {
-          include http.log.access.none
-          output discard
-          format console
-        }
-
-        admin unix//run/admin.sock
-        auto_https disable_redirects
-      }
-
-      http:// {
-        bind fd/4 {
-          protocols h1
-        }
-        redir https://{host}{uri} 308
-        log main
       }
 
       {env.DOMAIN} {
-        import default
-        log main
+        import wildcard_dns
+        log access
         respond "{http.request.remote.host}"
       }
 
       ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
       *.{env.DOMAIN} {
-        import default
-        log main
+        import wildcard_dns
+        log access
 
         ${optionalString (cfg.services != { }) (
           concatMapAttrsStringSep "\n" (n: v: ''
@@ -158,7 +176,7 @@ in
         ContainerName = "caddy";
         Network = "systemd-caddy.network";
         Image = "caddy-image.build";
-        Volume = [
+        Volume = builtins.trace caddyFile.drvPath [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
           "config:/config"
           "data:/data"
