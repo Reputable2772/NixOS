@@ -24,6 +24,9 @@
       "match:tag dialog, center on"
       "match:tag dialog, pin on"
       "match:tag dialog, decorate off"
+
+      "match:initial_class chromium-browser, focus_on_activate false"
+      "match:initial_class chromium-browser, no_initial_focus true"
     ];
   };
 }
