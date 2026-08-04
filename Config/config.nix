@@ -380,6 +380,14 @@ rec {
             "OLLAMA_LOAD_TIMEOUT=15m"
           ];
         };
+        freellmapi = {
+          dir = null;
+          envFiles = [ "freellmapi" ];
+          env = [
+            "NODE_ENV=production"
+            "PORT=3001"
+          ];
+        };
       };
     };
   };
@@ -435,6 +443,8 @@ rec {
 
   # HP Laptop Container files
   "cloudflare-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
+
+  "freellmapi.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
 }
 
 /**
@@ -466,4 +476,6 @@ rec {
   radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
 
   cloudflare-domains.age - Contains CLOUDFLARE_API_TOKEN, IP6_DOMAINS and PROXIED for cloudflare-ddns updater.
+
+  freellmapi.age - Contains ENCRYPTION_KEY
 */
