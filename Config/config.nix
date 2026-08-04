@@ -113,6 +113,7 @@ rec {
             "Misc"
             "Notes"
             "MindWTR"
+            "test"
           ];
           exclude = [ ];
         };
