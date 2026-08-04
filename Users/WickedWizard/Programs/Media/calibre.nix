@@ -12,6 +12,11 @@ in
 {
   # home.packages = [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.calibre ];
 
+  programs.nvfetcher.config.catppuccin-calibre = {
+    src.git = "https://github.com/catppuccin/calibre.git";
+    fetch.github = "catppuccin/calibre";
+  };
+
   xdg.mimeApps.defaultApplications = {
     "image/vnd.djvu" = "calibre-ebook-viewer.desktop";
     "application/oebps-package+xml" = "calibre-ebook-viewer.desktop";

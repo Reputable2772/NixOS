@@ -189,12 +189,24 @@
         {
           config,
           pkgs,
+          self',
           ...
         }:
         let
           inherit (pkgs) lib;
-          inherit (lib.attrsets) filterAttrs mapAttrs;
+          inherit (lib.lists) foldl';
+          inherit (lib.attrsets)
+            attrValues
+            filterAttrs
+            mapAttrs
+            ;
           inherit (lib.strings) hasSuffix;
+          lib' = import ./lib { inherit pkgs; };
+
+          currentSystems = filterAttrs (
+            name: sys: sys.pkgs.stdenv.hostPlatform.system == pkgs.stdenv.hostPlatform.system
+          ) self.nixosConfigurations;
+          currentShells = self'.devShells;
         in
         {
           # Taken from https://github.com/NixOS/nixfmt/issues/273#issuecomment-2563424097
@@ -211,19 +223,25 @@
             '';
           };
 
-          packages.deploy = pkgs.writeText "deploy.json" (
-            builtins.toJSON {
-              agents = (
-                lib.mapAttrs (n: v: v.config.system.build.toplevel) (
-                  lib.filterAttrs (n: v: v.config.services.cachix-agent.enable) (
-                    lib.filterAttrs (
-                      n: v: v.pkgs.stdenv.hostPlatform.system == pkgs.stdenv.hostPlatform.system
-                    ) self.nixosConfigurations
+          packages = {
+            deploy = pkgs.writeText "deploy.json" (
+              builtins.toJSON {
+                agents = (
+                  mapAttrs (n: v: v.config.system.build.toplevel) (
+                    filterAttrs (n: v: v.config.services.cachix-agent.enable) currentSystems
                   )
-                )
-              );
-            }
-          );
+                );
+              }
+            );
+
+            nvfetcher = pkgs.writers.writeTOML "nvfetcher.toml" (
+              (currentSystems // currentShells)
+              |> filterAttrs (n: v: v.config.programs.nvfetcher.enable or false)
+              |> mapAttrs (n: v: v.config.programs.nvfetcher.config or { })
+              |> attrValues
+              |> foldl' (acc: elem: lib'.deepMerge acc elem) { }
+            );
+          };
 
           # Installation hooks need to setup manually in each devshell.
           pre-commit.check.enable = true;
@@ -258,27 +276,20 @@
             };
           };
 
-          devshells =
-            mapAttrs
-              (
-                name: value:
-                import value {
-                  inherit config inputs pkgs;
-                  sources = import ./_sources/generated.nix {
-                    inherit (pkgs)
-                      fetchurl
-                      fetchgit
-                      fetchFromGitHub
-                      dockerTools
-                      ;
-                  };
-                }
-              )
-              (
-                filterAttrs (n: v: hasSuffix "nix" v) (
-                  (import ./lib { inherit pkgs; }).readDirectory ./Shells false
-                )
-              );
+          devshells = mapAttrs (
+            name: value:
+            import value {
+              inherit config inputs pkgs;
+              sources = import ./_sources/generated.nix {
+                inherit (pkgs)
+                  fetchurl
+                  fetchgit
+                  fetchFromGitHub
+                  dockerTools
+                  ;
+              };
+            }
+          ) (filterAttrs (n: v: hasSuffix "nix" v) (lib'.readDirectory ./Shells false));
         };
     };
 }

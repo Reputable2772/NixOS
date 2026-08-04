@@ -451,7 +451,7 @@ rec {
   rclone.age - Contains the rclone.conf file, as-is.
   cachix.age - Contains CACHIX_AUTH_TOKEN= (for cache) and CACHIX_DEPLOY_TOKEN= (for deployment)
 
-  domains.age - Contains DOMAIN and EXTERNAL_DOMAIN and their respective DuckDNS and Cloudflare tokens. (Legacy behaviour, both should be merged into one soon).
+  domains.age - Contains DOMAIN and its respective DUCKDNS_TOKEN
   email.age - Contains your email for Caddy, Let's Encrypt
   push-notifications.age - Contains Bitwarden Push Notification keys. (PUSH_INSTALLATION_ID, PUSH_INSTALLATION_KEY). More info - https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
   proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)

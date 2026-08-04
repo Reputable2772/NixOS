@@ -1,67 +1,4 @@
 {
-    "calibre_catppuccin": {
-        "cargoLock": null,
-        "date": "2024-09-14",
-        "extract": null,
-        "name": "calibre_catppuccin",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "calibre",
-            "rev": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921",
-            "sha256": "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921"
-    },
-    "catppuccin_zsh_syntax_highlighting": {
-        "cargoLock": null,
-        "date": "2024-07-20",
-        "extract": null,
-        "name": "catppuccin_zsh_syntax_highlighting",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "zsh-syntax-highlighting",
-            "rev": "7926c3d3e17d26b3779851a2255b95ee650bd928",
-            "sha256": "sha256-l6tztApzYpQ2/CiKuLBf8vI2imM6vPJuFdNDSEi7T/o=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "7926c3d3e17d26b3779851a2255b95ee650bd928"
-    },
-    "eza_themes": {
-        "cargoLock": null,
-        "date": "2026-07-19",
-        "extract": null,
-        "name": "eza_themes",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "eza-community",
-            "repo": "eza-themes",
-            "rev": "21184b55bfe34e8473c8160f9de0c03e4f76857f",
-            "sha256": "sha256-53J0plgB+d6b4LzSwrCezmIhfVm7WZrKMA1ORGdUtQU=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "21184b55bfe34e8473c8160f9de0c03e4f76857f"
-    },
     "firefox-gnome-theme": {
         "cargoLock": null,
         "date": null,
@@ -83,30 +20,9 @@
         },
         "version": "v149.1"
     },
-    "joplin_catppuccin": {
-        "cargoLock": null,
-        "date": "2025-09-16",
-        "extract": null,
-        "name": "joplin_catppuccin",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "joplin",
-            "rev": "780ff535705411a92cb8d939b51a0e9abf5b8688",
-            "sha256": "sha256-xl9zjVQUHCT3yo5GAsjcfBh1yVM4ryYj/u1v0ws4Ik8=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "780ff535705411a92cb8d939b51a0e9abf5b8688"
-    },
     "nix-fast-build": {
         "cargoLock": null,
-        "date": "2026-07-26",
+        "date": "2026-08-02",
         "extract": null,
         "name": "nix-fast-build",
         "passthru": null,
@@ -118,12 +34,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "nix-fast-build",
-            "rev": "bdf1bfcdc979d12f3c4a5768f5a2cf689b0f9884",
-            "sha256": "sha256-85NwfRPcqh2+s0TNhCphq/LwDeAYdweNnO+VqQ6ZyQo=",
+            "rev": "813ce1a65e0375a337337c97eecd55c7f792e2a5",
+            "sha256": "sha256-GgrP1+KBWztL04EaXVBYW5Ar1FsN0Qpnd5Rp0rjJn+E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bdf1bfcdc979d12f3c4a5768f5a2cf689b0f9884"
+        "version": "813ce1a65e0375a337337c97eecd55c7f792e2a5"
     },
     "obs_catppuccin": {
         "cargoLock": null,
@@ -186,48 +102,6 @@
             "url": "https://github.com/iBigQ/radicale-birthday-calendar.git"
         },
         "version": "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3"
-    },
-    "rofi-bluetooth": {
-        "cargoLock": null,
-        "date": "2025-04-14",
-        "extract": null,
-        "name": "rofi-bluetooth",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "nickclyde",
-            "repo": "rofi-bluetooth",
-            "rev": "0cca4d4aa1c82c9373ce5da781d73683a29484c6",
-            "sha256": "sha256-ggYoCWRuCi1WKcwb+0zVwq3WvSqJQBitI+/XTpOc6uw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0cca4d4aa1c82c9373ce5da781d73683a29484c6"
-    },
-    "rofi_catppuccin": {
-        "cargoLock": null,
-        "date": "2025-07-19",
-        "extract": null,
-        "name": "rofi_catppuccin",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "catppuccin",
-            "repo": "rofi",
-            "rev": "71fb15577ccb091df2f4fc1f65710edbc61b5a53",
-            "sha256": "sha256-81eeFjwM/haPjIEWkZPp1JSDwhWbWDAuKtWiCg7P9Q0=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "71fb15577ccb091df2f4fc1f65710edbc61b5a53"
     },
     "wickedwizard_picture": {
         "cargoLock": null,

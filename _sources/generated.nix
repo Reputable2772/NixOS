@@ -6,42 +6,6 @@
   dockerTools,
 }:
 {
-  calibre_catppuccin = {
-    pname = "calibre_catppuccin";
-    version = "27bd12d2d8dcd24b9ce7cae32135fbd41b896921";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "calibre";
-      rev = "27bd12d2d8dcd24b9ce7cae32135fbd41b896921";
-      fetchSubmodules = false;
-      sha256 = "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=";
-    };
-    date = "2024-09-14";
-  };
-  catppuccin_zsh_syntax_highlighting = {
-    pname = "catppuccin_zsh_syntax_highlighting";
-    version = "7926c3d3e17d26b3779851a2255b95ee650bd928";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "zsh-syntax-highlighting";
-      rev = "7926c3d3e17d26b3779851a2255b95ee650bd928";
-      fetchSubmodules = false;
-      sha256 = "sha256-l6tztApzYpQ2/CiKuLBf8vI2imM6vPJuFdNDSEi7T/o=";
-    };
-    date = "2024-07-20";
-  };
-  eza_themes = {
-    pname = "eza_themes";
-    version = "21184b55bfe34e8473c8160f9de0c03e4f76857f";
-    src = fetchFromGitHub {
-      owner = "eza-community";
-      repo = "eza-themes";
-      rev = "21184b55bfe34e8473c8160f9de0c03e4f76857f";
-      fetchSubmodules = false;
-      sha256 = "sha256-53J0plgB+d6b4LzSwrCezmIhfVm7WZrKMA1ORGdUtQU=";
-    };
-    date = "2026-07-19";
-  };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
     version = "v149.1";
@@ -53,29 +17,17 @@
       sha256 = "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU=";
     };
   };
-  joplin_catppuccin = {
-    pname = "joplin_catppuccin";
-    version = "780ff535705411a92cb8d939b51a0e9abf5b8688";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "joplin";
-      rev = "780ff535705411a92cb8d939b51a0e9abf5b8688";
-      fetchSubmodules = false;
-      sha256 = "sha256-xl9zjVQUHCT3yo5GAsjcfBh1yVM4ryYj/u1v0ws4Ik8=";
-    };
-    date = "2025-09-16";
-  };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "bdf1bfcdc979d12f3c4a5768f5a2cf689b0f9884";
+    version = "813ce1a65e0375a337337c97eecd55c7f792e2a5";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "bdf1bfcdc979d12f3c4a5768f5a2cf689b0f9884";
+      rev = "813ce1a65e0375a337337c97eecd55c7f792e2a5";
       fetchSubmodules = false;
-      sha256 = "sha256-85NwfRPcqh2+s0TNhCphq/LwDeAYdweNnO+VqQ6ZyQo=";
+      sha256 = "sha256-GgrP1+KBWztL04EaXVBYW5Ar1FsN0Qpnd5Rp0rjJn+E=";
     };
-    date = "2026-07-26";
+    date = "2026-08-02";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
@@ -114,30 +66,6 @@
       sha256 = "sha256-X/tahL01rGyc6eg1UqXhINi0mbuhwdzi4cYN8B0K+5c=";
     };
     date = "2025-02-04";
-  };
-  rofi-bluetooth = {
-    pname = "rofi-bluetooth";
-    version = "0cca4d4aa1c82c9373ce5da781d73683a29484c6";
-    src = fetchFromGitHub {
-      owner = "nickclyde";
-      repo = "rofi-bluetooth";
-      rev = "0cca4d4aa1c82c9373ce5da781d73683a29484c6";
-      fetchSubmodules = false;
-      sha256 = "sha256-ggYoCWRuCi1WKcwb+0zVwq3WvSqJQBitI+/XTpOc6uw=";
-    };
-    date = "2025-04-14";
-  };
-  rofi_catppuccin = {
-    pname = "rofi_catppuccin";
-    version = "71fb15577ccb091df2f4fc1f65710edbc61b5a53";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "rofi";
-      rev = "71fb15577ccb091df2f4fc1f65710edbc61b5a53";
-      fetchSubmodules = false;
-      sha256 = "sha256-81eeFjwM/haPjIEWkZPp1JSDwhWbWDAuKtWiCg7P9Q0=";
-    };
-    date = "2025-07-19";
   };
   wickedwizard_picture = {
     pname = "wickedwizard_picture";

@@ -35,6 +35,11 @@ in
 
   # programs.autostart.packages = with pkgs; [ firefox ];
 
+  programs.nvfetcher.config.firefox-gnome-theme = {
+    src.github = "rafaelmardojai/firefox-gnome-theme";
+    fetch.github = "rafaelmardojai/firefox-gnome-theme";
+  };
+
   wayland.windowManager.hyprland.settings = {
     # bind = [
     #   "SUPER, V, exec, firefox"

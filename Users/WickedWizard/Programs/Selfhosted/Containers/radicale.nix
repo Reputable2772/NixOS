@@ -103,4 +103,9 @@ in
       HealthRetries = 3;
     };
   };
+
+  programs.nvfetcher.config.radicale_birthday_hook = {
+    src.git = "https://github.com/iBigQ/radicale-birthday-calendar.git";
+    fetch.git = "https://github.com/iBigQ/radicale-birthday-calendar.git";
+  };
 }

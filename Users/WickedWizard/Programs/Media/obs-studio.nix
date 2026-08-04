@@ -8,5 +8,10 @@
     ];
   };
 
+  programs.nvfetcher.config.obs_catppuccin = {
+    src.git = "https://github.com/catppuccin/obs.git";
+    fetch.github = "catppuccin/obs";
+  };
+
   xdg.configFile."obs-studio/themes/".source = "${sources.obs_catppuccin.src}/themes";
 }

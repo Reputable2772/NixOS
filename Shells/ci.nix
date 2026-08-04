@@ -26,6 +26,17 @@
       })
     ];
   };
+
+  imports = [
+    ../Modules/Common/nvfetcher.nix
+  ];
+
+  # Needed for above.
+  programs.nvfetcher.config.nix-fast-build = {
+    src.git = "https://github.com/Mic92/nix-fast-build.git";
+    fetch.github = "Mic92/nix-fast-build";
+  };
+
   commands = [
     {
       help = "Check Flakes";

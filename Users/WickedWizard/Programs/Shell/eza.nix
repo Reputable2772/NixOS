@@ -20,5 +20,10 @@
     enableBashIntegration = true;
   };
 
+  # programs.nvfetcher.eza_themes = {
+  #   src.git = "https://github.com/eza-community/eza-themes.git";
+  #   fetch.github = "eza-community/eza-themes";
+  # };
+
   # xdg.configFile."eza/theme.yml".source = "${sources.eza_themes.src}/themes/catppuccin.yml";
 }
