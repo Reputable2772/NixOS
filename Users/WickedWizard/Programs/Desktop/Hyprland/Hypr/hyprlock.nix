@@ -51,6 +51,11 @@
     };
   };
 
+  programs.nvfetcher.config.wickedwizard_picture = {
+    src.manual = "latest";
+    fetch.url = "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg";
+  };
+
   xdg.configFile."user.jpg".source = sources.wickedwizard_picture.src;
 
   wayland.windowManager.hyprland.settings.bind = [

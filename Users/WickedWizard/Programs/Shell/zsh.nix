@@ -1,4 +1,4 @@
-{ sources, ... }:
+# { sources, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -15,6 +15,11 @@
       bindkey "^[[1;5D" backward-word
     '';
   };
+
+  # programs.nvfetcher.config.catppuccin_zsh_syntax_highlighting = {
+  #   src.git = "https://github.com/catppuccin/zsh-syntax-highlighting.git";
+  #   fetch.github = "catppuccin/zsh-syntax-highlighting";
+  # };
 
   # xdg.configFile."zsh-syntax-highlighting/theme.zsh".source = "${sources.catppuccin_zsh_syntax_highlighting.src}/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh";
 }
