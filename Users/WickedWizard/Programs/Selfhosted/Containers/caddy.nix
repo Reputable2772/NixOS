@@ -18,7 +18,7 @@ let
         # Captures ONLY HTTP requests across all domains.
         log master_access {
           include http.log.access
-          output file /var/log/caddy/master_access.json.log {
+          output file /data/logs/master_access.json.log {
             roll_size 50MiB
             roll_keep 30
           }
@@ -37,7 +37,7 @@ let
 
         log system_errors_file {
           level ERROR
-          output file /var/log/caddy/master_errors.log {
+          output file /data/logs/master_errors.log {
             roll_size 10MiB
             roll_keep 10
           }
@@ -58,7 +58,7 @@ let
 
         # HTTP Redirect Log
         log {
-          output file /var/log/caddy/http_redirects.combined.log {
+          output file /data/logs/http_redirects.combined.log {
             roll_size 10MiB
             roll_keep 10
           }
@@ -176,7 +176,7 @@ in
         ContainerName = "caddy";
         Network = "systemd-caddy.network";
         Image = "caddy-image.build";
-        Volume = builtins.trace caddyFile.drvPath [
+        Volume = [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
           "config:/config"
           "data:/data"
