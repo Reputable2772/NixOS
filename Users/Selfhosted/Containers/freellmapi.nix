@@ -6,7 +6,7 @@
     Container = {
       ContainerName = "freellmapi";
       Image = "ghcr.io/tashfeenahmed/freellmapi:latest";
-      Network = "systemd-network.caddy";
+      Network = "systemd-caddy.network";
       Volume = [
         ":/app/server/data"
       ];
