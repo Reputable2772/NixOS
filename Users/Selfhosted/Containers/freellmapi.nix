@@ -1,12 +1,12 @@
 {
+  containers.caddy.services.freellmapi = "freellmapi:3001";
+
   programs.quadlets.quadlets."freellmapi.container" = {
     __options.networkNameAlias = false;
     Container = {
       ContainerName = "freellmapi";
       Image = "ghcr.io/tashfeenahmed/freellmapi:latest";
-      PublishPort = [
-        "3001:3001"
-      ];
+      Network = "systemd-network.caddy";
       Volume = [
         ":/app/server/data"
       ];

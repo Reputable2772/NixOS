@@ -7,7 +7,4 @@
     ./tmux.nix
   ]
   ++ (lib.attrValues (lib'.readDirectory ./Containers true));
-
-  system-config.firewall.allowedTCPPorts = [ 11434 ];
-
 }

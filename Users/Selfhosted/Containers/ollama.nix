@@ -1,13 +1,13 @@
 {
+  containers.caddy.services.ollama = "ollama:11434";
+
   programs.quadlets.quadlets."ollama.container" = {
     __options.networkNameAlias = false;
     Container = {
       ContainerName = "ollama";
       GroupAdd = "keep-groups";
       Image = "docker.io/ollama/ollama:latest";
-      PublishPort = [
-        "11434:11434"
-      ];
+      Network = "systemd-caddy.network";
       Volume = [
         ":/root/.ollama"
       ];
