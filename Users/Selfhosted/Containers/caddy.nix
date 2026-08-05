@@ -189,6 +189,7 @@ in
         FROM docker.io/caddy:builder AS builder
 
         RUN xcaddy build \
+          --with github.com/caddy-dns/desec \
           --with github.com/caddyserver/transform-encoder
 
         FROM docker.io/caddy:latest
