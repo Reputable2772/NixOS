@@ -68,7 +68,9 @@ let
 
       (wildcard_dns) {
         tls {
-          dns desec {env.DESEC_TOKEN}
+          dns desec {
+            token {env.DESEC_TOKEN}
+          }
 
           # Since my ISP sucks.
           propagation_timeout -1
