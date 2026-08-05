@@ -73,7 +73,7 @@ let
           }
 
           # Since my ISP sucks.
-          propagation_timeout -1
+          propagation_timeout 2m
           resolvers 1.1.1.1
         }
 
