@@ -393,6 +393,11 @@ rec {
           envFiles = [ "desec-domains" ];
           env = null;
         };
+        duckai = {
+          dir = null;
+          envFiles = null;
+          env = null;
+        };
       };
     };
   };
