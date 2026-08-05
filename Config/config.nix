@@ -484,4 +484,5 @@ rec {
   cloudflare-domains.age - Contains CLOUDFLARE_API_TOKEN, IP6_DOMAINS and PROXIED for cloudflare-ddns updater.
 
   freellmapi.age - Contains ENCRYPTION_KEY
+  desec-domains.age - Contains DOMAIN, DESEC_TOKEN for that account.
 */
