@@ -388,6 +388,11 @@ rec {
             "PORT=3001"
           ];
         };
+        caddy = {
+          dir = null;
+          envFiles = [ "desec-domains" ];
+          env = null;
+        };
       };
     };
   };
@@ -445,6 +450,7 @@ rec {
   "cloudflare-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
 
   "freellmapi.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
+  "desec-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
 }
 
 /**
