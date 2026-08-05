@@ -174,13 +174,27 @@ in
       Container = {
         ContainerName = "caddy";
         Network = "systemd-caddy.network";
-        Image = "docker.io/caddy:latest";
+        Image = "caddy-image.build";
         Volume = [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
           "config:/config"
           "data:/data"
         ];
       };
+    };
+
+    programs.quadlets.quadlets."caddy-image.build".Build = {
+      ImageTag = "localhost/caddy";
+      File = pkgs.writeText "caddy-containerfile" ''
+        FROM docker.io/caddy:builder AS builder
+
+        RUN xcaddy build \
+          --with github.com/caddyserver/transform-encoder
+
+        FROM docker.io/caddy:latest
+
+        COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+      '';
     };
   };
 }
