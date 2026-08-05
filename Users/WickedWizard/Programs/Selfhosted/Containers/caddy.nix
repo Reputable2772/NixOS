@@ -194,7 +194,6 @@ in
 
         RUN xcaddy build \
           --with github.com/caddy-dns/duckdns \
-          --with github.com/caddy-dns/cloudflare \
           --with github.com/caddyserver/transform-encoder
 
         FROM docker.io/caddy:latest
