@@ -30,7 +30,7 @@
         curl -X PUT "https://desec.io/api/v1/domains/$domain/rrsets/" \
           -H "Authorization: Token $DESEC_TOKEN" \
           -H "Content-Type: application/json" \
-          -d "[{\"subname\": \"$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}, {\"subname\": \"*\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}]"
+          -d "[{\"subname\": \"$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}, {\"subname\": \"*.$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}]"
 
         echo "$ip6" > "$ip_cache_file"
       '';
