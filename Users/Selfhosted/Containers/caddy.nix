@@ -73,7 +73,8 @@ let
           }
 
           # Since my ISP sucks.
-          propagation_timeout 2m
+          propagation_timeout 300s
+          propagation_delay 120s
           resolvers 1.1.1.1
         }
 
@@ -85,20 +86,20 @@ let
         }
       }
 
-      {env.DOMAIN} {
+      {env.FQDN} {
         import wildcard_dns
         log access
         respond "{http.request.remote.host}"
       }
 
       ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
-      *.{env.DOMAIN} {
+      *.{env.FQDN} {
         import wildcard_dns
         log access
 
         ${optionalString (cfg.services != { }) (
           concatMapAttrsStringSep "\n" (n: v: ''
-            @${n} host ${n}.{env.DOMAIN}
+            @${n} host ${n}.{env.FQDN}
             handle @${n} {
               reverse_proxy ${v}
             }
@@ -108,7 +109,7 @@ let
         ${optionalString (cfg.servicesExtraConfig != { }) (
           # Handling is done by the extraConfig, like in vaultwarden.nix
           concatMapAttrsStringSep "\n" (n: v: ''
-            @${n} host ${n}.{env.DOMAIN}
+            @${n} host ${n}.{env.FQDN}
               handle @${n} {
                 ${v}
               }
