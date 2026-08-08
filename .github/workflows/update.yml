@@ -6,66 +6,157 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-system:
+  update-flake:
     runs-on: ubuntu-latest
+
+    outputs:
+      trusted_public_keys: ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
+      substituters: ${{ steps.substituters.outputs.SUBSTITUTERS }}
+
     steps:
-    - name: "Checkout"
-      uses: actions/checkout@v4
+      - name: "Checkout"
+        uses: actions/checkout@v4
 
-    - name: Substituters
-      id: substituters
-      run: |
-        echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
-        echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
+      - name: "Substituters"
+        id: substituters
+        run: |
+          echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
+          echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
 
-    - uses: samueldr/lix-gha-installer-action@latest
-      name: "Install Lix"
-      with:
-        extra_nix_config: |
-          trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
-          substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
-          experimental-features = flakes nix-command pipe-operator
-          accept-flake-config = true
-    - name: "Update flake.lock and nvfetcher"
-      run: |
-        nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee flake-update.txt
-        nix build --print-out-paths --out-link nvfetcher.toml .#nvfetcher
-        nix develop .#ci --command bash -c nvfetcher -c nvfetcher.toml 2>&1 | tee nvfetcher-update.txt
+      - uses: samueldr/lix-gha-installer-action@latest
+        name: "Install Lix"
+        with:
+          extra_nix_config: |
+            trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
+            substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
+            experimental-features = flakes nix-command pipe-operator
+            accept-flake-config = true
 
-    - name: "Write changelog"
-      id: changelog
-      run: |
-        echo "commit_msg=$(echo "chore: update flake.lock & sources ($(date -I))")" >> "$GITHUB_OUTPUT"
-        echo "date_week=$(date +%V)" >> "$GITHUB_OUTPUT"
-        echo "date_year=$(date +%Y)" >> "$GITHUB_OUTPUT"
-        echo "body_file=$PWD/changelog.txt" >> "$GITHUB_OUTPUT"
+      - name: "Update flake.lock"
+        run: |
+          nix --accept-flake-config --show-trace \
+            --print-build-logs --verbose \
+            flake update 2>&1 | tee flake-update.txt
 
-        echo "Automated Pull Request for Week $(date +%V)" > changelog.txt
-        echo "" >> changelog.txt
+      - name: "Upload flake update"
+        uses: actions/upload-artifact@v4
+        with:
+          name: flake-update
+          path: |
+            flake.lock
+            flake-update.txt
 
-        echo "Flakes Changelog:" >> changelog.txt
-        echo "\`\`\`" >> changelog.txt
-        (grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!") >> changelog.txt
-        echo "\`\`\`" >> changelog.txt
-        echo "" >> changelog.txt
 
-        echo "Sources Changelog:" >> changelog.txt
-        echo "\`\`\`" >> changelog.txt
-        (grep -E "→" nvfetcher-update.txt || echo "No changes!") >> changelog.txt
-        echo "\`\`\`" >> changelog.txt
+  nvfetcher:
+    needs: update-flake
 
-        nix fmt
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64-linux
+            runner: ubuntu-latest
+          - arch: aarch64-linux
+            runner: ubuntu-24.04-arm
 
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v6
-      with:
-        title: ${{ steps.changelog.outputs.commit_msg }}
-        token: ${{ secrets.PR_CREATOR }}
-        commit-message: ${{ steps.changelog.outputs.commit_msg }}
-        add-paths: |
-          _sources/*
-          flake.lock
-        signoff: true
-        delete-branch: true
-        branch: flake-update/${{ steps.changelog.outputs.date_year }}-${{ steps.changelog.outputs.date_week }}
-        body-path: ${{ steps.changelog.outputs.body_file }}
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Download flake.lock"
+        uses: actions/download-artifact@v4
+        with:
+          name: flake-update
+
+      - uses: samueldr/lix-gha-installer-action@latest
+        name: "Install Lix"
+        with:
+          extra_nix_config: |
+            trusted-public-keys = ${{ needs.update-flake.outputs.trusted_public_keys }}
+            substituters = ${{ needs.update-flake.outputs.substituters }}
+            experimental-features = flakes nix-command pipe-operator
+            accept-flake-config = true
+
+      - name: "Update nvfetcher"
+        run: |
+          nix build --print-out-paths --out-link nvfetcher.toml .#nvfetcher
+          nix develop .#ci --command bash -c nvfetcher -c nvfetcher.toml \
+            2>&1 | tee nvfetcher-update.txt
+
+      - name: "Upload nvfetcher result"
+        uses: actions/upload-artifact@v4
+        with:
+          name: nvfetcher-${{ matrix.arch }}
+          path: |
+            _sources/${{ matrix.arch }}/generated.nix
+            _sources/${{ matrix.arch }}/generated.json
+            nvfetcher-update.txt
+
+
+  create-pr:
+    needs:
+      - update-flake
+      - nvfetcher
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Download flake update"
+        uses: actions/download-artifact@v4
+        with:
+          name: flake-update
+
+      - name: "Download x86_64 nvfetcher result"
+        uses: actions/download-artifact@v4
+        with:
+          name: nvfetcher-x86_64-linux
+          path: _sources/x86_64-linux
+
+      - name: "Download aarch64 nvfetcher result"
+        uses: actions/download-artifact@v4
+        with:
+          name: nvfetcher-aarch64-linux
+          path: _sources/aarch64-linux
+
+      - name: "Write changelog"
+        id: changelog
+        run: |
+          echo "commit_msg=chore: update flake.lock & sources ($(date -I))" >> "$GITHUB_OUTPUT"
+          echo "date_week=$(date +%V)" >> "$GITHUB_OUTPUT"
+          echo "date_year=$(date +%Y)" >> "$GITHUB_OUTPUT"
+          echo "body_file=$PWD/changelog.txt" >> "$GITHUB_OUTPUT"
+
+          echo "Automated Pull Request for Week $(date +%V)" > changelog.txt
+          echo "" >> changelog.txt
+
+          echo "Flakes Changelog:" >> changelog.txt
+          echo '```' >> changelog.txt
+          (grep -E "'\s\(|Updated input" flake-update.txt || echo "No changes!") >> changelog.txt
+          echo '```' >> changelog.txt
+          echo "" >> changelog.txt
+
+          echo "Sources Changelog:" >> changelog.txt
+          echo '```' >> changelog.txt
+          (grep -E "→" nvfetcher-x86_64-linux/nvfetcher-update.txt || true) >> changelog.txt
+          (grep -E "→" nvfetcher-aarch64-linux/nvfetcher-update.txt || true) >> changelog.txt
+          echo '```' >> changelog.txt
+
+          nix fmt
+
+      - name: "Create Pull Request"
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: ${{ steps.changelog.outputs.commit_msg }}
+          token: ${{ secrets.PR_CREATOR }}
+          commit-message: ${{ steps.changelog.outputs.commit_msg }}
+          add-paths: |
+            _sources/*
+            flake.lock
+          signoff: true
+          delete-branch: true
+          branch: flake-update/${{ steps.changelog.outputs.date_year }}-${{ steps.changelog.outputs.date_week }}
+          body-path: ${{ steps.changelog.outputs.body_file }}
