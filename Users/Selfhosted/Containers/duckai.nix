@@ -2,8 +2,8 @@
   containers.caddy.services.duckai = "duckai:3000";
 
   programs.nvfetcher.config.duckai = {
-    fetch.git = "https://github.com/cobbdzon/duckai.git";
-    src.git = "https://github.com/cobbdzon/duckai.git";
+    fetch.git = "https://github.com/jairo-litman/duckai.git";
+    src.git = "https://github.com/jairo-litman/duckai.git";
   };
 
   programs.quadlets.quadlets."duckai.container" = {
