@@ -4,13 +4,6 @@
   ...
 }:
 {
-  programs.home-manager.enable = true;
-
-  imports = [
-    ./bottom.nix
-    ./tmux.nix
-  ];
-
   systemd.user.services.ip-update = {
     Unit = {
       Description = "IP Update service.";
@@ -20,7 +13,7 @@
       Type = "oneshot";
       ExecStart = pkgs.writeShellScript "ip-update-service" ''
         set -euo pipefail
-        source ${config.age.secrets.maintenance-domains.path}
+        source ${config.age.secrets.selfhosted-domains.path}
 
         domain=$(echo $DOMAIN)
         subname=$(echo $SUBNAME)
@@ -59,5 +52,4 @@
       WantedBy = [ "timers.target" ];
     };
   };
-
 }

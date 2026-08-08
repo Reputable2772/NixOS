@@ -68,10 +68,12 @@ let
 
       (wildcard_dns) {
         tls {
-          dns duckdns {env.DUCKDNS_TOKEN}
+          dns desec {
+            token {env.DESEC_TOKEN}
+          }
 
           # Since my ISP sucks.
-          propagation_timeout -1
+          propagation_timeout 2m
           resolvers 1.1.1.1
         }
 
@@ -152,7 +154,6 @@ in
     '';
 
     programs.quadlets.extraServices = [
-      "caddy-image.service"
       "caddy.socket"
     ];
 
@@ -193,7 +194,7 @@ in
         FROM docker.io/caddy:builder AS builder
 
         RUN xcaddy build \
-          --with github.com/caddy-dns/duckdns \
+          --with github.com/caddy-dns/desec \
           --with github.com/caddyserver/transform-encoder
 
         FROM docker.io/caddy:latest
@@ -202,5 +203,4 @@ in
       '';
     };
   };
-
 }

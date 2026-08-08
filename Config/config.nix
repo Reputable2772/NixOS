@@ -204,7 +204,7 @@ rec {
           # A list of all the agenix file names to be used, without the age suffix.
           # Content of each agenix file is mentioned below.
           envFiles = [
-            "domains"
+            "wickedwizard-domains"
             "email"
           ];
           # Environment variables
@@ -358,11 +358,6 @@ rec {
             "OPS=wickedwizard3588"
           ];
         };
-        ddns-updater = {
-          dir = null;
-          envFiles = [ "cloudflare-domains" ];
-          env = null;
-        };
       };
     };
     selfhosted = {
@@ -390,7 +385,7 @@ rec {
         };
         caddy = {
           dir = null;
-          envFiles = [ "desec-domains" ];
+          envFiles = [ "selfhosted-domains" ];
           env = null;
         };
         duckai = {
@@ -441,7 +436,10 @@ rec {
 
   # Container files
   "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "domains.age" = {
+    publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+    dontLoad = true;
+  };
   "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
@@ -451,11 +449,22 @@ rec {
   "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
-  # HP Laptop Container files
-  "cloudflare-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
+  "wickedwizard-domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "selfhosted-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
+  "maintenance-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
 
+  # HP Laptop Container files
+  "cloudflare-domains.age" = {
+    publicKeys = [ users.maintenance.secrets.encryption.key ];
+    dontLoad = true;
+  };
+
+  # Oracle Server Containers
   "freellmapi.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-  "desec-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
+  "desec-domains.age" = {
+    publicKeys = [ users.selfhosted.secrets.encryption.key ];
+    dontLoad = true;
+  };
 }
 
 /**
