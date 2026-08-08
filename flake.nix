@@ -89,7 +89,7 @@
             specialArgs = {
               inherit inputs;
               lib' = import ./lib { inherit pkgs; };
-              sources = import ./_sources/generated.nix {
+              sources = import ./_sources/${pkgs.stdenv.hostPlatform.system}/generated.nix {
                 inherit (pkgs)
                   fetchurl
                   fetchgit
@@ -118,7 +118,7 @@
             specialArgs = {
               inherit inputs;
               lib' = import ./lib { inherit pkgs; };
-              sources = import ./_sources/generated.nix {
+              sources = import ./_sources/${pkgs.stdenv.hostPlatform.system}/generated.nix {
                 inherit (pkgs)
                   fetchurl
                   fetchgit
@@ -147,7 +147,7 @@
             specialArgs = {
               inherit inputs;
               lib' = import ./lib { pkgs = armPkgs; };
-              sources = import ./_sources/generated.nix {
+              sources = import ./_sources/${armPkgs.stdenv.hostPlatform.system}/generated.nix {
                 inherit (armPkgs)
                   fetchurl
                   fetchgit
@@ -280,7 +280,7 @@
             name: value:
             import value {
               inherit config inputs pkgs;
-              sources = import ./_sources/generated.nix {
+              sources = import ./_sources/${pkgs.stdenv.hostPlatform.system}/generated.nix {
                 inherit (pkgs)
                   fetchurl
                   fetchgit

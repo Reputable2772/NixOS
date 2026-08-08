@@ -6,20 +6,6 @@
   dockerTools,
 }:
 {
-  duckai = {
-    pname = "duckai";
-    version = "9635ff4616343abe9b040d49667e3603a48bd31a";
-    src = fetchgit {
-      url = "https://github.com/cobbdzon/duckai.git";
-      rev = "9635ff4616343abe9b040d49667e3603a48bd31a";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-tMnIt2PUADgiL1RUFPdgSM8v0F1NnABrT7AEXS3REvM=";
-    };
-    date = "2026-06-02";
-  };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
     version = "v149.1";

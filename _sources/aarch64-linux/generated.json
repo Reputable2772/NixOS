@@ -1,0 +1,43 @@
+{
+    "duckai": {
+        "cargoLock": null,
+        "date": "2026-06-20",
+        "extract": null,
+        "name": "duckai",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "b48de2db52c99408e0133807ddca284f70ec5f95",
+            "sha256": "sha256-DBXDbfh6bRNxbGFCiBz/HHq5VaozN+PG/eSQj2fqpvg=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/jairo-litman/duckai.git"
+        },
+        "version": "b48de2db52c99408e0133807ddca284f70ec5f95"
+    },
+    "nix-fast-build": {
+        "cargoLock": null,
+        "date": "2026-08-02",
+        "extract": null,
+        "name": "nix-fast-build",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Mic92",
+            "repo": "nix-fast-build",
+            "rev": "813ce1a65e0375a337337c97eecd55c7f792e2a5",
+            "sha256": "sha256-GgrP1+KBWztL04EaXVBYW5Ar1FsN0Qpnd5Rp0rjJn+E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "813ce1a65e0375a337337c97eecd55c7f792e2a5"
+    }
+}

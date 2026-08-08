@@ -1,24 +1,4 @@
 {
-    "duckai": {
-        "cargoLock": null,
-        "date": "2026-06-02",
-        "extract": null,
-        "name": "duckai",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "9635ff4616343abe9b040d49667e3603a48bd31a",
-            "sha256": "sha256-tMnIt2PUADgiL1RUFPdgSM8v0F1NnABrT7AEXS3REvM=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/cobbdzon/duckai.git"
-        },
-        "version": "9635ff4616343abe9b040d49667e3603a48bd31a"
-    },
     "firefox-gnome-theme": {
         "cargoLock": null,
         "date": null,
