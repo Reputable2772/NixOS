@@ -22,9 +22,7 @@ in
   programs.bottom = {
     enable = true;
     settings = {
-      flags = {
-        group_processes = true;
-      };
+      processes.default_grouped = true;
       styles = {
         tables.headers.color = base06;
         cpu = {
