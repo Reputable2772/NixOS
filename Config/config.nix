@@ -59,24 +59,22 @@ rec {
       };
     };
 
-    hp-laptop = rec {
+    hp-laptop = {
       secrets = {
         encryption = {
           pkeyfile = "/etc/ssh/HP-Encryption";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO9rLYwb+3DofPSPGlif3FvrIb2V/ujfn3u7d/YmfU7s";
         };
       };
-      openssh = secrets.encryption;
     };
 
-    oracle-server = rec {
+    oracle-server = {
       secrets = {
         encryption = {
           pkeyfile = "/etc/ssh/Oracle-Encryption";
           key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM= wickedwizard@lenovo-laptop";
         };
       };
-      openssh = secrets.encryption;
     };
 
     rescue = { };
@@ -405,6 +403,11 @@ rec {
           envFiles = null;
           env = null;
         };
+      };
+    };
+    remotebuild = {
+      secrets = {
+        inherit (selfhosted.secrets) ssh;
       };
     };
   };

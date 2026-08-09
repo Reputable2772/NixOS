@@ -30,7 +30,7 @@
     # shell = pkgs.zsh;
     hashedPasswordFile = config.age.secrets.selfhostedPassword.path;
     linger = true;
-    openssh.authorizedKeys.keys = [ config'.system.${config.networking.hostName}.openssh.key ];
+    openssh.authorizedKeys.keys = [ config'.users.maintenance.secrets.ssh.key ];
   };
 
   users.users.vishnu = {
