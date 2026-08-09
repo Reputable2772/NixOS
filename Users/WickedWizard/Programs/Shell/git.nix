@@ -30,7 +30,7 @@ in
 
   home.file.ssh_config = {
     enable = true;
-    target = ".ssh/ssh_config";
+    target = ".ssh/config";
     text = lib.optionals (config'.git.secrets.authentication ? pkeyfile) ''
       Host github.com
         IdentityFile ${config'.git.secrets.authentication.pkeyfile}
