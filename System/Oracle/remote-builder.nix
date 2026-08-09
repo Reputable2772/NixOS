@@ -3,7 +3,7 @@
     isSystemUser = true;
     group = "remotebuild";
     useDefaultShell = true;
-    openssh.authorizedKeys.keys = [ config'.users.remotebuild.secrets.openssh.key ];
+    openssh.authorizedKeys.keys = [ config'.users.remotebuild.secrets.ssh.key ];
   };
 
   users.groups.remotebuild = { };
