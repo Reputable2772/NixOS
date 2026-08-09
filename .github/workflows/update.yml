@@ -34,9 +34,8 @@ jobs:
 
       - name: "Update flake.lock"
         run: |
-          nix --accept-flake-config --show-trace \
-            --print-build-logs --verbose \
-            flake update 2>&1 | tee flake-update.txt
+          nix --accept-flake-config --show-trace --print-build-logs --verbose flake update 2>&1 | tee flake-update.txt
+          nix fmt
 
       - name: "Upload flake update"
         uses: actions/upload-artifact@v4
@@ -78,8 +77,8 @@ jobs:
       - name: "Update nvfetcher"
         run: |
           nix build --print-out-paths --out-link nvfetcher.toml .#nvfetcher
-          nix develop .#ci --command bash -c nvfetcher -c nvfetcher.toml \
-            2>&1 | tee nvfetcher-update.txt
+          nix develop .#ci --command bash -c nvfetcher -c nvfetcher.toml 2>&1 | tee nvfetcher-update.txt
+          nix fmt
 
       - name: "Upload nvfetcher result"
         uses: actions/upload-artifact@v4
@@ -141,8 +140,6 @@ jobs:
           echo '```' >> changelog.txt
 
           rm -rf _sources/*/nvfetcher-update.txt
-
-          nix fmt
 
       - name: "Create Pull Request"
         uses: peter-evans/create-pull-request@v6
