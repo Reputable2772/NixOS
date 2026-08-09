@@ -17,7 +17,14 @@
 
         domain=$(echo $DOMAIN)
         subname=$(echo $SUBNAME)
-        ip6=$(curl -L "https://ipv6.seeip.org/")
+        ip6=$(
+          ip -6 addr show scope global |
+          awk '/inet6/ && $0 !~ / temporary / {
+              split($2, a, "/")
+              print a[1]
+              exit
+          }'
+        )
         ip_cache_file="/tmp/ddns_last_ip_$domain"
 
         if [ -f "$ip_cache_file" ]; then
