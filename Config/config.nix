@@ -433,6 +433,9 @@ rec {
   "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
 
+  # Distributed Builds SSH Alias
+  "distributed-builds-ssh-config.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+
   # Bitlocker age files
   "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
