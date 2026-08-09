@@ -177,7 +177,7 @@ rec {
       secrets = {
         # Passwords should not be set for this key, look above.
         encryption = {
-          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/User-Encryption";
+          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/WickedWizard";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@lenovo-laptop";
         };
         # The age file that is to be used by rclone. Set to null to disable.
@@ -338,7 +338,13 @@ rec {
     guest = { };
     maintenance = rec {
       home = _home.maintenance or "";
-      inherit (system.hp-laptop) secrets;
+      secrets = rec {
+        encryption = {
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQpS9zfSJ6IWbXOs4ndPMJp93yQVfYahKfsUbRosFbC";
+          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/Maintenance";
+        };
+        ssh = encryption;
+      };
       dir.containers = "${home}/Containers";
       containers = {
         minecraft = {
@@ -362,7 +368,13 @@ rec {
     };
     selfhosted = {
       home = _home.selfhosted or "";
-      inherit (system.oracle-server) secrets;
+      secrets = rec {
+        encryption = {
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj9+cqVLVe9jElkvjx0UZ16HXVzdr7VE80pFtwzvJac";
+          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/Selfhosted";
+        };
+        ssh = encryption;
+      };
       dir.containers = "/mnt/selfhosted/Containers";
       containers = {
         ollama = {
