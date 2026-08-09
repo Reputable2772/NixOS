@@ -1,0 +1,121 @@
+{
+    "firefox-gnome-theme": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "firefox-gnome-theme",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rafaelmardojai",
+            "repo": "firefox-gnome-theme",
+            "rev": "v149.1",
+            "sha256": "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v149.1"
+    },
+    "nix-fast-build": {
+        "cargoLock": null,
+        "date": "2026-08-02",
+        "extract": null,
+        "name": "nix-fast-build",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Mic92",
+            "repo": "nix-fast-build",
+            "rev": "813ce1a65e0375a337337c97eecd55c7f792e2a5",
+            "sha256": "sha256-GgrP1+KBWztL04EaXVBYW5Ar1FsN0Qpnd5Rp0rjJn+E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "813ce1a65e0375a337337c97eecd55c7f792e2a5"
+    },
+    "obs_catppuccin": {
+        "cargoLock": null,
+        "date": "2026-06-20",
+        "extract": null,
+        "name": "obs_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "obs",
+            "rev": "054a297d303a5bac4f1652a13b17d78a13201c0e",
+            "sha256": "sha256-zFg7dgxLIK3K1KpLdEgphH2JpdMwVTovr+oKiAqdLEE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "054a297d303a5bac4f1652a13b17d78a13201c0e"
+    },
+    "prismlauncher_catppuccin": {
+        "cargoLock": null,
+        "date": "2025-09-08",
+        "extract": null,
+        "name": "prismlauncher_catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "prismlauncher",
+            "rev": "1ef0e745286ce32750abc3bc5d3ca8073a623b60",
+            "sha256": "sha256-RN1VM29OH75GHSHgpu3HW8YSonIEnX7MZzCObJ6BwtQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1ef0e745286ce32750abc3bc5d3ca8073a623b60"
+    },
+    "radicale_birthday_hook": {
+        "cargoLock": null,
+        "date": "2025-02-04",
+        "extract": null,
+        "name": "radicale_birthday_hook",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3",
+            "sha256": "sha256-X/tahL01rGyc6eg1UqXhINi0mbuhwdzi4cYN8B0K+5c=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/iBigQ/radicale-birthday-calendar.git"
+        },
+        "version": "535ae54ef6464b1aba825af794ecc4c4dbf3d3c3"
+    },
+    "wickedwizard_picture": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wickedwizard_picture",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-lagT6en5bMTeDsUmFFGMiFeg5O21RFUQez2Y0U8QYZU=",
+            "type": "url",
+            "url": "https://i.pinimg.com/736x/d9/f5/81/d9f58165f05408c80043abebdd62eea5.jpg"
+        },
+        "version": "latest"
+    }
+}
