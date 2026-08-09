@@ -77,7 +77,7 @@ jobs:
       - name: "Update nvfetcher"
         run: |
           nix build --print-out-paths --out-link nvfetcher.toml .#nvfetcher
-          nix develop .#ci --command bash -c nvfetcher -c nvfetcher.toml 2>&1 | tee nvfetcher-update.txt
+          nix develop .#ci --command bash -c nvfetcher --config nvfetcher.toml --build-dir _sources/${{ matrix.arch }}-linux 2>&1 | tee nvfetcher-update-${{ matrix.arch }}.txt
           nix fmt
 
       - name: "Upload nvfetcher result"
@@ -86,7 +86,7 @@ jobs:
           name: nvfetcher-${{ matrix.arch }}
           path: |
             _sources/*
-            nvfetcher-update.txt
+            nvfetcher-update-${{ matrix.arch }}.txt
 
   create-pr:
     needs:
@@ -108,13 +108,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: nvfetcher-x86_64-linux
-          path: _sources/x86_64-linux
 
       - name: "Download aarch64 nvfetcher result"
         uses: actions/download-artifact@v4
         with:
           name: nvfetcher-aarch64-linux
-          path: _sources/aarch64-linux
 
       - name: "Write changelog"
         id: changelog
@@ -135,8 +133,8 @@ jobs:
 
           echo "Sources Changelog:" >> changelog.txt
           echo '```' >> changelog.txt
-          (grep -E "→" _sources/x86_64-linux/nvfetcher-update.txt || true) >> changelog.txt
-          (grep -E "→" _sources/aarch64-linux/nvfetcher-update.txt || true) >> changelog.txt
+          (grep -E "→" nvfetcher-update-x86_64.txt || true) >> changelog.txt
+          (grep -E "→" nvfetcher-update-aarch64.txt || true) >> changelog.txt
           echo '```' >> changelog.txt
 
           rm -rf _sources/*/nvfetcher-update.txt
