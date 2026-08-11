@@ -11,7 +11,7 @@
     Container = {
       ContainerName = "ente_museum";
       Network = "systemd-caddy.network";
-      Image = "ghcr.io/ente-io/server";
+      Image = "ghcr.io/ente/server";
       Volume = [
         "logs:/var/logs"
         # TODO: Write these two YAML file declaratively.
