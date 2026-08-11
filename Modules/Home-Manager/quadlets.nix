@@ -58,8 +58,8 @@ let
   unitNameConvertor =
     x:
     replaceStrings
-      [ ".container" ".network" ".volume" ]
-      [ ".service" "-network.service" "-volume.service" ]
+      [ ".container" ".network" ".volume" ".build" ]
+      [ ".service" "-network.service" "-volume.service" "-build.service" ]
       x;
 
   # All the below code -
