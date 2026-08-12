@@ -59,7 +59,7 @@ in
         Environment = [
           "GID=0"
           "UID=0"
-          "COLLECTIONS=crowdsecurity/linux crowdsecurity/nftables ${lib.concatStringsSep " " cfg.collections}"
+          "COLLECTIONS=\"crowdsecurity/linux crowdsecurity/iptables ${lib.concatStringsSep " " cfg.collections}\""
         ];
         /**
           This is because, in podman rootless, mounting /var/log/journal
