@@ -401,7 +401,10 @@ rec {
         };
         caddy = {
           dir = null;
-          envFiles = [ "selfhosted-domains" ];
+          envFiles = [
+            "selfhosted-domains"
+            "oracle-crowdsec-caddy-bouncer"
+          ];
           env = null;
         };
         duckai = {
@@ -444,6 +447,7 @@ rec {
   "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
   "crowdsec-firewall-bouncer.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+  "oracle-crowdsec-firewall-bouncer.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
 
   # Distributed Builds SSH Alias
   "distributed-builds-ssh-config.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
@@ -496,6 +500,7 @@ rec {
     publicKeys = [ users.selfhosted.secrets.encryption.key ];
     dontLoad = true;
   };
+  "oracle-crowdsec-caddy-bouncer.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
 }
 
 /**

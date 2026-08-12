@@ -46,6 +46,20 @@ let
           }
         }
 
+        # Needed for crowdsec logs.
+        log {
+          output file /logs/caddy/access.log {
+            roll_size 30MiB
+            roll_keep 5
+          }
+        }
+
+        crowdsec {
+          api_url http://crowdsec:8080
+          api_key {env.CROWDSEC_API_KEY}
+          ticker_interval 15s
+        }
+
         admin unix//run/admin.sock
         auto_https disable_redirects
       }
@@ -89,19 +103,27 @@ let
       {env.FQDN} {
         import wildcard_dns
         log access
-        respond "{http.request.remote.host}"
+        log
+        route {
+          crowdsec
+          respond "{http.request.remote.host}"
+        }
       }
 
       ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
       *.{env.FQDN} {
         import wildcard_dns
         log access
+        log
 
         ${optionalString (cfg.services != { }) (
           concatMapAttrsStringSep "\n" (n: v: ''
             @${n} host ${n}.{env.FQDN}
             handle @${n} {
-              reverse_proxy ${v}
+              route {
+                crowdsec
+                reverse_proxy ${v}
+              }
             }
           '') cfg.services
         )}
@@ -111,7 +133,10 @@ let
           concatMapAttrsStringSep "\n" (n: v: ''
             @${n} host ${n}.{env.FQDN}
               handle @${n} {
-                ${v}
+                route {
+                  crowdsec
+                  ${v}
+                }
               }
           '') cfg.servicesExtraConfig
         )}
@@ -173,6 +198,18 @@ in
       Install.WantedBy = [ "sockets.target" ];
     };
 
+    containers.crowdsec = {
+      bouncers."caddy.yaml" = {
+        filename = "/logs/caddy/access.log";
+        labels.type = "caddy";
+      };
+      collections = [
+        "crowdsecurity/caddy"
+        "crowdsecurity/http-cve"
+        "crowdsecurity/whitelist-good-actors"
+      ];
+    };
+
     programs.quadlets.quadlets."caddy.container" = {
       Container = {
         ContainerName = "caddy";
@@ -182,7 +219,11 @@ in
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
           "config:/config"
           "data:/data"
+          "crowdsec-logs.volume:/logs"
         ];
+        # Can't get WUD to watch the Docker Registry
+        # for caddy itself. Therefore, we'll turn it off for onw.
+        Label = [ "wud.watch=false" ];
       };
     };
 
@@ -193,7 +234,10 @@ in
 
         RUN xcaddy build \
           --with github.com/caddy-dns/desec \
-          --with github.com/caddyserver/transform-encoder
+          --with github.com/caddyserver/transform-encoder \
+          --with github.com/hslatman/caddy-crowdsec-bouncer/http@main \
+          --with github.com/hslatman/caddy-crowdsec-bouncer/appsec@main \
+          --with github.com/hslatman/caddy-crowdsec-bouncer/layer4@main
 
         FROM docker.io/caddy:latest
 
