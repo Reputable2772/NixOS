@@ -5,6 +5,15 @@
   boot.initrd.systemd.network.wait-online.enable = false;
   systemd.network.wait-online.enable = false;
 
+  /**
+    Look at the crowdsec container for more info.
+  */
+  services.crowdsec-firewall-bouncer = {
+    enable = true;
+    settings.api_url = "http://127.0.0.1:8080";
+    secrets.apiKeyPath = config.age.secrets.crowdsec-firewall-bouncer.path;
+  };
+
   networking = {
     firewall = config.hm-config.firewall // {
       enable = true;

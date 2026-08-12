@@ -204,6 +204,7 @@ rec {
           envFiles = [
             "wickedwizard-domains"
             "email"
+            "crowdsec-caddy-bouncer"
           ];
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
@@ -331,6 +332,11 @@ rec {
           env = [ "TZ=${system.timezone}" ];
           envFiles = null;
         };
+        crowdsec = {
+          dir = null;
+          env = null;
+          envFiles = null;
+        };
       };
     };
     guest = { };
@@ -432,6 +438,7 @@ rec {
   ];
   "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
+  "crowdsec-firewall-bouncer.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
   # Distributed Builds SSH Alias
   "distributed-builds-ssh-config.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
@@ -466,6 +473,7 @@ rec {
   "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+  "crowdsec-caddy-bouncer.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
   "wickedwizard-domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "selfhosted-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
@@ -491,6 +499,7 @@ rec {
   selfhostedPassword.age - Contains the password for user selfhosted in hashed form.
   hp-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
   oracle-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
+  crowdsec-firewall-bouncer.age - Obtained by running `cscli bouncer add nixos-firewall`, and copy pasting the key directly. (Not an env var.)
 
   windows.age - Contains the Bitlocker recovery key.
 
@@ -512,6 +521,7 @@ rec {
   wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
   n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL, N8N_RUNNERS_AUTH_TOKEN
   radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
+  crowdsec-caddy-bouncer.age - See above; same as crowdsec-firewall-browser.age
 
   cloudflare-domains.age - Contains CLOUDFLARE_API_TOKEN, IP6_DOMAINS and PROXIED for cloudflare-ddns updater.
 

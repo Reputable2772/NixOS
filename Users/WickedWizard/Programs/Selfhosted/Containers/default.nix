@@ -6,6 +6,7 @@
     # ./baikal.nix
     ./caddy.nix
     ./caddy-network.nix
+    ./crowdsec.nix
     ./ente.nix
     ./linkding.nix
     ./n8n.nix
