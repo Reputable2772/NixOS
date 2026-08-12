@@ -370,12 +370,13 @@ rec {
         };
       };
     };
-    selfhosted = {
+    selfhosted = rec {
       home = _home.selfhosted or "";
+      flakeDir = "${home}/NixOS";
       secrets = rec {
         encryption = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj9+cqVLVe9jElkvjx0UZ16HXVzdr7VE80pFtwzvJac";
-          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/Selfhosted";
+          pkeyfile = "${flakeDir}/Config/SSH/User-Encryption/Selfhosted";
         };
         ssh = encryption;
       };
