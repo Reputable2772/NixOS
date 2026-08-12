@@ -409,6 +409,11 @@ rec {
           envFiles = null;
           env = null;
         };
+        crowdsec = {
+          dir = null;
+          env = null;
+          envFiles = null;
+        };
       };
     };
     remotebuild = {
