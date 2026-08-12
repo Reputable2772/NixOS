@@ -18,9 +18,14 @@ let
         # Captures ONLY HTTP requests across all domains.
         log master_access {
           include http.log.access
-          output file /data/logs/master_access.json.log {
+          output file /data/logs/master_access.log {
             roll_size 50MiB
             roll_keep 30
+          }
+          # Needed for crowdsec logs.
+          output file /logs/caddy/access.log {
+            roll_size 30MiB
+            roll_keep 5
           }
           format json
         }
@@ -43,14 +48,6 @@ let
           }
           format transform `🚨 [{ts}] [{logger}] {msg} {error}` {
             time_format "15:04:05"
-          }
-        }
-
-        # Needed for crowdsec logs.
-        log {
-          output file /logs/caddy/access.log {
-            roll_size 30MiB
-            roll_keep 5
           }
         }
 
@@ -103,7 +100,6 @@ let
       {env.FQDN} {
         import wildcard_dns
         log access
-        log
         route {
           crowdsec
           respond "{http.request.remote.host}"
@@ -114,7 +110,6 @@ let
       *.{env.FQDN} {
         import wildcard_dns
         log access
-        log
 
         ${optionalString (cfg.services != { }) (
           concatMapAttrsStringSep "\n" (n: v: ''
