@@ -342,10 +342,11 @@ rec {
     guest = { };
     maintenance = rec {
       home = _home.maintenance or "";
+      flakeDir = "${home}/NixOS";
       secrets = rec {
         encryption = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQpS9zfSJ6IWbXOs4ndPMJp93yQVfYahKfsUbRosFbC";
-          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/Maintenance";
+          pkeyfile = "${flakeDir}/Config/SSH/User-Encryption/Maintenance";
         };
         ssh = encryption;
       };
