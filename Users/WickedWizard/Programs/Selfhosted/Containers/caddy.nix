@@ -77,6 +77,10 @@ let
         }
       }
 
+      (hsts) {
+        header Strict-Transport-Security max-age=63072000
+      }
+
       (wildcard_dns) {
         tls {
           dns desec {
@@ -99,6 +103,7 @@ let
 
       {env.FQDN} {
         import wildcard_dns
+        import hsts
         log access
         route {
           crowdsec
@@ -109,6 +114,7 @@ let
       ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
       *.{env.FQDN} {
         import wildcard_dns
+        import hsts
         log access
 
         ${optionalString (cfg.services != { }) (
