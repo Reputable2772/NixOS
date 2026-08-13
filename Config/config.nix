@@ -398,6 +398,7 @@ rec {
           env = [
             "NODE_ENV=production"
             "PORT=3001"
+            "FALLBACK_TIME_BUDGET_MS=0"
           ];
         };
         caddy = {
