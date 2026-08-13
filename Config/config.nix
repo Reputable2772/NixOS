@@ -443,10 +443,8 @@ rec {
     system.lenovo-laptop.secrets.encryption.key
     system.hp-laptop.secrets.encryption.key
   ];
-  "selfhostedPassword.age".publicKeys = [
-    system.hp-laptop.secrets.encryption.key
-    system.oracle-server.secrets.encryption.key
-  ];
+  "selfhostedPassword.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
+  "maintenancePassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
   "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
   "crowdsec-firewall-bouncer.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];

@@ -28,7 +28,7 @@
       "libvirtd"
     ];
     # shell = pkgs.zsh;
-    hashedPasswordFile = config.age.secrets.selfhostedPassword.path;
+    hashedPasswordFile = config.age.secrets.maintenancePassword.path;
     linger = true;
     openssh.authorizedKeys.keys = [ config'.users.maintenance.secrets.ssh.key ];
   };
