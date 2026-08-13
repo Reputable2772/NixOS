@@ -10,11 +10,11 @@
 {
   users.mutableUsers = true;
   users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
-  users.users.selfhosted = {
+  users.users.maintenance = {
     isNormalUser = true;
-    home = "/home/selfhosted";
+    home = "/home/maintenance";
     # Description of all users should container their folder name.
-    description = "selfhosted";
+    description = "maintenance";
     # Fixes https://github.com/GPUOpen-Drivers/AMDVLK/issues/310
     extraGroups = [
       "wheel"
@@ -55,7 +55,7 @@
     verbose = true;
     sharedModules = [ ../../Modules/Home-Manager ];
     users = {
-      selfhosted = {
+      maintenance = {
         imports = [
           ../../Users/Maintenance/home.nix
           {
