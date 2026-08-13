@@ -222,7 +222,7 @@ rec {
             "ROCKET_PORT=80"
             "PUSH_ENABLED=true"
             "LOG_FILE=/data/vaultwarden.log"
-            "EXPERIMENTAL_CLIENT_FEATURE_FLAGS=fido2-vault-credentials,ssh-key-vault-item,ssh-agent"
+            "EXPERIMENTAL_CLIENT_FEATURE_FLAGS=ssh-key-vault-item,ssh-agent-v2,pm-26340-linux-biometrics-v2,simple-login-self-host-alias"
           ];
         };
         syncthing = {
