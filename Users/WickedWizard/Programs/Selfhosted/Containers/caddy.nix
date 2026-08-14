@@ -22,7 +22,11 @@ let
             roll_size 50MiB
             roll_keep 30
           }
-          # Needed for crowdsec logs.
+          format json
+        }
+
+        log crowdsec_access {
+          include http.log.access
           output file /logs/caddy/access.log {
             roll_size 30MiB
             roll_keep 5
