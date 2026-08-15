@@ -479,7 +479,6 @@ rec {
   "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "affine.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
@@ -526,9 +525,6 @@ rec {
   proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)
   ente.age - Contains POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, ENTE_DB_NAME, ENTE_DB_USER, ENTE_DB_PASSWORD. They match respectively. (i.e. POSTGRES_DB should have same value as ENTE_DB_NAME)
     Also contains MINIO_ROOT_USER, MINIO_ROOT_PASSWORD.
-  affine.age - Contains DB_DATABASE, DB_USERNAME, DB_PASSWORD, POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD. They match respectively. It also contains DATABASE_URL, which is in the format of
-    DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@affine_postgres:5432/${DB_DATABASE}
-    Nested environment variables as shown above do not work, so set the value directly.
   wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
   n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL, N8N_RUNNERS_AUTH_TOKEN
   radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.

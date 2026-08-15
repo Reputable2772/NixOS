@@ -2,7 +2,6 @@
   imports = [
     ./Containers
 
-    # ./affine.nix
     ./backup.nix
     ./bitwarden.nix
     ./ente-auth.nix
