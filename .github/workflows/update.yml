@@ -85,7 +85,7 @@ jobs:
         with:
           name: nvfetcher-${{ matrix.arch }}
           path: |
-            _sources/*
+            _sources/${{ matrix.arch }}
             nvfetcher-update-${{ matrix.arch }}.txt
 
   create-pr:
