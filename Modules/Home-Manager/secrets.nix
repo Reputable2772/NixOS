@@ -152,7 +152,7 @@ in
 
           ${concatMapStringsSep "\n" (profile: ''
             echo "Decrypting profile - ${profile}"
-            ${lib.getExe cfg.package} export --profile ${profile} --reason "Secret Decryption - Profile" --format dotenv > $profilesDir/${profile}
+            ${lib.getExe cfg.package} export --profile ${profile} --reason "Secret Decryption - Profile" --format json | jq -r 'to_entries[] | "\(.key)=\(.value)"' > $profilesDir/${profile}
           '') (attrNames profiles)}
 
           # Since we don't know which scope belongs to which profile,
@@ -161,7 +161,7 @@ in
           ${concatMapStringsSep "\n" (scope: ''
             ${concatMapStringsSep "\n" (profile: ''
               echo "Decrypting profile, scope - ${profile}, ${scope}"
-                ${lib.getExe cfg.package} export --scope ${scope} --profile ${profile} --reason "Secret Decryption - Scope" --format dotenv >> $scopesDir/${scope}
+                ${lib.getExe cfg.package} export --scope ${scope} --profile ${profile} --reason "Secret Decryption - Scope" --format json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $scopesDir/${scope}
             '') (attrNames profiles)}
           '') (attrNames scopes)}
 
