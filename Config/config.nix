@@ -126,15 +126,14 @@ rec {
       mounts = {
         /**
           By default, authentication for these gocryptfs folders is assumed to be false.
-          If authentication is necessary, set `authentication = true` and set `encryptionKeys = [...]`
+          If authentication is necessary, set `authentication = true`.
 
-          When it is set, there needs to be a corresponding age file for the particular key name
-          (E.g. important-files key should have `important-files.age` agenix file).
-          They need to be stored in this directory only.
-          This needs to be done manually, since we cannot use nixpkgs/lib here.
+          A corresponding secret is added to secretspec automatically.
+          Just `nix build` secretspec config file, and set the secret with
+          the same name as the attrset name for each mount.
         */
         gocryptfs = {
-          important-files = {
+          important_files = {
             source = "${dir.base}/Important-Files";
             mountpoint = "${dir.base}/../Mounted/Important-Files";
             authentication = true;
@@ -201,11 +200,7 @@ rec {
           dir = null;
           # A list of all the agenix file names to be used, without the age suffix.
           # Content of each agenix file is mentioned below.
-          envFiles = [
-            "wickedwizard-domains"
-            "email"
-            "crowdsec-caddy-bouncer"
-          ];
+          envFiles = [ ];
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
         };
@@ -216,7 +211,7 @@ rec {
         # };
         vaultwarden = {
           dir = null;
-          envFiles = [ "push-notifications" ];
+          envFiles = [ ];
           env = [
             "WEBSOCKET_ENABLE=true"
             "ROCKET_PORT=80"
@@ -261,12 +256,12 @@ rec {
         };
         ente_museum = {
           dir = "${dir.containers}/Ente/museum";
-          envFiles = [ "ente" ];
+          envFiles = [ ];
           env = [ "ENTE_CREDENTIALS_FILE=/credentials.yaml" ];
         };
         ente_postgres = {
           dir = "${dir.containers}/Ente/postgres";
-          envFiles = [ "ente" ];
+          envFiles = [ ];
           env = null;
         };
         # ente_socat = {
@@ -286,7 +281,7 @@ rec {
         # };
         wud = {
           dir = null;
-          envFiles = [ "wud" ];
+          envFiles = [ ];
           env = [ "TZ=${system.timezone}" ];
         };
         ollama = {
@@ -317,7 +312,7 @@ rec {
             # Since I'm using reverse proxy setup with N8N_HOST env var.
             "N8N_PROXY_HOPS=1"
           ];
-          envFiles = [ "n8n" ];
+          envFiles = [ ];
           custom.volumeMounts = [
             "${dir.notes}:/files/obsidian"
           ];
@@ -325,7 +320,7 @@ rec {
         n8n-runner = {
           dir = null;
           env = null;
-          envFiles = [ "n8n" ];
+          envFiles = [ ];
         };
         radicale = {
           dir = null;
@@ -456,35 +451,12 @@ rec {
   # Bitlocker age files
   "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
-  # Backup age files
-  "wickedwizard-backup.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
-  # Gocryptfs age files
-  "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
   # Rclone config file
   "rclone.age" = {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
     dontLoad = true;
   };
-  "cachix.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
 
-  # Container files
-  "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "domains.age" = {
-    publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-    dontLoad = true;
-  };
-  "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "crowdsec-caddy-bouncer.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
-  "wickedwizard-domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
   "selfhosted-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
   "maintenance-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
 
@@ -501,6 +473,11 @@ rec {
     dontLoad = true;
   };
   "oracle-crowdsec-caddy-bouncer.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
+
+  "wickedwizard.age" = {
+    publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+    armor = true;
+  };
 }
 
 /**

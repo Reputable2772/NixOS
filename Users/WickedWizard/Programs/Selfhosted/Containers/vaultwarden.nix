@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   containers.caddy.servicesExtraConfig.vaultwarden = ''
     @admin {
       path /admin*
@@ -11,9 +11,21 @@
     }
   '';
 
+  secretspec.config = {
+    profiles.wickedwizard = {
+      PUSH_INSTALLATION_ID.description = "Push installation id for Vaultwarden";
+      PUSH_INSTALLATION_KEY.description = "Push installation key for Vaultwarden";
+    };
+    scopes.push_installation.secrets = [
+      "PUSH_INSTALLATION_ID"
+      "PUSH_INSTALLATION_KEY"
+    ];
+  };
+
   programs.quadlets.quadlets."vaultwarden.container" = {
     Container = {
       ContainerName = "vaultwarden";
+      EnvironmentFile = config.secretspec.secrets.scopes.push_installation.path;
       Network = "systemd-caddy.network";
       Image = "ghcr.io/dani-garcia/vaultwarden:latest";
       Volume = [

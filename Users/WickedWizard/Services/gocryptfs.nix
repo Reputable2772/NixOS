@@ -7,10 +7,18 @@
 }:
 let
   cfg = config'.mounts.gocryptfs or { };
+  authenticatedMounts = lib.filterAttrs (n: v: v.authentication or false) cfg;
   enabled = cfg != { };
 in
 {
   home.packages = lib.optionals enabled [ pkgs.gocryptfs ];
+
+  secretspec.config.profiles.wickedwizard = lib.optionalAttrs (authenticatedMounts != { }) (
+    lib.mapAttrs' (name: mount: {
+      inherit name;
+      value.description = "Gocrypts mount file - ${name}";
+    }) authenticatedMounts
+  );
 
   systemd.user.services = lib.mkIf enabled (
     lib.mapAttrs' (n: v: {
@@ -25,7 +33,9 @@ in
           ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${v.mountpoint}";
           ExecStart =
             "${lib.getExe' pkgs.gocryptfs "gocryptfs"} -f "
-            + lib.optionalString (v.authentication or false) "-passfile ${config.age.secrets.${n}.path} "
+            +
+              lib.optionalString (v.authentication or false)
+                "-passfile ${config.secretspec.secrets.profiles.wickedwizard.${n}.plainPath} "
             + "${v.source} ${v.mountpoint}";
           ExecStop = "fusermount -u -z ${v.mountpoint}";
         };
