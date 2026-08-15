@@ -59,6 +59,7 @@ let
 
         admin unix//run/admin.sock
         auto_https disable_redirects
+        email {env.EMAIL}
       }
 
       http:// {
