@@ -27,7 +27,7 @@ let
   };
 
   userConfig = if cfg.file == null then cfg.config else fromTOML (builtins.readFile cfg.file);
-  configFile = if cfg.file == null then (toml.generate "secretspec.toml" userConfig) else cfg.file;
+  configFile = if cfg.file == null then toml.generate "secretspec.toml" userConfig else cfg.file;
   profiles = userConfig.profiles or { };
   scopes = userConfig.scopes or { };
 
@@ -63,12 +63,12 @@ in
   options.secretspec = {
     config = mkOption {
       description = ''
-        secretspec.toml config in Nix. 
+        secretspec.toml config in Nix.
 
         **IMPORTANT: Relative Paths**
         If you specify a relative path for an Age provider (e.g., `age://Config/Secrets/wickedwizard.age`),
-        it MUST be strictly relative to the `flakeRootDir`. 
-        During decryption, the service copies the entire Nix configuration root into a temporary workspace 
+        it MUST be strictly relative to the `flakeRootDir`.
+        During decryption, the service copies the entire Nix configuration root into a temporary workspace
         to accurately resolve these relative paths.
 
         Make sure the age files are checked into git.
@@ -84,14 +84,21 @@ in
     };
 
     flakeRootDir = mkOption {
-      description = "Path to the root directory of your Nix configuration (e.g., `./.`). This is copied into the runtime workspace to resolve relative provider paths.";
+      description = ''
+        Path to the root directory of your Nix configuration
+        (e.g., `./.`). This is copied into the runtime workspace
+        to resolve relative provider paths.
+      '';
       type = types.path;
     };
 
     package = mkPackageOption pkgs "secretspec" { };
 
     separateSecrets = mkOption {
-      description = "Each secret has a different file for itself, exported as dotenv & plaintext files.";
+      description = ''
+        Each secret has a different file for itself, exported as
+        dotenv & plaintext files.
+      '';
       default = true;
       type = types.bool;
     };
@@ -116,7 +123,7 @@ in
     assertions = [
       {
         assertion = !(cfg.file != null && cfg.config != { });
-        message = "Set only one of secrets.config or secrets.file";
+        message = "Set only one of secretspec.config or secretspec.file";
       }
       {
         assertion = (filter (profile: profile.path or false) (attrValues profiles)) == [ ];
@@ -128,7 +135,7 @@ in
 
     systemd.user.services.secretspec = {
       Install.WantedBy = [ "default.target" ];
-
+      Unit.X-Restart-Triggers = [ cfg.configFile ];
       Service = {
         Type = "oneshot";
         RuntimeDirectory = "secretspec";
@@ -143,16 +150,22 @@ in
           cp --no-preserve=mode ${configFile} ./secretspec.toml
 
           baseDir="${paths.base}"
-          profilesDir="${paths.profiles}"
-          scopesDir="${paths.scopes}"
-          individualDir="${paths.individual}"
+          newBaseDir="''${baseDir}.new"
+          newProfilesDir="$newBaseDir/profiles"
+          newScopesDir="$newBaseDir/scopes"
+          newIndividualDir="$newBaseDir/individual"
 
-          rm -rf $baseDir
-          mkdir -p $baseDir $profilesDir $scopesDir $individualDir
+          rm -rf "$newBaseDir"
+          mkdir -p "$newProfilesDir" "$newScopesDir" "$newIndividualDir"
 
           ${concatMapStringsSep "\n" (profile: ''
             echo "Decrypting profile - ${profile}"
-            ${lib.getExe cfg.package} export --profile ${profile} --reason "Secret Decryption - Profile" --format json | jq -r 'to_entries[] | "\(.key)=\(.value)"' > $profilesDir/${profile}
+            ${lib.getExe cfg.package} export \
+              --profile ${profile} \
+              --reason "Secret Decryption - Profile" \
+              --format json |
+              ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+              > "$newProfilesDir/${profile}"
           '') (attrNames profiles)}
 
           # Since we don't know which scope belongs to which profile,
@@ -161,7 +174,13 @@ in
           ${concatMapStringsSep "\n" (scope: ''
             ${concatMapStringsSep "\n" (profile: ''
               echo "Decrypting profile, scope - ${profile}, ${scope}"
-                ${lib.getExe cfg.package} export --scope ${scope} --profile ${profile} --reason "Secret Decryption - Scope" --format json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $scopesDir/${scope}
+              ${lib.getExe cfg.package} export \
+                --scope ${scope} \
+                --profile ${profile} \
+                --reason "Secret Decryption - Scope" \
+                --format json |
+                ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+                > "$newScopesDir/${scope}"
             '') (attrNames profiles)}
           '') (attrNames scopes)}
 
@@ -171,15 +190,19 @@ in
             ${concatMapStringsSep "\n" (
               profile:
               let
-                secrets = filter (prof: prof != "defaults") (attrNames profiles.${profile});
+                secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
               in
               concatMapStringsSep "\n" (secret: ''
                 secret_val=$(${lib.getExe cfg.package} get --profile ${profile} ${secret})
-                echo "$secret_val" > $individualDir/${secret}
-                echo "${secret}=$secret_val" > $individualDir/${secret}.env
+                printf '%s' "$secret_val" > "$newIndividualDir/${secret}"
+                printf '%s=%s\n' "${secret}" "$secret_val" > "$newIndividualDir/${secret}.env"
               '') secrets
             ) (attrNames profiles)}
           ''}
+
+          echo "Activating secrets"
+          rm -rf "$baseDir"
+          mv "$newBaseDir" "$baseDir"
         '';
       };
     };
