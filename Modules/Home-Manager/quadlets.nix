@@ -68,7 +68,6 @@ let
   defaultOptions = {
     mkdir = true;
     appendEnv = true;
-    appendEnvFiles = true;
     unitDefaults = true;
     networkNameAlias = true;
     # Opt out either with this flag, or by setting :noMap at the end of a specific volume
@@ -139,20 +138,6 @@ let
     ) config'.containers.${qVal.Container.ContainerName}.env;
   };
 
-  appendEnvFiles = qVal: {
-    Container.EnvironmentFile =
-      lib.optionals
-        (
-          config'.containers.${qVal.Container.ContainerName} ? envFiles
-          && config'.containers.${qVal.Container.ContainerName}.envFiles != null
-        )
-        (
-          lib.lists.map (
-            n: config.age.secrets.${n}.path
-          ) config'.containers.${qVal.Container.ContainerName}.envFiles
-        );
-  };
-
   finalConfig = mapAttrs (
     qName: qVal:
     let
@@ -161,10 +146,10 @@ let
 
       /**
         Ideal Preprocessing ordering -
-        unitDefaults -> appendEnv -> appendEnvFiles -> mapVolumes (special) -> mkdirOp
+        unitDefaults -> appendEnv -> mapVolumes (special) -> mkdirOp
 
         Current ordering
-        mapVolumes (special) -> unitDefaults -> mkdirOp -> appendEnv -> appendEnvFiles
+        mapVolumes (special) -> unitDefaults -> mkdirOp -> appendEnv
       */
 
       # Map only volumes separately, since volumes have to be overwritten entirely,
@@ -194,7 +179,6 @@ let
         ++ (lib.optionals (isContainer qVal) [
           (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
           (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
-          (f: optionalAttrs quadletOptions.appendEnvFiles (appendEnvFiles f))
         ])
       );
     in
