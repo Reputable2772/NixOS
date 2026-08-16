@@ -458,13 +458,6 @@ rec {
   };
 
   "selfhosted-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-  "maintenance-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
-
-  # HP Laptop Container files
-  "cloudflare-domains.age" = {
-    publicKeys = [ users.maintenance.secrets.encryption.key ];
-    dontLoad = true;
-  };
 
   # Oracle Server Containers
   "freellmapi.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
@@ -476,6 +469,10 @@ rec {
 
   "wickedwizard.age" = {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
+    armor = true;
+  };
+  "maintenance.age" = {
+    publicKeys = [ users.maintenance.secrets.encryption.key ];
     armor = true;
   };
 }
