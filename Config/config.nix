@@ -390,7 +390,7 @@ rec {
         };
         freellmapi = {
           dir = null;
-          envFiles = [ "freellmapi" ];
+          envFiles = [ ];
           env = [
             "NODE_ENV=production"
             "PORT=3001"
@@ -457,22 +457,22 @@ rec {
     dontLoad = true;
   };
 
-  "selfhosted-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-
-  # Oracle Server Containers
-  "freellmapi.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-  "desec-domains.age" = {
-    publicKeys = [ users.selfhosted.secrets.encryption.key ];
-    dontLoad = true;
-  };
-  "oracle-crowdsec-caddy-bouncer.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-
+  /**
+    Secrets are entirely handled by secretspec.
+    Agenix is purely used for easier viewing
+    and bulk changes of secrets to the age file
+    manually.
+  */
   "wickedwizard.age" = {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
     armor = true;
   };
   "maintenance.age" = {
     publicKeys = [ users.maintenance.secrets.encryption.key ];
+    armor = true;
+  };
+  "selfhosted.age" = {
+    publicKeys = [ users.selfhosted.secrets.encryption.key ];
     armor = true;
   };
 }
