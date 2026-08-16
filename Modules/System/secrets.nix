@@ -138,6 +138,7 @@ in
       deps = [ "specialfs" ];
       text = ''
         set -euo pipefail
+
         baseDir="${paths.base}"
         generationsDir="${paths.generation}"
         mkdir -p "$generationsDir"
@@ -150,7 +151,6 @@ in
         mkdir -p "$profilesDir" "$scopesDir" "$individualDir"
 
         workDir="$(mktemp -d)"
-
         trap 'rm -rf -- "$workDir" "$generationDir"' EXIT
 
         chmod 0700 "$workDir"
@@ -165,7 +165,7 @@ in
         cd "$workDir"
 
         ${concatMapStringsSep "\n" (profile: ''
-          echo "[secretspec] - Decrypting profile - ${profile}"
+          echo "[secretspec] Decrypting profile: ${profile}"
           ${lib.getExe cfg.package} export \
             --profile "${profile}" \
             --reason "Secret Decryption - Profile" \
@@ -173,15 +173,16 @@ in
             ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
             > "$profilesDir/${profile}"
 
-            chmod 0400 "$profilesDir/${profile}"
+          chmod 0400 "$profilesDir/${profile}"
         '') (attrNames profiles)}
 
-        # Since we don't know which scope belongs to which profile,
-        # we export and run it for all profiles.
-        # Total time = scopes x profiles.
+          # Since we don't know which scope belongs to which profile,
+          # we export and run it for all profiles.
+          # Total time = scopes x profiles.
         ${concatMapStringsSep "\n" (scope: ''
           ${concatMapStringsSep "\n" (profile: ''
-            echo "[secretspec] - Decrypting profile, scope - ${profile}, ${scope}"
+            echo "[secretspec] Decrypting scope: ${scope} (profile: ${profile})"
+
             ${lib.getExe cfg.package} export \
               --scope "${scope}" \
               --profile "${profile}" \
@@ -195,7 +196,7 @@ in
         '') (attrNames scopes)}
 
         ${optionalString cfg.separateSecrets ''
-          echo "[secretspec] - Decrypting secrets individually"
+          echo "[secretspec] Decrypting individual secrets"
 
           ${concatMapStringsSep "\n" (
             profile:
@@ -203,7 +204,15 @@ in
               secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
             in
             concatMapStringsSep "\n" (secret: ''
-              secret_val=$(${lib.getExe cfg.package} get --profile ${profile} ${secret})
+              echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
+
+              secret_val=$(
+                ${lib.getExe cfg.package} get \
+                  --reason "Individual Secrets access" \
+                  --profile "${profile}" \
+                  "${secret}"
+              )
+
               printf '%s' "$secret_val" > "$individualDir/${secret}"
               printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
 
@@ -213,14 +222,21 @@ in
           ) (attrNames profiles)}
         ''}
 
-        echo "[secretspec] - Activating secrets"
+        echo "[secretspec] Activating secrets"
 
         oldGeneration="$(readlink "$baseDir" || true)"
 
-        ln -s -- "$generationDir" "''${baseDir}.new"
+        if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
+          if [ ! -L "$baseDir" ]; then
+            rm -rf -- "$baseDir"
+          fi
+        fi
+
+        ln -sfnT -- "$generationDir" "''${baseDir}.new"
         mv -Tf -- "''${baseDir}.new" "$baseDir"
 
-        # Don't clear active generation.
+        echo "[secretspec] Secrets activated successfully"
+
         trap 'rm -rf -- "$workDir"' EXIT
       '';
     };

@@ -21,6 +21,7 @@ let
 
   paths = rec {
     base = "\${XDG_RUNTIME_DIR}/secrets";
+    generation = "\${XDG_RUNTIME_DIR}/secrets.d";
     profiles = "${base}/profiles";
     scopes = "${base}/scopes";
     individual = "${base}/individual";
@@ -143,20 +144,32 @@ in
         ExecStart = pkgs.writeShellScript "secretspec-decryption" ''
           set -euo pipefail
 
+          baseDir="${paths.base}"
+          generationsDir="${paths.generation}"
+          mkdir -p "$generationsDir"
+
+          generationDir="$(mktemp -d "$generationsDir/generation.XXXXXXXX")"
+          profilesDir="$generationDir/profiles"
+          scopesDir="$generationDir/scopes"
+          individualDir="$generationDir/individual"
+
+          mkdir -p "$profilesDir" "$scopesDir" "$individualDir"
+
+          workDir="$(mktemp -d)"
+          trap 'rm -rf -- "$workDir" "$generationDir"' EXIT
+
+          chmod 0700 "$workDir"
+          chmod 0700 "$generationDir"
+
           # NixOS config root is copied into the temporary workspace so relative provider paths resolve perfectly.
-          cp -r --no-preserve=mode ${cfg.flakeRootDir}/* .
+          cp -a --no-preserve=mode ${cfg.flakeRootDir}/* "$workDir"
 
           # Copy the generated TOML as the default name so the CLI finds it automatically.
-          cp --no-preserve=mode ${configFile} ./secretspec.toml
+          cp --no-preserve=mode ${configFile} "$workDir/secretspec.toml"
 
-          baseDir="${paths.base}"
-          newBaseDir="''${baseDir}.new"
-          newProfilesDir="$newBaseDir/profiles"
-          newScopesDir="$newBaseDir/scopes"
-          newIndividualDir="$newBaseDir/individual"
+          cd "$workDir"
 
-          rm -rf "$newBaseDir"
-          mkdir -p "$newProfilesDir" "$newScopesDir" "$newIndividualDir"
+          mkdir -p "$profilesDir" "$scopesDir" "$individualDir"
 
           ${concatMapStringsSep "\n" (profile: ''
             echo "Decrypting profile - ${profile}"
@@ -165,7 +178,9 @@ in
               --reason "Secret Decryption - Profile" \
               --format json |
               ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
-              > "$newProfilesDir/${profile}"
+              > "$profilesDir/${profile}"
+
+            chmod 0400 "$profilesDir/${profile}"
           '') (attrNames profiles)}
 
           # Since we don't know which scope belongs to which profile,
@@ -180,12 +195,14 @@ in
                 --reason "Secret Decryption - Scope" \
                 --format json |
                 ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
-                > "$newScopesDir/${scope}"
+                > "$scopesDir/${scope}"
+
+              chmod 0400 "$scopesDir/${scope}"
             '') (attrNames profiles)}
           '') (attrNames scopes)}
 
           ${optionalString cfg.separateSecrets ''
-            echo "Decrypting secrets individually"
+            echo "[secretspec] Decrypting individual secrets"
 
             ${concatMapStringsSep "\n" (
               profile:
@@ -193,16 +210,48 @@ in
                 secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
               in
               concatMapStringsSep "\n" (secret: ''
-                secret_val=$(${lib.getExe cfg.package} get --profile ${profile} ${secret})
-                printf '%s' "$secret_val" > "$newIndividualDir/${secret}"
-                printf '%s=%s\n' "${secret}" "$secret_val" > "$newIndividualDir/${secret}.env"
+                echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
+
+                secret_val=$(
+                  ${lib.getExe cfg.package} get \
+                    --reason "Individual Secrets access" \
+                    --profile "${profile}" \
+                    "${secret}"
+                )
+
+                printf '%s' "$secret_val" > "$individualDir/${secret}"
+                printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
+
+                chmod 0400 "$individualDir/${secret}"
+                chmod 0400 "$individualDir/${secret}.env"
               '') secrets
             ) (attrNames profiles)}
           ''}
 
-          echo "Activating secrets"
-          rm -rf "$baseDir"
-          mv "$newBaseDir" "$baseDir"
+          echo "[secretspec] Activating secrets"
+
+          # If it's not a symlink, then remove it.
+          if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
+            if [ ! -L "$baseDir" ]; then
+              rm -rf -- "$baseDir"
+            fi
+          fi
+
+          oldGeneration="$(readlink -f "$baseDir" 2>/dev/null || true)"
+
+          ln -sfnT -- "$generationDir" "''${baseDir}.new"
+          mv -Tf -- "''${baseDir}.new" "$baseDir"
+
+          # Don't cleanup live generation
+          trap 'rm -rf -- "$workDir"' EXIT
+
+          echo "[secretspec] Secrets activated successfully"
+
+          if [ -n "$oldGeneration" ] && [ "$oldGeneration" != "$generationDir" ] && [ "$oldGeneration" != "$baseDir" ]; then
+            rm -rf -- "$oldGeneration"
+          fi
+          echo "[secretspec] Cleared previous generations"
+
         '';
       };
     };
