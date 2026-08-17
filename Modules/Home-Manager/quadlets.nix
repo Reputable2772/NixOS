@@ -18,14 +18,12 @@ let
     mapAttrs
     getAttrFromPath
     recursiveUpdate
-    removeAttrs
     ;
   inherit (lib.lists)
     elemAt
     foldl'
     filter
     isList
-    map
     ;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings)

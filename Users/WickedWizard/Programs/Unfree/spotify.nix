@@ -37,9 +37,9 @@ in
       cp -ra ${config.programs.spicetify.spicetifyPackage}/share/spicetify/{jsHelper,css-map.json} $out/src
 
       sed "s|${
-        if pkgs.stdenv.isLinux then
+        if pkgs.stdenv.hostPlatform.isLinux then
           "$out/share/spotify"
-        else if pkgs.stdenv.isDarwin then
+        else if pkgs.stdenv.hostPlatform.isDarwin then
           "$out/Applications/Spotify.app/Contents/Resources"
         else
           throw ""
