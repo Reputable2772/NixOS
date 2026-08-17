@@ -200,18 +200,15 @@ rec {
           dir = null;
           # A list of all the agenix file names to be used, without the age suffix.
           # Content of each agenix file is mentioned below.
-          envFiles = [ ];
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
         };
         # baikal = {
         #   dir = null;
-        #   envFiles = null;
         #   env = null;
         # };
         vaultwarden = {
           dir = null;
-          envFiles = [ ];
           env = [
             "WEBSOCKET_ENABLE=true"
             "ROCKET_PORT=80"
@@ -222,7 +219,6 @@ rec {
         };
         syncthing = {
           dir = null;
-          envFiles = null;
           env = [
             "TZ=${system.timezone}"
             "PUID=0"
@@ -251,42 +247,34 @@ rec {
         };
         linkding = {
           dir = null;
-          envFiles = null;
           env = null;
         };
         ente_museum = {
           dir = "${dir.containers}/Ente/museum";
-          envFiles = [ ];
           env = [ "ENTE_CREDENTIALS_FILE=/credentials.yaml" ];
         };
         ente_postgres = {
           dir = "${dir.containers}/Ente/postgres";
-          envFiles = [ ];
           env = null;
         };
         # ente_socat = {
         #   dir = "${dir.containers}/Ente/socat";
-        #   envFiles = null;
         #   env = null;
         # };
         # ente_minio = {
         #   dir = "${dir.containers}/Ente/minio";
-        #   envFiles = [ "ente" ];
         #   env = null;
         # };
         # ente_minio-provision = {
         #   dir = "${dir.containers}/Ente/minio-provision";
         #   env = null;
-        #   envFiles = null;
         # };
         wud = {
           dir = null;
-          envFiles = [ ];
           env = [ "TZ=${system.timezone}" ];
         };
         ollama = {
           dir = null;
-          envFiles = null;
           env = [
             # "OLLAMA_VULKAN=1"
             "OLLAMA_NUM_GPU=0"
@@ -298,7 +286,6 @@ rec {
         podman-socket-proxy = {
           dir = null;
           env = null;
-          envFiles = null;
         };
         n8n = {
           dir = null;
@@ -312,7 +299,6 @@ rec {
             # Since I'm using reverse proxy setup with N8N_HOST env var.
             "N8N_PROXY_HOPS=1"
           ];
-          envFiles = [ ];
           custom.volumeMounts = [
             "${dir.notes}:/files/obsidian"
           ];
@@ -320,17 +306,14 @@ rec {
         n8n-runner = {
           dir = null;
           env = null;
-          envFiles = [ ];
         };
         radicale = {
           dir = null;
           env = [ "TZ=${system.timezone}" ];
-          envFiles = null;
         };
         crowdsec = {
           dir = null;
           env = null;
-          envFiles = null;
         };
       };
     };
@@ -349,7 +332,6 @@ rec {
       containers = {
         minecraft = {
           dir = null;
-          envFiles = null;
           env = [
             "EULA=TRUE"
             "TYPE=FABRIC"
@@ -380,7 +362,6 @@ rec {
       containers = {
         ollama = {
           dir = null;
-          envFiles = null;
           env = [
             "GGML_VULKAN=1"
             "OLLAMA_KEEP_ALIVE=10m"
@@ -390,7 +371,6 @@ rec {
         };
         freellmapi = {
           dir = null;
-          envFiles = [ ];
           env = [
             "NODE_ENV=production"
             "PORT=3001"
@@ -399,21 +379,15 @@ rec {
         };
         caddy = {
           dir = null;
-          envFiles = [
-            "selfhosted-domains"
-            "oracle-crowdsec-caddy-bouncer"
-          ];
           env = null;
         };
         duckai = {
           dir = null;
-          envFiles = null;
           env = null;
         };
         crowdsec = {
           dir = null;
           env = null;
-          envFiles = null;
         };
       };
     };
