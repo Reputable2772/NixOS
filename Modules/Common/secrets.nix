@@ -1,4 +1,3 @@
-# TODO: Secret Validation before activation, maybe using runCommand?
 {
   config',
   pkgs,
@@ -28,6 +27,7 @@ let
   inherit (lib.options) mkOption mkPackageOption;
   inherit (lib.strings)
     concatMapStringsSep
+    concatStringsSep
     isPath
     optionalString
     replaceStrings
@@ -73,14 +73,26 @@ let
   mappedScopes = mapAttrs (
     scopeName: scopeVal: scopeVal // { path = "${paths.scopes}/${scopeName}"; }
   ) scopes;
-  # This is needed to point secretspec.toml to the correct age
-  # files in the nix store.
+
+  /**
+    This is needed to point secretspec.toml to the correct age
+    files in the nix store. Do not set this for secretspec.configFile.
+    That option is meant for adding/removing secrets using secretspec cli
+
+    NOTE: only *public* material (encrypted blobs, recipient files) should
+    ever go through cfg.files. Never route a private age identity through
+    here - cfg.files values land in the Nix store, which is world-readable.
+  */
   replacedProviders = mapAttrs (
     name: val:
     if (cfg.files ? ${name}) then
-      replaceStrings (attrNames cfg.files.${name}) (map (v: toString v) (
-        attrValues cfg.files.${name}
-      )) val
+      let
+        keys = attrNames cfg.files.${name};
+        missing = filter (k: !(lib.strings.hasInfix k val)) keys;
+      in
+      assert lib.assertMsg (missing == [ ])
+        "secretspec: provider '${name}' URI does not contain expected placeholder(s): ${concatStringsSep ", " missing}. Got: ${val}";
+      replaceStrings keys (map (v: toString v) (attrValues cfg.files.${name})) val
     else
       val
   ) (userConfig.providers or { });
@@ -88,6 +100,10 @@ let
     providers = replacedProviders;
   };
   replacedConfigFile = toml.generate "secretspec.toml" replacedUserConfig;
+
+  # Activation-time check + decrypt. Runs post-build, outside the sandbox,
+  # as the real user with real $HOME - this is where the private identity
+  # actually resolves, so this is where `secretspec check` belongs.
   activationScript = ''
     baseDir="${paths.base}"
     generationsDir="${paths.generation}"
@@ -104,89 +120,110 @@ let
 
     chmod 0700 "$generationDir"
 
+    check_failed=0
+
     ${concatMapStringsSep "\n" (profile: ''
-      echo "Decrypting profile - ${profile}"
-      ${lib.getExe cfg.package} export \
+      echo "[secretspec] Checking profile: ${profile}"
+
+      if ! ${lib.getExe cfg.package} check \
         --file ${replacedConfigFile} \
         --profile ${profile} \
-        --reason "Secret Decryption - Profile" \
-        --format json |
-        ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
-        > "$profilesDir/${profile}"
-
-      chmod 0400 "$profilesDir/${profile}"
+        --reason "Activation Time - Profile Check"
+      then
+        echo "[secretspec] Check failed for profile: ${profile}"
+        check_failed=1
+      fi
     '') (attrNames profiles)}
 
-    # Since we don't know which scope belongs to which profile,
-    # we export and run it for all profiles.
-    # Total time = scopes x profiles.
-    ${concatMapStringsSep "\n" (scope: ''
+    if [ "$check_failed" -ne 0 ]; then
+      echo "[secretspec] Secret checks failed; refusing to activate secrets"
+
+      # Cleanup trap & exit
+      trap - EXIT
+      rm -rf -- "$generationDir"
+    else
       ${concatMapStringsSep "\n" (profile: ''
-        echo "Decrypting profile, scope - ${profile}, ${scope}"
+        echo "[secretspec] Decrypting profile: ${profile}"
         ${lib.getExe cfg.package} export \
           --file ${replacedConfigFile} \
-          --scope ${scope} \
           --profile ${profile} \
-          --reason "Secret Decryption - Scope" \
+          --reason "Secret Decryption - Profile" \
           --format json |
           ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
-          > "$scopesDir/${scope}"
+          > "$profilesDir/${profile}"
 
-        chmod 0400 "$scopesDir/${scope}"
+        chmod 0400 "$profilesDir/${profile}"
       '') (attrNames profiles)}
-    '') (attrNames scopes)}
 
-    ${optionalString cfg.separateSecrets ''
-      echo "[secretspec] Decrypting individual secrets"
+      # Since we don't know which scope belongs to which profile,
+      # we export and run it for all profiles.
+      # Total time = scopes x profiles.
+      ${concatMapStringsSep "\n" (scope: ''
+        ${concatMapStringsSep "\n" (profile: ''
+          echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
+          ${lib.getExe cfg.package} export \
+            --file ${replacedConfigFile} \
+            --scope ${scope} \
+            --profile ${profile} \
+            --reason "Secret Decryption - Scope" \
+            --format json |
+            ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+            > "$scopesDir/${scope}"
 
-      ${concatMapStringsSep "\n" (
-        profile:
-        let
-          secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
-        in
-        concatMapStringsSep "\n" (secret: ''
-          echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
+          chmod 0400 "$scopesDir/${scope}"
+        '') (attrNames profiles)}
+      '') (attrNames scopes)}
 
-          secret_val=$(
-            ${lib.getExe cfg.package} get \
-              --file ${replacedConfigFile} \
-              --reason "Individual Secrets access" \
-              --profile "${profile}" \
-              "${secret}"
-          )
+      ${optionalString cfg.separateSecrets ''
+        ${concatMapStringsSep "\n" (
+          profile:
+          let
+            secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
+          in
+          concatMapStringsSep "\n" (secret: ''
+            echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
 
-          printf '%s' "$secret_val" > "$individualDir/${secret}"
-          printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
+            secret_val=$(
+              ${lib.getExe cfg.package} get \
+                --file ${replacedConfigFile} \
+                --reason "Individual Secrets access" \
+                --profile "${profile}" \
+                "${secret}"
+            )
 
-          chmod 0400 "$individualDir/${secret}"
-          chmod 0400 "$individualDir/${secret}.env"
-        '') secrets
-      ) (attrNames profiles)}
-    ''}
+            printf '%s' "$secret_val" > "$individualDir/${secret}"
+            printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
 
-    echo "[secretspec] Activating secrets"
+            chmod 0400 "$individualDir/${secret}"
+            chmod 0400 "$individualDir/${secret}.env"
+          '') secrets
+        ) (attrNames profiles)}
+      ''}
 
-    # If it's not a symlink, then remove it.
-    if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
-      if [ ! -L "$baseDir" ]; then
-        rm -rf -- "$baseDir"
+      echo "[secretspec] Activating secrets"
+
+      # If it's not a symlink, then remove it.
+      if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
+        if [ ! -L "$baseDir" ]; then
+          rm -rf -- "$baseDir"
+        fi
       fi
+
+      oldGeneration="$(readlink -f "$baseDir" 2>/dev/null || true)"
+
+      ln -sfnT -- "$generationDir" "''${baseDir}.new"
+      mv -Tf -- "''${baseDir}.new" "$baseDir"
+
+      # Don't cleanup live generation
+      trap - EXIT
+
+      echo "[secretspec] Secrets activated successfully"
+
+      if [ -n "$oldGeneration" ] && [ "$oldGeneration" != "$generationDir" ] && [ "$oldGeneration" != "$baseDir" ]; then
+        rm -rf -- "$oldGeneration"
+      fi
+      echo "[secretspec] Cleared previous generations"
     fi
-
-    oldGeneration="$(readlink -f "$baseDir" 2>/dev/null || true)"
-
-    ln -sfnT -- "$generationDir" "''${baseDir}.new"
-    mv -Tf -- "''${baseDir}.new" "$baseDir"
-
-    # Don't cleanup live generation
-    trap - EXIT
-
-    echo "[secretspec] Secrets activated successfully"
-
-    if [ -n "$oldGeneration" ] && [ "$oldGeneration" != "$generationDir" ] && [ "$oldGeneration" != "$baseDir" ]; then
-      rm -rf -- "$oldGeneration"
-    fi
-    echo "[secretspec] Cleared previous generations"
   '';
 in
 {
@@ -206,11 +243,10 @@ in
 
     files = mkOption {
       description = ''
-        Age files referenced by providers in secretspec.toml.
-
-        This is an attrset mapping each provider path to the corresponding
-        age file path. The age files must be checked into the flake's source
-        tree.
+        Public files referenced by providers in secretspec.toml (e.g. age
+        encrypted blobs, recipient/public-key files). This is an attrset
+        mapping each provider path to the corresponding file path. Files
+        must be checked into the flake's source tree.
 
         For example, if secretspec.toml contains a provider at
         "age://Config/Secrets/test.age", with name "age", and the corresponding age file is
@@ -287,6 +323,7 @@ in
         Unit.X-Restart-Triggers = [ replacedConfigFile ];
         Service = {
           Type = "oneshot";
+          RemainAfterExit = true;
           RuntimeDirectory = "secretspec";
           WorkingDirectory = "%t/secretspec";
           ExecStart = pkgs.writeShellScript "secretspec-decryption" activationScript;
