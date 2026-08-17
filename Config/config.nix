@@ -126,15 +126,14 @@ rec {
       mounts = {
         /**
           By default, authentication for these gocryptfs folders is assumed to be false.
-          If authentication is necessary, set `authentication = true` and set `encryptionKeys = [...]`
+          If authentication is necessary, set `authentication = true`.
 
-          When it is set, there needs to be a corresponding age file for the particular key name
-          (E.g. important-files key should have `important-files.age` agenix file).
-          They need to be stored in this directory only.
-          This needs to be done manually, since we cannot use nixpkgs/lib here.
+          A corresponding secret is added to secretspec automatically.
+          Just `nix build` secretspec config file, and set the secret with
+          the same name as the attrset name for each mount.
         */
         gocryptfs = {
-          important-files = {
+          important_files = {
             source = "${dir.base}/Important-Files";
             mountpoint = "${dir.base}/../Mounted/Important-Files";
             authentication = true;
@@ -201,11 +200,7 @@ rec {
           dir = null;
           # A list of all the agenix file names to be used, without the age suffix.
           # Content of each agenix file is mentioned below.
-          envFiles = [
-            "wickedwizard-domains"
-            "email"
-            "crowdsec-caddy-bouncer"
-          ];
+          envFiles = [ ];
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
         };
@@ -216,7 +211,7 @@ rec {
         # };
         vaultwarden = {
           dir = null;
-          envFiles = [ "push-notifications" ];
+          envFiles = [ ];
           env = [
             "WEBSOCKET_ENABLE=true"
             "ROCKET_PORT=80"
@@ -261,12 +256,12 @@ rec {
         };
         ente_museum = {
           dir = "${dir.containers}/Ente/museum";
-          envFiles = [ "ente" ];
+          envFiles = [ ];
           env = [ "ENTE_CREDENTIALS_FILE=/credentials.yaml" ];
         };
         ente_postgres = {
           dir = "${dir.containers}/Ente/postgres";
-          envFiles = [ "ente" ];
+          envFiles = [ ];
           env = null;
         };
         # ente_socat = {
@@ -286,7 +281,7 @@ rec {
         # };
         wud = {
           dir = null;
-          envFiles = [ "wud" ];
+          envFiles = [ ];
           env = [ "TZ=${system.timezone}" ];
         };
         ollama = {
@@ -317,7 +312,7 @@ rec {
             # Since I'm using reverse proxy setup with N8N_HOST env var.
             "N8N_PROXY_HOPS=1"
           ];
-          envFiles = [ "n8n" ];
+          envFiles = [ ];
           custom.volumeMounts = [
             "${dir.notes}:/files/obsidian"
           ];
@@ -325,7 +320,7 @@ rec {
         n8n-runner = {
           dir = null;
           env = null;
-          envFiles = [ "n8n" ];
+          envFiles = [ ];
         };
         radicale = {
           dir = null;
@@ -395,7 +390,7 @@ rec {
         };
         freellmapi = {
           dir = null;
-          envFiles = [ "freellmapi" ];
+          envFiles = [ ];
           env = [
             "NODE_ENV=production"
             "PORT=3001"
@@ -429,113 +424,34 @@ rec {
     };
   };
 
-  # All files should be in the same directory as this file.
-
-  # Agenix config
-  # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
-  "wickedwizardPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-  "rootPassword.age".publicKeys = [
-    system.lenovo-laptop.secrets.encryption.key
-    system.hp-laptop.secrets.encryption.key
-    system.oracle-server.secrets.encryption.key
-  ];
-  "guestPassword.age".publicKeys = [
-    system.lenovo-laptop.secrets.encryption.key
-    system.hp-laptop.secrets.encryption.key
-  ];
-  "selfhostedPassword.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
-  "maintenancePassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
-  "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
-  "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
-  "crowdsec-firewall-bouncer.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-  "oracle-crowdsec-firewall-bouncer.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
-
-  # Distributed Builds SSH Alias
-  "distributed-builds-ssh-config.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-
-  # Bitlocker age files
-  "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-
-  # Backup age files
-  "wickedwizard-backup.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
-  # Gocryptfs age files
-  "important-files.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
-  # Rclone config file
-  "rclone.age" = {
+  /**
+    Secrets are entirely handled by secretspec.
+    Agenix is purely used for easier viewing
+    and bulk changes of secrets to the age file
+    manually.
+  */
+  "wickedwizard.age" = {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-    dontLoad = true;
+    armor = true;
   };
-  "cachix.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
-  # Container files
-  "containers-backup-pwd.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "domains.age" = {
-    publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-    dontLoad = true;
-  };
-  "email.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "push-notifications.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "proton-openvpn.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "ente.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "affine.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "wud.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "n8n.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "radicale.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "crowdsec-caddy-bouncer.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-
-  "wickedwizard-domains.age".publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-  "selfhosted-domains.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-  "maintenance-domains.age".publicKeys = [ users.maintenance.secrets.encryption.key ];
-
-  # HP Laptop Container files
-  "cloudflare-domains.age" = {
+  "maintenance.age" = {
     publicKeys = [ users.maintenance.secrets.encryption.key ];
-    dontLoad = true;
+    armor = true;
   };
-
-  # Oracle Server Containers
-  "freellmapi.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
-  "desec-domains.age" = {
+  "selfhosted.age" = {
     publicKeys = [ users.selfhosted.secrets.encryption.key ];
-    dontLoad = true;
+    armor = true;
   };
-  "oracle-crowdsec-caddy-bouncer.age".publicKeys = [ users.selfhosted.secrets.encryption.key ];
+  "lenovo-laptop.age" = {
+    publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+    armor = true;
+  };
+  "hp-laptop.age" = {
+    publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+    armor = true;
+  };
+  "oracle-server.age" = {
+    publicKeys = [ system.oracle-server.secrets.encryption.key ];
+    armor = true;
+  };
 }
-
-/**
-  wickedwizardPassword.age - Contains the password for user wickedwizard in hashed form.
-  rootPassword.age - Contains the password for user root in hashed form.
-  selfhostedPassword.age - Contains the password for user selfhosted in hashed form.
-  hp-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
-  oracle-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
-  crowdsec-firewall-bouncer.age - Obtained by running `cscli bouncer add nixos-firewall`, and copy pasting the key directly. (Not an env var.)
-
-  windows.age - Contains the Bitlocker recovery key.
-
-  wickedwizard-backup.age - Contains the password for restic backup repository.
-
-  important-files.age - Contains the password for Gocryptfs mount.
-  rclone.age - Contains the rclone.conf file, as-is.
-  cachix.age - Contains CACHIX_AUTH_TOKEN= (for cache) and CACHIX_DEPLOY_TOKEN= (for deployment)
-
-  domains.age - Contains DOMAIN and its respective DUCKDNS_TOKEN
-  email.age - Contains your email for Caddy, Let's Encrypt
-  push-notifications.age - Contains Bitwarden Push Notification keys. (PUSH_INSTALLATION_ID, PUSH_INSTALLATION_KEY). More info - https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
-  proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)
-  ente.age - Contains POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, ENTE_DB_NAME, ENTE_DB_USER, ENTE_DB_PASSWORD. They match respectively. (i.e. POSTGRES_DB should have same value as ENTE_DB_NAME)
-    Also contains MINIO_ROOT_USER, MINIO_ROOT_PASSWORD.
-  affine.age - Contains DB_DATABASE, DB_USERNAME, DB_PASSWORD, POSTGRES_USER, POSTGRES_DB, POSTGRES_PASSWORD. They match respectively. It also contains DATABASE_URL, which is in the format of
-    DATABASE_URL=postgresql://${DB_USERNAME}:${DB_PASSWORD}@affine_postgres:5432/${DB_DATABASE}
-    Nested environment variables as shown above do not work, so set the value directly.
-  wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
-  n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL, N8N_RUNNERS_AUTH_TOKEN
-  radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
-  crowdsec-caddy-bouncer.age - See above; same as crowdsec-firewall-browser.age
-
-  cloudflare-domains.age - Contains CLOUDFLARE_API_TOKEN, IP6_DOMAINS and PROXIED for cloudflare-ddns updater.
-
-  freellmapi.age - Contains ENCRYPTION_KEY
-  desec-domains.age - Contains DOMAIN, DESEC_TOKEN for that account.
-*/

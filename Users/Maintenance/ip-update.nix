@@ -1,9 +1,25 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 {
+  secretspec.config = {
+    profiles.maintenance = {
+      BASE_DOMAIN.description = "The domain owned by the user.";
+      SUBNAME.description = "The subname (without domain) used for this host.";
+      HOST_DOMAIN.description = "The subdomain used for this host.";
+      DESEC_TOKEN.description = "desec.io API Token";
+    };
+    scopes.domain_ip_update.secrets = [
+      "BASE_DOMAIN"
+      "SUBNAME"
+      "HOST_DOMAIN"
+      "DESEC_TOKEN"
+    ];
+  };
+
   systemd.user.services.ip-update = {
     Unit = {
       Description = "IP Update service.";
@@ -11,11 +27,13 @@
 
     Service = {
       Type = "oneshot";
+      EnvironmentFile =
+        lib.replaceStrings [ "\${XDG_RUNTIME_DIR}" ] [ "%t" ]
+          config.secretspec.secrets.scopes.domain_ip_update.path;
       ExecStart = pkgs.writeShellScript "ip-update-service" ''
         set -euo pipefail
-        source ${config.age.secrets.maintenance-domains.path}
 
-        domain=$(echo $DOMAIN)
+        domain=$(echo $BASE_DOMAIN)
         subname=$(echo $SUBNAME)
         ip6=$(
           ip -6 addr show scope global |

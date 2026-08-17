@@ -7,6 +7,7 @@ in
   readDirectory = import ./readDirectory.nix { inherit lib; };
   toSystemdUnit = import ./toSystemdUnit.nix { inherit lib; };
   deepMerge = import ./deepMerge.nix;
+  mapAttrsTreeDepth = import ./mapAttrsTreeDepth.nix { inherit lib; };
 
   # This is a derivation, rather than a function
   iniToNix = import ./iniToNix.nix { inherit pkgs; };

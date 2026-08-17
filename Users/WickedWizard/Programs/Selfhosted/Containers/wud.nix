@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   containers.caddy.services.wud = "wud:3000";
   containers.podman-socket-proxy.allowedMethods = {
     CONTAINERS = 1;
@@ -6,6 +6,20 @@
     ALLOW_STOP = 1;
     IMAGES = 1;
     POST = 0;
+  };
+
+  secretspec.config = {
+    profiles.wickedwizard = {
+      WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC.description = "The ntfy url to be triggered on container updates";
+      WUD_AUTH_BASIC_MAIN_USER.description = "Login Username for WUD";
+      # https://getwud.github.io/wud/#/configuration/
+      WUD_AUTH_BASIC_MAIN_HASH.description = "Hashed login Password for WUD";
+    };
+    scopes.wud.secrets = [
+      "WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC"
+      "WUD_AUTH_BASIC_MAIN_USER"
+      "WUD_AUTH_BASIC_MAIN_HASH"
+    ];
   };
 
   programs.quadlets.quadlets."wud.container" = {
@@ -16,6 +30,7 @@
         "systemd-caddy.network"
         "podman-socket.network"
       ];
+      EnvironmentFile = config.secretspec.secrets.scopes.wud.path;
       Environment = [
         "WUD_WATCHER_DOCKER_HOST=podman-socket-proxy"
         "WUD_WATCHER_DOCKER_PORT=2375"

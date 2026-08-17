@@ -22,7 +22,11 @@ let
             roll_size 50MiB
             roll_keep 30
           }
-          # Needed for crowdsec logs.
+          format json
+        }
+
+        log crowdsec_access {
+          include http.log.access
           output file /logs/caddy/access.log {
             roll_size 30MiB
             roll_keep 5
@@ -53,7 +57,7 @@ let
 
         crowdsec {
           api_url http://crowdsec:8080
-          api_key {env.CROWDSEC_API_KEY}
+          api_key {env.CADDY_CROWDSEC_API_KEY}
           ticker_interval 15s
         }
 
@@ -102,7 +106,7 @@ let
         }
       }
 
-      {env.FQDN} {
+      {env.HOST_DOMAIN} {
         import wildcard_dns
         import hsts
         log access
@@ -113,14 +117,14 @@ let
       }
 
       ${optionalString (cfg.extraConfig != [ ]) (concatStringsSep "\n" cfg.extraConfig)}
-      *.{env.FQDN} {
+      *.{env.HOST_DOMAIN} {
         import wildcard_dns
         import hsts
         log access
 
         ${optionalString (cfg.services != { }) (
           concatMapAttrsStringSep "\n" (n: v: ''
-            @${n} host ${n}.{env.FQDN}
+            @${n} host ${n}.{env.HOST_DOMAIN}
             handle @${n} {
               route {
                 crowdsec
@@ -133,7 +137,7 @@ let
         ${optionalString (cfg.servicesExtraConfig != { }) (
           # Handling is done by the extraConfig, like in vaultwarden.nix
           concatMapAttrsStringSep "\n" (n: v: ''
-            @${n} host ${n}.{env.FQDN}
+            @${n} host ${n}.{env.HOST_DOMAIN}
               handle @${n} {
                 route {
                   crowdsec
@@ -181,6 +185,28 @@ in
       respond "{{.RemoteIP}}"
     '';
 
+    secretspec.config = {
+      profiles.wickedwizard = {
+        EMAIL.description = "Email used for Let's Encrypt account.";
+        CADDY_CROWDSEC_API_KEY.description = "API Key for Caddy to act as a Remediation Engine.";
+        DUCKDNS_DOMAIN.description = "Base domain for duckdns";
+        DUCKDNS_TOKEN.description = "DuckDNS API token";
+      };
+      # The other two are defined in ip-update.nix
+      scopes = {
+        caddy.secrets = [
+          "CADDY_CROWDSEC_API_KEY"
+          "EMAIL"
+          "DESEC_TOKEN"
+          "HOST_DOMAIN"
+        ];
+        duckdns.secrets = [
+          "DUCKDNS_DOMAIN"
+          "DUCKDNS_TOKEN"
+        ];
+      };
+    };
+
     programs.quadlets.extraServices = [
       "caddy.socket"
     ];
@@ -216,6 +242,7 @@ in
       Container = {
         ContainerName = "caddy";
         Network = "systemd-caddy.network";
+        EnvironmentFile = config.secretspec.secrets.scopes.caddy.path;
         Image = "caddy-image.build";
         Volume = [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"

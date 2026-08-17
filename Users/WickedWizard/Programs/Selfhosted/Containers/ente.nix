@@ -1,16 +1,51 @@
 {
   osConfig,
+  config,
   lib,
   ...
 }:
 {
   containers.caddy.services.ente = "ente_museum:8080";
 
+  secretspec.config = {
+    profiles.wickedwizard = {
+      ENTE_DB_NAME.description = "Ente DB Name in Postgres";
+      ENTE_DB_USER.description = "Ente DB User in Postgres";
+      ENTE_DB_PASSWORD.description = "Ente DB Password in Postgres";
+
+      POSTGRES_USER = {
+        description = "Ente's Postgres user";
+        ref.item = "ENTE_DB_USER";
+      };
+      POSTGRES_DB = {
+        description = "Ente's Postgres DB Name";
+        ref.item = "ENTE_DB_NAME";
+      };
+      POSTGRES_PASSWORD = {
+        description = "Ente's Postgres User Password";
+        ref.item = "ENTE_DB_PASSWORD";
+      };
+    };
+    scopes = {
+      ente.secrets = [
+        "ENTE_DB_NAME"
+        "ENTE_DB_USER"
+        "ENTE_DB_PASSWORD"
+      ];
+      ente_postgres.secrets = [
+        "POSTGRES_USER"
+        "POSTGRES_DB"
+        "POSTGRES_PASSWORD"
+      ];
+    };
+  };
+
   # Museum is the main Ente server.
   programs.quadlets.quadlets."ente_museum.container" = {
     Container = {
       ContainerName = "ente_museum";
       Network = "systemd-caddy.network";
+      EnvironmentFile = config.secretspec.secrets.scopes.ente.path;
       Image = "ghcr.io/ente/server";
       Volume = [
         "logs:/var/logs"
@@ -33,6 +68,7 @@
     Container = {
       ContainerName = "ente_postgres";
       Network = "systemd-caddy.network";
+      EnvironmentFile = config.secretspec.secrets.scopes.ente_postgres.path;
       # We use a double dollar '$$' here to escape the variable for systemd, as given here
       # https://github.com/containers/podman/discussions/25053#discussioncomment-11890600
       HealthCmd = "pg_isready -d $\${ENTE_DB_NAME} -U $\${ENTE_DB_USER}";

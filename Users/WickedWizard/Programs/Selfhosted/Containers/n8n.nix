@@ -1,4 +1,5 @@
 {
+  config,
   config',
   pkgs,
   lib,
@@ -6,6 +7,29 @@
 }:
 {
   containers.caddy.services.n8n = "n8n:5678";
+
+  secretspec.config = {
+    profiles.wickedwizard = {
+      N8N_HOST = {
+        description = "URL where N8N is hosted";
+        composed = "https://n8n.\${HOST_DOMAIN}/";
+      };
+      WEBHOOK_URL = {
+        description = "Webhook URL for N8N";
+        composed = "https://n8n.\${HOST_DOMAIN}/";
+      };
+      N8N_RUNNERS_AUTH_TOKEN = {
+        description = "Authentication token between n8n & its runners.";
+        type = "password";
+        generate = true;
+      };
+    };
+    scopes.n8n.secrets = [
+      "N8N_HOST"
+      "WEBHOOK_URL"
+      "N8N_RUNNERS_AUTH_TOKEN"
+    ];
+  };
 
   # n8n runs in external mode.
   programs.quadlets.quadlets."n8n.container" = {
@@ -23,6 +47,7 @@
         "N8N_NATIVE_PYTHON_RUNNER=true"
         "N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0"
       ];
+      EnvironmentFile = config.secretspec.secrets.scopes.n8n.path;
       Volume = [
         "n8n.volume:/root/.n8n"
       ]
@@ -38,6 +63,7 @@
       Environment = [
         "N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679"
       ];
+      EnvironmentFile = config.secretspec.secrets.profiles.wickedwizard.N8N_RUNNERS_AUTH_TOKEN.envPath;
       Volume = [
         # Taken from https://github.com/n8n-io/n8n/blob/5f92be5fabfcbd119d364cf4566f679a48acb227/docker/images/runners/n8n-task-runners.json
         # Don't remove and assume default config. This config is necessary for multiple runners,

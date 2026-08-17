@@ -20,6 +20,8 @@ in
   };
 
   config = {
+    secretspec.config.profiles.wickedwizard.USER_BACKUP.description = "Restic backup password for user";
+
     services.restic = {
       enable = true;
       backups.${config.home.username} = {
@@ -31,7 +33,7 @@ in
         backupPrepareCommand = lib.concatStringsSep "\n" cfg.preBackupScript;
         passwordFile =
           lib.replaceStrings [ "\${XDG_RUNTIME_DIR}" ] [ "%t" ]
-            config.age.secrets."${config.home.username}-backup".path;
+            config.secretspec.secrets.profiles.wickedwizard.USER_BACKUP.plainPath;
         timerConfig = {
           OnCalendar = "*-*-* 21:00:00";
           Persistent = true;

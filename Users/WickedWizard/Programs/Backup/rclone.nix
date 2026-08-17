@@ -1,6 +1,5 @@
 {
   config,
-  config',
   pkgs,
   lib,
   ...
@@ -8,12 +7,13 @@
 {
   home.packages = with pkgs; [ rclone ];
 
-  age.secrets =
-    lib.optionalAttrs (config'.secrets ? rcloneAgeFile && config'.secrets.rcloneAgeFile != null)
-      {
-        rclone = {
-          file = ./. + "../../../../../Config/Secrets/${config'.secrets.rcloneAgeFile}.age";
-          path = "${config.xdg.configHome}/rclone/rclone.conf";
-        };
-      };
+  secretspec.config.profiles.wickedwizard.RCLONE_CONFIG.description =
+    "rclone.conf file, stored as is.";
+
+  systemd.user.tmpfiles.rules = [
+    "L+ ${config.xdg.configHome}/rclone/rclone.conf - - - - ${
+      lib.replaceStrings [ "\${XDG_RUNTIME_DIR}" ] [ "%t" ]
+        config.secretspec.secrets.profiles.wickedwizard.RCLONE_CONFIG.plainPath
+    }"
+  ];
 }

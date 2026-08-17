@@ -63,6 +63,9 @@ in
 {
   containers.caddy.services.radicale = "radicale:5232";
 
+  secretspec.config.profiles.wickedwizard.RADICALE_USERS.description =
+    "Mount user & passwords to ${userFilePath} for radicale container.";
+
   programs.quadlets.quadlets."radicale.container" = {
     Container = {
       Image = "docker.io/tomsquest/docker-radicale";
@@ -93,7 +96,7 @@ in
         "data:/data"
         "${pkgs.writeText "radicale-config" radicaleConfig}:/config/config:ro:noMap"
         # Mounted directly as a file, not an environment variable.
-        "${config.age.secrets.radicale.path}:${userFilePath}:noMap"
+        "${config.secretspec.secrets.profiles.wickedwizard.RADICALE_USERS.plainPath}:${userFilePath}:noMap"
         "${birthdayHookShFile}:${birthdayHookSh}:noMap"
         "${sources.radicale_birthday_hook.src}${birthdayHook}:${birthdayHook}:noMap"
       ];

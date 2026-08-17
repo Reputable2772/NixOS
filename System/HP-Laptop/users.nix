@@ -9,7 +9,13 @@
 }:
 {
   users.mutableUsers = true;
-  users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
+
+  secretspec.config.profiles.hp-laptop = {
+    ROOT_PASSWORD.description = "Hashed Password for root user";
+    MAINTENANCE_PASSWORD.description = "Hashed Password for maintenance user (basically admin acc for hp-laptop)";
+  };
+
+  users.users.root.hashedPasswordFile = config.secretspec.profiles.hp-laptop.ROOT_PASSWORD.plainPath;
   users.users.maintenance = {
     isNormalUser = true;
     home = "/home/maintenance";
@@ -28,7 +34,7 @@
       "libvirtd"
     ];
     # shell = pkgs.zsh;
-    hashedPasswordFile = config.age.secrets.maintenancePassword.path;
+    hashedPasswordFile = config.secretspec.profiles.hp-laptop.MAINTENANCE_PASSWORD.plainPath;
     linger = true;
     openssh.authorizedKeys.keys = [ config'.users.maintenance.secrets.ssh.key ];
   };
@@ -44,7 +50,6 @@
       "networkmanager"
     ];
     initialHashedPassword = "$y$j9T$T.1e5vo2lNood2mmpYVp8.$71pkBSAtLxcrN7qDsSuvB.40pmc7nC1tO0CrvL402xC";
-    # hashedPasswordFile = config.age.secrets.guestPassword.path;
   };
 
   home-manager = {
