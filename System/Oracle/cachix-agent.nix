@@ -4,6 +4,6 @@
 
   services.cachix-agent = {
     enable = true;
-    credentialsFile = config.secretspec.secrets.profiles.oracle-server.CACHIX_AGENT_TOKEN.plainPath;
+    credentialsFile = config.secretspec.secrets.profiles.oracle-server.CACHIX_AGENT_TOKEN.envPath;
   };
 }
