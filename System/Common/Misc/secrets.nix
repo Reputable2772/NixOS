@@ -19,7 +19,7 @@ let
     ;
   inherit (lib.lists) filter intersectLists;
   inherit (lib.modules) mkMerge;
-  inherit (lib.strings) removeSuffix;
+  inherit (lib.strings) optionalString removeSuffix;
 
   ageFiles =
     attrNames config'
@@ -58,6 +58,32 @@ in
           n: v: nameValuePair (removeSuffix ".age" n) { file = ./. + "../../../../Config/Secrets/${n}"; }
         ))
       ];
+    }
+    {
+      secretspec = {
+        flakeRootDir = ../../..;
+        config = {
+          project = {
+            name = "System - ${config.networking.hostName}";
+            revision = "1.0";
+          };
+
+          # Runs early in initrd, provide private key path correctly.
+          providers.${config.networking.hostName} =
+            "age://Config/Secrets/${config.networking.hostName}.age?identity=${
+              optionalString (options.environment ? persistence) "/persist"
+            }/etc/ssh/${config.networking.hostName}&recipients=${
+              optionalString (options.environment ? persistence) "/persist"
+            }/etc/ssh/${config.networking.hostName}.pub";
+
+          profiles.${config.networking.hostName} = {
+            defaults = {
+              required = true;
+              providers = [ config.networking.hostName ];
+            };
+          };
+        };
+      };
     }
     (lib.optionalAttrs (options ? home-manager.sharedModules) {
       home-manager.sharedModules = [

@@ -14,8 +14,15 @@
   # Shell autocomplete for HM's ZSH.
   environment.pathsToLink = [ "/share/zsh" ];
 
+  secretspec.config.profiles.lenovo-laptop = {
+    ROOT_PASSWORD.description = "Hashed Password for root user";
+    WICKEDWIZARD_PASSWORD.description = "Hashed Password for wickedwizard user";
+    GUEST_PASSWORD.description = "Hashed Password for guest user";
+  };
+
   users.mutableUsers = false;
-  users.users.root.hashedPasswordFile = config.age.secrets.rootPassword.path;
+  users.users.root.hashedPasswordFile =
+    config.secretspec.secrets.profiles.lenovo-laptop.ROOT_PASSWORD.plainPath;
   users.users.wickedwizard = {
     isNormalUser = true;
     home = "/home/wickedwizard";
@@ -34,7 +41,8 @@
       "libvirtd"
     ];
     shell = pkgs.zsh;
-    hashedPasswordFile = config.age.secrets.wickedwizardPassword.path;
+    hashedPasswordFile =
+      config.secretspec.secrets.profiles.lenovo-laptop.WICKEDWIZARD_PASSWORD.plainPath;
   };
 
   users.users.guest = {
@@ -46,7 +54,7 @@
       "video"
       "render"
     ];
-    hashedPasswordFile = config.age.secrets.guestPassword.path;
+    hashedPasswordFile = config.secretspec.secrets.profiles.lenovo-laptop.GUEST_PASSWORD.plainPath;
   };
 
   home-manager = {

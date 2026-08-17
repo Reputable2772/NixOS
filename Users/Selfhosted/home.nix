@@ -15,7 +15,7 @@
         revision = "1.0";
       };
 
-      providers.selfhosted = "age://Config/Secrets/selfhosted.age?identity=/home/wickedwizard/.ssh/selfhosted&recipients=/home/wickedwizard/.ssh/selfhosted.pub";
+      providers.selfhosted = "age://Config/Secrets/selfhosted.age?identity=${config.home.homeDirectory}/.ssh/selfhosted&recipients=${config.home.homeDirectory}/.ssh/selfhosted.pub";
 
       profiles.selfhosted = {
         defaults = {

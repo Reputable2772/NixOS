@@ -424,32 +424,14 @@ rec {
     };
   };
 
-  # All files should be in the same directory as this file.
-
-  # Agenix config
-  # We used system encryption key here since the agenix module for the system doesn't have access to the user's agenix keys.
-  "wickedwizardPassword.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-  "rootPassword.age".publicKeys = [
-    system.lenovo-laptop.secrets.encryption.key
-    system.hp-laptop.secrets.encryption.key
-    system.oracle-server.secrets.encryption.key
-  ];
-  "guestPassword.age".publicKeys = [
-    system.lenovo-laptop.secrets.encryption.key
-    system.hp-laptop.secrets.encryption.key
-  ];
-  "selfhostedPassword.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
-  "maintenancePassword.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
-  "hp-cachix-agent.age".publicKeys = [ system.hp-laptop.secrets.encryption.key ];
-  "oracle-cachix-agent.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
-  "crowdsec-firewall-bouncer.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-  "oracle-crowdsec-firewall-bouncer.age".publicKeys = [ system.oracle-server.secrets.encryption.key ];
-
+  /**
+    Agenix Config
+    For files that couldn't be migrated over to secretspec,
+    either due to its strict env_var=secret specification
+    or otherwise.
+  */
   # Distributed Builds SSH Alias
   "distributed-builds-ssh-config.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-
-  # Bitlocker age files
-  "windows.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
 
   # Rclone config file
   "rclone.age" = {
@@ -462,6 +444,9 @@ rec {
     Agenix is purely used for easier viewing
     and bulk changes of secrets to the age file
     manually.
+
+    As a side effect, these files are automatically loaded
+    into nix store, by the legacy secrets loader.
   */
   "wickedwizard.age" = {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
@@ -473,6 +458,18 @@ rec {
   };
   "selfhosted.age" = {
     publicKeys = [ users.selfhosted.secrets.encryption.key ];
+    armor = true;
+  };
+  "lenovo-laptop.age" = {
+    publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
+    armor = true;
+  };
+  "hp-laptop.age" = {
+    publicKeys = [ system.hp-laptop.secrets.encryption.key ];
+    armor = true;
+  };
+  "oracle-server.age" = {
+    publicKeys = [ system.oracle-server.secrets.encryption.key ];
     armor = true;
   };
 }

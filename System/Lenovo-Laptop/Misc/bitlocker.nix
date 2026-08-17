@@ -21,6 +21,12 @@ let
     ) cond;
 in
 {
+  secretspec.config.profiles.lenovo-laptop = onlyIf (
+    mapAttrs' (
+      n: v: nameValuePair n { description = "Bitlocker key for volume ${n}"; }
+    ) config'.system.${config.networking.hostName}.mounts.bitlocker
+  );
+
   systemd.services = onlyIf (
     mapAttrs' (
       n: v:
@@ -39,7 +45,7 @@ in
           ExecStart = ''
             ${pkgs.cryptsetup}/bin/cryptsetup open \
               --type bitlk \
-              ${optionalString v.authentication "--key-file ${config.age.secrets.${n}.path}"} \
+              ${optionalString v.authentication "--key-file ${config.secretspec.secrets.profiles.lenovo-laptop.${n}.plainPath}"} \
               ${v.source} ${n}
           '';
           ConditionPathExists = "!/dev/mapper/${n}";
