@@ -134,6 +134,8 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
+    system.activationScripts.users.deps = lib.mkAfter [ "secretspec" ];
+
     system.activationScripts.secretspec = {
       deps = [ "specialfs" ];
       text = ''
@@ -224,20 +226,29 @@ in
 
         echo "[secretspec] Activating secrets"
 
-        oldGeneration="$(readlink "$baseDir" || true)"
-
+        # If it's not a symlink, then remove it.
         if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
           if [ ! -L "$baseDir" ]; then
             rm -rf -- "$baseDir"
           fi
         fi
 
+        oldGeneration="$(readlink -f "$baseDir" 2>/dev/null || true)"
+
         ln -sfnT -- "$generationDir" "''${baseDir}.new"
         mv -Tf -- "''${baseDir}.new" "$baseDir"
 
+        # Don't cleanup live generation
+        trap 'rm -rf -- "$workDir"' EXIT
+
         echo "[secretspec] Secrets activated successfully"
 
-        trap 'rm -rf -- "$workDir"' EXIT
+        echo "[secretspec] Old Generation - $oldGeneration GenerationDir - $generationDir"
+
+        if [ -n "$oldGeneration" ] && [ "$oldGeneration" != "$generationDir" ] && [ "$oldGeneration" != "$baseDir" ]; then
+          rm -rf -- "$oldGeneration"
+        fi
+        echo "[secretspec] Cleared previous generations"
       '';
     };
   };
