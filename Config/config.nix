@@ -429,9 +429,6 @@ rec {
     Agenix is purely used for easier viewing
     and bulk changes of secrets to the age file
     manually.
-
-    As a side effect, these files are automatically loaded
-    into nix store, by the legacy secrets loader.
   */
   "wickedwizard.age" = {
     publicKeys = [ users.wickedwizard.secrets.encryption.key ];
@@ -458,36 +455,3 @@ rec {
     armor = true;
   };
 }
-
-/**
-  wickedwizardPassword.age - Contains the password for user wickedwizard in hashed form.
-  rootPassword.age - Contains the password for user root in hashed form.
-  selfhostedPassword.age - Contains the password for user selfhosted in hashed form.
-  hp-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
-  oracle-cachix-agent.nix - Contains CACHIX_AGENT_TOKEN= for acting as cachix agent.
-  crowdsec-firewall-bouncer.age - Obtained by running `cscli bouncer add nixos-firewall`, and copy pasting the key directly. (Not an env var.)
-
-  windows.age - Contains the Bitlocker recovery key.
-
-  wickedwizard-backup.age - Contains the password for restic backup repository.
-
-  important-files.age - Contains the password for Gocryptfs mount.
-  rclone.age - Contains the rclone.conf file, as-is.
-  cachix.age - Contains CACHIX_AUTH_TOKEN= (for cache) and CACHIX_DEPLOY_TOKEN= (for deployment)
-
-  domains.age - Contains DOMAIN and its respective DUCKDNS_TOKEN
-  email.age - Contains your email for Caddy, Let's Encrypt
-  push-notifications.age - Contains Bitwarden Push Notification keys. (PUSH_INSTALLATION_ID, PUSH_INSTALLATION_KEY). More info - https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
-  proton-openvpn.age - Contains the OpenVPN username and password for ProtonVPN. (OPENVPN_USER, OPENVPN_PASSWORD)
-  ente.age - Contains POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, ENTE_DB_NAME, ENTE_DB_USER, ENTE_DB_PASSWORD. They match respectively. (i.e. POSTGRES_DB should have same value as ENTE_DB_NAME)
-    Also contains MINIO_ROOT_USER, MINIO_ROOT_PASSWORD.
-  wud.age - Contains env variables like WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC, WUD_AUTH_BASIC_JOHN_USER, WUD_AUTH_BASIC_JOHN_HASH, etc. Refer to https://getwud.github.io/wud/#/configuration/ for more info.
-  n8n.age - Contains env variables like N8N_HOST, WEBHOOK_URL, N8N_RUNNERS_AUTH_TOKEN
-  radicale.age - Contains the apache htpasswd file, for user authentication. Should be mounted as a file into the container, not environment variables.
-  crowdsec-caddy-bouncer.age - See above; same as crowdsec-firewall-browser.age
-
-  cloudflare-domains.age - Contains CLOUDFLARE_API_TOKEN, IP6_DOMAINS and PROXIED for cloudflare-ddns updater.
-
-  freellmapi.age - Contains ENCRYPTION_KEY
-  desec-domains.age - Contains DOMAIN, DESEC_TOKEN for that account.
-*/

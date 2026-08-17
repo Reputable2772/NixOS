@@ -12,6 +12,7 @@
     profiles.wickedwizard = {
       WUD_TRIGGER_NTFY_UPDATENOTIF_TOPIC.description = "The ntfy url to be triggered on container updates";
       WUD_AUTH_BASIC_MAIN_USER.description = "Login Username for WUD";
+      # https://getwud.github.io/wud/#/configuration/
       WUD_AUTH_BASIC_MAIN_HASH.description = "Hashed login Password for WUD";
     };
     scopes.wud.secrets = [

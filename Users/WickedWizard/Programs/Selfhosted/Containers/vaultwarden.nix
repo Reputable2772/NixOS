@@ -13,6 +13,7 @@
 
   secretspec.config = {
     profiles.wickedwizard = {
+      # https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification
       PUSH_INSTALLATION_ID.description = "Push installation id for Vaultwarden";
       PUSH_INSTALLATION_KEY.description = "Push installation key for Vaultwarden";
     };
