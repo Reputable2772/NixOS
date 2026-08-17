@@ -22,7 +22,7 @@
       "(${pkgs.findutils}/bin/find ${config.home.homeDirectory}/.* -type f -name '*.backup.backup.backup' -exec ${pkgs.coreutils}/bin/rm -v {} \\; 2> /dev/null || exit 0)";
 
   secretspec = {
-    flakeRootDir = ../..;
+    files.wickedwizard."Config/Secrets/wickedwizard.age" = ../../Config/Secrets/wickedwizard.age;
     config = {
       project = {
         name = "Home-Manager - ${config.home.username}";

@@ -61,7 +61,8 @@ in
     }
     {
       secretspec = {
-        flakeRootDir = ../../..;
+        files.${config.networking.hostName}."Config/Secrets/${config.networking.hostName}" =
+          ./. + "../../../../Config/Secrets/${config.networking.hostName}";
         config = {
           project = {
             name = "System - ${config.networking.hostName}";

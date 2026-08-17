@@ -2,7 +2,7 @@
   programs.home-manager.enable = true;
 
   secretspec = {
-    flakeRootDir = ../..;
+    files.maintenance."Config/Secrets/maintenance.age" = ../../Config/Secrets/maintenance.age;
     config = {
       project = {
         name = "Home-Manager - ${config.home.username}";

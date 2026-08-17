@@ -8,7 +8,7 @@
   programs.home-manager.enable = true;
 
   secretspec = {
-    flakeRootDir = ../..;
+    files.selfhosted."Config/Secrets/selfhosted.age" = ../../Config/Secrets/selfhosted.age;
     config = {
       project = {
         name = "Home-Manager - ${config.home.username}";
