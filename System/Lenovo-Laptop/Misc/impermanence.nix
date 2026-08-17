@@ -17,6 +17,7 @@
       "/var/lib/upower"
       "/var/lib/fprint"
       "/etc/ssh"
+      "/root/.ssh"
     ];
     files = [
       "/etc/machine-id"

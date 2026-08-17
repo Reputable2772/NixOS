@@ -425,21 +425,6 @@ rec {
   };
 
   /**
-    Agenix Config
-    For files that couldn't be migrated over to secretspec,
-    either due to its strict env_var=secret specification
-    or otherwise.
-  */
-  # Distributed Builds SSH Alias
-  "distributed-builds-ssh-config.age".publicKeys = [ system.lenovo-laptop.secrets.encryption.key ];
-
-  # Rclone config file
-  "rclone.age" = {
-    publicKeys = [ users.wickedwizard.secrets.encryption.key ];
-    dontLoad = true;
-  };
-
-  /**
     Secrets are entirely handled by secretspec.
     Agenix is purely used for easier viewing
     and bulk changes of secrets to the age file
