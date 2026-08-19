@@ -121,7 +121,7 @@
       name = "build-all-outputs";
       command = ''
         nix build \
-          ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
+          ${inputs.devour-flake}#packages.''${1:-${pkgs.stdenv.hostPlatform.system}}.default \
           --override-input flake . \
           --override-input nixpkgs ${inputs.nixpkgs} \
           --show-trace \
