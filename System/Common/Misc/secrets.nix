@@ -1,5 +1,6 @@
 {
   config,
+  config',
   lib,
   options,
   ...
@@ -8,7 +9,11 @@ let
   inherit (lib.strings) optionalString;
 in
 {
-  options.secretspec = { };
+  options.secretspec =
+    if (config'.system.${config.networking.hostName}.minimal or false) then
+      lib.mkSinkUndeclaredOptions { }
+    else
+      { };
 
   config = {
     secretspec = {

@@ -77,7 +77,9 @@ rec {
       };
     };
 
-    rescue = { };
+    rescue = {
+      minimal = true;
+    };
   };
 
   users = rec {
