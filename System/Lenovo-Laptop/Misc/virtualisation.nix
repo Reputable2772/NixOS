@@ -11,7 +11,20 @@
         ipv6 = true;
       };
     };
-    containers.enable = true;
+    containers = {
+      enable = true;
+      registries.settings = {
+        registry = [
+          {
+            location = "docker.io";
+          }
+          {
+            location = "quay.io";
+          }
+        ];
+        unqualified-search-registries = [ "docker.io" ];
+      };
+    };
     oci-containers.backend = "podman";
 
     libvirtd = {
