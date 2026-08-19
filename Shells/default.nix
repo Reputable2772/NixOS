@@ -123,7 +123,10 @@
         nix build \
           ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
           --override-input flake . \
-          --override-input nixpkgs ${inputs.nixpkgs}
+          --override-input nixpkgs ${inputs.nixpkgs} \
+          --show-trace \
+          --keep-failed \
+          --keep-going
       '';
       category = "Development";
     }
