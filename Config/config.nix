@@ -25,9 +25,6 @@ rec {
     timezone = "Asia/Kolkata";
     locale = "en_IN";
     lenovo-laptop = {
-      # The name of network interface, that has an IPv4 address
-      # and is connected to the intenet, behind CGNAT
-      publicNetworkInterface = "wlp0s20f3";
       secrets = {
         /**
           The SSH Keys for encrypting system related secrets.
@@ -85,12 +82,10 @@ rec {
   users = rec {
     wickedwizard = rec {
       home = _home.wickedwizard or "";
-      # Copy from above, used in DuckDNS updating.
-      publicNetworkInterface = system.lenovo-laptop.publicNetworkInterface;
       wallpaper = ./wallpaper.jpg;
       /**
-        There needs to be a corresponding age file, with the name
-        `user-backup.age`, use user encryption keys only.
+        Set secretspec secret with name
+        USER_BACKUP.
       */
       backup = rec {
         # Internal variables
@@ -105,7 +100,6 @@ rec {
             "Browsers"
             "Coding"
             "Config"
-            # Games/Linux/Minecraft now points to a symlink for Games/Minecraft
             "Games/Minecraft"
             "Games/Saves"
             "Important-Files"
@@ -161,16 +155,7 @@ rec {
         username = "Reputable2722";
         email = "153411261+Reputable2772@users.noreply.github.com";
         secrets = {
-          # The SSH Key that is used for authentication by Git
-          authentication = {
-            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Authentication/Authentication";
-            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@lenovo-laptop";
-          };
-          # The SSH Key that is used for signing by Git
-          signing = {
-            pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Signing/Signing";
-            key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@lenovo-laptop";
-          };
+          inherit (secrets) authentication signing;
         };
       };
       secrets = {
@@ -179,8 +164,16 @@ rec {
           pkeyfile = "${flake.dir.config}/SSH/User-Encryption/WickedWizard";
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@lenovo-laptop";
         };
-        # The age file that is to be used by rclone. Set to null to disable.
-        rcloneAgeFile = "rclone";
+        # The SSH Key that is used for authentication by Git
+        authentication = {
+          pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Authentication/Authentication";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@lenovo-laptop";
+        };
+        # The SSH Key that is used for signing by Git
+        signing = {
+          pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Signing/Signing";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@lenovo-laptop";
+        };
       };
       containers = rec {
         # Not a container, refer to Users/WickedWizard/Programs/Selfhosted/backup.nix.
@@ -195,13 +188,11 @@ rec {
           ]
           ++ syncthing.custom.folders;
           location = "${dir.base}/Applications/Containers-Backup";
-          pwdFile = "containers-backup-pwd";
         };
         caddy = {
           # Setting it to null or omitting it will use the default directory
+          # # inherited from dir.containers above
           dir = null;
-          # A list of all the agenix file names to be used, without the age suffix.
-          # Content of each agenix file is mentioned below.
           # Environment variables
           env = [ "LOG_FILE=/data/access.log" ];
         };
