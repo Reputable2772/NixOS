@@ -29,7 +29,6 @@ let
     concatMapStringsSep
     concatStringsSep
     isPath
-    optionalString
     replaceStrings
     ;
 
@@ -68,7 +67,7 @@ let
               }
           )
       )
-      (if cfg.separateSecrets then 2 else 1)
+      2
       profiles;
   mappedScopes = mapAttrs (
     scopeName: scopeVal: scopeVal // { path = "${paths.scopes}/${scopeName}"; }
@@ -168,37 +167,35 @@ let
             --reason "Secret Decryption - Scope" \
             --format json |
             ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
-            > "$scopesDir/${scope}"
+            >> "$scopesDir/${scope}"
 
           chmod 0400 "$scopesDir/${scope}"
         '') (attrNames profiles)}
       '') (attrNames scopes)}
 
-      ${optionalString cfg.separateSecrets ''
-        ${concatMapStringsSep "\n" (
-          profile:
-          let
-            secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
-          in
-          concatMapStringsSep "\n" (secret: ''
-            echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
+      ${concatMapStringsSep "\n" (
+        profile:
+        let
+          secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
+        in
+        concatMapStringsSep "\n" (secret: ''
+          echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
 
-            secret_val=$(
-              ${lib.getExe cfg.package} get \
-                --file ${replacedConfigFile} \
-                --reason "Individual Secrets access" \
-                --profile "${profile}" \
-                "${secret}"
-            )
+          secret_val=$(
+            ${lib.getExe cfg.package} get \
+              --file ${replacedConfigFile} \
+              --reason "Individual Secrets access" \
+              --profile "${profile}" \
+              "${secret}"
+          )
 
-            printf '%s' "$secret_val" > "$individualDir/${secret}"
-            printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
+          printf '%s' "$secret_val" > "$individualDir/${secret}"
+          printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
 
-            chmod 0400 "$individualDir/${secret}"
-            chmod 0400 "$individualDir/${secret}.env"
-          '') secrets
-        ) (attrNames profiles)}
-      ''}
+          chmod 0400 "$individualDir/${secret}"
+          chmod 0400 "$individualDir/${secret}.env"
+        '') secrets
+      ) (attrNames profiles)}
 
       echo "[secretspec] Activating secrets"
 
@@ -261,15 +258,6 @@ in
     };
 
     package = mkPackageOption pkgs "secretspec" { };
-
-    separateSecrets = mkOption {
-      description = ''
-        Each secret has a different file for itself, exported as
-        dotenv & plaintext files.
-      '';
-      default = true;
-      type = types.bool;
-    };
 
     secrets = mkOption {
       description = "Final attrset containing the out path of each secret.";
