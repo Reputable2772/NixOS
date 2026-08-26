@@ -2,7 +2,7 @@
   programs.home-manager.enable = true;
 
   secretspec = {
-    files.maintenance."Config/Secrets/maintenance.age" =
+    providerFiles.maintenance."Config/Secrets/maintenance.age" =
       inputs.self + "/Config/Secrets/maintenance.age";
     config = {
       project = {

@@ -9,7 +9,8 @@
   programs.home-manager.enable = true;
 
   secretspec = {
-    files.selfhosted."Config/Secrets/selfhosted.age" = inputs.self + "/Config/Secrets/selfhosted.age";
+    providerFiles.selfhosted."Config/Secrets/selfhosted.age" =
+      inputs.self + "/Config/Secrets/selfhosted.age";
     config = {
       project = {
         name = "Home-Manager - ${config.home.username}";

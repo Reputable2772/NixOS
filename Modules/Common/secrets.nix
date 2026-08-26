@@ -23,7 +23,7 @@ let
     mapAttrs
     ;
   inherit (lib.lists) filter;
-  inherit (lib.modules) mkMerge;
+  inherit (lib.modules) mkMerge mkRenamedOptionModule;
   inherit (lib.options) mkOption mkPackageOption;
   inherit (lib.strings)
     concatMapStringsSep
@@ -79,26 +79,26 @@ let
     That option is meant for adding/removing secrets using secretspec cli
 
     NOTE: only *public* material (encrypted blobs, recipient files) should
-    ever go through cfg.files. Never route a private age identity through
-    here - cfg.files values land in the Nix store, which is world-readable.
+    ever go through cfg.providerFiles. Never route a private age identity through
+    here - cfg.providerFiles values land in the Nix store, which is world-readable.
   */
-  replacedProviders = mapAttrs (
+  runtimeProviders = mapAttrs (
     name: val:
-    if (cfg.files ? ${name}) then
+    if (cfg.providerFiles ? ${name}) then
       let
-        keys = attrNames cfg.files.${name};
+        keys = attrNames cfg.providerFiles.${name};
         missing = filter (k: !(lib.strings.hasInfix k val)) keys;
       in
       assert lib.assertMsg (missing == [ ])
         "secretspec: provider '${name}' URI does not contain expected placeholder(s): ${concatStringsSep ", " missing}. Got: ${val}";
-      replaceStrings keys (map (v: toString v) (attrValues cfg.files.${name})) val
+      replaceStrings keys (map (v: toString v) (attrValues cfg.providerFiles.${name})) val
     else
       val
   ) (userConfig.providers or { });
-  replacedUserConfig = userConfig // {
-    providers = replacedProviders;
+  runtimeUserConfig = userConfig // {
+    providers = runtimeProviders;
   };
-  replacedConfigFile = toml.generate "secretspec.toml" replacedUserConfig;
+  runtimeConfigFile = toml.generate "secretspec.toml" runtimeUserConfig;
 
   # Activation-time check + decrypt. Runs post-build, outside the sandbox,
   # as the real user with real $HOME - this is where the private identity
@@ -125,7 +125,7 @@ let
       echo "[secretspec] Checking profile: ${profile}"
 
       if ! ${lib.getExe cfg.package} check \
-        --file ${replacedConfigFile} \
+        --file ${runtimeConfigFile} \
         --profile ${profile} \
         --reason "Activation Time - Profile Check"
       then
@@ -144,7 +144,7 @@ let
       ${concatMapStringsSep "\n" (profile: ''
         echo "[secretspec] Decrypting profile: ${profile}"
         ${lib.getExe cfg.package} export \
-          --file ${replacedConfigFile} \
+          --file ${runtimeConfigFile} \
           --profile ${profile} \
           --reason "Secret Decryption - Profile" \
           --format json |
@@ -161,7 +161,7 @@ let
         ${concatMapStringsSep "\n" (profile: ''
           echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
           ${lib.getExe cfg.package} export \
-            --file ${replacedConfigFile} \
+            --file ${runtimeConfigFile} \
             --scope ${scope} \
             --profile ${profile} \
             --reason "Secret Decryption - Scope" \
@@ -183,7 +183,7 @@ let
 
           secret_val=$(
             ${lib.getExe cfg.package} get \
-              --file ${replacedConfigFile} \
+              --file ${runtimeConfigFile} \
               --reason "Individual Secrets access" \
               --profile "${profile}" \
               "${secret}"
@@ -238,7 +238,7 @@ in
       default = { };
     };
 
-    files = mkOption {
+    providerFiles = mkOption {
       description = ''
         Public files referenced by providers in secretspec.toml (e.g. age
         encrypted blobs, recipient/public-key files). This is an attrset
@@ -279,7 +279,24 @@ in
       '';
       default = configFile;
     };
+
+    runtimeConfigFile = mkOption {
+      description = ''
+        secretspec.toml file derivation.
+
+        This is the one used by secretspec.toml
+        internally during activation. It is mainly
+        meant for inspection, and not setting/deleting
+        secrets. Use secretspec.configFile for those
+        purposes.
+      '';
+      default = runtimeConfigFile;
+    };
   };
+
+  imports = [
+    (mkRenamedOptionModule [ "secretspec" "files" ] [ "secretspec" "providerFiles" ])
+  ];
 
   config = mkMerge [
     {
@@ -308,7 +325,7 @@ in
 
       systemd.user.services.secretspec = {
         Install.WantedBy = [ "default.target" ];
-        Unit.X-Restart-Triggers = [ replacedConfigFile ];
+        Unit.X-Restart-Triggers = [ runtimeConfigFile ];
         Service = {
           Type = "oneshot";
           RemainAfterExit = true;
