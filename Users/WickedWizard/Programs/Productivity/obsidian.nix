@@ -10,5 +10,5 @@
     };
   };
 
-  programs.autostart.flatpaks = [ "md.obsidian.Obsidian" ];
+  xdg.autostart.flatpaks = [ "md.obsidian.Obsidian" ];
 }

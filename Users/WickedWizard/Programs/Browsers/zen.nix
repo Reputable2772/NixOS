@@ -15,7 +15,7 @@
     ];
   };
 
-  programs.autostart.flatpaks = [ "app.zen_browser.zen" ];
+  xdg.autostart.flatpaks = [ "app.zen_browser.zen" ];
 
   # Zen, for some reason, requires this file to be writable.
   # home.file.".var/app/app.zen_browser.zen/.zen/profiles.ini".text = ''

@@ -14,7 +14,7 @@
     allowedUDPPortRanges = allowedTCPPortRanges;
   };
 
-  programs.autostart.files = [
+  xdg.autostart.entries = [
     "${pkgs.kdePackages.kdeconnect-kde}/share/applications/org.kde.kdeconnect.daemon.desktop"
     "${pkgs.kdePackages.kdeconnect-kde}/share/applications/org.kde.kdeconnect.nonplasma.desktop"
   ];

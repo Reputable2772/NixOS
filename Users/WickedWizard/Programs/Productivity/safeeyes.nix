@@ -30,5 +30,5 @@ in
     "match:initial_class ^(Safeeyes)$, focus_on_activate on"
   ];
 
-  programs.autostart.packages = [ safeeyes ];
+  xdg.autostart.packages = [ safeeyes ];
 }

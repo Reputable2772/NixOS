@@ -26,7 +26,7 @@
     };
   };
 
-  programs.autostart.files = [ "${config.programs.kitty}/share/applications/kitty.desktop" ];
+  xdg.autostart.entries = [ "${config.programs.kitty}/share/applications/kitty.desktop" ];
 
   dconf.settings."org/cinnamon/desktop/applications/terminal".exec = "kitty";
 

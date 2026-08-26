@@ -24,7 +24,7 @@
     Version=2
   '';
 
-  programs.autostart.flatpaks = [ "io.gitlab.librewolf-community" ];
+  xdg.autostart.flatpaks = [ "io.gitlab.librewolf-community" ];
 
   wayland.windowManager.hyprland.settings = {
     bind = [

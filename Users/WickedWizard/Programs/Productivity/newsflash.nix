@@ -5,5 +5,5 @@
     "match:initial_title (Newsflash), workspace 2"
   ];
 
-  programs.autostart.flatpaks = [ "io.gitlab.news_flash.NewsFlash" ];
+  xdg.autostart.flatpaks = [ "io.gitlab.news_flash.NewsFlash" ];
 }

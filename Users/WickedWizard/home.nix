@@ -15,7 +15,7 @@
   programs.mimeApps.enable = true;
   programs.mimeApps.useXdgMimeAppsDefaultApplications = true;
   programs.home-manager.enable = true;
-  programs.autostart.enable = true;
+  xdg.autostart.enable = true;
 
   home.activation.remove-backup-files =
     lib.hm.dag.entryBefore [ "writeBoundary" ]

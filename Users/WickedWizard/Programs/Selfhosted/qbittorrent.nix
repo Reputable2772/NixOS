@@ -18,5 +18,5 @@
   # Set ports, passwords, minimized window on startup and other configuration manually through web UI.
   home.packages = with pkgs; [ qbittorrent ];
 
-  # programs.autostart.packages = with pkgs; [ qbittorrent ];
+  # xdg.autostart.packages = with pkgs; [ qbittorrent ];
 }

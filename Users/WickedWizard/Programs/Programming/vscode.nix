@@ -38,9 +38,7 @@
           "mkhl.direnv"
           "jnoortheen.nix-ide"
 
-          # C/C++
-          "vadimcn.vscode-lldb"
-          "llvm-vs-code-extensions.vscode-clangd"
+          "redhat.vscode-yaml"
         ];
         userSettings = {
           "editor.minimap.enabled" = false;
@@ -64,6 +62,17 @@
       rust = lib'.deepMerge default {
         extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
           "rust-lang.rust-analyzer"
+        ];
+      };
+      python = lib'.deepMerge default {
+        extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
+          "ms-python.python"
+        ];
+      };
+      cpp = lib'.deepMerge default {
+        extensions = inputs.nix4vscode.lib.${pkgs.stdenv.hostPlatform.system}.forOpenVsx [
+          "vadimcn.vscode-lldb"
+          "llvm-vs-code-extensions.vscode-clangd"
         ];
       };
     };

@@ -22,11 +22,11 @@
     "match:initial_class (Bitwarden), workspace 2"
   ];
 
-  # programs.autostart.packages = with pkgs; [ bitwarden-desktop ];
+  # xdg.autostart.packages = with pkgs; [ bitwarden-desktop ];
 
   services.ssh-agent.enable = lib.mkForce false;
   home.sessionVariables.SSH_AUTH_SOCK = "\${HOME:-${config.home.homeDirectory}}/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock";
 
   services.flatpak.packages = [ "com.bitwarden.desktop" ];
-  programs.autostart.flatpaks = [ "com.bitwarden.desktop" ];
+  xdg.autostart.flatpaks = [ "com.bitwarden.desktop" ];
 }

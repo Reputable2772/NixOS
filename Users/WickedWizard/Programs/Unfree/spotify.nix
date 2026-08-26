@@ -65,7 +65,7 @@ in
     source = "${config.programs.spicetify.spicedSpotify.outPath}/src";
   };
 
-  programs.autostart.packages = [
+  xdg.autostart.packages = [
     (
       if !config.programs.spicetify.enable then
         (pkgs.makeDesktopItem {

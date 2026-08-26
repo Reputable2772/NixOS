@@ -33,7 +33,7 @@ in
     };
   };
 
-  # programs.autostart.packages = with pkgs; [ firefox ];
+  # xdg.autostart.packages = with pkgs; [ firefox ];
 
   programs.nvfetcher.config.firefox-gnome-theme = {
     src.github = "rafaelmardojai/firefox-gnome-theme";
