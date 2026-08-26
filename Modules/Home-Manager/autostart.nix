@@ -4,20 +4,15 @@
   pkgs,
   ...
 }:
-with lib;
 let
-  cfg = config.programs.autostart;
+  cfg = config.xdg.autostart;
+
+  inherit (lib) strings types;
+  inherit (lib.modules) mkIf mkForce mkRenamedOptionModule;
+  inherit (lib.options) literalExpression mkOption;
 in
 {
-  options.programs.autostart = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      description = ''
-        Enable Autostart Home-Manager Module
-      '';
-    };
-
+  options.xdg.autostart = {
     packages = mkOption {
       default = [ ];
       example = literalExpression "[ pkgs.gnome.pomodoro ]";
@@ -25,12 +20,7 @@ in
       description = lib.mdDoc "Packages that need to be autostarted.";
     };
 
-    files = mkOption {
-      default = [ ];
-      example = literalExpression "\${pkgs.gnome.pomodoro}/share/applications/org.gnome.Pomodoro.desktop";
-      type = types.listOf types.path;
-      description = lib.mdDoc "Path to the desktop file that needs to be autostarted";
-    };
+    # files has been replaced by entries upstream.
 
     flatpaks = mkOption {
       default = [ ];
@@ -40,28 +30,41 @@ in
     };
   };
 
+  imports = [
+    (mkRenamedOptionModule [ "programs" "autostart" "enable" ] [ "xdg" "autostart" "enable" ])
+    (mkRenamedOptionModule [ "programs" "autostart" "files" ] [ "xdg" "autostart" "entries" ])
+    (mkRenamedOptionModule [ "programs" "autostart" "packages" ] [ "xdg" "autostart" "packages" ])
+    (mkRenamedOptionModule [ "programs" "autostart" "flatpaks" ] [ "xdg" "autostart" "flatpaks" ])
+  ];
+
   config = mkIf cfg.enable {
-    programs.autostart.packages = lists.map (
+    xdg.autostart.packages = map (
       n:
-      pkgs.makeDesktopItem {
+      "${pkgs.makeDesktopItem {
         name = n;
         exec = "flatpak run ${n}";
         desktopName = n;
         categories = [ "Applications" ];
-      }
+      }}"
     ) cfg.flatpaks;
 
-    xdg.configFile."autostart".source = pkgs.runCommand "autostart-applications" { } ''
-      mkdir $out
+    # Overwrite upstream's definition to allow for packages
+    # and its desktop files
+    xdg.configFile.autostart.source = mkForce (
+      pkgs.runCommand "autostart-applications" { } ''
+        mkdir $out
 
-      for dir in ${strings.escapeShellArgs cfg.packages}; do
-        ln -s $dir/share/applications/*.desktop $out/
-      done
+        for dir in ${strings.escapeShellArgs cfg.packages}; do
+          ln -s $dir/share/applications/*.desktop $out/
+        done
 
-      for file in ${strings.escapeShellArgs cfg.files}; do
-        ln -s $file $out/
-      done
-    '';
-    xdg.configFile."autostart".recursive = true;
+        for file in ${strings.escapeShellArgs cfg.entries}; do
+          ln -s $file $out/
+        done
+      ''
+    );
+
+    # Upstream does this, but anyway.
+    xdg.configFile.autostart.recursive = !cfg.readOnly;
   };
 }
