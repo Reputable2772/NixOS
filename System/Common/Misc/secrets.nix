@@ -3,6 +3,7 @@
   config',
   lib,
   options,
+  inputs,
   ...
 }:
 let
@@ -18,7 +19,7 @@ in
   config = {
     secretspec = {
       files.${config.networking.hostName}."Config/Secrets/${config.networking.hostName}.age" =
-        ./. + "../../../../Config/Secrets/${config.networking.hostName}.age";
+        inputs.self + "/Config/Secrets/${config.networking.hostName}.age";
       config = {
         project = {
           name = "System - ${config.networking.hostName}";

@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -22,7 +23,8 @@
       "(${pkgs.findutils}/bin/find ${config.home.homeDirectory}/.* -type f -name '*.backup.backup.backup' -exec ${pkgs.coreutils}/bin/rm -v {} \\; 2> /dev/null || exit 0)";
 
   secretspec = {
-    files.wickedwizard."Config/Secrets/wickedwizard.age" = ../../Config/Secrets/wickedwizard.age;
+    files.wickedwizard."Config/Secrets/wickedwizard.age" =
+      inputs.self + "/Config/Secrets/wickedwizard.age";
     config = {
       project = {
         name = "Home-Manager - ${config.home.username}";

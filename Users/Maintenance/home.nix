@@ -1,8 +1,9 @@
-{ config, ... }: {
+{ inputs, config, ... }: {
   programs.home-manager.enable = true;
 
   secretspec = {
-    files.maintenance."Config/Secrets/maintenance.age" = ../../Config/Secrets/maintenance.age;
+    files.maintenance."Config/Secrets/maintenance.age" =
+      inputs.self + "/Config/Secrets/maintenance.age";
     config = {
       project = {
         name = "Home-Manager - ${config.home.username}";

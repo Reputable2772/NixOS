@@ -1,4 +1,9 @@
-{ config', lib, ... }:
+{
+  inputs,
+  config',
+  lib,
+  ...
+}:
 {
   time.timeZone = config'.system.timezone;
   i18n.defaultLocale = config'.system.locale;
@@ -20,5 +25,5 @@
 
   system.stateVersion = "26.05";
 
-  system.systemBuilderCommands = "ln -s ${../../..} $out/src";
+  system.systemBuilderCommands = "ln -s ${inputs.self} $out/src";
 }

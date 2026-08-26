@@ -16,7 +16,7 @@ in
   secretspec.config.profiles.wickedwizard = lib.optionalAttrs (authenticatedMounts != { }) (
     lib.mapAttrs' (name: mount: {
       inherit name;
-      value.description = "Gocrypts mount file - ${name}";
+      value.description = "gocryptfs password file - ${name}";
     }) authenticatedMounts
   );
 
