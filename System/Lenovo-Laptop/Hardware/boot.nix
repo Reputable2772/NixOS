@@ -2,16 +2,13 @@
 {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      "quiet"
-      "loglevel=3"
-    ];
     plymouth.enable = true;
     loader = {
       systemd-boot.enable = true;
       systemd-boot.rebootForBitlocker = true;
       systemd-boot.editor = false;
       systemd-boot.netbootxyz.enable = true;
+      systemd-boot.memtest86.enable = true;
       efi.canTouchEfiVariables = true;
       timeout = 3;
     };
