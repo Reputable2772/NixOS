@@ -6,8 +6,8 @@
 }:
 stdenv.mkDerivation {
   name = "calibre-catppuccin";
-  version = sources.calibre_catppuccin.version;
-  src = sources.calibre_catppuccin.src;
+  version = sources.calibre-catppuccin.version;
+  src = sources.calibre-catppuccin.src;
 
   buildPhase = ''
     make XDG_CACHE_HOME=$(mktemp -d) FONTCONFIG_PATH=${fontconfig.out.outPath}/etc/fonts/ convert
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     mkdir -p $out
 
     # Source files are provided as outfiles for theme files.
-    cp -r $src $out
+    cp -r $src/* $out
 
     for output in $(getAllOutputNames); do
       if [ "$output" != "out" ]; then

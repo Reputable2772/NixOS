@@ -6,6 +6,18 @@
   dockerTools,
 }:
 {
+  calibre-catppuccin = {
+    pname = "calibre-catppuccin";
+    version = "27bd12d2d8dcd24b9ce7cae32135fbd41b896921";
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "calibre";
+      rev = "27bd12d2d8dcd24b9ce7cae32135fbd41b896921";
+      fetchSubmodules = false;
+      sha256 = "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=";
+    };
+    date = "2024-09-14";
+  };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
     version = "v149.1";

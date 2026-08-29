@@ -1,18 +1,14 @@
-{
-  pkgs,
-  sources,
-  inputs,
-  ...
-}:
+{ pkgs, sources, ... }:
 let
-  catppuccin-calibre = pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix {
+  calibre-catppuccin = pkgs.callPackage ../../../../Packages/calibre-catppuccin.nix {
     inherit sources;
   };
 in
 {
-  # home.packages = [ inputs.nixpkgs-stable.legacyPackages.${pkgs.system}.calibre ];
+  # currently installed: fanficfare
+  home.packages = [ pkgs.calibre ];
 
-  programs.nvfetcher.config.catppuccin-calibre = {
+  programs.nvfetcher.config.calibre-catppuccin = {
     src.git = "https://github.com/catppuccin/calibre.git";
     fetch.github = "catppuccin/calibre";
   };
@@ -34,7 +30,8 @@ in
     "application/ereader" = "calibre-ebook-viewer.desktop";
   };
 
-  xdg.configFile."calibre/resources/images".source = catppuccin-calibre.mocha.outPath;
+  xdg.configFile."calibre/resources/images".source = calibre-catppuccin.mocha.outPath;
+  xdg.configFile."calibre/resources/themes_src".source = calibre-catppuccin.out.outPath;
   /**
     TODO: Use home.activation to check whether the JSON of ~/.config/calibre/gui.json has
     the JSON contained by the theme files.

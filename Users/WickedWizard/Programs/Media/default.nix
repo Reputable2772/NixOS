@@ -1,6 +1,6 @@
 {
   imports = [
-    # ./calibre.nix
+    ./calibre.nix
     # ./freetube.nix
     ./image-viewer.nix
     ./mpv.nix

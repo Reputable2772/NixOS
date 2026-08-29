@@ -1,4 +1,25 @@
 {
+    "calibre-catppuccin": {
+        "cargoLock": null,
+        "date": "2024-09-14",
+        "extract": null,
+        "name": "calibre-catppuccin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "calibre",
+            "rev": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921",
+            "sha256": "sha256-JnovYvkIjQXHMFWsmAYIKiA1aexDI3+IkuwwpRdMIcs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "27bd12d2d8dcd24b9ce7cae32135fbd41b896921"
+    },
     "firefox-gnome-theme": {
         "cargoLock": null,
         "date": null,
