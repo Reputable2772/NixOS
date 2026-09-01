@@ -11,7 +11,7 @@ let
     blacklistedPaths
     location
     ;
-  tmpLocation = "${config.home.homeDirectory}/.cache/containers-backup";
+  tmpLocation = "${config.xdg.cacheHome}/containers-backup";
   containerCommand =
     cmd: "${pkgs.systemd}/bin/systemctl --user ${cmd} " + config.programs.quadlets.servicesList;
 
