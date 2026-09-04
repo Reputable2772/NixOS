@@ -14,6 +14,7 @@
     };
     kernel.sysctl = {
       "kernel.sysrq" = 1;
+      "vm.swappiness" = 50;
 
       # Required for caddy. Make it possible for HM to configure this.
       "net.ipv4.ip_unprivileged_port_start" = 80;
