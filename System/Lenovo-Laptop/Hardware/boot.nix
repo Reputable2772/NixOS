@@ -10,7 +10,7 @@
       systemd-boot.netbootxyz.enable = true;
       systemd-boot.memtest86.enable = true;
       efi.canTouchEfiVariables = true;
-      timeout = 3;
+      timeout = 0;
     };
     kernel.sysctl = {
       "kernel.sysrq" = 1;
