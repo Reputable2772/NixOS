@@ -16,7 +16,6 @@ in
   xdg.mimeApps.defaultApplications = {
     "image/vnd.djvu" = "calibre-ebook-viewer.desktop";
     "application/oebps-package+xml" = "calibre-ebook-viewer.desktop";
-    "application/vnd.oasis.opendocument.text" = "calibre-ebook-viewer.desktop";
     "application/x-mobipocket-subscription" = "calibre-ebook-viewer.desktop";
     "application/x-cbc" = "calibre-ebook-viewer.desktop";
     "application/x-mobi8-ebook" = "calibre-ebook-viewer.desktop";
@@ -24,7 +23,6 @@ in
     "application/x-cbz" = "calibre-ebook-viewer.desktop";
     "application/x-sony-bbeb" = "calibre-ebook-viewer.desktop";
     "application/x-cb7" = "calibre-ebook-viewer.desktop";
-    "text/fb2+xml" = "calibre-ebook-viewer.desktop";
     "application/x-mobipocket-ebook" = "calibre-ebook-viewer.desktop";
     "application/x-cbr" = "calibre-ebook-viewer.desktop";
     "application/ereader" = "calibre-ebook-viewer.desktop";
