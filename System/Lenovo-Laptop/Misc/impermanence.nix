@@ -7,16 +7,18 @@
   environment.persistence."/persist" = {
     enable = true;
     directories = [
-      "/var/log"
-      "/var/lib/nixos"
-      "/var/lib/systemd"
-
-      "/var/lib/bluetooth"
       "/etc/NetworkManager/system-connections"
-      "/var/lib/sbctl"
-      "/var/lib/upower"
-      "/var/lib/fprint"
       "/etc/ssh"
+
+      "/var/log"
+      "/var/lib/bluetooth"
+      "/var/lib/fprint"
+      "/var/lib/fwupd"
+      "/var/lib/nixos"
+      "/var/lib/sbctl"
+      "/var/lib/systemd"
+      "/var/lib/upower"
+
       "/root/.ssh"
     ];
     files = [
