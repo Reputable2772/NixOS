@@ -52,10 +52,11 @@ in
       text = ''
         [Default]
         save_dir=$HOME/Pictures/Screenshots
-        save_filename_format=swappy-%Y%m%d-%H%M%S.png
+        save_filename_format=swappy-%Y-%m-%d_%H-%M-%S.png
         show_panel=true
         line_size=5
         text_size=20
+        auto_save=true
         text_font=sans-serif
         paint_mode=brush
         early_exit=true
@@ -64,8 +65,26 @@ in
     };
   };
 
+  /**
+    TODO: Upload to 0x0
+
+    Screenshoting Cheatsheet
+    PrintScreen - Region Selection + Swappy for annotations
+    SHIFT - No region selection
+    CTRL - No swappy
+    SUPER + SHIFT - OCR
+  */
+
   wayland.windowManager.hyprland.settings.bind = [
+    # Swappy
     ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-    "SUPER SHIFT, Print, exec, grim -g \"$(slurp)\" /tmp/tmp.png && tesseract -l eng /tmp/tmp.png - | wl-copy && rm /tmp/tmp.png && notify-send \"OCR copied!\""
+    ''SHIFT, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - | swappy -f -''
+
+    # Direct
+    "CTRL, Print, exec, grim -g \"$(slurp)\" ~/Pictures/Screenshots/region-$(date +%Y-%m-%d_%H-%M-%S).png"
+    ''CTRL SHIFT, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" ~/Pictures/Screenshots/window-$(date +%Y-%m-%d_%H-%M-%S).png''
+
+    # OCR
+    ''SUPER SHIFT, Print, exec, sh -c 'file="$HOME/Pictures/Screenshots/ocr-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$file" && tesseract -l eng "$file" - | wl-copy && notify-send "OCR copied!"''
   ];
 }
