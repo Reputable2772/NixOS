@@ -163,31 +163,35 @@ in
       LOG_DIR="./logs"
       COOLDOWN=1800
       MAX_ATTEMPTS=10
-      CLEAR_TAGS=false
       EXPORT_TO_ZIP=true
+      INTERACTIVE=false
+      CLEAR_TAGS=false
 
       usage() {
         echo "Usage: $0 [OPTIONS] SOURCE_DIR"
+        echo "ComicTagger: ${comictagger}"
         echo
         echo "Options:"
         echo "  -o DIR    Output directory (default: ./sorted)"
         echo "  -l DIR    Log directory (default: ./logs)"
         echo "  -c SEC    Rate-limit cooldown (default: 1800)"
         echo "  -m NUM    Maximum tagging attempts (default: 20)"
-        echo "  -e        Export to zip & delete original. Set flag to disable (default: true)"
+        echo "  -e        Disable exporting to zip & deleting original (default: false)"
+        echo "  -i        Interactive Mode (default: false)"
         echo "  -t        Clear existing tags (default: false)"
         echo "  -h        Show this help"
 
         echo "rar must be installed manually for cbr files"
       }
 
-      while getopts "o:l:c:m:eth" opt; do
+      while getopts "o:l:c:m:eith" opt; do
         case "$opt" in
           o) SORTED_DIR="$OPTARG" ;;
           l) LOG_DIR="$OPTARG" ;;
           c) COOLDOWN="$OPTARG" ;;
           m) MAX_ATTEMPTS="$OPTARG" ;;
-          e) EXPORT_TO_ZIP=true ;;
+          e) EXPORT_TO_ZIP=false ;;
+          i) INTERACTIVE=true ;;
           t) CLEAR_TAGS=true ;;
           h)
             usage
@@ -205,6 +209,20 @@ in
       SOURCE_DIR="''${1:?Source directory required. Use -h for help.}"
 
       mkdir -p "$SORTED_DIR" "$LOG_DIR"
+
+      if $INTERACTIVE; then
+        ${comictagger} \
+          --no-gui \
+          --online \
+          --parse-filename \
+          --interactive \
+          --save \
+          --skip-existing-tags \
+          --tags-write CR,CIX \
+          --verbose \
+          "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/interactive.log"
+        exit 0
+      fi
 
       # Step 1: clear existing tags
       if $CLEAR_TAGS; then
