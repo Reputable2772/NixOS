@@ -1,8 +1,160 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   comictagger = lib.getExe (pkgs.callPackage ../../../../Packages/comictagger.nix { });
 in
 {
+  secretspec.config.profiles.wickedwizard.COMICVINE_API_KEY.description =
+    "ComicVine API Key for ComicTagger";
+
+  xdg.configFile."ComicTagger/settings.json" = {
+    text = builtins.toJSON {
+      "Issue Identifier" = {
+        series_match_identify_thresh = 91;
+        series_match_search_thresh = 90;
+        border_crop_percent = 10;
+        sort_series_by_year = true;
+        exact_series_matches_first = true;
+      };
+
+      "Filename Parsing" = {
+        filename_parser = "complicated";
+        remove_c2c = false;
+        remove_fcbd = false;
+        remove_publisher = false;
+        protofolius_issue_number_scheme = false;
+        allow_issue_start_with_letter = false;
+      };
+
+      Sources = {
+        source = "comicvine";
+      };
+
+      "Metadata Options" = {
+        assume_lone_credit_is_primary = false;
+        copy_characters_to_tags = false;
+        copy_teams_to_tags = false;
+        copy_locations_to_tags = false;
+        copy_storyarcs_to_tags = false;
+        copy_notes_to_comments = false;
+        copy_weblink_to_comments = false;
+        apply_transform_on_import = false;
+        apply_transform_on_bulk_operation = false;
+        remove_html_tables = false;
+        use_short_tag_names = false;
+        cr = true;
+        tag_merge = "overlay";
+        metadata_merge = "overlay";
+        tag_merge_lists = true;
+        metadata_merge_lists = true;
+      };
+
+      "File Rename" = {
+        template = "{series} ({volume})/{series} #{issue} ({year})";
+        issue_number_padding = 3;
+        use_smart_string_cleanup = true;
+        auto_extension = true;
+        dir = "";
+        move = false;
+        only_move = false;
+        strict_filenames = false;
+
+        replacements = [
+          [
+            [
+              ": "
+              " - "
+              true
+            ]
+            [
+              ":"
+              "-"
+              true
+            ]
+          ]
+          [
+            [
+              ": "
+              " - "
+              true
+            ]
+            [
+              ":"
+              "-"
+              true
+            ]
+            [
+              "/"
+              "-"
+              false
+            ]
+            [
+              "//"
+              "--"
+              false
+            ]
+            [
+              "\\"
+              "-"
+              true
+            ]
+          ]
+        ];
+      };
+
+      "Auto-Tag" = {
+        save_on_low_confidence = false;
+        use_year_when_identifying = true;
+        assume_issue_one = false;
+        ignore_leading_numbers_in_filename = false;
+        clear_tags = false;
+
+        publisher_filter = [
+          "Panini Comics"
+          "Abril"
+          "Planeta DeAgostini"
+          "Editorial Televisa"
+          "Dino Comics"
+        ];
+
+        use_publisher_filter = false;
+        auto_imprint = false;
+      };
+
+      General = {
+        check_for_new_version = false;
+        blur = false;
+        prompt_on_save = true;
+      };
+
+      "Dialog Flags" = {
+        show_disclaimer = false;
+        dont_notify_about_this_version = "";
+        notify_plugin_changes = true;
+      };
+
+      Archive = {
+        rar = "rar";
+      };
+
+      "Source comicvine" = {
+        comicvine_key = "@COMICVINE_API_KEY@";
+        comicvine_url = null;
+        cv_use_series_start_as_volume = true;
+        comicvine_custom_parameters = null;
+      };
+    };
+    onChange =
+      config.secretspec.runtimeSecretReplacementFunc "${config.xdg.configHome}/ComicTagger/settings.json"
+        {
+          "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.wickedwizard.COMICVINE_API_KEY;
+        };
+  };
+
   home.packages = with pkgs; [
     (writeShellScriptBin "tag-comics" ''
       set -uo pipefail
@@ -86,13 +238,9 @@ in
           --no-gui \
           --online \
           --parse-filename \
-          --filename-parser comicfn2dict \
           --save \
           --skip-existing-tags \
           --tags-write CR,CIX \
-          --series-match-identify-thresh 91 \
-          --cv-use-series-start-as-volume \
-          --use-year-when-identifying \
           --verbose \
           "$SOURCE_DIR" 2>&1 | tee "$logfile"
 
@@ -117,8 +265,6 @@ in
         --rename \
         --move \
         --dir "$SORTED_DIR" \
-        --template "{series} ({volume})/{series} #{issue} ({year})" \
-        --issue-number-padding 3 \
         --tags-read CR,CIX \
         --verbose \
         "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/moving-final.log"
