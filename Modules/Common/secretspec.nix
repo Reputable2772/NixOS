@@ -20,7 +20,6 @@ let
   inherit (lib.attrsets)
     attrNames
     attrValues
-    concatMapAttrsStringSep
     mapAttrs
     optionalAttrs
     ;
@@ -28,10 +27,9 @@ let
   inherit (lib.modules) mkAfter mkMerge mkRenamedOptionModule;
   inherit (lib.options) mkOption mkPackageOption;
   inherit (lib.strings)
+    concatMapAttrsStringSep
     concatMapStringsSep
     concatStringsSep
-    escapeRegex
-    escapeShellArg
     hasInfix
     isPath
     replaceStrings
@@ -227,6 +225,23 @@ let
       echo "[secretspec] Cleared previous generations"
     fi
   '';
+
+  replacePythonScript = pkgs.writeText "replace-script" ''
+    import pathlib
+    import sys
+
+    source = pathlib.Path(sys.argv[1])
+    target = pathlib.Path(sys.argv[2])
+
+    text = source.read_text()
+
+    for i in range(3, len(sys.argv), 2):
+      placeholder = sys.argv[i]
+      secret_path = pathlib.Path(sys.argv[i + 1])
+      text = text.replace(placeholder, secret_path.read_text())
+
+    target.write_text(text)
+  '';
 in
 {
   options.secretspec = {
@@ -297,6 +312,40 @@ in
       '';
       default = runtimeConfigFile;
     };
+
+    runtimeSecretReplacementFunc = mkOption {
+      description = ''
+        For a file in ~/.config/xx/yy.json, yy.json needs to be
+        declarative, except for values which are secrets.
+        Storing the entire file in secretspec as a secret isn't ideal.
+
+        To remedy this, this option exists as a function.
+        For any file, set its onChange attribute to:
+          secretspec.runtimeSecretReplacementFunc "FILE_PATH" {
+            "PLACEHOLDER_1" = config.secretspec.secrets.profiles.test.secret;
+            "PLACEHOLDER_2" = config.secretspec.secrets.profiles.test.otherSecret;
+          }
+
+        where the attribute names are placeholders inside the file and
+        the values are paths to the corresponding runtime secret files.
+      '';
+      type = types.functionTo (types.functionTo types.str);
+      default =
+        path: replacers:
+        let
+          args = concatMapAttrsStringSep " " (
+            substitute: secret: "${substitute} ${secret.plainPath}"
+          ) replacers;
+        in
+        ''
+          current_file=${path}
+          tmp="$(mktemp)"
+
+          ${pkgs.python3}/bin/python3 ${replacePythonScript} "$current_file" "$tmp" ${args}
+
+          mv "$tmp" "$current_file"
+        '';
+    };
   };
 
   imports = [
@@ -327,6 +376,11 @@ in
 
     (optionalAttrs (!extraArgs.system) {
       home.packages = [ cfg.package ];
+
+      # this is so we can reliably run reloadSystemd,
+      # refresh secrets, and then run the runtime file
+      # hook
+      home.activation.secretspec = lib.hm.dag.entryBetween [ "onFilesChange" ] [ "reloadSystemd" ] "";
 
       systemd.user.services.secretspec = {
         Install.WantedBy = [ "default.target" ];
