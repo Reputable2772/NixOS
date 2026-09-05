@@ -6,6 +6,20 @@
   dockerTools,
 }:
 {
+  "0x0" = {
+    pname = "0x0";
+    version = "1df4fa2bd445f366ca60000a412fbcb82ccbfe6c";
+    src = fetchgit {
+      url = "https://github.com/Calinou/0x0.git";
+      rev = "1df4fa2bd445f366ca60000a412fbcb82ccbfe6c";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-eO7yLp/fE/aceB6dK8tRRA+OsqxSG/6Rj5z4XcH0TB4=";
+    };
+    date = "2025-10-03";
+  };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
     version = "v149.1";

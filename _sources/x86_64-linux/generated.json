@@ -1,4 +1,24 @@
 {
+	"0x0": {
+		"cargoLock": null,
+		"date": "2025-10-03",
+		"extract": null,
+		"name": "0x0",
+		"passthru": null,
+		"pinned": false,
+		"src": {
+			"deepClone": false,
+			"fetchSubmodules": false,
+			"leaveDotGit": false,
+			"name": null,
+			"rev": "1df4fa2bd445f366ca60000a412fbcb82ccbfe6c",
+			"sha256": "sha256-eO7yLp/fE/aceB6dK8tRRA+OsqxSG/6Rj5z4XcH0TB4=",
+			"sparseCheckout": [],
+			"type": "git",
+			"url": "https://github.com/Calinou/0x0.git"
+		},
+		"version": "1df4fa2bd445f366ca60000a412fbcb82ccbfe6c"
+	},
     "firefox-gnome-theme": {
         "cargoLock": null,
         "date": null,

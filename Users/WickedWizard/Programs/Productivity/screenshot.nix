@@ -1,4 +1,5 @@
 {
+  sources,
   config,
   pkgs,
   lib,
@@ -16,6 +17,11 @@ in
     };
   };
 
+  programs.nvfetcher.config."0x0" = lib.mkIf hyprland {
+    fetch.git = "https://github.com/Calinou/0x0.git";
+    src.git = "https://github.com/Calinou/0x0.git";
+  };
+
   home.packages =
     (with pkgs; [ tesseract ])
     ++ (lib.optionals hyprland (
@@ -24,6 +30,9 @@ in
         grim
         slurp
         swappy
+        # Already has a bin folder, so that'll be
+        # directly copied to PATH
+        sources."0x0".src
       ]
     ));
 
@@ -86,5 +95,8 @@ in
 
     # OCR
     ''SUPER SHIFT, Print, exec, sh -c 'file="$HOME/Pictures/Screenshots/ocr-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$file" && tesseract -l eng "$file" - | wl-copy && notify-send "OCR copied!"''
+
+    # Upload to 0x0
+    "CTRL SHIFT SUPER, Print, exec, grim -g \"$(slurp)\" - | swappy -f - -o - | 0x0 - | wl-copy"
   ];
 }
