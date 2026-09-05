@@ -4,7 +4,7 @@
     ./mimeapps.nix
     ./nvfetcher.nix
     ./quadlets.nix
-    ./secrets.nix
+    ./secretspec.nix
     ./shells.nix
     ./system-config.nix
   ];

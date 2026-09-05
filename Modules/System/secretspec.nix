@@ -5,13 +5,13 @@
   lib,
   ...
 }:
-import ../Common/secrets.nix {
+import ../Common/secretspec.nix {
   extraArgs = {
     paths = {
-      base = "\${XDG_RUNTIME_DIR}/secrets";
-      generation = "\${XDG_RUNTIME_DIR}/secrets.d";
+      base = "/run/secrets";
+      generation = "/run/secrets.d";
     };
-    system = false;
+    system = true;
   };
   config' = config;
   inherit
@@ -19,5 +19,4 @@ import ../Common/secrets.nix {
     lib
     lib'
     ;
-
 }
