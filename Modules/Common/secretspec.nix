@@ -16,18 +16,23 @@ let
   toml = pkgs.formats.toml { };
   cfg = config'.secretspec;
 
-  inherit (lib) types;
+  inherit (lib) assertMsg getExe types;
   inherit (lib.attrsets)
     attrNames
     attrValues
+    concatMapAttrsStringSep
     mapAttrs
+    optionalAttrs
     ;
   inherit (lib.lists) filter;
-  inherit (lib.modules) mkMerge mkRenamedOptionModule;
+  inherit (lib.modules) mkAfter mkMerge mkRenamedOptionModule;
   inherit (lib.options) mkOption mkPackageOption;
   inherit (lib.strings)
     concatMapStringsSep
     concatStringsSep
+    escapeRegex
+    escapeShellArg
+    hasInfix
     isPath
     replaceStrings
     ;
@@ -87,9 +92,9 @@ let
     if (cfg.providerFiles ? ${name}) then
       let
         keys = attrNames cfg.providerFiles.${name};
-        missing = filter (k: !(lib.strings.hasInfix k val)) keys;
+        missing = filter (k: !(hasInfix k val)) keys;
       in
-      assert lib.assertMsg (missing == [ ])
+      assert assertMsg (missing == [ ])
         "secretspec: provider '${name}' URI does not contain expected placeholder(s): ${concatStringsSep ", " missing}. Got: ${val}";
       replaceStrings keys (map (v: toString v) (attrValues cfg.providerFiles.${name})) val
     else
@@ -124,7 +129,7 @@ let
     ${concatMapStringsSep "\n" (profile: ''
       echo "[secretspec] Checking profile: ${profile}"
 
-      if ! ${lib.getExe cfg.package} check \
+      if ! ${getExe cfg.package} check \
         --file ${runtimeConfigFile} \
         --profile ${profile} \
         --reason "Activation Time - Profile Check"
@@ -143,12 +148,12 @@ let
     else
       ${concatMapStringsSep "\n" (profile: ''
         echo "[secretspec] Decrypting profile: ${profile}"
-        ${lib.getExe cfg.package} export \
+        ${getExe cfg.package} export \
           --file ${runtimeConfigFile} \
           --profile ${profile} \
           --reason "Secret Decryption - Profile" \
           --format json |
-          ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+          ${getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
           > "$profilesDir/${profile}"
 
         chmod 0400 "$profilesDir/${profile}"
@@ -160,13 +165,13 @@ let
       ${concatMapStringsSep "\n" (scope: ''
         ${concatMapStringsSep "\n" (profile: ''
           echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
-          ${lib.getExe cfg.package} export \
+          ${getExe cfg.package} export \
             --file ${runtimeConfigFile} \
             --scope ${scope} \
             --profile ${profile} \
             --reason "Secret Decryption - Scope" \
             --format json |
-            ${lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+            ${getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
             >> "$scopesDir/${scope}"
 
           chmod 0400 "$scopesDir/${scope}"
@@ -182,7 +187,7 @@ let
           echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
 
           secret_val=$(
-            ${lib.getExe cfg.package} get \
+            ${getExe cfg.package} get \
               --file ${runtimeConfigFile} \
               --reason "Individual Secrets access" \
               --profile "${profile}" \
@@ -308,11 +313,11 @@ in
       ];
     }
 
-    (lib.optionalAttrs extraArgs.system {
+    (optionalAttrs extraArgs.system {
       environment.systemPackages = [ cfg.package ];
 
       system.activationScripts = {
-        users.deps = lib.mkAfter [ "secretspec" ];
+        users.deps = mkAfter [ "secretspec" ];
         secretspec = {
           deps = [ "specialfs" ];
           text = activationScript;
@@ -320,7 +325,7 @@ in
       };
     })
 
-    (lib.optionalAttrs (!extraArgs.system) {
+    (optionalAttrs (!extraArgs.system) {
       home.packages = [ cfg.package ];
 
       systemd.user.services.secretspec = {
