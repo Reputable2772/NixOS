@@ -41,7 +41,7 @@
     {
       help = "Run `nixos-rebuild --flake . --fast test` to test the current config.";
       name = "test-config";
-      command = "nixos-rebuild --flake . ---sudo --no-reexec test";
+      command = "nixos-rebuild --flake . --sudo --no-reexec test";
       category = "Development";
     }
     {
