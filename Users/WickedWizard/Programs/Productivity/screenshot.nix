@@ -7,6 +7,17 @@
 }:
 let
   hyprland = config.wayland.windowManager.hyprland.enable;
+
+  ocrScript = pkgs.writeShellScript "ocr-screenshot" ''
+    exec >>/tmp/ocr-screenshot.log 2>&1
+    set -x
+
+    file="$HOME/Pictures/Screenshots/ocr-$(date +%Y-%m-%d_%H-%M-%S).png"
+
+    grim -g "$(slurp)" "$file" &&
+    tesseract -l eng "$file" - | wl-copy &&
+    notify-send "OCR copied!"
+  '';
 in
 {
   # Fixes nix-community/home-manager#2064
@@ -30,6 +41,7 @@ in
         grim
         slurp
         swappy
+        libnotify
         # Already has a bin folder, so that'll be
         # directly copied to PATH
         sources."0x0".src
@@ -94,7 +106,7 @@ in
     ''CTRL SHIFT, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" ~/Pictures/Screenshots/window-$(date +%Y-%m-%d_%H-%M-%S).png''
 
     # OCR
-    ''SUPER SHIFT, Print, exec, sh -c 'file="$HOME/Pictures/Screenshots/ocr-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$file" && tesseract -l eng "$file" - | wl-copy && notify-send "OCR copied!"''
+    "SUPER SHIFT, Print, exec, ${ocrScript}"
 
     # Upload to 0x0
     "CTRL SHIFT SUPER, Print, exec, grim -g \"$(slurp)\" - | swappy -f - -o - | 0x0 - | wl-copy"
