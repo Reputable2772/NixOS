@@ -2,6 +2,7 @@
   lib,
   appimageTools,
   fetchurl,
+  stdenv,
 }:
 
 let
@@ -9,8 +10,12 @@ let
   version = "1.6.0-beta.10";
 
   src = fetchurl {
-    url = "https://github.com/comictagger/comictagger/releases/download/${version}/ComicTagger-x86_64.AppImage";
-    hash = "sha256-ON00/JWuWoWer0zMRmUGC+duPNVUjqxg4+ILeDPloT8=";
+    url = "https://github.com/comictagger/comictagger/releases/download/${version}/ComicTagger-${stdenv.hostPlatform.uname.processor}.AppImage";
+    hash =
+      if stdenv.hostPlatform.isx86_64 then
+        "sha256-ON00/JWuWoWer0zMRmUGC+duPNVUjqxg4+ILeDPloT8="
+      else
+        "sha256-ydm0VgC58wv3wU+YhtlEut0rveuAybkunyjmNjqR8EY=";
   };
 
   appimageContents = appimageTools.extract {
@@ -34,7 +39,10 @@ appimageTools.wrapType2 {
     description = "A GUI/CLI application for writing metadata to digital comics";
     homepage = "https://github.com/comictagger/comictagger";
     license = lib.licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "comictagger";
   };
 }
