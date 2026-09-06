@@ -31,6 +31,7 @@
 
   imports = [
     ./bottom.nix
+    ./comictagger.nix
     ./ip-update.nix
     ./tmux.nix
   ]
