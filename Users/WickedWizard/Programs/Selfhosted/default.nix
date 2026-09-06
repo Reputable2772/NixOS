@@ -4,12 +4,12 @@
 
     ./backup.nix
     ./bitwarden.nix
-    ./comictagger.nix
     ./ente-auth.nix
     # ./feishin.nix
     ./ip-update.nix
     ./keepassxc.nix
     ./podman.nix
     ./qbittorrent.nix
+    ./tag-comics.nix
   ];
 }

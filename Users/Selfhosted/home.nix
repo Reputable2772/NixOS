@@ -31,8 +31,8 @@
 
   imports = [
     ./bottom.nix
-    ./comictagger.nix
     ./ip-update.nix
+    ./tag-comics.nix
     ./tmux.nix
   ]
   ++ (lib.attrValues (lib'.readDirectory ./Containers true));
