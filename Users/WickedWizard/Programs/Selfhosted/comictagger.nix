@@ -11,7 +11,16 @@ in
   secretspec.config.profiles.wickedwizard.COMICVINE_API_KEY.description =
     "ComicVine API Key for ComicTagger";
 
+  /**
+    For looking at junk
+    find unsorted -type f | grep -Ei '\.txt$|flyer|checklist|promo poster|covers? only' | while read -r f; do
+      echo "Opening: $f"
+      xdg-open "$f"
+    done
+  */
+
   xdg.configFile."ComicTagger/settings.json" = {
+    force = true;
     text = builtins.toJSON {
       "Issue Identifier" = {
         series_match_identify_thresh = 91;
@@ -115,6 +124,9 @@ in
 
         publisher_filter = [
           "Panini Comics"
+          "Panini España"
+          "Panini Verlag"
+          "Panini UK"
           "Abril"
           "Planeta DeAgostini"
           "Editorial Televisa"
@@ -164,7 +176,7 @@ in
       COOLDOWN=1800
       MAX_ATTEMPTS=10
       EXPORT_TO_ZIP=true
-      INTERACTIVE=false
+      MANUAL=false
       CLEAR_TAGS=false
 
       usage() {
@@ -177,7 +189,7 @@ in
         echo "  -c SEC    Rate-limit cooldown (default: 1800)"
         echo "  -m NUM    Maximum tagging attempts (default: 20)"
         echo "  -e        Disable exporting to zip & deleting original (default: false)"
-        echo "  -i        Interactive Mode (default: false)"
+        echo "  -i        Manual pass: interactively tag whatever's left (default: false)"
         echo "  -t        Clear existing tags (default: false)"
         echo "  -h        Show this help"
 
@@ -191,7 +203,7 @@ in
           c) COOLDOWN="$OPTARG" ;;
           m) MAX_ATTEMPTS="$OPTARG" ;;
           e) EXPORT_TO_ZIP=false ;;
-          i) INTERACTIVE=true ;;
+          i) MANUAL=true ;;
           t) CLEAR_TAGS=true ;;
           h)
             usage
@@ -209,20 +221,6 @@ in
       SOURCE_DIR="''${1:?Source directory required. Use -h for help.}"
 
       mkdir -p "$SORTED_DIR" "$LOG_DIR"
-
-      if $INTERACTIVE; then
-        ${comictagger} \
-          --no-gui \
-          --online \
-          --parse-filename \
-          --interactive \
-          --save \
-          --skip-existing-tags \
-          --tags-write CR,CIX \
-          --verbose \
-          "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/interactive.log"
-        exit 0
-      fi
 
       # Step 1: clear existing tags
       if $CLEAR_TAGS; then
@@ -245,50 +243,76 @@ in
         echo ">> Not exporting to zip..."
       fi
 
-      # Step 3: tag, retrying on rate limits
-      attempt=1
+      run_tag_move_cycle() {
+        local pass_name="$1"
+        shift
+        local extra_flags=("$@")
 
-      while true; do
-        echo ">>> Tagging attempt $attempt at $(date)"
-        logfile="$LOG_DIR/retry-attempt-''${attempt}.log"
+        attempt=1
+        while true; do
+          echo ">>> [$pass_name] Tagging attempt $attempt at $(date)"
+          logfile="$LOG_DIR/$pass_name-attempt-''${attempt}.log"
 
+          ${comictagger} \
+            --no-gui \
+            --online \
+            --save \
+            --tags-write CR,CIX \
+            "''${extra_flags[@]}" \
+            --verbose \
+            "$SOURCE_DIR" 2>&1 | tee "$logfile"
+
+          rate_limited=$(grep -c "rate limit error" "$logfile" || true)
+          echo ">>> [$pass_name] Rate-limit hits: $rate_limited"
+
+          if [[ "$rate_limited" -eq 0 || "$attempt" -ge "$MAX_ATTEMPTS" ]]; then
+            break
+          fi
+
+          echo ">>> [$pass_name] Sleeping ''${COOLDOWN}s before retry..."
+          sleep "$COOLDOWN"
+          attempt=$((attempt + 1))
+        done
+
+        echo ">>> [$pass_name] Moving tagged files into $SORTED_DIR..."
         ${comictagger} \
           --no-gui \
-          --online \
-          --parse-filename \
-          --save \
-          --skip-existing-tags \
-          --tags-write CR,CIX \
+          --rename \
+          --move \
+          --dir "$SORTED_DIR" \
+          --tags-read CR,CIX \
           --verbose \
-          "$SOURCE_DIR" 2>&1 | tee "$logfile"
+          "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/$pass_name-moving.log"
+      }
 
-        rate_limited=$(grep -c "rate limit error" "$logfile" || true)
+      # Step 3: tag, retrying on rate limits, then move.
+      # Run on multiple passes, for easier automation
+      # Pass 1: Strict. Only matches get through.
+      # Pass 2: Relaxed. Save on single match low-confidence.
+      # Pass 3: Blacklist publisher (for translators), and save on single match.
+      run_tag_move_cycle "strict" --parse-filename --skip-existing-tags --no-save-on-low-confidence
+      run_tag_move_cycle "relaxed" --parse-filename --skip-existing-tags --save-on-low-confidence
+      run_tag_move_cycle "filtered" \
+        --parse-filename \
+        --skip-existing-tags \
+        --save-on-low-confidence \
+        --use-publisher-filter
+        # Publisher Filter is set above.
 
-        echo ">>> Rate-limit hits: $rate_limited"
+      # Step 4: manual pass & re-identification
+      if $MANUAL; then
+        echo ">>> [manual] Launching GUI on $SOURCE_DIR. Close the window when done tagging..."
+        ${comictagger} "$SOURCE_DIR"
+        echo ">>> [manual] GUI closed. Continuing..."
 
-        if [[ "$rate_limited" -eq 0 || "$attempt" -ge "$MAX_ATTEMPTS" ]]; then
-          break
-        fi
-
-        echo ">>> Sleeping ''${COOLDOWN}s before retry..."
-        sleep "$COOLDOWN"
-        attempt=$((attempt + 1))
-      done
-
-      # Step 4: move/rename
-      echo ">>> Moving files into $SORTED_DIR..."
-
-      ${comictagger} \
-        --no-gui \
-        --rename \
-        --move \
-        --dir "$SORTED_DIR" \
-        --tags-read CR,CIX \
-        --verbose \
-        "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/moving-final.log"
+        # Don't read from filename, since the user has written tags.
+        # Prefer tags, since user may not have renamed files.
+        run_tag_move_cycle "confirm" --tags-read CR,CIX --metadata-merge overlay
+      fi
 
       echo ">>> Done."
-      echo ">>> Check $LOG_DIR/moving-final.log for errors."
+      echo ">>> Anything still left in $SOURCE_DIR needs manual ComicVine lookup (no match)."
+      echo ">>> Check $LOG_DIR/confirm-moving.log or $LOG_DIR/manual-moving.log for final pass errors."
     '')
   ];
 }
