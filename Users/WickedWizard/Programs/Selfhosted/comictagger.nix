@@ -222,17 +222,7 @@ in
 
       mkdir -p "$SORTED_DIR" "$LOG_DIR"
 
-      # Step 1: clear existing tags
-      if $CLEAR_TAGS; then
-        echo ">>> Clearing existing tags..."
-        ${comictagger} \
-          --no-gui -d -t CR,CIX -v \
-          "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/clear-tags.log"
-      else
-        echo ">>> Not clearing existing tags..."
-      fi
-
-      # Step 2: Export to zip, and delete originals
+      # Step 1: Export to zip, and delete originals
       if $EXPORT_TO_ZIP; then
         echo ">>> Exporting to zip..."
         ${comictagger} \
@@ -241,6 +231,16 @@ in
           "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/conversion.log"
       else
         echo ">> Not exporting to zip..."
+      fi
+
+      # Step 2: clear existing tags
+      if $CLEAR_TAGS; then
+        echo ">>> Clearing existing tags..."
+        ${comictagger} \
+          --no-gui -d -t CR,CIX -v \
+          "$SOURCE_DIR" 2>&1 | tee "$LOG_DIR/clear-tags.log"
+      else
+        echo ">>> Not clearing existing tags..."
       fi
 
       run_tag_move_cycle() {
