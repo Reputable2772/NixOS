@@ -7,7 +7,7 @@
     ./caddy.nix
     ./caddy-network.nix
     ./crowdsec.nix
-    ./ente.nix
+    # ./ente.nix
     ./linkding.nix
     ./n8n.nix
     ./ollama.nix
