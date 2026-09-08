@@ -382,6 +382,14 @@ rec {
           dir = null;
           env = null;
         };
+        kavita = {
+          dir = null;
+          env = [
+            "PUID=0"
+            "PGID=0"
+            "TZ=${system.timezone}"
+          ];
+        };
       };
     };
     remotebuild = {
