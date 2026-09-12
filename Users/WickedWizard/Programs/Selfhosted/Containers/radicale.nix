@@ -96,7 +96,7 @@ in
         "data:/data"
         "${pkgs.writeText "radicale-config" radicaleConfig}:/config/config:ro:noMap"
         # Mounted directly as a file, not an environment variable.
-        "${config.secretspec.secrets.profiles.wickedwizard.RADICALE_USERS.plainPath}:${userFilePath}:noMap"
+        "${config.secretspec.secrets.profiles.wickedwizard.RADICALE_USERS.plainPath}:${userFilePath}:ro:noMap"
         "${birthdayHookShFile}:${birthdayHookSh}:noMap"
         "${sources.radicale_birthday_hook.src}${birthdayHook}:${birthdayHook}:noMap"
       ];
