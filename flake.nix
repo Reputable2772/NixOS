@@ -82,92 +82,59 @@
           pkgs = nixpkgs.legacyPackages.${system};
           armSystem = "aarch64-linux";
           armPkgs = nixpkgs.legacyPackages.${armSystem};
+
+          _specialArgs = _pkgs: sys: {
+            inherit inputs;
+            lib' = import ./lib { pkgs = _pkgs; };
+            sources = import ./_sources/${sys}/generated.nix {
+              inherit (_pkgs)
+                fetchurl
+                fetchgit
+                fetchFromGitHub
+                dockerTools
+                ;
+            };
+          };
+
+          configUserMapper =
+            { config, lib, ... }:
+            {
+              _module.args.config' = import ./Config/config.nix {
+                _home = lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
+              };
+            };
         in
         {
           "lenovo-laptop" = nixpkgs.lib.nixosSystem {
             inherit system;
-            specialArgs = {
-              inherit inputs;
-              lib' = import ./lib { inherit pkgs; };
-              sources = import ./_sources/${pkgs.stdenv.hostPlatform.system}/generated.nix {
-                inherit (pkgs)
-                  fetchurl
-                  fetchgit
-                  fetchFromGitHub
-                  dockerTools
-                  ;
-              };
-            };
+            specialArgs = _specialArgs pkgs system;
             modules = [
               ./Modules/System
               ./System/Common
               ./System/Lenovo-Laptop
-              (
-                { config, ... }:
-                {
-                  _module.args.config' = import ./Config/config.nix {
-                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
-                  };
-                }
-              )
+              configUserMapper
             ];
           };
 
           "hp-laptop" = nixpkgs.lib.nixosSystem {
             inherit system;
-            specialArgs = {
-              inherit inputs;
-              lib' = import ./lib { inherit pkgs; };
-              sources = import ./_sources/${pkgs.stdenv.hostPlatform.system}/generated.nix {
-                inherit (pkgs)
-                  fetchurl
-                  fetchgit
-                  fetchFromGitHub
-                  dockerTools
-                  ;
-              };
-            };
+            specialArgs = _specialArgs pkgs system;
             modules = [
               ./Modules/System
               ./System/Common
               ./System/HP-Laptop
-              (
-                { config, ... }:
-                {
-                  _module.args.config' = import ./Config/config.nix {
-                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
-                  };
-                }
-              )
+              configUserMapper
             ];
           };
 
           "oracle-server" = nixpkgs.lib.nixosSystem {
             system = armSystem;
-            specialArgs = {
-              inherit inputs;
-              lib' = import ./lib { pkgs = armPkgs; };
-              sources = import ./_sources/${armPkgs.stdenv.hostPlatform.system}/generated.nix {
-                inherit (armPkgs)
-                  fetchurl
-                  fetchgit
-                  fetchFromGitHub
-                  dockerTools
-                  ;
-              };
-            };
+            specialArgs = _specialArgs armPkgs armSystem;
             modules = [
               ./Modules/System
               ./System/Common
               ./System/Oracle
-              (
-                { config, ... }:
-                {
-                  _module.args.config' = import ./Config/config.nix {
-                    _home = pkgs.lib.attrsets.mapAttrs (n: v: v.home.homeDirectory) config.home-manager.users;
-                  };
-                }
-              )
+              configUserMapper
             ];
           };
 
@@ -246,30 +213,7 @@
           # Installation hooks need to setup manually in each devshell.
           pre-commit.check.enable = true;
           pre-commit.settings.hooks = {
-            commitizen = {
-              enable = true;
-              # Fixes commitizen-tools/commitizen#1864
-              # Waiting for NixOS/nixpkgs#539725. Patch taken from there.
-              package = pkgs.commitizen.overrideAttrs (oldAttrs: rec {
-                version = "4.16.4";
-                src = pkgs.fetchFromGitHub {
-                  owner = "commitizen-tools";
-                  repo = "commitizen";
-                  tag = "v${version}";
-                  hash = "sha256-lVc1Kdy/IWRa8uoPZfOSSa379bDDknE3dpm0U7DVv0s=";
-                };
-                postPatch = ''
-                  substituteInPlace pyproject.toml \
-                    --replace-fail "uv_build >= 0.9.17, <0.12" "uv-build"
-                '';
-                makeWrapperArgs = [
-                  "--prefix"
-                  "PATH"
-                  ":"
-                  (lib.makeBinPath [ pkgs.gitMinimal ])
-                ];
-              });
-            };
+            commitizen.enable = true;
             nixfmt-rfc-style = {
               enable = true;
               package = pkgs.nixfmt;
