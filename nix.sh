@@ -74,6 +74,8 @@ case $1 in
 		dconf_nix;;
 	"first-time-setup")
 		first_time_setup;;
+	"blockers")
+		find_blockers;;
 	*)
 		echo "Invalid option. Expected 'ci', 'dconf' or 'first-time-setup'";;
 esac
