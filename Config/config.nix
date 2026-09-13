@@ -111,6 +111,7 @@ rec {
       dir = rec {
         # Internal variable, should not be used
         base = "${home}/Documents";
+        books = "${home}/Books";
         # Where to store the browser profiles, for easily moving it about.
         browsers = "${base}/Browsers";
         # Where to store all container data. Set to null to disable containers.
@@ -157,6 +158,7 @@ rec {
           blacklistedPaths = [
             # lidarr.custom.downloadPath
             # lidarr.custom.music.libraryPath
+            "/var/log/journal"
           ]
           ++ syncthing.custom.folders;
           location = "${dir.base}/Applications/Containers-Backup";
@@ -207,6 +209,7 @@ rec {
               ++ [
                 "${backup.location}:/containers-backup"
                 "${wickedwizard.backup.repository}:/backup"
+                "${dir.books}:/books"
               ];
           };
         };
