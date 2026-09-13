@@ -1,7 +1,7 @@
-{ config', ... }:
 {
   programs.nh = {
     enable = true;
-    flake = config'.flake.dir.self;
+    # Easier to stay in the current directly and use nh os switch/build
+    flake = ".";
   };
 }

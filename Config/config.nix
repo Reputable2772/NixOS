@@ -10,17 +10,6 @@
   _home ? { },
 }:
 rec {
-  flake = {
-    dir = rec {
-      # Internal Variable
-      base = "/home/wickedwizard/Documents/Coding/Nix";
-      # Location where undeclarative system config is stored, so that one folder can be moved about systems. This directory needs to be gitignored.
-      config = "${self}/Config";
-      # Working directory of the flake.nix file
-      self = "${base}/NixOS";
-    };
-  };
-
   system = {
     timezone = "Asia/Kolkata";
     locale = "en_IN";
@@ -38,7 +27,7 @@ rec {
         encryption = {
           # /persist because of impermanence nix-community/impermanence#301
           pkeyfile = "/persist/etc/ssh/Lenovo-Encryption";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd wickedwizard@lenovo-laptop";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN618WSaf14crbHvqgDdhAqkgjz6tmyjKwL00viq5CQd";
         };
       };
 
@@ -69,14 +58,12 @@ rec {
       secrets = {
         encryption = {
           pkeyfile = "/etc/ssh/Oracle-Encryption";
-          key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM= wickedwizard@lenovo-laptop";
+          key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPuAW9dlf0Q/siS8iCyfLqgBnc/dRF+FXYOjDFLkVJlsXFRSUNN44oYFGDG9KeMBd1T2U/OZ4APGVFGASP0rQuQyp6FL3M7HIl2hTH9ABvjUKd02gy94OysGn/wh5WGaroCJWHQR2nGD+VaoYA6vq8DbgHUEmJaP1V165Xxc2lOrlQ+0or7BmfXY6VmQxFPMj0bfYAly/PFopvz463RG5bV2e/H4WrhkjHP+hrposb+IwGV6JuFLE9U0njSwbADlLJb+Vuv1o1Tn4TNxRDBI/vrbw4k2676nOFXR+I03YQWHAKcHgn6w0vzQAX43r7L4f/jaPY+fBIakf8rH49Mnmwrkif8vL9cci9Jz6HHlJq99lJSQLQuObJlGD4FzIKtgsuQViZh3QyIt9Dr5Q4ksE+I0fT8GPqbUQb7M96t4mKex98//gdS6KIhbAvQwXcbKiTK/ap4uHR+mB24dHVoJndLpxAOaHZ0Ovrrwb0DJXTQ561KQEM2HmKe95PIvMCZzM=";
         };
       };
     };
 
-    rescue = {
-      minimal = true;
-    };
+    rescue = { };
   };
 
   users = rec {
@@ -93,22 +80,7 @@ rec {
 
         repository = "${home}/Backup";
         paths = {
-          include = map (x: "${base}/${x}") [
-            "Android"
-            "Applications"
-            "Books"
-            "Browsers"
-            "Coding"
-            "Config"
-            "Games/Minecraft"
-            "Games/Saves"
-            "Important-Files"
-            "Study-Materials"
-            "Misc"
-            "Notes"
-            "MindWTR"
-            "test"
-          ];
+          include = [ base ];
           exclude = [ ];
         };
         # Ludusavi is a backup tool for Games.
@@ -141,8 +113,6 @@ rec {
         base = "${home}/Documents";
         # Where to store the browser profiles, for easily moving it about.
         browsers = "${base}/Browsers";
-        # Where to store generic undeclarative user config. Should be gitignored
-        config = "${flake.dir.self}/Config";
         # Where to store all container data. Set to null to disable containers.
         containers = "${home}/Containers";
         # Where Obsidian Notes are stored.
@@ -160,19 +130,21 @@ rec {
       };
       secrets = {
         # Passwords should not be set for this key, look above.
+        # Every user & host should have an encryption key set, if they
+        # want secretspec encryption
         encryption = {
-          pkeyfile = "${flake.dir.config}/SSH/User-Encryption/WickedWizard";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK wickedwizard@lenovo-laptop";
+          pkeyfile = "${home}/.ssh/wickedwizard";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILsy1bfWG4U17PEZAc4KKVFDxIRtC4fyA8lPCG/f8/ZK";
         };
         # The SSH Key that is used for authentication by Git
         authentication = {
-          pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Authentication/Authentication";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU wickedwizard@lenovo-laptop";
+          pkeyfile = "${home}/.ssh/git-authentication";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU";
         };
         # The SSH Key that is used for signing by Git
         signing = {
-          pkeyfile = "${users.wickedwizard.dir.config}/SSH/Git/Signing/Signing";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR wickedwizard@lenovo-laptop";
+          pkeyfile = "${home}/.ssh/git-signing";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7s075auCly0MMeG91zc20jjzzp4vm0cz0V8SBGNNpR";
         };
       };
       containers = rec {
@@ -194,7 +166,7 @@ rec {
           # # inherited from dir.containers above
           dir = null;
           # Environment variables
-          env = [ "LOG_FILE=/data/access.log" ];
+          env = [ ];
         };
         # baikal = {
         #   dir = null;
@@ -313,11 +285,10 @@ rec {
     guest = { };
     maintenance = rec {
       home = _home.maintenance or "";
-      flakeDir = "${home}/NixOS";
       secrets = rec {
         encryption = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAQpS9zfSJ6IWbXOs4ndPMJp93yQVfYahKfsUbRosFbC";
-          pkeyfile = "${flakeDir}/Config/SSH/User-Encryption/Maintenance";
+          pkeyfile = "${home}/.ssh/maintenance";
         };
         ssh = encryption;
       };
@@ -343,11 +314,10 @@ rec {
     };
     selfhosted = rec {
       home = _home.selfhosted or "";
-      flakeDir = "${home}/NixOS";
       secrets = rec {
         encryption = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj9+cqVLVe9jElkvjx0UZ16HXVzdr7VE80pFtwzvJac";
-          pkeyfile = "${flakeDir}/Config/SSH/User-Encryption/Selfhosted";
+          pkeyfile = "${home}/.ssh/selfhosted";
         };
         ssh = encryption;
       };

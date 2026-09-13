@@ -38,18 +38,18 @@
         ip6=$(
           ip -6 addr show scope global |
           awk '/inet6/ && $0 !~ / temporary / {
-              split($2, a, "/")
-              print a[1]
-              exit
+            split($2, a, "/")
+            print a[1]
+            exit
           }'
         )
         ip_cache_file="/tmp/ddns_last_ip_$domain"
 
         if [ -f "$ip_cache_file" ]; then
-            last_ip=$(cat "$ip_cache_file")
-            if [ "$ip6" = "$last_ip" ]; then
-                exit 0
-            fi
+          last_ip=$(cat "$ip_cache_file")
+          if [ "$ip6" = "$last_ip" ]; then
+            exit 0
+          fi
         fi
 
         curl -X PUT "https://desec.io/api/v1/domains/$domain/rrsets/" \
