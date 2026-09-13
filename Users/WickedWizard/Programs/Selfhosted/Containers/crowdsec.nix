@@ -37,6 +37,24 @@ in
   };
 
   config = {
+    # This file serves no other purpose, except for runtime
+    # secret replacement, and to be used in the quadlet below.
+    xdg.configFile."crowdsec/trusted-hosts.yaml" = {
+      force = true;
+      text = ''
+        name: "local/trusted-hosts"
+        description: "Whitelist my dynamic hosts"
+        whitelist:
+          reason: "Trusted infrastructure"
+          expression:
+            - evt.Overflow.Alert.Source.IP in LookupHost("@DOMAIN_HERE@")
+      '';
+    };
+
+    secretspec.runtimeSecretReplacements."${config.xdg.configHome}/crowdsec/trusted-hosts.yaml" = {
+      "@DOMAIN_HERE@" = config.secretspec.secrets.profiles.wickedwizard.HOST_DOMAIN.plainPath;
+    };
+
     /**
       This container in its current state, is not exactly declarative.
 
@@ -78,6 +96,7 @@ in
           "crowdsec-logs.volume:/logs"
           "data:/var/lib/crowdsec/data"
           "config:/etc/crowdsec"
+          "${config.xdg.configHome}/crowdsec/trusted-hosts.yaml:/etc/crowdsec/postoverflows/s01-whitelist/trusted-hosts.yaml:noMap"
         ]
         ++ (lib.mapAttrsToList (
           fname: val: "${yaml.generate fname val}:/etc/crowdsec/acquis.d/${fname}:noMap"
