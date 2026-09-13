@@ -160,11 +160,10 @@ in
         comicvine_custom_parameters = null;
       };
     };
-    onChange =
-      config.secretspec.runtimeSecretReplacementFunc "${config.xdg.configHome}/ComicTagger/settings.json"
-        {
-          "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.wickedwizard.COMICVINE_API_KEY;
-        };
+  };
+
+  secretspec.runtimeSecretReplacements."${config.xdg.configHome}/ComicTagger/settings.json" = {
+    "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.wickedwizard.COMICVINE_API_KEY.plainPath;
   };
 
   home.packages = with pkgs; [
