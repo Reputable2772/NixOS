@@ -143,6 +143,8 @@ let
       # Cleanup trap & exit
       trap - EXIT
       rm -rf -- "$generationDir"
+
+      exit 1
     else
       ${concatMapStringsSep "\n" (profile: ''
         echo "[secretspec] Decrypting profile: ${profile}"
@@ -242,6 +244,38 @@ let
 
     target.write_text(text)
   '';
+
+  runtimeReplacementScript = concatMapAttrsStringSep "\n" (
+    path: replacers:
+    let
+      args = concatMapAttrsStringSep " " (
+        substitute: secretPath: ''"${substitute}" "${secretPath}"''
+      ) replacers;
+    in
+    ''
+      echo "[secretspec] Rendering runtime secrets: ${path}"
+
+      if [ -L "${path}" ]; then
+        template="$(readlink -f "${path}")"
+      else
+        echo "[secretspec] No declarative template found for ${path}"
+        exit 1
+      fi
+
+      tmp="$(mktemp "${path}.XXXXXX")"
+      trap 'rm -f -- "$tmp"' EXIT
+
+      ${pkgs.python3}/bin/python3 ${replacePythonScript} \
+        "$template" \
+        "$tmp" \
+        ${args}
+
+      chmod --reference="${path}" "$tmp" 2>/dev/null || true
+      mv -f -- "$tmp" "${path}"
+
+      trap - EXIT
+    ''
+  ) cfg.runtimeSecretReplacements;
 in
 {
   options.secretspec = {
@@ -313,38 +347,27 @@ in
       default = runtimeConfigFile;
     };
 
-    runtimeSecretReplacementFunc = mkOption {
+    runtimeSecretReplacements = mkOption {
       description = ''
-        For a file in ~/.config/xx/yy.json, yy.json needs to be
-        declarative, except for values which are secrets.
-        Storing the entire file in secretspec as a secret isn't ideal.
+        Runtime replacements for declarative configuration files.
 
-        To remedy this, this option exists as a function.
-        For any file, set its onChange attribute to:
-          secretspec.runtimeSecretReplacementFunc "FILE_PATH" {
-            "PLACEHOLDER_1" = config.secretspec.secrets.profiles.test.secret;
-            "PLACEHOLDER_2" = config.secretspec.secrets.profiles.test.otherSecret;
-          }
+        Each file maps placeholders to paths of secretspec runtime
+        secret files.
 
-        where the attribute names are placeholders inside the file and
-        the values are paths to the corresponding runtime secret files.
+        For example:
+          secretspec.runtimeSecretReplacements = {
+            "''${config.xdg.configHome}/foo/config.json" = {
+              "@TOKEN@" = config.secretspec.secrets.profiles.test.token.plainPath;
+              "@OTHER_SECRET@" = config.secretspec.secrets.profiles.test.otherSecret.plainPath;
+            };
+          };
+
+        The declarative file is rendered by Home Manager first. During
+        activation, its store-backed template is preserved and the
+        placeholders are replaced with the current runtime secrets.
       '';
-      type = types.functionTo (types.functionTo types.str);
-      default =
-        path: replacers:
-        let
-          args = concatMapAttrsStringSep " " (
-            substitute: secret: "${substitute} ${secret.plainPath}"
-          ) replacers;
-        in
-        ''
-          current_file=${path}
-          tmp="$(mktemp)"
-
-          ${pkgs.python3}/bin/python3 ${replacePythonScript} "$current_file" "$tmp" ${args}
-
-          mv "$tmp" "$current_file"
-        '';
+      type = types.attrsOf (types.attrsOf types.str);
+      default = { };
     };
   };
 
@@ -377,22 +400,16 @@ in
     (optionalAttrs (!extraArgs.system) {
       home.packages = [ cfg.package ];
 
+      home.activation.secretspec =
+        lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "onFilesChange" ]
+          activationScript;
+
       # this is so we can reliably run reloadSystemd,
       # refresh secrets, and then run the runtime file
       # hook
-      home.activation.secretspec = lib.hm.dag.entryBetween [ "onFilesChange" ] [ "reloadSystemd" ] "";
-
-      systemd.user.services.secretspec = {
-        Install.WantedBy = [ "default.target" ];
-        Unit.X-Restart-Triggers = [ runtimeConfigFile ];
-        Service = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          RuntimeDirectory = "secretspec";
-          WorkingDirectory = "%t/secretspec";
-          ExecStart = pkgs.writeShellScript "secretspec-decryption" activationScript;
-        };
-      };
+      home.activation.secretspecRuntimeReplacements =
+        lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "secretspec" ]
+          runtimeReplacementScript;
     })
   ];
 }
