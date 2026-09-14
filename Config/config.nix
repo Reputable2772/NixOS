@@ -199,7 +199,6 @@ rec {
               map (x: dir.base + "/" + x) [
                 "Android/Backups:/android-backups"
                 "Android/Tasker:/android-tasker"
-                "Books:/books"
                 "Important-Files:/important-files"
                 # "Joplin:/joplin"
                 "Study-Materials:/study-materials"
