@@ -163,7 +163,7 @@ in
   };
 
   secretspec.runtimeSecretReplacements."${config.xdg.configHome}/ComicTagger/settings.json" = {
-    "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.selfhosted.COMICVINE_API_KEY;
+    "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.selfhosted.COMICVINE_API_KEY.plainPath;
   };
 
   home.packages = with pkgs; [
