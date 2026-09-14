@@ -2,6 +2,7 @@
   config,
   config',
   inputs,
+  pkgs,
   lib,
   lib',
   sources,
@@ -44,6 +45,7 @@
     useUserPackages = lib.mkForce false;
     startAsUserService = true;
     backupFileExtension = "backup.backup.backup";
+    backupCommand = "${pkgs.trash-cli}/bin/trash";
     verbose = true;
     sharedModules = [ ../../Modules/Home-Manager ];
     users = {
