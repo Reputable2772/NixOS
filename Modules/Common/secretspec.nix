@@ -206,7 +206,7 @@ let
 
           ${concatMapStringsSep "\n" (secret: ''
             if ${getExe pkgs.jq} -e --arg secret "${secret}" 'has($secret)' "$commonExport" > /dev/null; then
-              ${getExe pkgs.jq} -r --arg secret "${secret}" '.[$secret]' "$commonExport" \
+              ${getExe pkgs.jq} -j --arg secret "${secret}" '.[$secret]' "$commonExport" \
                 > "''${commonDir}/${secret}"
               chmod 0444 "''${commonDir}/${secret}"
             fi
