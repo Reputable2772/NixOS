@@ -161,7 +161,7 @@ let
           --file ${runtimeConfigFile} \
           --profile ${profile} \
           --reason "Secret Decryption - Profile" \
-          --format dotenv
+          --format dotenv \
           > "$profilesDir/${profile}"
 
         chmod 0400 "$profilesDir/${profile}"
@@ -183,7 +183,7 @@ let
                 --scope ${scope} \
                 --profile ${profile} \
                 --reason "Secret Decryption - Scope" \
-                --format dotenv
+                --format dotenv \
                 >> "$scopesDir/${scope}"
 
               chmod 0400 "$scopesDir/${scope}"
