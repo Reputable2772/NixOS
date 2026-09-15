@@ -161,8 +161,7 @@ let
           --file ${runtimeConfigFile} \
           --profile ${profile} \
           --reason "Secret Decryption - Profile" \
-          --format json |
-          ${getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+          --format dotenv
           > "$profilesDir/${profile}"
 
         chmod 0400 "$profilesDir/${profile}"
@@ -184,8 +183,7 @@ let
                 --scope ${scope} \
                 --profile ${profile} \
                 --reason "Secret Decryption - Scope" \
-                --format json |
-                ${getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+                --format dotenv
                 >> "$scopesDir/${scope}"
 
               chmod 0400 "$scopesDir/${scope}"
@@ -194,7 +192,7 @@ let
       ) (attrNames scopes)}
 
       # Export common scope. Runs only on system module.
-      ${optionalString extraArgs.system ''
+      ${optionalString (extraArgs.system && commonSecrets != [ ]) ''
         echo "[secretspec] Decrypting common secrets"
         ${concatMapStringsSep "\n" (profile: ''
           commonExport="$generationDir/common.${profile}.json"
