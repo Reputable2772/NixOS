@@ -20,6 +20,7 @@ let
   inherit (lib.attrsets)
     attrNames
     attrValues
+    genAttrs
     mapAttrs
     optionalAttrs
     ;
@@ -32,6 +33,7 @@ let
     concatStringsSep
     hasInfix
     isPath
+    optionalString
     replaceStrings
     ;
 
@@ -40,6 +42,9 @@ let
     profiles = "${base}/profiles";
     scopes = "${base}/scopes";
     individual = "${base}/individual";
+    # Used for common secrets between host & hm user.
+    # Directly is world-readable, similar to nix-store.
+    common = "${base}/common";
   };
 
   userConfig = if isPath cfg.config then fromTOML (builtins.readFile cfg.config) else cfg.config;
@@ -47,6 +52,7 @@ let
 
   profiles = userConfig.profiles or { };
   scopes = userConfig.scopes or { };
+  commonSecrets = scopes.common.secrets or [ ];
 
   mappedProfiles =
     lib'.mapAttrsTreeDepth
@@ -115,12 +121,15 @@ let
     profilesDir="$generationDir/profiles"
     scopesDir="$generationDir/scopes"
     individualDir="$generationDir/individual"
+    commonDir="$generationDir/common"
 
-    mkdir -p "$profilesDir" "$scopesDir" "$individualDir"
+    mkdir -p "$profilesDir" "$scopesDir" "$individualDir" "$commonDir"
+
+    chmod 0755 "$generationDir"
+    chmod 0700 "$profilesDir" "$scopesDir" "$individualDir"
+    chmod 0755 "$commonDir"
 
     trap 'rm -rf -- "$generationDir"' EXIT
-
-    chmod 0700 "$generationDir"
 
     check_failed=0
 
@@ -162,21 +171,52 @@ let
       # Since we don't know which scope belongs to which profile,
       # we export and run it for all profiles.
       # Total time = scopes x profiles.
-      ${concatMapStringsSep "\n" (scope: ''
+      ${concatMapStringsSep "\n" (
+        scope:
+        if scope == "common" then
+          ""
+        else
+          ''
+            ${concatMapStringsSep "\n" (profile: ''
+              echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
+              ${getExe cfg.package} export \
+                --file ${runtimeConfigFile} \
+                --scope ${scope} \
+                --profile ${profile} \
+                --reason "Secret Decryption - Scope" \
+                --format json |
+                ${getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+                >> "$scopesDir/${scope}"
+
+              chmod 0400 "$scopesDir/${scope}"
+            '') (attrNames profiles)}
+          ''
+      ) (attrNames scopes)}
+
+      # Export common scope. Runs only on system module.
+      ${optionalString extraArgs.system ''
+        echo "[secretspec] Decrypting common secrets"
         ${concatMapStringsSep "\n" (profile: ''
-          echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
+          commonExport="$generationDir/common.${profile}.json"
           ${getExe cfg.package} export \
             --file ${runtimeConfigFile} \
-            --scope ${scope} \
+            --scope common \
             --profile ${profile} \
-            --reason "Secret Decryption - Scope" \
-            --format json |
-            ${getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
-            >> "$scopesDir/${scope}"
+            --reason "Secret Decryption - Common" \
+            --format json \
+            > "$commonExport"
 
-          chmod 0400 "$scopesDir/${scope}"
+          ${concatMapStringsSep "\n" (secret: ''
+            if ${getExe pkgs.jq} -e --arg secret "${secret}" 'has($secret)' "$commonExport" > /dev/null; then
+              ${getExe pkgs.jq} -r --arg secret "${secret}" '.[$secret]' "$commonExport" \
+                > "''${commonDir}/${secret}"
+              chmod 0444 "''${commonDir}/${secret}"
+            fi
+          '') commonSecrets}
+
+          rm -f "$commonExport"
         '') (attrNames profiles)}
-      '') (attrNames scopes)}
+      ''}
 
       ${concatMapStringsSep "\n" (
         profile:
@@ -276,6 +316,26 @@ let
       trap - EXIT
     ''
   ) cfg.runtimeSecretReplacements;
+
+  /**
+    The HM user must inherit the secrets from NixOS module.
+    The secret is first decrypted by the NixOS module into the common
+    directory.
+
+    The HM module uses the secretspec `file` provider to read secrets
+    from that directory. The shared host secrets are transformed to use the file
+    provider and are added here.
+  */
+  hmCommonModule = username: {
+    secretspec.config = {
+      providers.common = "file://${paths.common}";
+      profiles.${username} = genAttrs commonSecrets (secret: {
+        providers = [ "common" ];
+        ref.item = secret;
+        description = "Secret inherited from NixOS";
+      });
+    };
+  };
 in
 {
   options.secretspec = {
@@ -395,6 +455,9 @@ in
           text = activationScript;
         };
       };
+
+      # Actually inherit the secrets.
+      home-manager.sharedModules = [ ({ config, ... }: (hmCommonModule config.home.username)) ];
     })
 
     (optionalAttrs (!extraArgs.system) {
