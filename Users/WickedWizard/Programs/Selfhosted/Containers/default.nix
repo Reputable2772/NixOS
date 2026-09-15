@@ -8,6 +8,7 @@
     ./caddy-network.nix
     ./crowdsec.nix
     # ./ente.nix
+    ./kavita.nix
     ./linkding.nix
     ./n8n.nix
     ./ollama.nix

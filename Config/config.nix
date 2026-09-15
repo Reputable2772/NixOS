@@ -282,6 +282,11 @@ rec {
           dir = null;
           env = null;
         };
+        kavita = {
+          dir = null;
+          env = null;
+          custom.booksDir = dir.books;
+        };
       };
     };
     guest = { };
