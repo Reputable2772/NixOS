@@ -5,7 +5,6 @@
 
   imports = [
     ./bottom.nix
-    ./ip-update.nix
     ./tag-comics.nix
     ./tmux.nix
   ]

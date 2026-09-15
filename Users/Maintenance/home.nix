@@ -3,7 +3,6 @@
 
   imports = [
     ./bottom.nix
-    ./ip-update.nix
     ./tmux.nix
   ];
 }

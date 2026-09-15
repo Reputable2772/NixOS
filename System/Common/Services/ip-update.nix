@@ -1,49 +1,46 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   secretspec.config = {
-    profiles.wickedwizard = {
+    profiles.${config.networking.hostName} = {
       BASE_DOMAIN.description = "The domain owned by the user.";
       SUBNAME.description = "The subname (without domain) used for this host.";
-      HOST_DOMAIN.description = "The subdomain used for this host.";
+      HOST_DOMAIN = {
+        composed = "\${SUBNAME}.\${BASE_DOMAIN}";
+        description = "The subdomain used for this host.";
+      };
       DESEC_TOKEN.description = "desec.io API Token";
     };
-    scopes.domain_ip_update.secrets = [
-      "BASE_DOMAIN"
-      "SUBNAME"
-      "HOST_DOMAIN"
-      "DESEC_TOKEN"
-    ];
+    scopes = rec {
+      domain_ip_update.secrets = [
+        "BASE_DOMAIN"
+        "SUBNAME"
+        "HOST_DOMAIN"
+        "DESEC_TOKEN"
+      ];
+      common = domain_ip_update;
+    };
   };
 
-  systemd.user.services.ip-update = {
-    Unit = {
-      Description = "IP Update service.";
-    };
+  systemd.services.ip-update = {
+    description = "IP Update service.";
 
-    Service = {
+    serviceConfig = {
       Type = "oneshot";
-      EnvironmentFile =
-        lib.replaceStrings [ "\${XDG_RUNTIME_DIR}" ] [ "%t" ]
-          config.secretspec.secrets.scopes.domain_ip_update.path;
+      EnvironmentFile = config.secretspec.secrets.scopes.domain_ip_update.path;
       ExecStart = pkgs.writeShellScript "ip-update-service" ''
         set -euo pipefail
 
         domain=$(echo $BASE_DOMAIN)
         subname=$(echo $SUBNAME)
         ip6=$(
-          ip -6 addr show scope global |
-          awk '/inet6/ && $0 !~ / temporary / {
+          ${pkgs.iproute2}/bin/ip -6 addr show scope global |
+          ${pkgs.gawk}/bin/gawk '/inet6/ && $0 !~ / temporary / {
             split($2, a, "/")
             print a[1]
             exit
           }'
         )
-        ip_cache_file="/tmp/ddns_last_ip_$domain"
+        ip_cache_file="/tmp/ddns_last_ip_$subname.$domain"
 
         if [ -f "$ip_cache_file" ]; then
           last_ip=$(cat "$ip_cache_file")
@@ -52,7 +49,7 @@
           fi
         fi
 
-        curl -X PUT "https://desec.io/api/v1/domains/$domain/rrsets/" \
+        ${pkgs.curl}/bin/curl -X PUT "https://desec.io/api/v1/domains/$domain/rrsets/" \
           -H "Authorization: Token $DESEC_TOKEN" \
           -H "Content-Type: application/json" \
           -d "[{\"subname\": \"$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}, {\"subname\": \"*.$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}]"
@@ -62,19 +59,15 @@
     };
   };
 
-  systemd.user.timers.ip-update = {
-    Unit = {
-      Description = "IP Update timer for 5min.";
-    };
+  systemd.timers.ip-update = {
+    description = "IP Update timer for 5min.";
 
-    Timer = {
+    timerConfig = {
       OnBootSec = "1min";
       OnUnitActiveSec = "5min";
       AccuracySec = "1s";
     };
 
-    Install = {
-      WantedBy = [ "timers.target" ];
-    };
+    wantedBy = [ "timers.target" ];
   };
 }
