@@ -8,7 +8,10 @@
       Image = "lscr.io/linuxserver/kavita:latest";
       Volume = [
         "config:/config"
-      ] ++ lib.optional (config'.containers.kavita.custom.booksDir != null) "${config'.containers.kavita.custom.booksDir}:/books:noMap";
+      ]
+      ++ lib.optional (
+        config'.containers.kavita.custom.booksDir != null
+      ) "${config'.containers.kavita.custom.booksDir}:/books:noMap";
     };
   };
 }
