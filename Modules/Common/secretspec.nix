@@ -155,7 +155,7 @@ let
       exit 1
     fi
 
-    ${concatMapStringsSep "\n" (profile: profVal: ''
+    ${concatMapAttrsStringSep "\n" (profile: profVal: ''
       echo "[secretspec] Decrypting profile: ${profile}"
       ${secretspec} export \
         --file ${runtimeConfigFile} \
@@ -176,7 +176,7 @@ let
         ""
       else
         ''
-          ${concatMapStringsSep "\n" (profile: profileVal: ''
+          ${concatMapAttrsStringSep "\n" (profile: profileVal: ''
             echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
             ${secretspec} export \
               --file ${runtimeConfigFile} \
@@ -216,7 +216,7 @@ let
       '') profiles}
     ''}
 
-    ${concatMapStringsSep "\n" (
+    ${concatMapAttrsStringSep "\n" (
       profile: profVal:
       let
         secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
