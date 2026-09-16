@@ -109,9 +109,8 @@ let
   };
   runtimeConfigFile = toml.generate "secretspec.toml" runtimeUserConfig;
 
-  # Activation-time check + decrypt. Runs post-build, outside the sandbox,
-  # as the real user with real $HOME - this is where the private identity
-  # actually resolves, so this is where `secretspec check` belongs.
+  secretspec = getExe cfg.package;
+
   activationScript = ''
     baseDir="${paths.base}"
     generationsDir="${paths.generation}"
@@ -133,10 +132,10 @@ let
 
     check_failed=0
 
-    ${concatMapStringsSep "\n" (profile: ''
+    ${concatMapAttrsStringSep "\n" (profile: profVal: ''
       echo "[secretspec] Checking profile: ${profile}"
 
-      if ! ${getExe cfg.package} check \
+      if ! ${secretspec} check \
         --file ${runtimeConfigFile} \
         --profile ${profile} \
         --reason "Activation Time - Profile Check"
@@ -144,7 +143,7 @@ let
         echo "[secretspec] Check failed for profile: ${profile}"
         check_failed=1
       fi
-    '') (attrNames profiles)}
+    '') profiles}
 
     if [ "$check_failed" -ne 0 ]; then
       echo "[secretspec] Secret checks failed; refusing to activate secrets"
@@ -154,116 +153,116 @@ let
       rm -rf -- "$generationDir"
 
       exit 1
-    else
-      ${concatMapStringsSep "\n" (profile: ''
-        echo "[secretspec] Decrypting profile: ${profile}"
-        ${getExe cfg.package} export \
-          --file ${runtimeConfigFile} \
-          --profile ${profile} \
-          --reason "Secret Decryption - Profile" \
-          --format dotenv \
-          > "$profilesDir/${profile}"
-
-        chmod 0400 "$profilesDir/${profile}"
-      '') (attrNames profiles)}
-
-      # Since we don't know which scope belongs to which profile,
-      # we export and run it for all profiles.
-      # Total time = scopes x profiles.
-      ${concatMapStringsSep "\n" (
-        scope:
-        if scope == "common" then
-          ""
-        else
-          ''
-            ${concatMapStringsSep "\n" (profile: ''
-              echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
-              ${getExe cfg.package} export \
-                --file ${runtimeConfigFile} \
-                --scope ${scope} \
-                --profile ${profile} \
-                --reason "Secret Decryption - Scope" \
-                --format dotenv \
-                >> "$scopesDir/${scope}"
-
-              chmod 0400 "$scopesDir/${scope}"
-            '') (attrNames profiles)}
-          ''
-      ) (attrNames scopes)}
-
-      # Export common scope. Runs only on system module.
-      ${optionalString (extraArgs.system && commonSecrets != [ ]) ''
-        echo "[secretspec] Decrypting common secrets"
-        ${concatMapStringsSep "\n" (profile: ''
-          commonExport="$generationDir/common.${profile}.json"
-          ${getExe cfg.package} export \
-            --file ${runtimeConfigFile} \
-            --scope common \
-            --profile ${profile} \
-            --reason "Secret Decryption - Common" \
-            --format json \
-            > "$commonExport"
-
-          ${concatMapStringsSep "\n" (secret: ''
-            if ${getExe pkgs.jq} -e --arg secret "${secret}" 'has($secret)' "$commonExport" > /dev/null; then
-              ${getExe pkgs.jq} -j --arg secret "${secret}" '.[$secret]' "$commonExport" \
-                > "''${commonDir}/${secret}"
-              chmod 0444 "''${commonDir}/${secret}"
-            fi
-          '') commonSecrets}
-
-          rm -f "$commonExport"
-        '') (attrNames profiles)}
-      ''}
-
-      ${concatMapStringsSep "\n" (
-        profile:
-        let
-          secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
-        in
-        concatMapStringsSep "\n" (secret: ''
-          echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
-
-          secret_val=$(
-            ${getExe cfg.package} get \
-              --file ${runtimeConfigFile} \
-              --reason "Individual Secrets access" \
-              --profile "${profile}" \
-              "${secret}"
-          )
-
-          printf '%s' "$secret_val" > "$individualDir/${secret}"
-          printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
-
-          chmod 0400 "$individualDir/${secret}"
-          chmod 0400 "$individualDir/${secret}.env"
-        '') secrets
-      ) (attrNames profiles)}
-
-      echo "[secretspec] Activating secrets"
-
-      # If it's not a symlink, then remove it.
-      if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
-        if [ ! -L "$baseDir" ]; then
-          rm -rf -- "$baseDir"
-        fi
-      fi
-
-      oldGeneration="$(readlink -f "$baseDir" 2>/dev/null || true)"
-
-      ln -sfnT -- "$generationDir" "''${baseDir}.new"
-      mv -Tf -- "''${baseDir}.new" "$baseDir"
-
-      # Don't cleanup live generation
-      trap - EXIT
-
-      echo "[secretspec] Secrets activated successfully"
-
-      if [ -n "$oldGeneration" ] && [ "$oldGeneration" != "$generationDir" ] && [ "$oldGeneration" != "$baseDir" ]; then
-        rm -rf -- "$oldGeneration"
-      fi
-      echo "[secretspec] Cleared previous generations"
     fi
+
+    ${concatMapStringsSep "\n" (profile: profVal: ''
+      echo "[secretspec] Decrypting profile: ${profile}"
+      ${secretspec} export \
+        --file ${runtimeConfigFile} \
+        --profile ${profile} \
+        --reason "Secret Decryption - Profile" \
+        --format dotenv \
+        > "$profilesDir/${profile}"
+
+      chmod 0400 "$profilesDir/${profile}"
+    '') profiles}
+
+    # Since we don't know which scope belongs to which profile,
+    # we export and run it for all profiles.
+    # Total time = scopes x profiles.
+    ${concatMapAttrsStringSep "\n" (
+      scope: scopeVal:
+      if scope == "common" then
+        ""
+      else
+        ''
+          ${concatMapStringsSep "\n" (profile: profileVal: ''
+            echo "[secretspec] Decrypting profile, scope: ${profile}, ${scope}"
+            ${secretspec} export \
+              --file ${runtimeConfigFile} \
+              --scope ${scope} \
+              --profile ${profile} \
+              --reason "Secret Decryption - Scope" \
+              --format dotenv \
+              >> "$scopesDir/${scope}"
+
+            chmod 0400 "$scopesDir/${scope}"
+          '') profiles}
+        ''
+    ) scopes}
+
+    # Export common scope. Runs only on system module.
+    ${optionalString (extraArgs.system && commonSecrets != [ ]) ''
+      echo "[secretspec] Decrypting common secrets"
+      ${concatMapAttrsStringSep "\n" (profile: profileVal: ''
+        commonExport="$generationDir/common.${profile}.json"
+        ${secretspec} export \
+          --file ${runtimeConfigFile} \
+          --scope common \
+          --profile ${profile} \
+          --reason "Secret Decryption - Common" \
+          --format json \
+          > "$commonExport"
+
+        ${concatMapStringsSep "\n" (secret: ''
+          if ${getExe pkgs.jq} -e --arg secret "${secret}" 'has($secret)' "$commonExport" > /dev/null; then
+            ${getExe pkgs.jq} -j --arg secret "${secret}" '.[$secret]' "$commonExport" \
+              > "''${commonDir}/${secret}"
+            chmod 0444 "''${commonDir}/${secret}"
+          fi
+        '') commonSecrets}
+
+        rm -f "$commonExport"
+      '') profiles}
+    ''}
+
+    ${concatMapStringsSep "\n" (
+      profile: profVal:
+      let
+        secrets = filter (secret: secret != "defaults") (attrNames profiles.${profile});
+      in
+      concatMapStringsSep "\n" (secret: ''
+        echo "[secretspec] Decrypting secret: ${secret} (profile: ${profile})"
+
+        secret_val=$(
+          ${secretspec} get \
+            --file ${runtimeConfigFile} \
+            --reason "Individual Secrets access" \
+            --profile "${profile}" \
+            "${secret}"
+        )
+
+        printf '%s' "$secret_val" > "$individualDir/${secret}"
+        printf '%s=%s\n' "${secret}" "$secret_val" > "$individualDir/${secret}.env"
+
+        chmod 0400 "$individualDir/${secret}"
+        chmod 0400 "$individualDir/${secret}.env"
+      '') secrets
+    ) profiles}
+
+    echo "[secretspec] Activating secrets"
+
+    # If it's not a symlink, then remove it.
+    if [ -e "$baseDir" ] || [ -L "$baseDir" ]; then
+      if [ ! -L "$baseDir" ]; then
+        rm -rf -- "$baseDir"
+      fi
+    fi
+
+    oldGeneration="$(readlink -f "$baseDir" 2>/dev/null || true)"
+
+    ln -sfnT -- "$generationDir" "''${baseDir}.new"
+    mv -Tf -- "''${baseDir}.new" "$baseDir"
+
+    # Don't cleanup live generation
+    trap - EXIT
+
+    echo "[secretspec] Secrets activated successfully"
+
+    if [ -n "$oldGeneration" ] && [ "$oldGeneration" != "$generationDir" ] && [ "$oldGeneration" != "$baseDir" ]; then
+      rm -rf -- "$oldGeneration"
+    fi
+    echo "[secretspec] Cleared previous generations"
   '';
 
   replacePythonScript = pkgs.writeText "replace-script" ''
