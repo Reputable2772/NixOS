@@ -32,6 +32,7 @@
 
         domain=$(echo $BASE_DOMAIN)
         subname=$(echo $SUBNAME)
+        token=$(echo $DESEC_TOKEN)
         ip6=$(
           ${pkgs.iproute2}/bin/ip -6 addr show scope global |
           ${pkgs.gawk}/bin/gawk '/inet6/ && $0 !~ / temporary / {
@@ -50,7 +51,7 @@
         fi
 
         ${pkgs.curl}/bin/curl -X PUT "https://desec.io/api/v1/domains/$domain/rrsets/" \
-          -H "Authorization: Token $DESEC_TOKEN" \
+          -H "Authorization: Token $token" \
           -H "Content-Type: application/json" \
           -d "[{\"subname\": \"$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}, {\"subname\": \"*.$subname\", \"type\": \"AAAA\", \"ttl\": 3600, \"records\": [\"$ip6\"]}]"
 
