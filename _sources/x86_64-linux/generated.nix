@@ -33,15 +33,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "8f0c351b6da50d990e41c501fffb34182a21247a";
+    version = "21ba1a9f793b69f10d54bf64079214821eb2d322";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "8f0c351b6da50d990e41c501fffb34182a21247a";
+      rev = "21ba1a9f793b69f10d54bf64079214821eb2d322";
       fetchSubmodules = false;
-      sha256 = "sha256-PIPym0sKYuJH63M1KwvhswxIN9hsxC2x0PZp+uYW8xA=";
+      sha256 = "sha256-FTBEcgene5XPz4JtgIvoWLFZQVvF8KCYul5tf38tJVo=";
     };
-    date = "2026-09-06";
+    date = "2026-09-18";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
