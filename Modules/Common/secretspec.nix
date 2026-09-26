@@ -460,16 +460,56 @@ in
     (optionalAttrs (!extraArgs.system) {
       home.packages = [ cfg.package ];
 
-      home.activation.secretspec =
-        lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "onFilesChange" ]
-          activationScript;
+      systemd.user.services = {
+        secretspec-provision = {
+          Unit.Description = "Provision secrets";
+          Service = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = pkgs.writeShellScript "secretspec-provision" activationScript;
+          };
+          Install.WantedBy = [ "default.target" ];
+          Unit.X-Restart-Triggers = [ runtimeConfigFile ];
+        };
 
-      # this is so we can reliably run reloadSystemd,
-      # refresh secrets, and then run the runtime file
-      # hook
-      home.activation.secretspecRuntimeReplacements =
-        lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "secretspec" ]
-          runtimeReplacementScript;
+        secretspec-runtime-replacement = {
+          Unit = {
+            Description = "Replace secrets in files at runtime";
+            Requires = [ "secretspec-provision.service" ];
+            After = [ "secretspec-provision.service" ];
+            PartOf = [ "secretspec-provision.service" ];
+          };
+          Service = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = pkgs.writeShellScript "secretspec-runtime-replacement" runtimeReplacementScript;
+          };
+          Install.WantedBy = [ "default.target" ];
+          Unit.X-Restart-Triggers = [
+            runtimeConfigFile
+          ];
+        };
+
+        secretspec = {
+          Unit = {
+            Description = "Secretspec runtime state ready";
+            Requires = [ "secretspec-runtime-replacement.service" ];
+            After = [ "secretspec-runtime-replacement.service" ];
+            PartOf = [ "secretspec-runtime-replacement.service" ];
+          };
+          Service = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = "${pkgs.coreutils}/bin/true";
+          };
+          Install.WantedBy = [ "default.target" ];
+        };
+      };
+
+      home.activation.secretspec = lib.hm.dag.entryBefore [ "reloadSystemd" ] ''
+        run ${pkgs.systemd}/bin/systemctl --user restart secretspec-provision.service
+        run ${pkgs.systemd}/bin/systemctl --user restart secretspec-runtime-replacement.service
+      '';
     })
   ];
 }
