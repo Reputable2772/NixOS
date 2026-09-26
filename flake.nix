@@ -128,8 +128,8 @@
           };
 
           "oracle-server" = nixpkgs.lib.nixosSystem {
-            system = armSystem;
-            specialArgs = _specialArgs armPkgs armSystem;
+            system = system;
+            specialArgs = _specialArgs pkgs system;
             modules = [
               ./Modules/System
               ./System/Common

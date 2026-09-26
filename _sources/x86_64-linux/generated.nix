@@ -20,6 +20,20 @@
     };
     date = "2025-10-03";
   };
+  duckai = {
+    pname = "duckai";
+    version = "b48de2db52c99408e0133807ddca284f70ec5f95";
+    src = fetchgit {
+      url = "https://github.com/jairo-litman/duckai.git";
+      rev = "b48de2db52c99408e0133807ddca284f70ec5f95";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-DBXDbfh6bRNxbGFCiBz/HHq5VaozN+PG/eSQj2fqpvg=";
+    };
+    date = "2026-06-20";
+  };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
     version = "v149.1";
@@ -33,15 +47,15 @@
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "21ba1a9f793b69f10d54bf64079214821eb2d322";
+    version = "d252e56a121a6090d8396d3b601c64aca3d71f8f";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "21ba1a9f793b69f10d54bf64079214821eb2d322";
+      rev = "d252e56a121a6090d8396d3b601c64aca3d71f8f";
       fetchSubmodules = false;
-      sha256 = "sha256-FTBEcgene5XPz4JtgIvoWLFZQVvF8KCYul5tf38tJVo=";
+      sha256 = "sha256-L4HfADUq4Imq1LnvmjBPFBEAZAIKD9Pnj6ExRkVqHC4=";
     };
-    date = "2026-09-18";
+    date = "2026-09-20";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";

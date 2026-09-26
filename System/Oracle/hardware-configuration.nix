@@ -10,13 +10,14 @@
     };
   };
   fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/2A86-5B75";
+    device = "/dev/disk/by-uuid/6F9B-0E15";
     fsType = "vfat";
   };
   boot.initrd.availableKernelModules = [
     "ata_piix"
     "uhci_hcd"
     "xen_blkfront"
+    "vmw_pvscsi"
   ];
   boot.initrd.kernelModules = [ "nvme" ];
   fileSystems."/" = {
@@ -24,7 +25,7 @@
     fsType = "ext4";
   };
   fileSystems."/mnt" = {
-    device = "/dev/disk/by-uuid/d563b8d8-11c4-405b-b726-8a61e9a15d7f";
+    device = "/dev/disk/by-uuid/27a6420a-5f38-4af7-9528-b5902e3224f3";
     fsType = "ext4";
   };
 
