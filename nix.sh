@@ -8,6 +8,8 @@ ci_get() {
 			sed -n '/substituters = \[/, /];/{ /substituters = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
 		"trusted-public-keys")
 			sed -n '/trusted-public-keys = \[/, /];/{ /trusted-public-keys = \[/! { /];/! p } }' ./System/Common/Misc/nix.nix | xargs;;
+		"experimental-features")
+			sed -n '/experimental-features = \[/, /]/{ /experimental-features = \[/! { /]/! p } }' ./System/Common/Misc/nix.nix | xargs;;
 		*)
 			echo "Unknown, cya.";;
 	esac
@@ -44,11 +46,14 @@ first_time_setup() {
 	read
 
 	# User isn't a trusted user yet to specify substituters and public keys
-	sudo nix build .#nixosConfigurations."$(hostname)".config.system.build.toplevel \
+	# `pipe-operators` is statically mentioned, since it changes between lix & nix,
+	# and for bootstrapping we probably use nix anyway.
+	sudo nix build .#nixosConfigurations.${1:-$(hostname)}.config.system.build.toplevel \
 		--accept-flake-config \
 		--option pure-eval true \
 		--option always-allow-substitutes true \
-		--option trusted-substituters "$(ci_get trusted-substituters)" \
+		--option extra-experimental-features "$(ci_get experimental-features) pipe-operators" \
+		--option extra-trusted-substituters "$(ci_get trusted-substituters)" \
 		--option extra-trusted-public-keys "$(ci_get trusted-public-keys)"
 
 	sudo ./result/bin/switch-to-configuration switch
@@ -73,7 +78,7 @@ case $1 in
 	"dconf")
 		dconf_nix;;
 	"first-time-setup")
-		first_time_setup;;
+		first_time_setup $2;;
 	"blockers")
 		find_blockers;;
 	*)

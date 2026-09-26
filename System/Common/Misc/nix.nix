@@ -22,12 +22,12 @@
         "root"
         "@wheel"
       ];
+      # pipe-operator for Lix, pipe-operators for Nix.
       experimental-features = [
         "flakes"
         "nix-command"
-        # pipe-operator for Lix, pipe-operators for Nix.
-        "pipe-operator"
-      ];
+      ]
+      ++ [ (if config.nix.package.pname == "lix" then "pipe-operator" else "pipe-operators") ];
       # Fixes NixOS/nix#9574
       nix-path = config.nix.nixPath;
       substituters = [
