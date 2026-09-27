@@ -294,23 +294,22 @@ let
 
       if [ -L "${path}" ]; then
         template="$(readlink -f "${path}")"
+        tmp="$(mktemp "${path}.XXXXXX")"
+        trap 'rm -f -- "$tmp"' EXIT
+
+        ${pkgs.python3}/bin/python3 ${replacePythonScript} \
+          "$template" \
+          "$tmp" \
+          ${args}
+
+        chmod --reference="${path}" "$tmp" 2>/dev/null || true
+        mv -f -- "$tmp" "${path}"
+
+        trap - EXIT
       else
-        echo "[secretspec] No declarative template found for ${path}"
+        echo "[secretspec] Not a symlink: ${path} (Either secret is already replaced, or file doesn't exist.)"
         exit 1
       fi
-
-      tmp="$(mktemp "${path}.XXXXXX")"
-      trap 'rm -f -- "$tmp"' EXIT
-
-      ${pkgs.python3}/bin/python3 ${replacePythonScript} \
-        "$template" \
-        "$tmp" \
-        ${args}
-
-      chmod --reference="${path}" "$tmp" 2>/dev/null || true
-      mv -f -- "$tmp" "${path}"
-
-      trap - EXIT
     ''
   ) cfg.runtimeSecretReplacements;
 
