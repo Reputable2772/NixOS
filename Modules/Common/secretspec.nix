@@ -308,7 +308,6 @@ let
         trap - EXIT
       else
         echo "[secretspec] Not a symlink: ${path} (Either secret is already replaced, or file doesn't exist.)"
-        exit 1
       fi
     ''
   ) cfg.runtimeSecretReplacements;
