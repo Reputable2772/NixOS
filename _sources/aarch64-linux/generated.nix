@@ -8,14 +8,14 @@
 {
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "d252e56a121a6090d8396d3b601c64aca3d71f8f";
+    version = "aab5e31486633d1603e5469c097cf2aafea33ac6";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "d252e56a121a6090d8396d3b601c64aca3d71f8f";
+      rev = "aab5e31486633d1603e5469c097cf2aafea33ac6";
       fetchSubmodules = false;
-      sha256 = "sha256-L4HfADUq4Imq1LnvmjBPFBEAZAIKD9Pnj6ExRkVqHC4=";
+      sha256 = "sha256-sc/NZIHkRhgyAzK8Xn6G++vGrl/Uf7QHh+J5fnZ/o4s=";
     };
-    date = "2026-09-20";
+    date = "2026-09-28";
   };
 }
