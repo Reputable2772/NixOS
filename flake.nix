@@ -214,10 +214,7 @@
           pre-commit.check.enable = true;
           pre-commit.settings.hooks = {
             commitizen.enable = true;
-            nixfmt-rfc-style = {
-              enable = true;
-              package = pkgs.nixfmt;
-            };
+            nixfmt.enable = true;
           };
 
           devshells = mapAttrs (
