@@ -7,10 +7,7 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     agenix = {
       url = "github:ryantm/agenix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager";
