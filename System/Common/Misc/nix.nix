@@ -28,8 +28,7 @@
         "nix-command"
       ]
       ++ [ (if config.nix.package.pname == "lix" then "pipe-operator" else "pipe-operators") ];
-      # Fixes NixOS/nix#9574
-      nix-path = config.nix.nixPath;
+      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
       substituters = [
         "https://cache.nixos.org/?priority=10"
         "https://spearman4157.cachix.org?priority=20"
@@ -55,6 +54,5 @@
       Set nix.settings.nix-path manually as well, see above
     */
     registry = lib.mapAttrs (_: value: { flake = value; }) (lib.filterAttrs (n: v: n != "self") inputs);
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
 }
