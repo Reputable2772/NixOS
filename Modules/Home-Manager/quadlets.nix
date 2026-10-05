@@ -68,6 +68,7 @@ let
     appendEnv = true;
     unitDefaults = true;
     networkNameAlias = true;
+    secretDependency = true;
     # Opt out either with this flag, or by setting :noMap at the end of a specific volume
     mapVolumes = true;
   };
@@ -136,6 +137,19 @@ let
     ) config'.containers.${qVal.Container.ContainerName}.env;
   };
 
+  secretDependency =
+    qVal:
+    let
+      _envFiles = qVal.Container.EnvironmentFile or [ ];
+      envFiles = if isList _envFiles then _envFiles else [ _envFiles ];
+    in
+    {
+      Unit = optionalAttrs (envFiles != [ ]) {
+        Wants = [ "secretspec.service" ];
+        After = [ "secretspec.service" ];
+      };
+    };
+
   finalConfig = mapAttrs (
     qName: qVal:
     let
@@ -144,10 +158,10 @@ let
 
       /**
         Ideal Preprocessing ordering -
-        unitDefaults -> appendEnv -> mapVolumes (special) -> mkdirOp
+        unitDefaults -> appendEnv  -> secretDependency -> mapVolumes (special) -> mkdirOp
 
         Current ordering
-        mapVolumes (special) -> unitDefaults -> mkdirOp -> appendEnv
+        mapVolumes (special) -> unitDefaults -> mkdirOp -> appendEnv -> secretDependency
       */
 
       # Map only volumes separately, since volumes have to be overwritten entirely,
@@ -177,6 +191,7 @@ let
         ++ (lib.optionals (isContainer qVal) [
           (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
           (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
+          (f: optionalAttrs quadletOptions.secretDependency (secretDependency f))
         ])
       );
     in
