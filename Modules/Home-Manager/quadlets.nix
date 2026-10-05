@@ -285,8 +285,8 @@ in
 
             for file in $(find $out -type f -exec realpath --relative-to $out {} \;); do
               substituteInPlace $out/$file \
-                --replace-warn ${quadletFile}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
-                --replace-warn \\x20 " "
+                --replace-quiet ${quadletFile}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
+                --replace-quiet \\x20 " "
             done
           ''
         )
