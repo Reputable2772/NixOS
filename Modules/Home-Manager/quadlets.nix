@@ -9,22 +9,29 @@
 }:
 
 let
-  inherit (lib) types;
+  inherit (lib) strings types;
   inherit (lib.attrsets)
     attrNames
     filterAttrs
     hasAttrByPath
     optionalAttrs
     mapAttrs
+    mapAttrsToList
+    listToAttrs
+    nameValuePair
     getAttrFromPath
     recursiveUpdate
     ;
   inherit (lib.lists)
+    concatLists
     elemAt
     foldl'
     filter
     isList
+    optional
+    optionals
     ;
+  inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings)
     concatMapStringsSep
@@ -81,8 +88,8 @@ let
         config'.containers.${cname}.dir
       else
         "${config'.dir.containers}/${
-          lib.strings.toUpper (lib.strings.substring 0 1 cname)
-          + lib.strings.substring 1 (lib.strings.stringLength cname + 1) cname
+          strings.toUpper (strings.substring 0 1 cname)
+          + strings.substring 1 (strings.stringLength cname + 1) cname
         }"
     )
     + "/";
@@ -108,12 +115,12 @@ let
       };
     }
     // optionalAttrs (isContainer qVal) {
-      Container.PodmanArgs = "${lib.optionalString qOpts.networkNameAlias "--network-alias ${qVal.Container.ContainerName}"} --user 0:0";
+      Container.PodmanArgs = "${optionalString qOpts.networkNameAlias "--network-alias ${qVal.Container.ContainerName}"} --user 0:0";
     };
 
   mkdirOp = qVal: {
     Service.ExecStartPre =
-      lib.optional
+      optional
         (
           hasAttrByPath [
             "Container"
@@ -131,7 +138,7 @@ let
   };
 
   appendEnv = qVal: {
-    Container.Environment = lib.optionals (
+    Container.Environment = optionals (
       config'.containers.${qVal.Container.ContainerName} ? env
       && config'.containers.${qVal.Container.ContainerName}.env != null
     ) config'.containers.${qVal.Container.ContainerName}.env;
@@ -188,7 +195,7 @@ let
           # TODO: Write a better pre-processing script later.
           (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f quadletOptions))
         ]
-        ++ (lib.optionals (isContainer qVal) [
+        ++ (optionals (isContainer qVal) [
           (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
           (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
           (f: optionalAttrs quadletOptions.secretDependency (secretDependency f))
@@ -238,8 +245,36 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
+  config = mkIf cfg.enable (
     let
+      /**
+        Instead of using a builtins.readFile IFD for every single
+        quadlet (which slows down the eval/build entirely), here's a
+        small workaround.
+
+        We instead "predict" all the files the quadlet generator will
+        generate (from [Install].WantedBy, RequiredBy, etc.) and map
+        those files manually to .config/systemd/user.
+
+        This *does not* work with ServiceName overrides and uninstantiated
+        template units.
+      */
+      expectedUnitFiles =
+        qName:
+        let
+          unit = unitNameConvertor qName;
+          install = finalConfig.${qName}.Install or { };
+
+          asList = value: if isList value then value else [ value ];
+
+          linksFor = dir: key: map (target: "${target}.${dir}/${unit}") (asList (install.${key} or [ ]));
+        in
+        [ unit ]
+        ++ linksFor "wants" "WantedBy"
+        ++ linksFor "requires" "RequiredBy"
+        ++ linksFor "upholds" "UpheldBy"
+        ++ asList (install.Alias or [ ]);
+
       generatedQuadlets = mapAttrs (
         qName: qVal:
         pkgs.runCommand "quadlet-generator-${qName}" { } (
@@ -275,6 +310,21 @@ in
                 "";
 
             quadletFile = pkgs.writeTextDir qName (lib'.toSystemdUnit qVal);
+
+            # Names of the quadlets referenced above. The generator also emits their
+            # units, since they are in QUADLET_UNIT_DIRS (used by the debug check only).
+            depNames =
+              filter (net: hasSuffix ".network" net) (normalizeList [
+                "Container"
+                "Network"
+              ])
+              ++ map (vol: elemAt (splitString ":" vol) 0) (
+                filter (vol: hasInfix ".volume" vol) (normalizeList [
+                  "Container"
+                  "Volume"
+                ])
+              )
+              ++ lib.optional (builds != "") qVal.Container.Image;
           in
           ''
             QUADLET_UNIT_DIRS=${quadletFile}${
@@ -288,33 +338,36 @@ in
                 --replace-quiet ${quadletFile}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
                 --replace-quiet \\x20 " "
             done
+
+            # TEMP DEBUG: report generator output that is not in expectedUnitFiles,
+            # counting the units of referenced networks/volumes/builds as expected.
+            # Logs only (does not fail the build). Remove once the list is trusted.
+            expected=${
+              lib.escapeShellArg (concatStringsSep "\n" (lib.concatMap expectedUnitFiles ([ qName ] ++ depNames)))
+            }
+            while IFS= read -r f; do
+              if ! grep -qxF -- "$f" <<< "$expected"; then
+                echo "[quadlet-debug] ${qName}: unexpected generator output: $f" >&2
+                exit 1
+              fi
+            done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
           ''
         )
       ) finalConfig;
-
-      mapDirToXdg =
-        prefix: dir:
-        lib.foldl' (acc: ext: acc // ext) { } (
-          lib.mapAttrsToList (
-            name: type:
-            let
-              path = "${dir}/${name}";
-              targetPath = "${prefix}/${name}";
-            in
-            if type == "directory" then
-              mapDirToXdg targetPath path
-            else
-              {
-                "${targetPath}" = {
-                  source = path;
-                };
-              }
-          ) (builtins.readDir dir)
-        );
     in
     {
-      xdg.configFile = foldl' (acc: pkg: acc // mapDirToXdg "systemd/user" pkg) { } (
-        builtins.attrValues generatedQuadlets
+      xdg.configFile = listToAttrs (
+        concatLists (
+          mapAttrsToList (
+            qName: pkg:
+            map (
+              unitFile:
+              nameValuePair "systemd/user/${unitFile}" {
+                source = "${pkg}/${unitFile}";
+              }
+            ) (expectedUnitFiles qName)
+          ) generatedQuadlets
+        )
       );
     }
   );
