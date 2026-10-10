@@ -36,26 +36,26 @@
   };
   firefox-gnome-theme = {
     pname = "firefox-gnome-theme";
-    version = "v149.1";
+    version = "v157";
     src = fetchFromGitHub {
       owner = "rafaelmardojai";
       repo = "firefox-gnome-theme";
-      rev = "v149.1";
+      rev = "v157";
       fetchSubmodules = false;
-      sha256 = "sha256-QFY6Eu0kmaWl8W76bXs5K2BVtTh+Md+1rGba1WiTYxU=";
+      sha256 = "sha256-FEr8AziQBAgXGOHkXjbNMZ5zB06AwiOZCrbyoulC1eo=";
     };
   };
   nix-fast-build = {
     pname = "nix-fast-build";
-    version = "aab5e31486633d1603e5469c097cf2aafea33ac6";
+    version = "496c4c5e4624c05cafc351b547e13d8e2b8e17b7";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "nix-fast-build";
-      rev = "aab5e31486633d1603e5469c097cf2aafea33ac6";
+      rev = "496c4c5e4624c05cafc351b547e13d8e2b8e17b7";
       fetchSubmodules = false;
-      sha256 = "sha256-sc/NZIHkRhgyAzK8Xn6G++vGrl/Uf7QHh+J5fnZ/o4s=";
+      sha256 = "sha256-cNl6+X5nfe3SNZWl0xRwz6cyGZlYK9kDNxWDM9NZTTE=";
     };
-    date = "2026-09-28";
+    date = "2026-10-04";
   };
   obs_catppuccin = {
     pname = "obs_catppuccin";
