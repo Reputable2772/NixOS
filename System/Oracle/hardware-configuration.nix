@@ -29,6 +29,13 @@
     fsType = "ext4";
   };
 
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 5120;
+    }
+  ];
+
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 }
