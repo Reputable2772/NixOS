@@ -254,22 +254,6 @@ rec {
           dir = null;
           env = null;
         };
-        n8n = {
-          dir = null;
-          env = [
-            "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true"
-            "N8N_PROTOCOL=https"
-            "NODE_ENV=production"
-            "GENERIC_TIMEZONE=${system.timezone}"
-            "TZ=${system.timezone}"
-            "N8N_RESTRICT_FILE_ACCESS_TO=/files/"
-            # Since I'm using reverse proxy setup with N8N_HOST env var.
-            "N8N_PROXY_HOPS=1"
-          ];
-          custom.volumeMounts = [
-            "${dir.notes}:/files/obsidian"
-          ];
-        };
         n8n-runner = {
           dir = null;
           env = null;
@@ -365,6 +349,22 @@ rec {
             "PUID=0"
             "PGID=0"
             "TZ=${system.timezone}"
+          ];
+        };
+        n8n = {
+          dir = null;
+          env = [
+            "N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true"
+            "N8N_PROTOCOL=https"
+            "NODE_ENV=production"
+            "GENERIC_TIMEZONE=${system.timezone}"
+            "TZ=${system.timezone}"
+            "N8N_RESTRICT_FILE_ACCESS_TO=/files/"
+            # Since I'm using reverse proxy setup with N8N_HOST env var.
+            "N8N_PROXY_HOPS=1"
+          ];
+          custom.volumeMounts = [
+            "${dir.containers}/N8N-Custom:/files"
           ];
         };
       };

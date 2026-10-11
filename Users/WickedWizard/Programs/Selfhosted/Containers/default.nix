@@ -10,7 +10,6 @@
     # ./ente.nix
     ./kavita.nix
     ./linkding.nix
-    ./n8n.nix
     ./ollama.nix
     ./podman-socket-proxy.nix
     ./radicale.nix
