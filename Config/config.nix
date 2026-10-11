@@ -254,10 +254,6 @@ rec {
           dir = null;
           env = null;
         };
-        n8n-runner = {
-          dir = null;
-          env = null;
-        };
         radicale = {
           dir = null;
           env = [ "TZ=${system.timezone}" ];
@@ -366,6 +362,10 @@ rec {
           custom.volumeMounts = [
             "${dir.containers}/N8N-Custom:/files"
           ];
+        };
+        n8n-runner = {
+          dir = null;
+          env = null;
         };
       };
     };
