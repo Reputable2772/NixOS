@@ -21,6 +21,7 @@
             --flake ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
             --no-nom \
             --override-input nixpkgs ${inputs.nixpkgs} \
+            --push-build-closure \
             "$@"
         '';
       })
