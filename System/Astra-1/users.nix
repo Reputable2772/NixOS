@@ -10,13 +10,13 @@
 }:
 {
   users.mutableUsers = false;
-  secretspec.config.profiles.oracle-server = {
+  secretspec.config.profiles.astra-1 = {
     ROOT_PASSWORD.description = "Hashed Password for root user";
     SELFHOSTED_PASSWORD.description = "Hashed Password for selfhosted user";
   };
 
   users.users.root.hashedPasswordFile =
-    config.secretspec.secrets.profiles.oracle-server.ROOT_PASSWORD.plainPath;
+    config.secretspec.secrets.profiles.astra-1.ROOT_PASSWORD.plainPath;
   users.users.selfhosted = {
     isNormalUser = true;
     home = "/home/selfhosted";
@@ -35,7 +35,7 @@
       "libvirtd"
     ];
     # shell = pkgs.zsh;
-    hashedPasswordFile = config.secretspec.secrets.profiles.oracle-server.SELFHOSTED_PASSWORD.plainPath;
+    hashedPasswordFile = config.secretspec.secrets.profiles.astra-1.SELFHOSTED_PASSWORD.plainPath;
     linger = true;
     openssh.authorizedKeys.keys = [ config'.users.selfhosted.secrets.ssh.key ];
   };

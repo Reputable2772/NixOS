@@ -124,13 +124,13 @@
             ];
           };
 
-          "oracle-server" = nixpkgs.lib.nixosSystem {
+          "astra-1" = nixpkgs.lib.nixosSystem {
             system = system;
             specialArgs = _specialArgs pkgs system;
             modules = [
               ./Modules/System
               ./System/Common
-              ./System/Oracle
+              ./System/Astra-1
               configUserMapper
             ];
           };
