@@ -299,12 +299,12 @@ rec {
         };
       };
     };
-    selfhosted = rec {
-      home = _home.selfhosted or "";
+    astra-1 = rec {
+      home = _home.astra-1 or "";
       secrets = rec {
         encryption = {
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGj9+cqVLVe9jElkvjx0UZ16HXVzdr7VE80pFtwzvJac";
-          pkeyfile = "${home}/.ssh/selfhosted";
+          pkeyfile = "${home}/.ssh/astra-1";
         };
         ssh = encryption;
       };
@@ -371,7 +371,7 @@ rec {
     };
     remotebuild = {
       secrets = {
-        inherit (selfhosted.secrets) ssh;
+        inherit (astra-1.secrets) ssh;
       };
     };
   };
@@ -390,8 +390,8 @@ rec {
     publicKeys = [ users.maintenance.secrets.encryption.key ];
     armor = true;
   };
-  "selfhosted.age" = {
-    publicKeys = [ users.selfhosted.secrets.encryption.key ];
+  "user-astra-1.age" = {
+    publicKeys = [ users.astra-1.secrets.encryption.key ];
     armor = true;
   };
   "lenovo-laptop.age" = {

@@ -12,16 +12,16 @@
   users.mutableUsers = false;
   secretspec.config.profiles.astra-1 = {
     ROOT_PASSWORD.description = "Hashed Password for root user";
-    SELFHOSTED_PASSWORD.description = "Hashed Password for selfhosted user";
+    ASTRA_1_PASSWORD.description = "Hashed Password for astra-1 user";
   };
 
   users.users.root.hashedPasswordFile =
     config.secretspec.secrets.profiles.astra-1.ROOT_PASSWORD.plainPath;
-  users.users.selfhosted = {
+  users.users.astra-1 = {
     isNormalUser = true;
-    home = "/home/selfhosted";
+    home = "/home/astra-1";
     # Description of all users should container their folder name.
-    description = "selfhosted";
+    description = "astra-1";
     # Fixes https://github.com/GPUOpen-Drivers/AMDVLK/issues/310
     extraGroups = [
       "wheel"
@@ -35,9 +35,9 @@
       "libvirtd"
     ];
     # shell = pkgs.zsh;
-    hashedPasswordFile = config.secretspec.secrets.profiles.astra-1.SELFHOSTED_PASSWORD.plainPath;
+    hashedPasswordFile = config.secretspec.secrets.profiles.astra-1.ASTRA_1_PASSWORD.plainPath;
     linger = true;
-    openssh.authorizedKeys.keys = [ config'.users.selfhosted.secrets.ssh.key ];
+    openssh.authorizedKeys.keys = [ config'.users.astra-1.secrets.ssh.key ];
   };
 
   home-manager = {
@@ -49,12 +49,12 @@
     verbose = true;
     sharedModules = [ ../../Modules/Home-Manager ];
     users = {
-      selfhosted = {
+      astra-1 = {
         imports = [
-          ../../Users/Selfhosted/home.nix
+          ../../Users/Astra-1/home.nix
           {
             home.stateVersion = "26.05";
-            _module.args.config' = config'.users.selfhosted;
+            _module.args.config' = config'.users.astra-1;
           }
         ];
       };

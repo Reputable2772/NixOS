@@ -9,7 +9,7 @@
   containers.caddy.services.n8n = "n8n:5678";
 
   secretspec.config = {
-    profiles.selfhosted = {
+    profiles.astra-1 = {
       N8N_HOST = {
         description = "URL where N8N is hosted";
         composed = "https://n8n.\${HOST_DOMAIN}/";
@@ -62,7 +62,7 @@
       Environment = [
         "N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679"
       ];
-      EnvironmentFile = config.secretspec.secrets.profiles.selfhosted.N8N_RUNNERS_AUTH_TOKEN.envPath;
+      EnvironmentFile = config.secretspec.secrets.profiles.astra-1.N8N_RUNNERS_AUTH_TOKEN.envPath;
       Volume = [
         # Taken from https://github.com/n8n-io/n8n/blob/5f92be5fabfcbd119d364cf4566f679a48acb227/docker/images/runners/n8n-task-runners.json
         # Don't remove and assume default config. This config is necessary for multiple runners,

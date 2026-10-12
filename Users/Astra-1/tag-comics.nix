@@ -8,7 +8,7 @@ let
   comictagger = lib.getExe (pkgs.callPackage ../../Packages/comictagger.nix { });
 in
 {
-  secretspec.config.profiles.selfhosted.COMICVINE_API_KEY.description =
+  secretspec.config.profiles.astra-1.COMICVINE_API_KEY.description =
     "ComicVine API Key for ComicTagger";
 
   /**
@@ -163,7 +163,7 @@ in
   };
 
   secretspec.runtimeSecretReplacements."${config.xdg.configHome}/ComicTagger/settings.json" = {
-    "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.selfhosted.COMICVINE_API_KEY.plainPath;
+    "@COMICVINE_API_KEY@" = config.secretspec.secrets.profiles.astra-1.COMICVINE_API_KEY.plainPath;
   };
 
   home.packages = with pkgs; [

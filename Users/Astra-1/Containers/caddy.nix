@@ -185,7 +185,7 @@ in
     '';
 
     secretspec.config = {
-      profiles.selfhosted = {
+      profiles.astra-1 = {
         EMAIL.description = "Email used for Let's Encrypt account.";
         CADDY_CROWDSEC_API_KEY.description = "API Key for Caddy to act as a Remediation Engine.";
       };
