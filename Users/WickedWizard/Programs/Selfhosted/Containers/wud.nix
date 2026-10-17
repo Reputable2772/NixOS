@@ -32,13 +32,13 @@
       ];
       EnvironmentFile = config.secretspec.secrets.scopes.wud.path;
       Environment = [
-        "WUD_WATCHER_DOCKER_HOST=podman-socket-proxy"
-        "WUD_WATCHER_DOCKER_PORT=2375"
-        "WUD_WATCHER_DOCKER_SOCKET=tcp://podman-socket-proxy"
-        "WUD_WATCHER_DOCKER_WATCHEVENTS=true"
-        "WUD_WATCHER_DOCKER_WATCHATSTART=true"
-        "WUD_WATCHER_DOCKER_WATCHBYDEFAULT=true"
-        "WUD_WATCHER_DOCKER_WATCHALL=true"
+        # Do not name watchers as DOCKER
+        # getwud/wud#1282
+        "WUD_WATCHER_LOCAL_HOST=podman-socket-proxy"
+        "WUD_WATCHER_LOCAL_PORT=2375"
+        "WUD_WATCHER_LOCAL_WATCHEVENTS=true"
+        "WUD_WATCHER_LOCAL_WATCHATSTART=true"
+        "WUD_WATCHER_LOCAL_WATCHBYDEFAULT=true"
 
         "WUD_REGISTRY_CUSTOM_N8N_URL=https://docker.n8n.io"
       ];
