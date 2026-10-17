@@ -14,7 +14,7 @@
         description = "URL where N8N is hosted";
         composed = "https://n8n.\${HOST_DOMAIN}/";
       };
-      WEBHOOK_URL = {
+      N8N_WEBHOOK_URL = {
         description = "Webhook URL for N8N";
         composed = "https://n8n.\${HOST_DOMAIN}/";
       };
@@ -26,7 +26,7 @@
     };
     scopes.n8n.secrets = [
       "N8N_HOST"
-      "WEBHOOK_URL"
+      "N8N_WEBHOOK_URL"
       "N8N_RUNNERS_AUTH_TOKEN"
     ];
   };
@@ -41,10 +41,11 @@
         "n8n.network"
       ];
       Environment = [
-        "N8N_RUNNERS_ENABLED=true"
         "N8N_RUNNERS_MODE=external"
+        "N8N_UNVERIFIED_PACKAGES_ENABLED=true"
         "N8N_NATIVE_PYTHON_RUNNER=true"
         "N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0"
+        "N8N_RUNNERS_TASK_TIMEOUT=300"
       ];
       EnvironmentFile = config.secretspec.secrets.scopes.n8n.path;
       Volume = [
@@ -54,9 +55,9 @@
     };
   };
 
-  programs.quadlets.quadlets."n8n-runner.container" = {
+  programs.quadlets.quadlets."n8n-runners.container" = {
     Container = {
-      ContainerName = "n8n-runner";
+      ContainerName = "n8n-runners";
       Image = "docker.io/n8nio/runners:latest";
       Network = "n8n.network";
       Environment = [

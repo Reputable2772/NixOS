@@ -363,7 +363,7 @@ rec {
             "${dir.containers}/N8N-Custom:/files"
           ];
         };
-        n8n-runner = {
+        n8n-runners = {
           dir = null;
           env = null;
         };
