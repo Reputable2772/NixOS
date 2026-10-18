@@ -1,14 +1,23 @@
-# Setup
-1. Run `./nix.sh first-time-setup`
-2. Change the secrets to the ones you use in Users/WickedWizard/secrets.nix
-3. Change the `programs.config_dir` defined in System/HP-Laptop/configuration.nix to the values you want.
-4. Change the flake details in System/HP-Laptop/Misc/autoupgrade.nix
-5. You're done (hopefully!).
+# NixOS Flake
 
-# Resources
+This repository contains my personal declarative NixOS and Home Manager configurations.
 
-[MyNixOS](https://mynixos.com/) - All in one alternative for nixos.org
+## Why this exists
 
-[Noogle](https://noogle.dev/) - Functions for Nix.
+I use this repository to manage my daily driver laptop (`lenovo-laptop`), secondary laptop (`hp-laptop`), and headless home server (`astra-1`) in a fully reproducible way.
 
-[Hound](https://search.nix.gsc.io/) - Search almost every known Nix repo for documentation.
+For internal hacks, gotchas, and upstream workarounds, see `HACKS.md`.
+
+---
+
+## Daily Resources
+
+Websites and tools I use regularly:
+
+- [NixOS Status](https://status.nixos.org/) - Official channel release status and update progression
+- [Nixpkgs PR Tracker](https://nixpk.gs/pr-tracker.html) - Track when a specific PR reaches channels
+- [Hydra](https://hydra.nixos.org/) - Nix CI jobsets and build evaluation status
+- [Searchix](https://searchix.ovh/) - Combined search across NixOS, Home Manager, and nix-darwin options
+- [NixOS Search](https://search.nixos.org/packages) - Official package and options search
+- [NüschtOS Search](https://search.nüschtos.de/) - Fast, lightweight static search for NixOS packages and options
+- [Noogle](https://noogle.dev/) - Nix standard library and builtin function reference
