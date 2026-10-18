@@ -16,7 +16,7 @@
       (writeShellApplication {
         name = "nix-build-all";
         text = ''
-          ${pkgs.lixPackageSets.latest.nix-fast-build} \
+          ${pkgs.lixPackageSets.latest.nix-fast-build}/bin/nix-fast-build \
             --flake ${inputs.devour-flake}#packages.${pkgs.stdenv.hostPlatform.system}.default \
             --no-nom \
             --override-input nixpkgs ${inputs.nixpkgs} \
@@ -30,12 +30,6 @@
   imports = [
     ../Modules/Common/nvfetcher.nix
   ];
-
-  # Needed for above.
-  programs.nvfetcher.config.nix-fast-build = {
-    src.git = "https://github.com/Mic92/nix-fast-build.git";
-    fetch.github = "Mic92/nix-fast-build";
-  };
 
   commands = [
     {
