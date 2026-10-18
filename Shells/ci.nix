@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  sources,
-  ...
-}:
+{ inputs, pkgs, ... }:
 {
   devshell = {
     name = "CI Shell";
@@ -11,7 +6,6 @@
       cachix
       jq
       coreutils
-      (callPackage "${sources.nix-fast-build.src}/default.nix" { })
       nvfetcher
       (writeShellApplication {
         name = "nix-build-all";
