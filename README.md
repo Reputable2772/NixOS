@@ -6,7 +6,7 @@ This repository contains my personal declarative NixOS and Home Manager configur
 
 I use this repository to manage my daily driver laptop (`lenovo-laptop`), secondary laptop (`hp-laptop`), and headless home server (`astra-1`) in a fully reproducible way.
 
-For internal hacks, gotchas, and upstream workarounds, see `HACKS.md`.
+For internal hacks, gotchas, and upstream workarounds, see [NOTES.md](NOTES.md).
 
 ---
 
