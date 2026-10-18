@@ -5,37 +5,22 @@
   ...
 }:
 {
-  devshell =
-    let
-      _agenix = pkgs.applyPatches {
-        name = "agenix-patched";
-        src = inputs.agenix;
-        patches = [ ./agenix.patch ];
-      };
-      agenix_args = inputs.agenix.inputs // {
-        self = inputs.agenix.outputs;
-      };
-    in
-    {
-      name = "Development Shell for System Flake";
-      packages = with pkgs; [
-        coreutils
-        curl
-        jq
-        hydra-check
-        config.formatter
-        nixfmt
-        nix-diff
-        # A weird, but working hack. We import outputs of the patched flake, and then pass it the
-        # args of the unpatched flake.
+  devshell = {
+    name = "Development Shell for System Flake";
+    packages = with pkgs; [
+      coreutils
+      curl
+      jq
+      hydra-check
+      config.formatter
+      nixfmt
+      nix-diff
+      # A weird, but working hack. We import outputs of the patched flake, and then pass it the
+      # args of the unpatched flake.
+    ];
 
-        # This hack is needed since agenix's src is a single file, and that cannot be patched.
-        ((import "${_agenix}/flake.nix").outputs agenix_args)
-        .packages.${pkgs.stdenv.hostPlatform.system}.agenix
-      ];
-
-      startup.pre-commit.text = config.pre-commit.installationScript;
-    };
+    startup.pre-commit.text = config.pre-commit.installationScript;
+  };
 
   commands = [
     {
