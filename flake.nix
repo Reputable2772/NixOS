@@ -5,10 +5,6 @@
     # nixpkgs.follows = "nixos-cosmic/nixpkgs";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
