@@ -45,18 +45,6 @@
       sha256 = "sha256-FEr8AziQBAgXGOHkXjbNMZ5zB06AwiOZCrbyoulC1eo=";
     };
   };
-  nix-fast-build = {
-    pname = "nix-fast-build";
-    version = "496c4c5e4624c05cafc351b547e13d8e2b8e17b7";
-    src = fetchFromGitHub {
-      owner = "Mic92";
-      repo = "nix-fast-build";
-      rev = "496c4c5e4624c05cafc351b547e13d8e2b8e17b7";
-      fetchSubmodules = false;
-      sha256 = "sha256-cNl6+X5nfe3SNZWl0xRwz6cyGZlYK9kDNxWDM9NZTTE=";
-    };
-    date = "2026-10-04";
-  };
   obs_catppuccin = {
     pname = "obs_catppuccin";
     version = "054a297d303a5bac4f1652a13b17d78a13201c0e";
