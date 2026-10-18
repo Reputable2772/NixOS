@@ -27,7 +27,7 @@
     Container = {
       ContainerName = "vaultwarden";
       EnvironmentFile = config.secretspec.secrets.scopes.push_installation.path;
-      Network = "systemd-caddy.network";
+      Network = "caddy.network";
       Image = "ghcr.io/dani-garcia/vaultwarden:latest";
       Volume = [
         ":/data"

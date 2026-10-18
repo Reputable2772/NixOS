@@ -70,7 +70,7 @@ in
     Container = {
       Image = "docker.io/tomsquest/docker-radicale";
       ContainerName = "radicale";
-      Network = "systemd-caddy.network";
+      Network = "caddy.network";
       AddCapability = [
         "CHOWN"
         "SETUID"

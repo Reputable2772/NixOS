@@ -11,7 +11,7 @@
     Container = {
       ContainerName = "duckai";
       Image = "duckai-image.build";
-      Network = "systemd-caddy.network";
+      Network = "caddy.network";
       Environment = [
         "PORT=3000"
         "HOST=0.0.0.0"

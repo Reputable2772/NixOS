@@ -37,7 +37,7 @@
       ContainerName = "n8n";
       Image = "docker.io/n8nio/n8n:latest";
       Network = [
-        "systemd-caddy.network"
+        "caddy.network"
         "n8n.network"
       ];
       Environment = [

@@ -5,7 +5,7 @@
     Container = {
       ContainerName = "ollama";
       Network = [
-        "systemd-caddy.network"
+        "caddy.network"
         "ollama.network"
       ];
       Image = "docker.io/ollama/ollama:latest";

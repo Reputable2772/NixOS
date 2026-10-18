@@ -9,7 +9,7 @@
   programs.quadlets.quadlets."linkding.container" = {
     Container = {
       ContainerName = "linkding";
-      Network = "systemd-caddy.network";
+      Network = "caddy.network";
       Image = "ghcr.io/sissbruecker/linkding:latest";
       Volume = [
         "linkding.volume:/etc/linkding/data"

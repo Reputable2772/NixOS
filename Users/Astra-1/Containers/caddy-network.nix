@@ -1,7 +1,7 @@
 {
-  programs.quadlets.quadlets."systemd-caddy.network" = {
+  programs.quadlets.quadlets."caddy.network" = {
     Network = {
-      NetworkName = "systemd-caddy";
+      NetworkName = "caddy";
       Driver = "bridge";
       Gateway = [
         "10.89.0.1"

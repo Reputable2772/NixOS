@@ -241,7 +241,7 @@ in
     programs.quadlets.quadlets."caddy.container" = {
       Container = {
         ContainerName = "caddy";
-        Network = "systemd-caddy.network";
+        Network = "caddy.network";
         EnvironmentFile = config.secretspec.secrets.scopes.caddy.path;
         Image = "caddy-image.build";
         Volume = [

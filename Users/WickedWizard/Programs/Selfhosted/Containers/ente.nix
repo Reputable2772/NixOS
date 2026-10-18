@@ -44,7 +44,7 @@
   programs.quadlets.quadlets."ente_museum.container" = {
     Container = {
       ContainerName = "ente_museum";
-      Network = "systemd-caddy.network";
+      Network = "caddy.network";
       EnvironmentFile = config.secretspec.secrets.scopes.ente.path;
       Image = "ghcr.io/ente/server";
       Volume = [
@@ -67,7 +67,7 @@
   programs.quadlets.quadlets."ente_postgres.container" = {
     Container = {
       ContainerName = "ente_postgres";
-      Network = "systemd-caddy.network";
+      Network = "caddy.network";
       EnvironmentFile = config.secretspec.secrets.scopes.ente_postgres.path;
       # We use a double dollar '$$' here to escape the variable for systemd, as given here
       # https://github.com/containers/podman/discussions/25053#discussioncomment-11890600
@@ -106,7 +106,7 @@
   #       };
   #     }
   #     (
-  #       (lib.attrsets.removeAttrs (utils.containerDefaults "ente_socat" "systemd-caddy.network") [ "Container" ])
+  #       (lib.attrsets.removeAttrs (utils.containerDefaults "ente_socat" "caddy.network") [ "Container" ])
   #       // {
   #         Container = {
   #           ContainerName = "ente_socat";
@@ -118,19 +118,19 @@
   # programs.quadlets.quadlets."ente_minio.container" = lib.attrsets.recursiveUpdate {
   #   Container = {
   #     Image = "docker.io/minio/minio";
-  #     Network = "systemd-caddy.network";
+  #     Network = "caddy.network";
   #     Exec = "server /data --address \":3200\" --console-address \":3201\"";
   #     Volume = utils.mapVolume "ente_minio" [
   #       "data:/data"
   #     ];
   #   } // utils.appendEnv "ente_minio";
-  # } (utils.containerDefaults "ente_minio" "systemd-caddy.network");
+  # } (utils.containerDefaults "ente_minio" "caddy.network");
 
   # programs.quadlets.quadlets."ente_minio-provision.container" = lib.attrsets.recursiveUpdate {
   #   Container = {
   #     Entrypoint = "/provision.sh";
   #     Image = "docker.io/minio/mc";
-  #     Network = "systemd-caddy.network";
+  #     Network = "caddy.network";
   #     Volume = utils.mapVolume "ente_minio-provision" [
   #       # TODO: Get this file declaratively from Github.
   #       "provision.sh:/provision.sh:ro"
@@ -142,5 +142,5 @@
   #     Requires = [ "ente_minio.service" ];
   #     After = [ "ente_minio.service" ];
   #   };
-  # } (utils.containerDefaults "ente_minio-provision" "systemd-caddy.network");
+  # } (utils.containerDefaults "ente_minio-provision" "caddy.network");
 }

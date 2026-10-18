@@ -27,7 +27,7 @@
       ContainerName = "wud";
       Image = "ghcr.io/getwud/wud:latest";
       Network = [
-        "systemd-caddy.network"
+        "caddy.network"
         "podman-socket.network"
       ];
       EnvironmentFile = config.secretspec.secrets.scopes.wud.path;

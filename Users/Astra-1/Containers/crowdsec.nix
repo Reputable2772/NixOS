@@ -55,7 +55,7 @@ in
         ContainerName = "crowdsec";
         Image = "docker.io/crowdsecurity/crowdsec:latest-debian";
         PublishPort = [ "127.0.0.1:8008:8080" ];
-        Network = "systemd-caddy.network";
+        Network = "caddy.network";
         Environment = [
           "GID=0"
           "UID=0"
