@@ -48,8 +48,12 @@
           "net.ipv6.conf.all.forwarding=1"
         ];
         Volume = [
-          "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard:ro"
+          "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard/wg0.conf:ro:noMap"
         ];
+      };
+      Unit = {
+        Wants = [ "secretspec.service" ];
+        After = [ "secretspec.service" ];
       };
     };
     "wireguard.network" = {

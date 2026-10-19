@@ -29,8 +29,12 @@
           "51235:51820/udp"
         ];
         Volume = [
-          "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard:ro"
+          "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard/wg0.conf:ro:noMap"
         ];
+      };
+      Unit = {
+        Wants = [ "secretspec.service" ];
+        After = [ "secretspec.service" ];
       };
     };
     "wireguard.network" = {
