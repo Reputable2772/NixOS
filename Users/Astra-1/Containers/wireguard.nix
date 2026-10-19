@@ -23,10 +23,6 @@
         Network = [
           "wireguard.network"
         ];
-        Sysctl = [
-          "net.ipv4.ip_forward=1"
-          "net.ipv6.conf.all.forwarding=1"
-        ];
         Volume = [
           "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard:ro"
         ];
