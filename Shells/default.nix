@@ -114,5 +114,15 @@
       '';
       category = "Development";
     }
+    {
+      help = "Fast build nixos system using nix-fast-build";
+      name = "fast-build";
+      command = ''
+        ${pkgs.lixPackageSets.latest.nix-fast-build}/bin/nix-fast-build \
+          --flake .#nixosConfigurations.''${1:-$(hostname)}.config.system.build.toplevel \
+          --fail-fast
+      '';
+      category = "Development";
+    }
   ];
 }
