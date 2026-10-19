@@ -29,7 +29,7 @@
 
     [Peer]
     PublicKey = @ASTRA1_PUBLIC_KEY@
-    Endpoint = astra.@ASTRA1_DOMAIN@:51235
+    Endpoint = astra-1.@ASTRA1_DOMAIN@:51235
     AllowedIPs = 10.85.0.2/32
     PersistentKeepalive = 25
   '';
