@@ -39,6 +39,7 @@
       Network = [
         "caddy.network"
         "n8n.network"
+        "wireguard.network"
       ];
       Environment = [
         "N8N_RUNNERS_MODE=external"
