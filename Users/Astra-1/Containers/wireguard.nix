@@ -5,12 +5,18 @@
   };
 
   secretspec.runtimeSecretReplacements."${config.xdg.configHome}/wireguard/wg0.conf" = {
-    "@LENOVO_PUBLIC_KEY" = config.secretspec.secrets.profiles.astra-1.LENOVO_PUBLIC_KEY.plainPath;
+    "@LENOVO_PUBLIC_KEY@" = config.secretspec.secrets.profiles.astra-1.LENOVO_PUBLIC_KEY.plainPath;
+    "@ASTRA1_PRIVATE_KEY@" = config.secretspec.secrets.profiles.astra-1.ASTRA1_PRIVATE_KEY.plainPath;
   };
 
   system-config.firewall.allowedUDPPorts = [ 51235 ];
 
   xdg.configFile."wireguard/wg0.conf".text = ''
+    [Interface]
+    Address = 10.85.0.1/32
+    ListenPort = 51820
+    PrivateKey = @ASTRA1_PRIVATE_KEY@
+
     [Peer]
     PublicKey = @LENOVO_PUBLIC_KEY@
     AllowedIPs = 10.85.0.2/32, 10.20.0.0/24, fdd6:61c:2978:8100::/64
