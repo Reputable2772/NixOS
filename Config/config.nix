@@ -267,6 +267,10 @@ rec {
           env = null;
           custom.booksDir = dir.books;
         };
+        wireguard = {
+          dir = null;
+          env = null;
+        };
       };
     };
     guest = { };

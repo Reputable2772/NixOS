@@ -15,6 +15,7 @@
     ./radicale.nix
     ./syncthing.nix
     ./vaultwarden.nix
+    ./wireguard.nix
     ./wud.nix
   ];
 }
