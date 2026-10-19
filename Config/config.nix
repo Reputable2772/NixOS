@@ -371,6 +371,10 @@ rec {
           dir = null;
           env = null;
         };
+        wireguard = {
+          dir = null;
+          env = null;
+        };
       };
     };
     remotebuild = {
