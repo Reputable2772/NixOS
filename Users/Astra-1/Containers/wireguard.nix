@@ -8,6 +8,8 @@
     "@LENOVO_PUBLIC_KEY" = config.secretspec.secrets.profiles.astra-1.LENOVO_PUBLIC_KEY.plainPath;
   };
 
+  system-config.firewall.allowedUDPPorts = [ 51235 ];
+
   xdg.configFile."wireguard/wg0.conf".text = ''
     [Peer]
     PublicKey = @LENOVO_PUBLIC_KEY@
@@ -22,6 +24,9 @@
         AddCapability = [ "NET_ADMIN" ];
         Network = [
           "wireguard.network"
+        ];
+        PublishPort = [
+          "51235:51820/udp"
         ];
         Volume = [
           "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard:ro"
