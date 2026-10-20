@@ -9,11 +9,10 @@ let
   inherit (lib.strings) concatMapAttrsStringSep toUpper;
   inherit (lib.attrsets)
     mapAttrs'
-    mapAttrsToList
     nameValuePair
     recursiveUpdate
     ;
-  inherit (lib.lists) elem optionals;
+  inherit (lib.lists) elem;
 
   wg = config'.containers.wireguard;
   peers = wg.peers;
@@ -67,6 +66,23 @@ let
     nameValuePair "@WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY@"
       config.secretspec.secrets.profiles.astra-1."WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY".plainPath
   ) peers;
+
+  mkRouteScript =
+    name: cmdPrefix:
+    pkgs.writeShellScript name ''
+      for i in {1..5}; do
+        ${concatMapAttrsStringSep "\n" (_: peer: ''
+          ${cmdPrefix} ip route replace ${peer.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
+          ${cmdPrefix} ip -6 route replace ${peer.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+        '') peers}
+        ${cmdPrefix} ip route replace 10.85.0.0/24 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
+        ${cmdPrefix} ip -6 route replace fd85::/64 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+        exit 0
+      done
+      exit 0
+    '';
+
+  netnsRouteScript = mkRouteScript "wireguard-netns-routes" "${pkgs.podman}/bin/podman unshare --rootless-netns";
 in
 {
   secretspec.config.profiles.astra-1 = {
@@ -108,33 +124,14 @@ in
           isTarget =
             utils.isContainer && isOnWg && cName != "wireguard" && (options.wireguardRouting or true);
 
-          routeScript = pkgs.writeShellScript "${cName}-wg-routes" ''
-            for i in {1..5}; do
-              ${concatMapAttrsStringSep "\n" (_: peer: ''
-                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace ${peer.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
-                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace ${peer.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
-              '') peers}
-              ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace 10.85.0.0/24 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
-              ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace fd85::/64 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
-              exit 0
-            done
-            exit 0
-          '';
+          routeScript = mkRouteScript "${cName}-wg-routes" "${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName}";
 
-          existingWants = utils.convertToList (quadlet.Unit.Wants or null);
-          existingAfter = utils.convertToList (quadlet.Unit.After or null);
           existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
         in
         if !isTarget then
           quadlet
         else
           recursiveUpdate quadlet {
-            Unit = {
-              Wants =
-                existingWants ++ optionals (!(elem "wireguard.service" existingWants)) [ "wireguard.service" ];
-              After =
-                existingAfter ++ optionals (!(elem "wireguard.service" existingAfter)) [ "wireguard.service" ];
-            };
             Service = {
               ExecStartPost = existingPost ++ [ "${routeScript}" ];
             };
@@ -170,12 +167,16 @@ in
           Wants = [ "secretspec.service" ];
           After = [ "secretspec.service" ];
         };
+        Service = {
+          ExecStartPost = [
+            "${netnsRouteScript}"
+          ];
+        };
       };
       "wireguard.network" = {
         Network = {
           NetworkName = "wireguard";
           IPv6 = true;
-          DisableDNS = true;
           Gateway = [
             wg.network.containers.ipv4.gateway
             wg.network.containers.ipv6.gateway
