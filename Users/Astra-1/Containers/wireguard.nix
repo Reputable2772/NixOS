@@ -146,10 +146,6 @@ in
         Container = {
           ContainerName = "wireguard";
           Image = "docker.io/procustodibus/wireguard";
-          DNS = [
-            "1.1.1.1"
-            "8.8.8.8"
-          ];
           IP = wg.network.containers.ipv4.wireguardIp;
           IP6 = wg.network.containers.ipv6.wireguardIp;
           AddCapability = [
@@ -179,6 +175,7 @@ in
         Network = {
           NetworkName = "wireguard";
           IPv6 = true;
+          DisableDNS = true;
           Gateway = [
             wg.network.containers.ipv4.gateway
             wg.network.containers.ipv6.gateway
@@ -187,7 +184,6 @@ in
             wg.network.containers.ipv4.subnet
             wg.network.containers.ipv6.subnet
           ];
-          DNS = mapAttrsToList (_: peer: peer.network.containers.ipv4.gateway) peers;
         };
       };
     };
