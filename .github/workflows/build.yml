@@ -46,6 +46,6 @@ jobs:
           CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
         run: |
           nix develop .#ci --command bash -c "nix-build-all --systems $(uname -m)-linux --override-input flake . --out-link flake --cachix-cache spearman4157"
-          nix build .#packages.$(uname -m)-linux.deploy
-          cat result
+          nix build .#packages.$(uname -m)-linux.deploy --out-link deploy.json
+          cat deploy.json
           nix develop .#ci --command cachix deploy activate deploy.json --async
