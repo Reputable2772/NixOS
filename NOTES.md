@@ -70,12 +70,14 @@ Custom secretspec module written for NixOS. Heavily inspired by agenix's working
 
 This modules pre-dates the one in HM, and was jankily written for only my use case.
 
-- **How this works**: It runs Quadlet in a normal derivation, but **statically predicts** what unit files it will produce (from `.container` -> `.service`, `WantedBy` -> `.wants`, etc.) and links those into `.config/systemd/user/`.
-- There is a debug check in the derivation that greps the actual output against the predicted list. If Quadlet generates an unexpected file, the build will fail immediately.
-- **Conveniences/Pre-Processing**:
-  - `:/data` in volumes automatically maps to `${users.<username>.dir.containers}/Containers:/data`. Add `:noMap` at the end to disable this.
-  - Generates `mkdir -p` scripts (`mkdirOp`) so host volume folders are created before the container starts.
-  - Automatically adds `Wants = [ "secretspec.service" ]` if the container has an `EnvironmentFile`. (Should actually detect it correctly, but works fine for now.)
+- **How this works**: It structures quadlet lifecycle into three decoupled phases:
+  1. **Preprocessing Phase (`preprocessors`)**: A customizable pipeline of ordered preprocessing modules (`programs.quadlets.preprocessors.<name>`).
+  2. **Generation Phase**: All quadlets are packaged into a unified source tree (`pkgs.linkFarm`) and run through Podman's native `quadlet` generator in a single derivation.
+	 - Sometimes, when modifying a single quadlet, all quadlets are restarted, due to how `sd-switch` (HM) works. This is because the SourcePath property of the quadlet changes. To prevent this from occuring, we strip it out by default.
+     - After the quadlets are generated, all files need to be symlinked. However, this poses the question of how do we figure out the output file tree? This can be done using a `builtins.readDir` IFD, but that is really slow. Instead, we statically build a list from Unit.Wants, Unit.After, etc. To check if our statically built list is correct, we use a debug generator that checks if all the files in the file tree are in the statically generated list.
+  3. **Linking Phase**: Statically links each predicted unit into `xdg.configFile."systemd/user/<unit>"`, avoiding IFD and directory collisions in Home Manager.
+
+- **Pre-Processing** - Pre-Processing is done as mainly a convenience feature. It has `unitDefaults`, etc.
 
 ---
 

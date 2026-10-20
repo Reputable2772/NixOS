@@ -9,235 +9,387 @@
 }:
 
 let
-  inherit (lib) strings types;
+  inherit (lib) types;
   inherit (lib.attrsets)
+    attrByPath
     attrNames
+    attrValues
     filterAttrs
-    hasAttrByPath
-    optionalAttrs
+    genAttrs
     mapAttrs
     mapAttrsToList
-    listToAttrs
-    nameValuePair
-    getAttrFromPath
+    optionalAttrs
     recursiveUpdate
+    removeAttrs
     ;
   inherit (lib.lists)
     concatLists
+    elem
     elemAt
-    foldl'
     filter
+    foldl'
     isList
-    optional
     optionals
+    sort
     ;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings)
     concatMapStringsSep
     concatStringsSep
-    hasInfix
+    escapeShellArg
     hasSuffix
     optionalString
+    removePrefix
+    removeSuffix
     replaceStrings
     splitString
-    removeSuffix
+    stringLength
+    substring
+    toUpper
     ;
+  inherit (lib') deepMerge toSystemdUnit;
 
   cfg = config.programs.quadlets;
-  qType =
-    with types;
-    let
-      primitive = oneOf [
-        bool
-        int
-        str
-        path
-      ];
-    in
-    attrsOf (attrsOf (attrsOf (either primitive (listOf primitive))))
-    // {
-      description = "Quadlet configuration.";
-    };
 
   unitNameConvertor =
     x:
     replaceStrings
-      [ ".container" ".network" ".volume" ".build" ]
-      [ ".service" "-network.service" "-volume.service" "-build.service" ]
+      [
+        ".container"
+        ".network"
+        ".volume"
+        ".build"
+        ".pod"
+        ".image"
+        ".kube"
+      ]
+      [
+        ".service"
+        "-network.service"
+        "-volume.service"
+        "-build.service"
+        "-pod.service"
+        "-image.service"
+        ".service"
+      ]
       x;
 
-  # All the below code -
-  # Pre-processes all quadlets written by user,
-  # and stores them into finalConfig.
   defaultOptions = {
     mkdir = true;
     appendEnv = true;
     unitDefaults = true;
     networkNameAlias = true;
     secretDependency = true;
-    # Opt out either with this flag, or by setting :noMap at the end of a specific volume
     mapVolumes = true;
   };
 
-  isContainer = q: hasAttrByPath [ "Container" "ContainerName" ] q;
-  getVolPathFromConfig =
+  hasVal =
+    set: path:
+    let
+      v = attrByPath path null set;
+    in
+    v != null && v != "" && v != [ ] && v != { };
+
+  convertToList =
+    v:
+    if v == null then
+      [ ]
+    else if isList v then
+      v
+    else
+      [ v ];
+
+  getVolPath =
     cname:
     (
-      if config'.containers.${cname} ? dir && config'.containers.${cname}.dir != null then
+      if
+        hasVal config' [
+          "containers"
+          cname
+          "dir"
+        ]
+      then
         config'.containers.${cname}.dir
       else
         "${config'.dir.containers}/${
-          strings.toUpper (strings.substring 0 1 cname)
-          + strings.substring 1 (strings.stringLength cname + 1) cname
+          toUpper (substring 0 1 cname) + substring 1 (stringLength cname) cname
         }"
     )
     + "/";
-  volumeMapper = qVal: {
-    Container.Volume = map (
-      vol:
-      # Skip mapping volumes if they have a :noMap suffix, or if they are a Podman Volume.
-      if ((hasSuffix ":noMap" vol) || (hasSuffix ".volume" (elemAt (splitString ":" vol) 0))) then
-        (removeSuffix ":noMap" vol)
-      else
-        ((getVolPathFromConfig qVal.Container.ContainerName) + vol)
-    ) qVal.Container.Volume;
-  };
 
-  unitDefaults =
-    qVal: qOpts:
-    {
-      Install.WantedBy = [ "default.target" ];
-      Service = {
-        Restart = if (isContainer qVal) then "always" else "on-failure";
-        TimeoutStartSec = 300;
-        Type = if (isContainer qVal) then "notify" else "oneshot";
-      };
-    }
-    // optionalAttrs (isContainer qVal) {
-      Container.PodmanArgs = "${optionalString qOpts.networkNameAlias "--network-alias ${qVal.Container.ContainerName}"} --user 0:0";
+  mapVolume =
+    cname: vol:
+    let
+      src = elemAt (splitString ":" vol) 0;
+    in
+    if hasSuffix ":noMap" vol then
+      removeSuffix ":noMap" vol
+    else if hasSuffix ".volume" src then
+      vol
+    else
+      "${getVolPath cname}${vol}";
+
+  mkdirScript =
+    cname: volumes:
+    let
+      hostDirs =
+        volumes |> map (x: elemAt (builtins.split ":" x) 0) |> filter (x: !(hasSuffix ".volume" x));
+    in
+    pkgs.writeShellScript "${cname}-mkdir" (
+      (concatMapStringsSep "\n" (x: "[[ ! -e ${x} ]] && ${pkgs.coreutils}/bin/mkdir -p ${x}") hostDirs)
+      + "\nexit 0\n"
+    );
+
+  # Phase 1: Pre-Processors
+  # Built-in preprocessors executed in order of `order`.
+  # Each preprocessor receives: (name: quadlet: options: utils:) -> modified quadlet
+  builtInPreprocessors = {
+    unitDefaults = {
+      order = 100;
+      apply =
+        _name: quadlet: options: utils:
+        if !options.unitDefaults then
+          quadlet
+        else
+          let
+            defaults = {
+              Install.WantedBy = [ "default.target" ];
+              Service = {
+                Restart = if utils.isContainer then "always" else "on-failure";
+                TimeoutStartSec = 300;
+                Type = if utils.isContainer then "notify" else "oneshot";
+              };
+            }
+            // optionalAttrs utils.isContainer {
+              Unit = { };
+              Container.PodmanArgs = [ "--user 0:0" ];
+            };
+          in
+          recursiveUpdate defaults quadlet;
     };
 
-  mkdirOp = qVal: {
-    Service.ExecStartPre =
-      optional
-        (
-          hasAttrByPath [
+    networkNameAlias = {
+      order = 150;
+      apply =
+        _name: quadlet: options: utils:
+        if !utils.isContainer || !options.networkNameAlias then
+          quadlet
+        else
+          deepMerge {
+            Container.PodmanArgs = [ "--network-alias ${quadlet.Container.ContainerName}" ];
+          } quadlet;
+    };
+
+    mapVolumes = {
+      order = 200;
+      apply =
+        _name: quadlet: options: utils:
+        let
+          cName = quadlet.Container.ContainerName;
+          vols = utils.convertToList quadlet.Container.Volume;
+        in
+        if
+          !utils.isContainer
+          || !options.mapVolumes
+          || !(hasVal quadlet [
             "Container"
             "Volume"
-          ] qVal
-          && (qVal.Container.Volume != null || qVal.Container.Volume != [ ])
-        )
-        (
-          qVal.Container.Volume
-          |> map (x: builtins.elemAt (builtins.split ":" x) 0)
-          |> filter (x: !(hasSuffix ".volume" x))
-          |> concatMapStringsSep "\n" (x: "[[ ! -e ${x} ]] && ${pkgs.coreutils}/bin/mkdir -p ${x}")
-          |> (a: pkgs.writeShellScript "${qVal.Container.ContainerName}-mkdir" (a + "\nexit 0\n"))
-        );
-  };
-
-  appendEnv = qVal: {
-    Container.Environment = optionals (
-      config'.containers.${qVal.Container.ContainerName} ? env
-      && config'.containers.${qVal.Container.ContainerName}.env != null
-    ) config'.containers.${qVal.Container.ContainerName}.env;
-  };
-
-  secretDependency =
-    qVal:
-    let
-      _envFiles = qVal.Container.EnvironmentFile or [ ];
-      envFiles = if isList _envFiles then _envFiles else [ _envFiles ];
-    in
-    {
-      Unit = optionalAttrs (envFiles != [ ]) {
-        Wants = [ "secretspec.service" ];
-        After = [ "secretspec.service" ];
-      };
+          ])
+        then
+          quadlet
+        else
+          recursiveUpdate quadlet {
+            Container.Volume = map (mapVolume cName) vols;
+          };
     };
 
-  finalConfig = mapAttrs (
-    qName: qVal:
-    let
-      # Merge container & default options.
-      quadletOptions = defaultOptions // (qVal.__options or { });
-
-      /**
-        Ideal Preprocessing ordering -
-        unitDefaults -> appendEnv  -> secretDependency -> mapVolumes (special) -> mkdirOp
-
-        Current ordering
-        mapVolumes (special) -> unitDefaults -> mkdirOp -> appendEnv -> secretDependency
-      */
-
-      # Map only volumes separately, since volumes have to be overwritten entirely,
-      # rather than be merged.
-      mappedVolumes =
-        if
-          (
-            (isContainer qVal)
-            && quadletOptions.mapVolumes
-            && (hasAttrByPath [
-              "Container"
-              "Volume"
-            ] qVal)
-            && qVal.Container.Volume != null
-          )
-        then
-          # recursiveUpdate is used on purpose here, since it overwrites lists instead of merging them.
-          (recursiveUpdate qVal (volumeMapper qVal))
+    mkdir = {
+      order = 300;
+      apply =
+        _name: quadlet: options: utils:
+        let
+          cName = quadlet.Container.ContainerName;
+          vols = utils.convertToList (quadlet.Container.Volume or null);
+          existingPre = utils.convertToList (quadlet.Service.ExecStartPre or null);
+          script =
+            if
+              utils.isContainer
+              && options.mkdir
+              && (hasVal quadlet [
+                "Container"
+                "Volume"
+              ])
+            then
+              mkdirScript cName vols
+            else
+              null;
+        in
+        if !utils.isContainer || script == null then
+          quadlet
         else
-          qVal;
-      preProcess = foldl' (acc: elem: (lib'.deepMerge (elem acc) acc)) mappedVolumes (
-        [
-          # Temp fix for hp-laptop not using bridge networking.
-          # TODO: Write a better pre-processing script later.
-          (f: optionalAttrs quadletOptions.unitDefaults (unitDefaults f quadletOptions))
-        ]
-        ++ (optionals (isContainer qVal) [
-          (f: optionalAttrs quadletOptions.mkdir (mkdirOp f))
-          (f: optionalAttrs quadletOptions.appendEnv (appendEnv f))
-          (f: optionalAttrs quadletOptions.secretDependency (secretDependency f))
-        ])
-      );
+          recursiveUpdate quadlet {
+            Service.ExecStartPre = existingPre ++ [ script ];
+          };
+    };
+
+    appendEnv = {
+      order = 400;
+      apply =
+        _name: quadlet: options: utils:
+        let
+          cName = quadlet.Container.ContainerName;
+          extraEnv = optionals (
+            options.appendEnv
+            && (hasVal config' [
+              "containers"
+              cName
+              "env"
+            ])
+          ) config'.containers.${cName}.env;
+          existingEnv = utils.convertToList (quadlet.Container.Environment or null);
+        in
+        if !utils.isContainer then
+          quadlet
+        else
+          recursiveUpdate quadlet {
+            Container.Environment = extraEnv ++ existingEnv;
+          };
+    };
+
+    secretDependency = {
+      order = 500;
+      apply =
+        _name: quadlet: options: utils:
+        if
+          !utils.isContainer
+          || !options.secretDependency
+          || !(hasVal quadlet [
+            "Container"
+            "EnvironmentFile"
+          ])
+        then
+          quadlet
+        else
+          deepMerge quadlet {
+            Unit = {
+              Wants = optionals (!(elem "secretspec.service" (quadlet.Unit.Wants or [ ]))) [
+                "secretspec.service"
+              ];
+              After = optionals (!(elem "secretspec.service" (quadlet.Unit.After or [ ]))) [
+                "secretspec.service"
+              ];
+            };
+          };
+    };
+  };
+
+  # Compose pipeline and process quadlets
+  activeFns =
+    cfg.preprocessors
+    |> filterAttrs (_: p: p.enable)
+    |> attrValues
+    |> sort (a: b: a.order < b.order)
+    |> map (p: p.apply);
+
+  pipeline =
+    name: initialQuadlet: options: utils:
+    foldl' (q: fn: fn name q options utils) initialQuadlet activeFns;
+
+  finalConfig = mapAttrs (
+    name: raw:
+    let
+      options = defaultOptions // (raw.__options or { });
+      quadlet = removeAttrs raw [ "__options" ];
+      utils = {
+        inherit hasVal convertToList;
+        isContainer = (hasSuffix ".container" name) || (quadlet ? Container);
+        isVolume = (hasSuffix ".volume" name) || (quadlet ? Volume);
+        isNetwork = (hasSuffix ".network" name) || (quadlet ? Network);
+        isPod = (hasSuffix ".pod" name) || (quadlet ? Pod);
+        isImage = (hasSuffix ".image" name) || (quadlet ? Image);
+        isBuild = (hasSuffix ".build" name) || (quadlet ? Build);
+        isKube = (hasSuffix ".kube" name) || (quadlet ? Kube);
+      };
     in
-    # Remove __options if defined.
-    removeAttrs preProcess [ "__options" ]
+    pipeline name quadlet options utils
   ) cfg.quadlets;
 
-  volumesList =
-    finalConfig
-    |> (filterAttrs (qName: qVal: hasAttrByPath [ "Volume" "VolumeName" ] qVal))
-    |> mapAttrs (volName: volVal: pkgs.writeTextDir volName (lib'.toSystemdUnit volVal));
-  networksList =
-    finalConfig
-    |> (filterAttrs (qName: qVal: hasAttrByPath [ "Network" "NetworkName" ] qVal))
-    |> mapAttrs (netName: netVal: pkgs.writeTextDir netName (lib'.toSystemdUnit netVal));
-  buildsList =
-    finalConfig
-    |> (filterAttrs (qName: qVal: hasAttrByPath [ "Build" "ImageTag" ] qVal))
-    |> (mapAttrs (bName: bVal: pkgs.writeTextDir bName (lib'.toSystemdUnit bVal)));
+  unitFilesFor =
+    qName: quadlet:
+    let
+      unit = unitNameConvertor qName;
+      install = quadlet.Install or { };
+    in
+    [ unit ]
+    ++ map (t: "${t}.wants/${unit}") (convertToList (install.WantedBy or null))
+    ++ map (t: "${t}.requires/${unit}") (convertToList (install.RequiredBy or null))
+    ++ map (t: "${t}.upholds/${unit}") (convertToList (install.UpheldBy or null))
+    ++ (convertToList (install.Alias or null));
+
+  allUnitFiles = concatLists (mapAttrsToList unitFilesFor finalConfig);
 in
 {
   options.programs.quadlets = {
     enable = mkEnableOption "Podman's Quadlets";
+
     quadlets = mkOption {
       default = { };
-      type = qType;
-      description = "All the quadlets that need to have systemd unit files generated";
+      type = types.attrsOf (types.attrsOf (types.either types.anything (types.listOf types.anything)));
+      description = ''
+        Declarative Podman Quadlet configurations keyed by unit file name (e.g. "caddy.container", "app.volume").
+        Per-unit preprocessing options can be specified under `__options` (e.g., `__options.mapVolumes = false;`).
+      '';
     };
+
+    preprocessors = mkOption {
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            enable = mkOption {
+              type = types.bool;
+              default = true;
+              description = "Whether this preprocessor step is enabled.";
+            };
+            order = mkOption {
+              type = types.int;
+              default = 1000;
+              description = "Execution order in the preprocessing pipeline (lower executes first).";
+            };
+            apply = mkOption {
+              type = types.functionTo (types.functionTo (types.functionTo (types.functionTo types.attrs)));
+              description = "Function taking `name: quadlet: options: utils:` returning modified quadlet. `utils` provides: `convertToList`, `hasVal`, and unit type helpers (`isContainer`, `isVolume`, `isNetwork`, `isPod`, `isImage`, `isBuild`, `isKube`).";
+            };
+          };
+        }
+      );
+      default = { };
+      description = ''
+        Customizable pipeline of preprocessing modules executed in order of `order`.
+        Built-ins: `unitDefaults` (100), `networkNameAlias` (150), `mapVolumes` (200), `mkdir` (300), `appendEnv` (400), `secretDependency` (500).
+        Built-in steps can be disabled via `programs.quadlets.preprocessors.<name>.enable = false;`.
+      '';
+    };
+
+    stripSourcePath = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Whether to strip SourcePath= from generated unit files to prevent unnecessary restarts.";
+    };
+
     finalQuadlets = mkOption {
-      type = qType;
-      description = "Final Quadlet Configuration";
+      type = types.attrsOf types.anything;
+      description = "Final Quadlet Configuration after preprocessing.";
       default = finalConfig;
       readOnly = true;
     };
+
     extraServices = mkOption {
       default = [ ];
       type = types.listOf types.str;
       description = "A list of extra systemd services that are relied upon by containers.";
     };
+
     servicesList = mkOption {
       type = types.str;
       description = "A list of all the systemd services that are used to control quadlets.";
@@ -247,128 +399,94 @@ in
 
   config = mkIf cfg.enable (
     let
-      /**
-        Instead of using a builtins.readFile IFD for every single
-        quadlet (which slows down the eval/build entirely), here's a
-        small workaround.
-
-        We instead "predict" all the files the quadlet generator will
-        generate (from [Install].WantedBy, RequiredBy, etc.) and map
-        those files manually to .config/systemd/user.
-
-        This *does not* work with ServiceName overrides and uninstantiated
-        template units.
-      */
-      expectedUnitFiles =
-        qName:
+      badUnits = filterAttrs (
+        name: q:
         let
-          unit = unitNameConvertor qName;
-          install = finalConfig.${qName}.Install or { };
-
-          asList = value: if isList value then value else [ value ];
-
-          linksFor = dir: key: map (target: "${target}.${dir}/${unit}") (asList (install.${key} or [ ]));
+          isContainer = (hasSuffix ".container" name) || (q ? Container);
+          isVolume = (hasSuffix ".volume" name) || (q ? Volume);
+          isNetwork = (hasSuffix ".network" name) || (q ? Network);
         in
-        [ unit ]
-        ++ linksFor "wants" "WantedBy"
-        ++ linksFor "requires" "RequiredBy"
-        ++ linksFor "upholds" "UpheldBy"
-        ++ asList (install.Alias or [ ]);
-
-      generatedQuadlets = mapAttrs (
-        qName: qVal:
-        pkgs.runCommand "quadlet-generator-${qName}" { } (
-          let
-            normalizeList =
-              val:
-              if ((hasAttrByPath val qVal) && (getAttrFromPath val qVal != null)) then
-                (
-                  let
-                    retVal = (getAttrFromPath val qVal);
-                  in
-                  if isList retVal then retVal else [ retVal ]
-                )
-              else
-                [ ];
-
-            networks = map (network: networksList.${network}) (
-              filter (net: hasSuffix ".network" net) (normalizeList [
-                "Container"
-                "Network"
-              ])
-            );
-            volumes = map (vol: volumesList.${elemAt (splitString ":" vol) 0}) (
-              filter (vol: hasInfix ".volume" vol) (normalizeList [
-                "Container"
-                "Volume"
-              ])
-            );
-            builds =
-              if ((hasAttrByPath [ "Container" "Image" ] qVal) && hasSuffix ".build" qVal.Container.Image) then
-                buildsList.${qVal.Container.Image}
-              else
-                "";
-
-            quadletFile = pkgs.writeTextDir qName (lib'.toSystemdUnit qVal);
-
-            # Names of the quadlets referenced above. The generator also emits their
-            # units, since they are in QUADLET_UNIT_DIRS (used by the debug check only).
-            depNames =
-              filter (net: hasSuffix ".network" net) (normalizeList [
-                "Container"
-                "Network"
-              ])
-              ++ map (vol: elemAt (splitString ":" vol) 0) (
-                filter (vol: hasInfix ".volume" vol) (normalizeList [
-                  "Container"
-                  "Volume"
-                ])
-              )
-              ++ lib.optional (builds != "") qVal.Container.Image;
-          in
-          ''
-            QUADLET_UNIT_DIRS=${quadletFile}${
-              optionalString (networks != [ ]) (":" + (concatStringsSep ":" networks))
-            }${optionalString (volumes != [ ]) (":" + (concatStringsSep ":" volumes))}${
-              optionalString (builds != "") (":" + builds)
-            } ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
-
-            for file in $(find $out -type f -exec realpath --relative-to $out {} \;); do
-              substituteInPlace $out/$file \
-                --replace-quiet ${quadletFile}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
-                --replace-quiet \\x20 " "
-            done
-
-            # TEMP DEBUG: report generator output that is not in expectedUnitFiles,
-            # counting the units of referenced networks/volumes/builds as expected.
-            # Logs only (does not fail the build). Remove once the list is trusted.
-            expected=${
-              lib.escapeShellArg (concatStringsSep "\n" (lib.concatMap expectedUnitFiles ([ qName ] ++ depNames)))
-            }
-            while IFS= read -r f; do
-              if ! grep -qxF -- "$f" <<< "$expected"; then
-                echo "[quadlet-debug] ${qName}: unexpected generator output: $f" >&2
-                exit 1
-              fi
-            done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
-          ''
+        (
+          isContainer
+          && !(hasVal q [
+            "Container"
+            "ContainerName"
+          ])
         )
-      ) finalConfig;
+        || (
+          isVolume
+          && !(hasVal q [
+            "Volume"
+            "VolumeName"
+          ])
+        )
+        || (
+          isNetwork
+          && !(hasVal q [
+            "Network"
+            "NetworkName"
+          ])
+        )
+      ) cfg.quadlets;
+
+      assertions = mapAttrsToList (
+        name: q:
+        let
+          isContainer = (hasSuffix ".container" name) || (q ? Container);
+          isVolume = (hasSuffix ".volume" name) || (q ? Volume);
+          kind =
+            if isContainer then
+              "Container.ContainerName"
+            else if isVolume then
+              "Volume.VolumeName"
+            else
+              "Network.NetworkName";
+        in
+        {
+          assertion = false;
+          message = "programs.quadlets.quadlets.\"${name}\": Must specify '${kind}'.";
+        }
+      ) badUnits;
+
+      allQuadletsDir = pkgs.linkFarm "quadlets-src" (
+        mapAttrs (qName: qVal: pkgs.writeText qName (toSystemdUnit qVal)) finalConfig
+      );
+
+      # Phase 2 & 3 - Generating using `pkgs.runCommand` and verification of list
+      generatedUnits = pkgs.runCommand "quadlet-units" { } ''
+        mkdir -p $out
+        QUADLET_UNIT_DIRS=${allQuadletsDir} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
+
+        (
+          cd $out
+          for file in $(find . -type f | sed 's|^\./||'); do
+            substituteInPlace "$file" \
+              --replace-quiet ${allQuadletsDir}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
+              --replace-quiet \\x20 " "
+            ${optionalString cfg.stripSourcePath ''
+              sed -i '/^SourcePath=/d' "$file"
+            ''}
+          done
+        )
+
+        expected=${escapeShellArg (concatStringsSep "\n" allUnitFiles)}
+        while IFS= read -r f; do
+          if ! grep -qxF -- "$f" <<< "$expected"; then
+            echo "[quadlet-generator] unexpected generator output: $f" >&2
+            exit 1
+          fi
+        done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
+      '';
     in
     {
-      xdg.configFile = listToAttrs (
-        concatLists (
-          mapAttrsToList (
-            qName: pkg:
-            map (
-              unitFile:
-              nameValuePair "systemd/user/${unitFile}" {
-                source = "${pkg}/${unitFile}";
-              }
-            ) (expectedUnitFiles qName)
-          ) generatedQuadlets
-        )
-      );
+      programs.quadlets.preprocessors = builtInPreprocessors;
+
+      inherit assertions;
+
+      # Phase 3: Final linking
+      xdg.configFile = genAttrs (map (f: "systemd/user/${f}") allUnitFiles) (f: {
+        source = "${generatedUnits}/${removePrefix "systemd/user/" f}";
+      });
     }
   );
 }
