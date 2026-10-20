@@ -281,10 +281,12 @@ rec {
               ipv4 = {
                 subnet = "10.20.0.0/24";
                 gateway = "10.20.0.1";
+                wireguardIp = "10.20.0.2";
               };
               ipv6 = {
                 subnet = "fdd6:61c:2978:8100::/64";
                 gateway = "fdd6:61c:2978:8100::1";
+                wireguardIp = "fdd6:61c:2978:8100::2";
               };
             };
           };
@@ -413,10 +415,12 @@ rec {
               ipv4 = {
                 subnet = "10.10.0.0/24";
                 gateway = "10.10.0.1";
+                wireguardIp = "10.10.0.2";
               };
               ipv6 = {
                 subnet = "fdd6:61c:2978:8000::/64";
                 gateway = "fdd6:61c:2978:8000::1";
+                wireguardIp = "fdd6:61c:2978:8000::2";
               };
             };
           };

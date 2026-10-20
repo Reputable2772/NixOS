@@ -2,11 +2,18 @@
   config,
   config',
   lib,
+  pkgs,
   ...
 }:
 let
   inherit (lib.strings) concatMapAttrsStringSep toUpper;
-  inherit (lib.attrsets) mapAttrs' mapAttrsToList nameValuePair;
+  inherit (lib.attrsets)
+    mapAttrs'
+    mapAttrsToList
+    nameValuePair
+    recursiveUpdate
+    ;
+  inherit (lib.lists) elem optionals;
 
   wg = config'.containers.wireguard;
   peers = wg.peers;
@@ -89,47 +96,95 @@ in
     ${peersConfig}
   '';
 
-  programs.quadlets.quadlets = {
-    "wireguard.container" = {
-      Container = {
-        ContainerName = "wireguard";
-        Image = "docker.io/procustodibus/wireguard";
-        AddCapability = [
-          "NET_ADMIN"
-          "NET_RAW"
-        ];
-        Sysctl = [
-          "net.ipv4.conf.all.forwarding=1"
-          "net.ipv6.conf.all.forwarding=1"
-        ];
-        Network = [
-          "wireguard.network"
-        ];
-        PublishPort = [
-          "${toString wg.listen.externalPort}:${toString wg.listen.port}/udp"
-        ];
-        Volume = [
-          "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard/wg0.conf:ro:noMap"
-        ];
-      };
-      Unit = {
-        Wants = [ "secretspec.service" ];
-        After = [ "secretspec.service" ];
-      };
+  programs.quadlets = {
+    preprocessors.wireguardRouting = {
+      order = 600;
+      apply =
+        _name: quadlet: options: utils:
+        let
+          cName = quadlet.Container.ContainerName or "";
+          nets = utils.convertToList (quadlet.Container.Network or null);
+          isOnWg = elem "wireguard.network" nets;
+          isTarget =
+            utils.isContainer && isOnWg && cName != "wireguard" && (options.wireguardRouting or true);
+
+          routeScript = pkgs.writeShellScript "${cName}-wg-routes" ''
+            for i in {1..5}; do
+              ${concatMapAttrsStringSep "\n" (_: peer: ''
+                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace ${peer.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
+                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace ${peer.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+              '') peers}
+              ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace 10.85.0.0/24 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
+              ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace fd85::/64 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+              exit 0
+            done
+            exit 0
+          '';
+
+          existingWants = utils.convertToList (quadlet.Unit.Wants or null);
+          existingAfter = utils.convertToList (quadlet.Unit.After or null);
+          existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
+        in
+        if !isTarget then
+          quadlet
+        else
+          recursiveUpdate quadlet {
+            Unit = {
+              Wants =
+                existingWants ++ optionals (!(elem "wireguard.service" existingWants)) [ "wireguard.service" ];
+              After =
+                existingAfter ++ optionals (!(elem "wireguard.service" existingAfter)) [ "wireguard.service" ];
+            };
+            Service = {
+              ExecStartPost = existingPost ++ [ "${routeScript}" ];
+            };
+          };
     };
-    "wireguard.network" = {
-      Network = {
-        NetworkName = "wireguard";
-        IPv6 = true;
-        Gateway = [
-          wg.network.containers.ipv4.gateway
-          wg.network.containers.ipv6.gateway
-        ];
-        Subnet = [
-          wg.network.containers.ipv4.subnet
-          wg.network.containers.ipv6.subnet
-        ];
-        DNS = mapAttrsToList (_: peer: peer.network.containers.ipv4.gateway) peers;
+
+    quadlets = {
+      "wireguard.container" = {
+        Container = {
+          ContainerName = "wireguard";
+          Image = "docker.io/procustodibus/wireguard";
+          IP = wg.network.containers.ipv4.wireguardIp;
+          IP6 = wg.network.containers.ipv6.wireguardIp;
+          AddCapability = [
+            "NET_ADMIN"
+            "NET_RAW"
+          ];
+          Sysctl = [
+            "net.ipv4.conf.all.forwarding=1"
+            "net.ipv6.conf.all.forwarding=1"
+          ];
+          Network = [
+            "wireguard.network"
+          ];
+          PublishPort = [
+            "${toString wg.listen.externalPort}:${toString wg.listen.port}/udp"
+          ];
+          Volume = [
+            "${config.xdg.configHome}/wireguard/wg0.conf:/etc/wireguard/wg0.conf:ro:noMap"
+          ];
+        };
+        Unit = {
+          Wants = [ "secretspec.service" ];
+          After = [ "secretspec.service" ];
+        };
+      };
+      "wireguard.network" = {
+        Network = {
+          NetworkName = "wireguard";
+          IPv6 = true;
+          Gateway = [
+            wg.network.containers.ipv4.gateway
+            wg.network.containers.ipv6.gateway
+          ];
+          Subnet = [
+            wg.network.containers.ipv4.subnet
+            wg.network.containers.ipv6.subnet
+          ];
+          DNS = mapAttrsToList (_: peer: peer.network.containers.ipv4.gateway) peers;
+        };
       };
     };
   };
