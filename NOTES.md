@@ -11,6 +11,8 @@ When setting up the system for the first time, there are some procedures to foll
 - **QT Theming**: Icons & Application themes must be manually setup in `qt5ct` & `qt6ct`. Kvantum & GTK are handled automatically.
 - Calibre, KeePassXC theme also needs to be setup manually.
 
+---
+
 ## CI & Updates
 Cachix: `spearman4157`
 
@@ -25,6 +27,31 @@ Both build.yaml & update.yaml rely on [nix.sh](./nix.sh) for obtaining their tru
 `nix.sh` itself relies on a strict structure in [`System/Common/Misc/nix.nix`](System/Common/Misc/nix.nix).
 1. All the properties required (trusted-substituters, etc.) must be defined in the above file only.
 2. It must be a nix list, with only newlines in between elements. No comments are allowed between list elements.
+
+---
+## Selfhosted Services
+All containers are run on Podman Rootless. However, inside the container, the services are run as root with UID & GID 0. This is to prevent permission conflicts outside the container.
+
+Each host that has a selfhosted service, must also host a
+`wireguard` & `docker-socket-proxy` container, along with a `caddy` network.
+
+The entrypoint for the entire system is through the `astra-1` host.
+The caddy on that system
+
+WireGuard Network Addressing Convention:
+  - Tunnel IP: 10.85.0.<id> (IPv6: fd85::<id>)
+  - Local Podman Subnet: 10.<id * 10>.0.0/24 (IPv6: fdd6:61c:2978:<8000 + (id - 1) * 100>::/64)
+  - Local Podman Gateway: 10.<id * 10>.0.1 (IPv6: ...::1)
+Astra-1: Caddy - 10.10.0.0/24, fdd6:61c:2978:8000::/64, 10.85.0.1, fd85::1
+Lenovo: Caddy - 10.20.0.0/24, fdd6:61c:2978:8100::/64, 10.85.0.2, fd85::2
+
+For each wireguard container in the wireguard mesh, they must obey the following:
+  - WIREGUARD_PRIVATE_KEY
+  - WIREGUARD_PEER_<SERVER>_PUBLIC_KEY
+  - Peers definition in [Config/config.nix](Config/config.nix) (For e.g., check out users.wickedwizard.containers.wireguard)
+  - Fixed IP addresses, subnets, gateways, routes, DNS servers must be used in the quadlet (details given above)
+
+The server may skimp on some of these rules, if necessary.
 
 ---
 
