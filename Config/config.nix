@@ -267,9 +267,30 @@ rec {
           env = null;
           custom.booksDir = dir.books;
         };
+        # Check Notes.md
         wireguard = {
           dir = null;
           env = null;
+
+          network = {
+            tunnel = {
+              ipv4 = "10.85.0.2";
+              ipv6 = "fd85::2";
+            };
+            containers = {
+              ipv4 = {
+                subnet = "10.20.0.0/24";
+                gateway = "10.20.0.1";
+              };
+              ipv6 = {
+                subnet = "fdd6:61c:2978:8100::/64";
+                gateway = "fdd6:61c:2978:8100::1";
+              };
+            };
+          };
+
+          # Reference to the central WireGuard server node
+          server = astra-1.containers.wireguard;
         };
       };
     };
@@ -371,9 +392,38 @@ rec {
           dir = null;
           env = null;
         };
+        # Check notes.md
         wireguard = {
           dir = null;
           env = null;
+
+          isServer = true;
+          listen = {
+            port = 51820;
+            externalPort = 51235;
+            endpoint = "astra-1.@BASE_DOMAIN@:51235";
+          };
+
+          network = {
+            tunnel = {
+              ipv4 = "10.85.0.1";
+              ipv6 = "fd85::1";
+            };
+            containers = {
+              ipv4 = {
+                subnet = "10.10.0.0/24";
+                gateway = "10.10.0.1";
+              };
+              ipv6 = {
+                subnet = "fdd6:61c:2978:8000::/64";
+                gateway = "fdd6:61c:2978:8000::1";
+              };
+            };
+          };
+          # Reference to all peers that connect here.
+          peers = {
+            wickedwizard = wickedwizard.containers.wireguard;
+          };
         };
       };
     };

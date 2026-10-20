@@ -16,7 +16,10 @@
   programs.quadlets.quadlets."syncthing.container" = {
     Container = {
       ContainerName = "syncthing";
-      Network = "caddy.network";
+      Network = [
+        "caddy.network"
+        "wireguard.network"
+      ];
       Image = "ghcr.io/linuxserver/syncthing:latest";
       PublishPort = [
         "22000:22000/tcp"
