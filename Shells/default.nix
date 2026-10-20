@@ -15,6 +15,7 @@
       config.formatter
       nixfmt
       nix-diff
+      age
     ];
 
     startup.pre-commit.text = config.pre-commit.installationScript;
