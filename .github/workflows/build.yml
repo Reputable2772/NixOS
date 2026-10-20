@@ -2,8 +2,6 @@ name: "Flake Build"
 
 on:
   push:
-    branches:
-      master
 
 jobs:
   build-system:
@@ -15,37 +13,37 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-    - name: "Checkout"
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Free Disk Space
-      uses: insightsengineering/disk-space-reclaimer@v1
-      with:
-        swap-storage: false
+      - name: Free Disk Space
+        uses: insightsengineering/disk-space-reclaimer@v1
+        with:
+          swap-storage: false
 
-    - name: Substituters
-      id: substituters
-      run: |
-        echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
-        echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
+      - name: Substituters
+        id: substituters
+        run: |
+          echo "TRUSTED_PUBLIC_KEYS=$(./nix.sh ci_get trusted-public-keys)" >> "$GITHUB_OUTPUT"
+          echo "SUBSTITUTERS=$(./nix.sh ci_get trusted-substituters)" >> "$GITHUB_OUTPUT"
 
-    - uses: samueldr/lix-gha-installer-action@latest
-      name: "Install Lix"
-      with:
-        extra_nix_config: |
-          trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
-          substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
-          experimental-features = flakes nix-command pipe-operator
-          accept-flake-config = true
+      - uses: samueldr/lix-gha-installer-action@latest
+        name: "Install Lix"
+        with:
+          extra_nix_config: |
+            trusted-public-keys = ${{ steps.substituters.outputs.TRUSTED_PUBLIC_KEYS }}
+            substituters = ${{ steps.substituters.outputs.SUBSTITUTERS }}
+            experimental-features = flakes nix-command pipe-operator
+            accept-flake-config = true
 
-    - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
 
-    - name: Build & push all outputs
-      env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      run: |
-        nix develop .#ci --command bash -c "nix-build-all --systems $(uname -m)-linux --override-input flake . --out-link flake --cachix-cache spearman4157"
-        nix build .#packages.$(uname -m)-linux.deploy
-        cat result
+      - name: Build & push all outputs
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          nix develop .#ci --command bash -c "nix-build-all --systems $(uname -m)-linux --override-input flake . --out-link flake --cachix-cache spearman4157"
+          nix build .#packages.$(uname -m)-linux.deploy
+          cat result
