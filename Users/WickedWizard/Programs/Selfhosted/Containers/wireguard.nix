@@ -15,13 +15,16 @@ let
   mkRouteScript =
     cName:
     pkgs.writeShellScript "${cName}-wg-routes" ''
-      for i in {1..5}; do
-        if ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace ${server.network.ipv4.subnet} via ${wg.network.ipv4.ip} 2>/dev/null; then
-          ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace ${server.network.ipv6.subnet} via ${wg.network.ipv6.ip} 2>/dev/null || true
-          exit 0
-        fi
-        sleep 1
-      done
+      PID=$(${pkgs.podman}/bin/podman inspect ${cName} --format '{{.State.Pid}}' 2>/dev/null || true)
+      if [ -n "$PID" ] && [ "$PID" -gt 0 ] 2>/dev/null; then
+        for i in {1..5}; do
+          if ${pkgs.util-linux}/bin/nsenter -t $PID -U -n --preserve-credentials ${pkgs.iproute2}/bin/ip route replace ${server.network.ipv4.subnet} via ${wg.network.ipv4.ip} 2>/dev/null; then
+            ${pkgs.util-linux}/bin/nsenter -t $PID -U -n --preserve-credentials ${pkgs.iproute2}/bin/ip -6 route replace ${server.network.ipv6.subnet} via ${wg.network.ipv6.ip} 2>/dev/null || true
+            exit 0
+          fi
+          sleep 1
+        done
+      fi
       exit 0
     '';
 in
