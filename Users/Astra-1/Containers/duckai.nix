@@ -20,7 +20,11 @@
   };
 
   programs.quadlets.quadlets."duckai-image.build".Build = {
-    ImageTag = "localhost/duckai";
+    ImageTag = "ghcr.io/reputable2722/duckai:latest";
+    PodmanArgs = [
+      "--layers"
+      "--cache-from=ghcr.io/reputable2722/duckai"
+    ];
     SetWorkingDirectory = sources.duckai.src;
   };
 }

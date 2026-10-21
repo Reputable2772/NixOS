@@ -250,7 +250,11 @@ in
     };
 
     programs.quadlets.quadlets."caddy-image.build".Build = {
-      ImageTag = "localhost/caddy";
+      ImageTag = "ghcr.io/reputable2722/caddy:latest";
+      PodmanArgs = [
+        "--layers"
+        "--cache-from=ghcr.io/reputable2722/caddy"
+      ];
       File = pkgs.writeText "caddy-containerfile" ''
         FROM docker.io/caddy:builder AS builder
 
