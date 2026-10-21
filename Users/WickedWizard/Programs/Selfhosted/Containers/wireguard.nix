@@ -7,10 +7,27 @@
 }:
 let
   inherit (lib.attrsets) recursiveUpdate;
-  inherit (lib.lists) elem optionals;
+  inherit (lib.lists) elem;
 
   wg = config'.containers.wireguard;
   server = wg.server;
+
+  mkRouteScript =
+    name: cmdPrefix:
+    pkgs.writeShellScript name ''
+      for i in {1..5}; do
+        if ${cmdPrefix} ip route replace ${server.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null; then
+          ${cmdPrefix} ip route replace ${server.network.tunnel.ipv4}/32 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
+          ${cmdPrefix} ip -6 route replace ${server.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+          ${cmdPrefix} ip -6 route replace ${server.network.tunnel.ipv6}/128 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+          exit 0
+        fi
+        sleep 1
+      done
+      exit 0
+    '';
+
+  netnsRouteScript = mkRouteScript "wireguard-netns-routes" "${pkgs.podman}/bin/podman unshare --rootless-netns";
 in
 {
   secretspec.config.profiles.wickedwizard = {
@@ -73,33 +90,14 @@ in
           isTarget =
             utils.isContainer && isOnWg && cName != "wireguard" && (options.wireguardRouting or true);
 
-          routeScript = pkgs.writeShellScript "${cName}-wg-routes" ''
-            for i in {1..5}; do
-              if ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace ${server.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null; then
-                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace 10.85.0.0/24 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
-                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace ${server.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
-                ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace fd85::/64 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
-                exit 0
-              fi
-              sleep 1
-            done
-            exit 0
-          '';
+          routeScript = mkRouteScript "${cName}-wg-routes" "${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName}";
 
-          existingWants = utils.convertToList (quadlet.Unit.Wants or null);
-          existingAfter = utils.convertToList (quadlet.Unit.After or null);
           existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
         in
         if !isTarget then
           quadlet
         else
           recursiveUpdate quadlet {
-            Unit = {
-              Wants =
-                existingWants ++ optionals (!(elem "wireguard.service" existingWants)) [ "wireguard.service" ];
-              After =
-                existingAfter ++ optionals (!(elem "wireguard.service" existingAfter)) [ "wireguard.service" ];
-            };
             Service = {
               ExecStartPost = existingPost ++ [ "${routeScript}" ];
             };
@@ -111,6 +109,10 @@ in
         Container = {
           ContainerName = "wireguard";
           Image = "docker.io/procustodibus/wireguard";
+          DNS = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
           IP = wg.network.containers.ipv4.wireguardIp;
           IP6 = wg.network.containers.ipv6.wireguardIp;
           AddCapability = [
@@ -132,12 +134,16 @@ in
           Wants = [ "secretspec.service" ];
           After = [ "secretspec.service" ];
         };
+        Service = {
+          ExecStartPost = [
+            "${netnsRouteScript}"
+          ];
+        };
       };
       "wireguard.network" = {
         Network = {
           NetworkName = "wireguard";
           IPv6 = true;
-          DisableDNS = true;
           Gateway = [
             wg.network.containers.ipv4.gateway
             wg.network.containers.ipv6.gateway
@@ -145,6 +151,11 @@ in
           Subnet = [
             wg.network.containers.ipv4.subnet
             wg.network.containers.ipv6.subnet
+          ];
+          DNS = [
+            server.network.containers.ipv4.gateway
+            "1.1.1.1"
+            "8.8.8.8"
           ];
         };
       };
