@@ -204,20 +204,20 @@ in
       "caddy.socket"
     ];
 
-    systemd.user.sockets.caddy = {
-      Socket = {
-        BindIPv6Only = "both";
-        # fdgram/3
-        ListenDatagram = [ "[::]:443" ];
-        ListenStream = [
-          # fd/4
-          "[::]:80"
-          # fd/5
-          "[::]:443"
-        ];
-      };
-      Install.WantedBy = [ "sockets.target" ];
-    };
+    # systemd.user.sockets.caddy = {
+    #   Socket = {
+    #     BindIPv6Only = "both";
+    #     # fdgram/3
+    #     ListenDatagram = [ "[::]:443" ];
+    #     ListenStream = [
+    #       # fd/4
+    #       "[::]:80"
+    #       # fd/5
+    #       "[::]:443"
+    #     ];
+    #   };
+    #   Install.WantedBy = [ "sockets.target" ];
+    # };
 
     containers.crowdsec = {
       bouncers."caddy.yaml" = {
@@ -231,40 +231,40 @@ in
       ];
     };
 
-    programs.quadlets.quadlets."caddy.container" = {
-      Container = {
-        ContainerName = "caddy";
-        Network = "caddy.network";
-        EnvironmentFile = config.secretspec.secrets.scopes.caddy.path;
-        Image = "caddy-image.build";
-        Volume = [
-          "${caddyFile}:/etc/caddy/Caddyfile:noMap"
-          "config:/config"
-          "data:/data"
-          "crowdsec-logs.volume:/logs"
-        ];
-        # Can't get WUD to watch the Docker Registry
-        # for caddy itself. Therefore, we'll turn it off for onw.
-        Label = [ "wud.watch=false" ];
-      };
-    };
+    # programs.quadlets.quadlets."caddy.container" = {
+    #   Container = {
+    #     ContainerName = "caddy";
+    #     Network = "caddy.network";
+    #     EnvironmentFile = config.secretspec.secrets.scopes.caddy.path;
+    #     Image = "caddy-image.build";
+    #     Volume = [
+    #       "${caddyFile}:/etc/caddy/Caddyfile:noMap"
+    #       "config:/config"
+    #       "data:/data"
+    #       "crowdsec-logs.volume:/logs"
+    #     ];
+    #     # Can't get WUD to watch the Docker Registry
+    #     # for caddy itself. Therefore, we'll turn it off for onw.
+    #     Label = [ "wud.watch=false" ];
+    #   };
+    # };
 
-    programs.quadlets.quadlets."caddy-image.build".Build = {
-      ImageTag = "localhost/caddy";
-      File = pkgs.writeText "caddy-containerfile" ''
-        FROM docker.io/caddy:builder AS builder
+    # programs.quadlets.quadlets."caddy-image.build".Build = {
+    #   ImageTag = "localhost/caddy";
+    #   File = pkgs.writeText "caddy-containerfile" ''
+    #     FROM docker.io/caddy:builder AS builder
 
-        RUN xcaddy build \
-          --with github.com/caddy-dns/desec \
-          --with github.com/caddyserver/transform-encoder \
-          --with github.com/hslatman/caddy-crowdsec-bouncer/http@main \
-          --with github.com/hslatman/caddy-crowdsec-bouncer/appsec@main \
-          --with github.com/hslatman/caddy-crowdsec-bouncer/layer4@main
+    #     RUN xcaddy build \
+    #       --with github.com/caddy-dns/desec \
+    #       --with github.com/caddyserver/transform-encoder \
+    #       --with github.com/hslatman/caddy-crowdsec-bouncer/http@main \
+    #       --with github.com/hslatman/caddy-crowdsec-bouncer/appsec@main \
+    #       --with github.com/hslatman/caddy-crowdsec-bouncer/layer4@main
 
-        FROM docker.io/caddy:latest
+    #     FROM docker.io/caddy:latest
 
-        COPY --from=builder /usr/bin/caddy /usr/bin/caddy
-      '';
-    };
+    #     COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+    #   '';
+    # };
   };
 }

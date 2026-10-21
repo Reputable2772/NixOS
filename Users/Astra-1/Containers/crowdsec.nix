@@ -50,40 +50,40 @@ in
       https://github.com/crowdsecurity/crowdsec/tree/master/config
     */
 
-    programs.quadlets.quadlets."crowdsec.container" = {
-      Container = {
-        ContainerName = "crowdsec";
-        Image = "docker.io/crowdsecurity/crowdsec:latest-debian";
-        PublishPort = [ "127.0.0.1:8008:8080" ];
-        Network = "caddy.network";
-        Environment = [
-          "GID=0"
-          "UID=0"
-          "COLLECTIONS=\"crowdsecurity/linux crowdsecurity/iptables ${lib.concatStringsSep " " cfg.collections}\""
-        ];
-        /**
-          This is because, in podman rootless, mounting /var/log/journal
-          means that the container user can only read host user logs, not
-          host system logs, even though the host user can read host system
-          logs.
+    # programs.quadlets.quadlets."crowdsec.container" = {
+    #   Container = {
+    #     ContainerName = "crowdsec";
+    #     Image = "docker.io/crowdsecurity/crowdsec:latest-debian";
+    #     PublishPort = [ "127.0.0.1:8008:8080" ];
+    #     Network = "caddy.network";
+    #     Environment = [
+    #       "GID=0"
+    #       "UID=0"
+    #       "COLLECTIONS=\"crowdsecurity/linux crowdsecurity/iptables ${lib.concatStringsSep " " cfg.collections}\""
+    #     ];
+    #     /**
+    #       This is because, in podman rootless, mounting /var/log/journal
+    #       means that the container user can only read host user logs, not
+    #       host system logs, even though the host user can read host system
+    #       logs.
 
-          Solution found here:
-          https://github.com/podman-container-tools/podman/discussions/26693
-        */
-        GroupAdd = "keep-groups";
-        Volume = [
-          "${yaml.generate "journald.yaml" journaldConfig}:/etc/crowdsec/acquis.d/journald.yaml:noMap"
-          "/var/log/journal:/var/log/host:ro:noMap"
-          # This mount is meant for multiple containers to use and feed to this container.
-          "crowdsec-logs.volume:/logs"
-          "data:/var/lib/crowdsec/data"
-          "config:/etc/crowdsec"
-        ]
-        ++ (lib.mapAttrsToList (
-          fname: val: "${yaml.generate fname val}:/etc/crowdsec/acquis.d/${fname}:noMap"
-        ) cfg.bouncers);
-      };
-    };
+    #       Solution found here:
+    #       https://github.com/podman-container-tools/podman/discussions/26693
+    #     */
+    #     GroupAdd = "keep-groups";
+    #     Volume = [
+    #       "${yaml.generate "journald.yaml" journaldConfig}:/etc/crowdsec/acquis.d/journald.yaml:noMap"
+    #       "/var/log/journal:/var/log/host:ro:noMap"
+    #       # This mount is meant for multiple containers to use and feed to this container.
+    #       "crowdsec-logs.volume:/logs"
+    #       "data:/var/lib/crowdsec/data"
+    #       "config:/etc/crowdsec"
+    #     ]
+    #     ++ (lib.mapAttrsToList (
+    #       fname: val: "${yaml.generate fname val}:/etc/crowdsec/acquis.d/${fname}:noMap"
+    #     ) cfg.bouncers);
+    #   };
+    # };
 
     programs.quadlets.quadlets."crowdsec-logs.volume".Volume.VolumeName = "crowdsec-logs";
   };
