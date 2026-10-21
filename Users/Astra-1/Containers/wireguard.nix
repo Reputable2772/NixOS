@@ -13,7 +13,7 @@ let
     nameValuePair
     recursiveUpdate
     ;
-  inherit (lib.lists) elem;
+  inherit (lib.lists) concatLists elem;
 
   wg = config'.containers.wireguard;
   peers = wg.peers;
@@ -186,10 +186,17 @@ in
             wg.network.containers.ipv4.subnet
             wg.network.containers.ipv6.subnet
           ];
-          DNS = (mapAttrsToList (_: peer: peer.network.containers.ipv4.gateway) peers) ++ [
-            "1.1.1.1"
-            "8.8.8.8"
-          ];
+          DNS =
+            (concatLists (
+              mapAttrsToList (_: peer: [
+                peer.network.containers.ipv6.gateway
+                peer.network.containers.ipv4.gateway
+              ]) peers
+            ))
+            ++ [
+              "1.1.1.1"
+              "8.8.8.8"
+            ];
         };
       };
     };
