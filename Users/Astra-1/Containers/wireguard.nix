@@ -9,6 +9,7 @@ let
   inherit (lib.strings) concatMapAttrsStringSep toUpper;
   inherit (lib.attrsets)
     mapAttrs'
+    mapAttrsToList
     nameValuePair
     recursiveUpdate
     ;
@@ -65,30 +66,28 @@ let
     '';
 
   corefile = pkgs.writeText "coredns-corefile" ''
-    # Zone for Lenovo peer domain and Lenovo peer short names
-    lenovo:53 syncthing:53 {
-        log
-        errors
-        rewrite stop {
-            name regex ^(.*)\.lenovo\.$ {1}.
-            answer name ^(.*)\.$ {1}.lenovo.
-        }
-        forward . ${
-          concatMapAttrsStringSep " " (
-            _: peer: "${peer.network.ipv4.gateway}:53 [${peer.network.ipv6.gateway}]:53"
-          ) peers
-        }
-        cache 30
-        loop
-    }
+    ${concatMapAttrsStringSep "\n" (_: peer: ''
+      # Zone for ${peer.network.domain} peer domain
+      ${peer.network.domain}:53 {
+          log
+          errors
+          rewrite stop {
+              name regex ^(.*)\.${peer.network.domain}\.$ {1}.
+              answer name ^(.*)\.$ {1}.${peer.network.domain}.
+          }
+          forward . ${peer.network.ipv4.gateway}:53 [${peer.network.ipv6.gateway}]:53
+          cache 30
+          loop
+      }
+    '') peers}
 
-    # Zone for Astra local domain and Astra short names (when queried from across the tunnel)
-    astra:53 n8n:53 {
+    # Zone for local ${wg.network.domain} domain
+    ${wg.network.domain}:53 {
         log
         errors
         rewrite stop {
-            name regex ^(.*)\.astra\.$ {1}.
-            answer name ^(.*)\.$ {1}.astra.
+            name regex ^(.*)\.${wg.network.domain}\.$ {1}.
+            answer name ^(.*)\.$ {1}.${wg.network.domain}.
         }
         forward . ${wg.network.ipv4.gateway}:53 [${wg.network.ipv6.gateway}]:53
         cache 30
@@ -153,16 +152,14 @@ in
 
           existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
           existingSearch = utils.convertToList (quadlet.Container.DNSSearch or null);
+          peerDomains = mapAttrsToList (_: peer: peer.network.domain) peers;
         in
         if !isTarget then
           quadlet
         else
           recursiveUpdate quadlet {
             Container = {
-              DNSSearch = existingSearch ++ [
-                "dns.podman"
-                "lenovo"
-              ];
+              DNSSearch = existingSearch ++ [ "dns.podman" ] ++ peerDomains;
             };
             Service = {
               ExecStartPost = existingPost ++ [ "${routeScript}" ];

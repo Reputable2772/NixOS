@@ -93,7 +93,7 @@ in
             Container = {
               DNSSearch = existingSearch ++ [
                 "dns.podman"
-                "astra"
+                server.network.domain
               ];
             };
             Service = {
