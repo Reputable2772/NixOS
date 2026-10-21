@@ -236,7 +236,7 @@ in
         ContainerName = "caddy";
         Network = "caddy.network";
         EnvironmentFile = config.secretspec.secrets.scopes.caddy.path;
-        Image = "caddy-image.build";
+        Image = "ghcr.io/reputable2772/caddy:latest";
         Volume = [
           "${caddyFile}:/etc/caddy/Caddyfile:noMap"
           "config:/config"

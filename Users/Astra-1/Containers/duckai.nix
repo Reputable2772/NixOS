@@ -10,7 +10,7 @@
     __options.networkNameAlias = false;
     Container = {
       ContainerName = "duckai";
-      Image = "duckai-image.build";
+      Image = "ghcr.io/reputable2772/duckai:latest";
       Network = "caddy.network";
       Environment = [
         "PORT=3000"
