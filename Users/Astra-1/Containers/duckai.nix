@@ -6,21 +6,25 @@
     src.git = "https://github.com/jairo-litman/duckai.git";
   };
 
-  # programs.quadlets.quadlets."duckai.container" = {
-  #   __options.networkNameAlias = false;
-  #   Container = {
-  #     ContainerName = "duckai";
-  #     Image = "duckai-image.build";
-  #     Network = "caddy.network";
-  #     Environment = [
-  #       "PORT=3000"
-  #       "HOST=0.0.0.0"
-  #     ];
-  #   };
-  # };
+  programs.quadlets.quadlets."duckai.container" = {
+    __options.networkNameAlias = false;
+    Container = {
+      ContainerName = "duckai";
+      Image = "ghcr.io/reputable2772/duckai:latest";
+      Network = "caddy.network";
+      Environment = [
+        "PORT=3000"
+        "HOST=0.0.0.0"
+      ];
+    };
+  };
 
-  # programs.quadlets.quadlets."duckai-image.build".Build = {
-  #   ImageTag = "localhost/duckai";
-  #   SetWorkingDirectory = sources.duckai.src;
-  # };
+  programs.quadlets.quadlets."duckai-image.build".Build = {
+    ImageTag = "ghcr.io/reputable2772/duckai:latest";
+    PodmanArgs = [
+      "--layers"
+      "--cache-from=ghcr.io/reputable2772/duckai"
+    ];
+    SetWorkingDirectory = sources.duckai.src;
+  };
 }
