@@ -58,7 +58,6 @@ jobs:
           echo "$REGISTRY_AUTH" | podman login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: Build & push container images
-        if: github.ref == 'refs/heads/main'
         run: |
           nix build .#packages.$(uname -m)-linux.container-builds --out-link container-builds.json
           jq -c 'to_entries[]' container-builds.json | while read -r entry; do
