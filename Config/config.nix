@@ -123,7 +123,7 @@ rec {
       };
       git = {
         # The username and email to set for Git.
-        username = "Reputable2722";
+        username = "Reputable2772";
         email = "153411261+Reputable2772@users.noreply.github.com";
         secrets = {
           inherit (secrets) authentication signing;
