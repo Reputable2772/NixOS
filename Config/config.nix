@@ -407,23 +407,24 @@ rec {
           };
 
           network = {
-            tunnel = {
-              ipv4 = "10.85.0.1";
-              ipv6 = "fd85::1";
+            domain = "astra";
+            ipv4 = {
+              subnet = "10.10.0.0/24";
+              gateway = "10.10.0.1";
+              ip = "10.10.0.2";
             };
-            containers = {
-              ipv4 = {
-                subnet = "10.10.0.0/24";
-                gateway = "10.10.0.1";
-                wireguardIp = "10.10.0.2";
-              };
-              ipv6 = {
-                subnet = "fdd6:61c:2978:8000::/64";
-                gateway = "fdd6:61c:2978:8000::1";
-                wireguardIp = "fdd6:61c:2978:8000::2";
-              };
+            ipv6 = {
+              subnet = "fd00:10::/64";
+              gateway = "fd00:10::1";
+              ip = "fd00:10::2";
             };
           };
+
+          dns = {
+            ip = "10.10.0.53";
+            ipv6 = "fd00:10::53";
+          };
+
           # Reference to all peers that connect here.
           peers = {
             wickedwizard = wickedwizard.containers.wireguard;
