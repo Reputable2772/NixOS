@@ -395,6 +395,25 @@ in
       description = "A list of all the systemd services that are used to control quadlets.";
       default = concatMapStringsSep " " unitNameConvertor ((attrNames cfg.quadlets) ++ cfg.extraServices);
     };
+
+    buildQuadlets = mkOption {
+      type = types.attrsOf types.attrs;
+      readOnly = true;
+      description = "Exposed map of all declared .build quadlets and their build specifications.";
+      default =
+        cfg.quadlets
+        |> filterAttrs (n: q: (hasSuffix ".build" n) || (q ? Build))
+        |> mapAttrs (
+          n: q: {
+            name = removeSuffix ".build" n;
+            unitName = n;
+            imageTag = q.Build.ImageTag or (removeSuffix ".build" n);
+            file = q.Build.File or null;
+            setWorkingDirectory = q.Build.SetWorkingDirectory or null;
+            raw = q.Build;
+          }
+        );
+    };
   };
 
   config = mkIf cfg.enable (

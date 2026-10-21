@@ -154,7 +154,7 @@
         }:
         let
           inherit (pkgs) lib;
-          inherit (lib.lists) foldl';
+          inherit (lib.lists) concatLists foldl';
           inherit (lib.attrsets)
             attrValues
             filterAttrs
@@ -192,6 +192,24 @@
                   )
                 );
               }
+            );
+
+            container-builds = pkgs.writeText "container-builds.json" (
+              let
+                allBuilds =
+                  currentSystems
+                  |> filterAttrs (n: _: n != "rescue")
+                  |> attrValues
+                  |> map (
+                    sys:
+                    sys.config.home-manager.users or { }
+                    |> attrValues
+                    |> map (u: u.programs.quadlets.buildQuadlets or { })
+                  )
+                  |> concatLists
+                  |> foldl' (acc: elem: acc // elem) { };
+              in
+              builtins.toJSON allBuilds
             );
 
             nvfetcher = pkgs.writers.writeTOML "nvfetcher.toml" (
