@@ -9,6 +9,7 @@ let
   inherit (lib.strings) concatMapAttrsStringSep toUpper;
   inherit (lib.attrsets)
     mapAttrs'
+    mapAttrsToList
     nameValuePair
     recursiveUpdate
     ;
@@ -74,9 +75,9 @@ let
         ${concatMapAttrsStringSep "\n" (_: peer: ''
           ${cmdPrefix} ip route replace ${peer.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
           ${cmdPrefix} ip -6 route replace ${peer.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+          ${cmdPrefix} ip route replace ${peer.network.tunnel.ipv4}/32 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
+          ${cmdPrefix} ip -6 route replace ${peer.network.tunnel.ipv6}/128 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
         '') peers}
-        ${cmdPrefix} ip route replace 10.85.0.0/24 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
-        ${cmdPrefix} ip -6 route replace fd85::/64 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
         exit 0
       done
       exit 0
@@ -184,6 +185,10 @@ in
           Subnet = [
             wg.network.containers.ipv4.subnet
             wg.network.containers.ipv6.subnet
+          ];
+          DNS = (mapAttrsToList (_: peer: peer.network.containers.ipv4.gateway) peers) ++ [
+            "1.1.1.1"
+            "8.8.8.8"
           ];
         };
       };
