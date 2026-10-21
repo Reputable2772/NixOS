@@ -3,6 +3,10 @@ name: "Flake Build"
 on:
   push:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-system:
     strategy:
@@ -43,9 +47,35 @@ jobs:
       - name: Build & push all outputs
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
         run: |
           nix develop .#ci --command bash -c "nix-build-all --systems $(uname -m)-linux --override-input flake . --out-link flake --cachix-cache spearman4157"
           nix build .#packages.$(uname -m)-linux.deploy --out-link deploy.json
+
+      - name: Log in to GitHub Container Registry
+        env:
+          REGISTRY_AUTH: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "$REGISTRY_AUTH" | podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Build & push container images
+        run: |
+          nix build .#packages.$(uname -m)-linux.container-builds --out-link container-builds.json
+          jq -c 'to_entries[]' container-builds.json | while read -r entry; do
+            tag=$(echo "$entry" | jq -r '.value.imageTag')
+            repo="${tag%:*}"
+            file=$(echo "$entry" | jq -r '.value.file // empty')
+            workdir=$(echo "$entry" | jq -r '.value.setWorkingDirectory // empty')
+            ctx="${workdir:-.}"
+            file_arg=()
+            if [ -n "$file" ]; then file_arg=("-f" "$file"); fi
+            podman build --layers --cache-to="$repo" --cache-from="$repo" -t "$tag" "${file_arg[@]}" "$ctx"
+            podman push "$tag"
+          done
+
+      - name: Activate Cachix deployment
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          CACHIX_ACTIVATE_TOKEN: ${{ secrets.CACHIX_ACTIVATE_TOKEN }}
+        run: |
           cat deploy.json
           nix develop .#ci --command cachix deploy activate deploy.json --async
