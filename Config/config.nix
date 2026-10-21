@@ -273,21 +273,16 @@ rec {
           env = null;
 
           network = {
-            tunnel = {
-              ipv4 = "10.85.0.2";
-              ipv6 = "fd85::2";
+            domain = "lenovo";
+            ipv4 = {
+              subnet = "10.20.0.0/24";
+              gateway = "10.20.0.1";
+              ip = "10.20.0.2";
             };
-            containers = {
-              ipv4 = {
-                subnet = "10.20.0.0/24";
-                gateway = "10.20.0.1";
-                wireguardIp = "10.20.0.2";
-              };
-              ipv6 = {
-                subnet = "fdd6:61c:2978:8100::/64";
-                gateway = "fdd6:61c:2978:8100::1";
-                wireguardIp = "fdd6:61c:2978:8100::2";
-              };
+            ipv6 = {
+              subnet = "fd00:20::/64";
+              gateway = "fd00:20::1";
+              ip = "fd00:20::2";
             };
           };
 

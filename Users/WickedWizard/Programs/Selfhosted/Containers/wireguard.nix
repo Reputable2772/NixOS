@@ -13,21 +13,17 @@ let
   server = wg.server;
 
   mkRouteScript =
-    name: cmdPrefix:
-    pkgs.writeShellScript name ''
+    cName:
+    pkgs.writeShellScript "${cName}-wg-routes" ''
       for i in {1..5}; do
-        if ${cmdPrefix} ip route replace ${server.network.containers.ipv4.subnet} via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null; then
-          ${cmdPrefix} ip route replace ${server.network.tunnel.ipv4}/32 via ${wg.network.containers.ipv4.wireguardIp} 2>/dev/null || true
-          ${cmdPrefix} ip -6 route replace ${server.network.containers.ipv6.subnet} via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
-          ${cmdPrefix} ip -6 route replace ${server.network.tunnel.ipv6}/128 via ${wg.network.containers.ipv6.wireguardIp} 2>/dev/null || true
+        if ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip route replace ${server.network.ipv4.subnet} via ${wg.network.ipv4.ip} 2>/dev/null; then
+          ${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName} ip -6 route replace ${server.network.ipv6.subnet} via ${wg.network.ipv6.ip} 2>/dev/null || true
           exit 0
         fi
         sleep 1
       done
       exit 0
     '';
-
-  netnsRouteScript = mkRouteScript "wireguard-netns-routes" "${pkgs.podman}/bin/podman unshare --rootless-netns";
 in
 {
   secretspec.config.profiles.wickedwizard = {
@@ -45,36 +41,31 @@ in
 
   xdg.configFile."wireguard/wg0.conf".text = ''
     [Interface]
-    Address = ${wg.network.tunnel.ipv4}/32, ${wg.network.tunnel.ipv6}/128
+    Address = ${wg.network.ipv4.ip}/32, ${wg.network.ipv6.ip}/128
     PrivateKey = @WIREGUARD_PRIVATE_KEY@
+
     # Forward traffic between WireGuard and client workloads (bidirectional).
-    PostUp = iptables -A FORWARD -i wg0 -d ${wg.network.containers.ipv4.subnet} -j ACCEPT
-    PostUp = iptables -A FORWARD -s ${wg.network.containers.ipv4.subnet} -o wg0 -j ACCEPT
-    PostUp = ip6tables -A FORWARD -i wg0 -d ${wg.network.containers.ipv6.subnet} -j ACCEPT
-    PostUp = ip6tables -A FORWARD -s ${wg.network.containers.ipv6.subnet} -o wg0 -j ACCEPT
+    PostUp = iptables -A FORWARD -i wg0 -d ${wg.network.ipv4.subnet} -j ACCEPT
+    PostUp = iptables -A FORWARD -s ${wg.network.ipv4.subnet} -o wg0 -j ACCEPT
+    PostUp = ip6tables -A FORWARD -i wg0 -d ${wg.network.ipv6.subnet} -j ACCEPT
+    PostUp = ip6tables -A FORWARD -s ${wg.network.ipv6.subnet} -o wg0 -j ACCEPT
 
-    # Masquerade traffic originating from server workloads.
-    PostUp = iptables -t nat -A POSTROUTING -s ${server.network.containers.ipv4.subnet} -d ${wg.network.containers.ipv4.subnet} -j MASQUERADE
-    PostUp = ip6tables -t nat -A POSTROUTING -s ${server.network.containers.ipv6.subnet} -d ${wg.network.containers.ipv6.subnet} -j MASQUERADE
+    # Masquerade all inbound WireGuard traffic forwarded to local workloads.
+    PostUp = iptables -t nat -A POSTROUTING -d ${wg.network.ipv4.subnet} -j MASQUERADE
+    PostUp = ip6tables -t nat -A POSTROUTING -d ${wg.network.ipv6.subnet} -j MASQUERADE
 
-    # Also handle traffic originating from the server's tunnel address.
-    PostUp = iptables -t nat -A POSTROUTING -s ${server.network.tunnel.ipv4}/32 -d ${wg.network.containers.ipv4.subnet} -j MASQUERADE
-    PostUp = ip6tables -t nat -A POSTROUTING -s ${server.network.tunnel.ipv6}/128 -d ${wg.network.containers.ipv6.subnet} -j MASQUERADE
+    PostDown = iptables -D FORWARD -i wg0 -d ${wg.network.ipv4.subnet} -j ACCEPT
+    PostDown = iptables -D FORWARD -s ${wg.network.ipv4.subnet} -o wg0 -j ACCEPT
+    PostDown = ip6tables -D FORWARD -i wg0 -d ${wg.network.ipv6.subnet} -j ACCEPT
+    PostDown = ip6tables -D FORWARD -s ${wg.network.ipv6.subnet} -o wg0 -j ACCEPT
 
-    PostDown = iptables -D FORWARD -i wg0 -d ${wg.network.containers.ipv4.subnet} -j ACCEPT
-    PostDown = iptables -D FORWARD -s ${wg.network.containers.ipv4.subnet} -o wg0 -j ACCEPT
-    PostDown = ip6tables -D FORWARD -i wg0 -d ${wg.network.containers.ipv6.subnet} -j ACCEPT
-    PostDown = ip6tables -D FORWARD -s ${wg.network.containers.ipv6.subnet} -o wg0 -j ACCEPT
-
-    PostDown = iptables -t nat -D POSTROUTING -s ${server.network.containers.ipv4.subnet} -d ${wg.network.containers.ipv4.subnet} -j MASQUERADE
-    PostDown = ip6tables -t nat -D POSTROUTING -s ${server.network.containers.ipv6.subnet} -d ${wg.network.containers.ipv6.subnet} -j MASQUERADE
-    PostDown = iptables -t nat -D POSTROUTING -s ${server.network.tunnel.ipv4}/32 -d ${wg.network.containers.ipv4.subnet} -j MASQUERADE
-    PostDown = ip6tables -t nat -D POSTROUTING -s ${server.network.tunnel.ipv6}/128 -d ${wg.network.containers.ipv6.subnet} -j MASQUERADE
+    PostDown = iptables -t nat -D POSTROUTING -d ${wg.network.ipv4.subnet} -j MASQUERADE
+    PostDown = ip6tables -t nat -D POSTROUTING -d ${wg.network.ipv6.subnet} -j MASQUERADE
 
     [Peer]
     PublicKey = @WIREGUARD_PEER_ASTRA_1_PUBLIC_KEY@
     Endpoint = ${server.listen.endpoint}
-    AllowedIPs = ${server.network.tunnel.ipv4}/32, ${server.network.tunnel.ipv6}/128, ${server.network.containers.ipv4.subnet}, ${server.network.containers.ipv6.subnet}
+    AllowedIPs = ${server.network.ipv4.subnet}, ${server.network.ipv6.subnet}
     PersistentKeepalive = 25
   '';
 
@@ -90,14 +81,21 @@ in
           isTarget =
             utils.isContainer && isOnWg && cName != "wireguard" && (options.wireguardRouting or true);
 
-          routeScript = mkRouteScript "${cName}-wg-routes" "${pkgs.podman}/bin/podman exec -u 0 --privileged ${cName}";
+          routeScript = mkRouteScript cName;
 
           existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
+          existingSearch = utils.convertToList (quadlet.Container.DNSSearch or null);
         in
         if !isTarget then
           quadlet
         else
           recursiveUpdate quadlet {
+            Container = {
+              DNSSearch = existingSearch ++ [
+                "dns.podman"
+                "astra"
+              ];
+            };
             Service = {
               ExecStartPost = existingPost ++ [ "${routeScript}" ];
             };
@@ -109,8 +107,8 @@ in
         Container = {
           ContainerName = "wireguard";
           Image = "docker.io/procustodibus/wireguard";
-          IP = wg.network.containers.ipv4.wireguardIp;
-          IP6 = wg.network.containers.ipv6.wireguardIp;
+          IP = wg.network.ipv4.ip;
+          IP6 = wg.network.ipv6.ip;
           AddCapability = [
             "NET_ADMIN"
             "NET_RAW"
@@ -130,29 +128,22 @@ in
           Wants = [ "secretspec.service" ];
           After = [ "secretspec.service" ];
         };
-        Service = {
-          ExecStartPost = [
-            "${netnsRouteScript}"
-          ];
-        };
       };
       "wireguard.network" = {
         Network = {
           NetworkName = "wireguard";
           IPv6 = true;
           Gateway = [
-            wg.network.containers.ipv4.gateway
-            wg.network.containers.ipv6.gateway
+            wg.network.ipv4.gateway
+            wg.network.ipv6.gateway
           ];
           Subnet = [
-            wg.network.containers.ipv4.subnet
-            wg.network.containers.ipv6.subnet
+            wg.network.ipv4.subnet
+            wg.network.ipv6.subnet
           ];
           DNS = [
-            server.network.containers.ipv6.gateway
-            server.network.containers.ipv4.gateway
-            "1.1.1.1"
-            "8.8.8.8"
+            server.dns.ipv6
+            server.dns.ip
           ];
         };
       };
