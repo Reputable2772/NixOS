@@ -27,6 +27,17 @@ let
       fi
       exit 0
     '';
+
+  netnsRouteScript = pkgs.writeShellScript "wireguard-netns-routes" ''
+    for i in {1..5}; do
+      if ${pkgs.podman}/bin/podman unshare --rootless-netns ${pkgs.iproute2}/bin/ip route replace ${server.network.ipv4.subnet} via ${wg.network.ipv4.ip} 2>/dev/null; then
+        ${pkgs.podman}/bin/podman unshare --rootless-netns ${pkgs.iproute2}/bin/ip -6 route replace ${server.network.ipv6.subnet} via ${wg.network.ipv6.ip} 2>/dev/null || true
+        exit 0
+      fi
+      sleep 1
+    done
+    exit 0
+  '';
 in
 {
   secretspec.config.profiles.wickedwizard = {
@@ -130,6 +141,11 @@ in
         Unit = {
           Wants = [ "secretspec.service" ];
           After = [ "secretspec.service" ];
+        };
+        Service = {
+          ExecStartPost = [
+            "${netnsRouteScript}"
+          ];
         };
       };
       "wireguard.network" = {

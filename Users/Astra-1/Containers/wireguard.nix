@@ -68,6 +68,17 @@ let
       exit 0
     '';
 
+  netnsRouteScript = pkgs.writeShellScript "wireguard-netns-routes" ''
+    for i in {1..5}; do
+      ${concatMapAttrsStringSep "\n" (_: peer: ''
+        ${pkgs.podman}/bin/podman unshare --rootless-netns ${pkgs.iproute2}/bin/ip route replace ${peer.network.ipv4.subnet} via ${wg.network.ipv4.ip} 2>/dev/null || true
+        ${pkgs.podman}/bin/podman unshare --rootless-netns ${pkgs.iproute2}/bin/ip -6 route replace ${peer.network.ipv6.subnet} via ${wg.network.ipv6.ip} 2>/dev/null || true
+      '') peers}
+      exit 0
+    done
+    exit 0
+  '';
+
   corefile = pkgs.writeText "coredns-corefile" ''
     ${concatMapAttrsStringSep "\n" (_: peer: ''
       # Zone for ${peer.network.domain} peer domain
@@ -218,6 +229,11 @@ in
         Unit = {
           Wants = [ "secretspec.service" ];
           After = [ "secretspec.service" ];
+        };
+        Service = {
+          ExecStartPost = [
+            "${netnsRouteScript}"
+          ];
         };
       };
       "wireguard.network" = {
