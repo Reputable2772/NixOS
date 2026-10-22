@@ -12,6 +12,10 @@ let
   wg = config'.containers.wireguard;
   server = wg.server;
 
+  # Empirically justified: Workloads on wireguard.network default to 10.20.0.1 (the local bridge).
+  # To route cross-host traffic to the peer subnet (10.10.0.0/24), workloads require a routing table
+  # entry pointing to the WireGuard container (10.20.0.2). nsenter injects this directly from the host,
+  # ensuring full compatibility even if the container is distroless/scratch.
   mkRouteScript =
     cName:
     pkgs.writeShellScript "${cName}-wg-routes" ''
@@ -28,6 +32,9 @@ let
       exit 0
     '';
 
+  # Empirically justified: Aardvark-dns runs inside the host rootless network namespace (outside any container).
+  # To forward DNS queries across the WireGuard tunnel to Astra-1's CoreDNS (10.10.0.53),
+  # the host rootless netns requires a route to 10.10.0.0/24 via the WireGuard container (10.20.0.2).
   netnsRouteScript = pkgs.writeShellScript "wireguard-netns-routes" ''
     for i in {1..5}; do
       if ${pkgs.podman}/bin/podman unshare --rootless-netns ${pkgs.iproute2}/bin/ip route replace ${server.network.ipv4.subnet} via ${wg.network.ipv4.ip} 2>/dev/null; then
@@ -58,24 +65,6 @@ in
     Address = ${wg.network.ipv4.ip}/32, ${wg.network.ipv6.ip}/128
     PrivateKey = @WIREGUARD_PRIVATE_KEY@
 
-    # Forward traffic between WireGuard and client workloads (bidirectional).
-    PostUp = iptables -A FORWARD -i wg0 -d ${wg.network.ipv4.subnet} -j ACCEPT
-    PostUp = iptables -A FORWARD -s ${wg.network.ipv4.subnet} -o wg0 -j ACCEPT
-    PostUp = ip6tables -A FORWARD -i wg0 -d ${wg.network.ipv6.subnet} -j ACCEPT
-    PostUp = ip6tables -A FORWARD -s ${wg.network.ipv6.subnet} -o wg0 -j ACCEPT
-
-    # Masquerade all inbound WireGuard traffic forwarded to local workloads.
-    PostUp = iptables -t nat -A POSTROUTING -d ${wg.network.ipv4.subnet} -j MASQUERADE
-    PostUp = ip6tables -t nat -A POSTROUTING -d ${wg.network.ipv6.subnet} -j MASQUERADE
-
-    PostDown = iptables -D FORWARD -i wg0 -d ${wg.network.ipv4.subnet} -j ACCEPT
-    PostDown = iptables -D FORWARD -s ${wg.network.ipv4.subnet} -o wg0 -j ACCEPT
-    PostDown = ip6tables -D FORWARD -i wg0 -d ${wg.network.ipv6.subnet} -j ACCEPT
-    PostDown = ip6tables -D FORWARD -s ${wg.network.ipv6.subnet} -o wg0 -j ACCEPT
-
-    PostDown = iptables -t nat -D POSTROUTING -d ${wg.network.ipv4.subnet} -j MASQUERADE
-    PostDown = ip6tables -t nat -D POSTROUTING -d ${wg.network.ipv6.subnet} -j MASQUERADE
-
     [Peer]
     PublicKey = @WIREGUARD_PEER_ASTRA_1_PUBLIC_KEY@
     Endpoint = ${server.listen.endpoint}
@@ -84,6 +73,8 @@ in
   '';
 
   programs.quadlets = {
+    # Empirically justified: Automatically hooks route injection into any container joining
+    # wireguard.network (except the WireGuard router itself) upon container startup.
     preprocessors.wireguardRouting = {
       order = 600;
       apply =
@@ -96,7 +87,6 @@ in
             utils.isContainer && isOnWg && cName != "wireguard" && (options.wireguardRouting or true);
 
           routeScript = mkRouteScript cName;
-
           existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
           existingSearch = utils.convertToList (quadlet.Container.DNSSearch or null);
         in
@@ -104,6 +94,8 @@ in
           quadlet
         else
           recursiveUpdate quadlet {
+            # Empirically justified: Allows containers to address peers using bare names (e.g. 'n8n')
+            # by automatically appending the remote search domain ('astra').
             Container = {
               DNSSearch = existingSearch ++ [
                 "dns.podman"
@@ -131,6 +123,10 @@ in
             "net.ipv4.conf.all.forwarding=1"
             "net.ipv6.conf.all.forwarding=1"
           ];
+          DNS = [
+            "1.1.1.1"
+            "9.9.9.9"
+          ];
           Network = [
             "wireguard.network"
           ];
@@ -142,6 +138,7 @@ in
           Wants = [ "secretspec.service" ];
           After = [ "secretspec.service" ];
         };
+        # Empirically justified: Ensures rootless netns routes are injected on WireGuard container start.
         Service = {
           ExecStartPost = [
             "${netnsRouteScript}"
@@ -160,6 +157,7 @@ in
             wg.network.ipv4.subnet
             wg.network.ipv6.subnet
           ];
+          # Empirically justified: Directs Aardvark to forward cross-host queries across WireGuard to Astra-1 CoreDNS.
           DNS = [
             server.dns.ipv6
             server.dns.ip

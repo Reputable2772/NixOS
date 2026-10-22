@@ -18,40 +18,9 @@ let
   wg = config'.containers.wireguard;
   peers = wg.peers;
 
-  # Forward traffic between WireGuard and containers on the Podman network (bidirectional).
-  forwardPostUp = ''
-    PostUp = iptables -A FORWARD -i wg0 -d ${wg.network.ipv4.subnet} -j ACCEPT
-    PostUp = iptables -A FORWARD -s ${wg.network.ipv4.subnet} -o wg0 -j ACCEPT
-    PostUp = ip6tables -A FORWARD -i wg0 -d ${wg.network.ipv6.subnet} -j ACCEPT
-    PostUp = ip6tables -A FORWARD -s ${wg.network.ipv6.subnet} -o wg0 -j ACCEPT
-  '';
-
-  forwardPostDown = ''
-    PostDown = iptables -D FORWARD -i wg0 -d ${wg.network.ipv4.subnet} -j ACCEPT
-    PostDown = iptables -D FORWARD -s ${wg.network.ipv4.subnet} -o wg0 -j ACCEPT
-    PostDown = ip6tables -D FORWARD -i wg0 -d ${wg.network.ipv6.subnet} -j ACCEPT
-    PostDown = ip6tables -D FORWARD -s ${wg.network.ipv6.subnet} -o wg0 -j ACCEPT
-  '';
-
-  peersConfig = concatMapAttrsStringSep "\n\n" (name: peer: ''
-    [Peer]
-    PublicKey = @WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY@
-    AllowedIPs = ${peer.network.ipv4.subnet}, ${peer.network.ipv6.subnet}
-  '') peers;
-
-  peerSecretDefs = mapAttrs' (
-    name: _:
-    nameValuePair "WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY" {
-      description = "WireGuard Public Key for ${name}";
-    }
-  ) peers;
-
-  peerSecretReplacements = mapAttrs' (
-    name: _:
-    nameValuePair "@WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY@"
-      config.secretspec.secrets.profiles.astra-1."WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY".plainPath
-  ) peers;
-
+  # Empirically justified: Workloads on wireguard.network default to 10.10.0.1.
+  # Workload-to-workload communication strictly requires symmetric return routes
+  # pointing to 10.10.0.2 for peer subnets, otherwise reply packets are dropped by the gateway.
   mkRouteScript =
     cName:
     pkgs.writeShellScript "${cName}-wg-routes" ''
@@ -68,6 +37,8 @@ let
       exit 0
     '';
 
+  # Empirically justified: Allows CoreDNS running on Astra-1 to forward queries for peer domains
+  # across the WireGuard tunnel to peer Aardvark resolvers.
   netnsRouteScript = pkgs.writeShellScript "wireguard-netns-routes" ''
     for i in {1..5}; do
       ${concatMapAttrsStringSep "\n" (_: peer: ''
@@ -79,6 +50,8 @@ let
     exit 0
   '';
 
+  # Empirically justified: Authoritative multi-zone forwarder to resolve cross-host container names
+  # without mutual reflection loops between isolated host Aardvark daemons.
   corefile = pkgs.writeText "coredns-corefile" ''
     ${concatMapAttrsStringSep "\n" (_: peer: ''
       # Zone for ${peer.network.domain} peer domain
@@ -117,6 +90,25 @@ let
         loop
     }
   '';
+
+  peersConfig = concatMapAttrsStringSep "\n\n" (name: peer: ''
+    [Peer]
+    PublicKey = @WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY@
+    AllowedIPs = ${peer.network.ipv4.subnet}, ${peer.network.ipv6.subnet}
+  '') peers;
+
+  peerSecretDefs = mapAttrs' (
+    name: _:
+    nameValuePair "WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY" {
+      description = "WireGuard Public Key for ${name}";
+    }
+  ) peers;
+
+  peerSecretReplacements = mapAttrs' (
+    name: _:
+    nameValuePair "@WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY@"
+      config.secretspec.secrets.profiles.astra-1."WIREGUARD_PEER_${toUpper name}_PUBLIC_KEY".plainPath
+  ) peers;
 in
 {
   secretspec.config.profiles.astra-1 = {
@@ -138,19 +130,12 @@ in
     ListenPort = ${toString wg.listen.port}
     PrivateKey = @WIREGUARD_PRIVATE_KEY@
 
-    ${forwardPostUp}
-    # Masquerade all inbound WireGuard traffic forwarded to local workloads.
-    PostUp = iptables -t nat -A POSTROUTING -d ${wg.network.ipv4.subnet} -j MASQUERADE
-    PostUp = ip6tables -t nat -A POSTROUTING -d ${wg.network.ipv6.subnet} -j MASQUERADE
-
-    ${forwardPostDown}
-    PostDown = iptables -t nat -D POSTROUTING -d ${wg.network.ipv4.subnet} -j MASQUERADE
-    PostDown = ip6tables -t nat -D POSTROUTING -d ${wg.network.ipv6.subnet} -j MASQUERADE
-
     ${peersConfig}
   '';
 
   programs.quadlets = {
+    # Empirically justified: Automatically hooks route injection and cross-host search domains
+    # into any container joining wireguard.network (except the WireGuard router itself).
     preprocessors.wireguardRouting = {
       order = 600;
       apply =
@@ -163,7 +148,6 @@ in
             utils.isContainer && isOnWg && cName != "wireguard" && (options.wireguardRouting or true);
 
           routeScript = mkRouteScript cName;
-
           existingPost = utils.convertToList (quadlet.Service.ExecStartPost or null);
           existingSearch = utils.convertToList (quadlet.Container.DNSSearch or null);
           peerDomains = mapAttrsToList (_: peer: peer.network.domain) peers;
@@ -182,6 +166,8 @@ in
     };
 
     quadlets = {
+      # Empirically justified: Authoritative CoreDNS forwarder providing non-overlapping zone
+      # routing between Astra-1 and Lenovo containers without reflection loops.
       "coredns.container" = {
         Container = {
           ContainerName = "coredns";
