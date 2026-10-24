@@ -157,10 +157,13 @@ in
             wg.network.ipv4.subnet
             wg.network.ipv6.subnet
           ];
-          # Empirically justified: Directs Aardvark to forward cross-host queries across WireGuard to Astra-1 CoreDNS.
+          # Empirically justified: Directs Aardvark to forward cross-host queries across WireGuard to Astra-1 CoreDNS,
+          # with public DNS fallback (1.1.1.1, 9.9.9.9) so workload internet resolution survives when WireGuard is down.
           DNS = [
             server.dns.ipv6
             server.dns.ip
+            "1.1.1.1"
+            "9.9.9.9"
           ];
         };
       };
