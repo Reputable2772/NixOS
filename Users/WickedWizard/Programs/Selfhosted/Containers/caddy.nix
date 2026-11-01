@@ -261,6 +261,7 @@ in
       PodmanArgs = [
         "--layers"
         "--cache-from=ghcr.io/reputable2772/caddy"
+        "--cache-to=ghcr.io/reputable2772/caddy"
       ];
       File = pkgs.writeText "caddy-containerfile" ''
         FROM docker.io/caddy:builder AS builder

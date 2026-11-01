@@ -194,23 +194,32 @@
               }
             );
 
-            container-builds = pkgs.writeText "container-builds.json" (
+            container-builds =
               let
-                allBuilds =
+                paths =
                   currentSystems
-                  |> filterAttrs (n: _: n != "rescue")
-                  |> attrValues
-                  |> map (
-                    sys:
-                    sys.config.home-manager.users or { }
+                  # If a system has hm, it will evaluate to false. Yes, false.
+                  # Only suboptions, e.g. home-manager.users will evaluate to true.
+                  |> filterAttrs (n: v: !(v.options.home-manager ? _type) && (v.config.home-manager.users != { }))
+                  |> mapAttrs (
+                    n: v:
+                    v.config.home-manager.users
+                    |> filterAttrs (userName: userVal: userVal.programs.quadlets.enable)
+                    |> mapAttrs (userName: userVal: userVal.programs.quadlets.buildQuadlets)
                     |> attrValues
-                    |> map (u: u.programs.quadlets.buildQuadlets or { })
                   )
-                  |> concatLists
-                  |> foldl' (acc: elem: acc // elem) { };
+                  |> attrValues
+                  |> concatLists;
               in
-              builtins.toJSON allBuilds
-            );
+              # Merge to a single output directory, so that it can be built simultaneously.
+              # This will fail in case of collisions (same filename, but different contents).
+              # buildEnv is used rather than symlinkJoin explicitly for this purpose.
+              # E.g. If caddy-image.build on wickedwizard & astra-1 diverge.
+              # Potential solution: Join each user under their own subdirectory.
+              pkgs.buildEnv {
+                inherit paths;
+                name = "quadlets-dir";
+              };
 
             nvfetcher = pkgs.writers.writeTOML "nvfetcher.toml" (
               (currentSystems // currentShells)

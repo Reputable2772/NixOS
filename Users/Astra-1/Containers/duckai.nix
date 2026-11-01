@@ -24,6 +24,7 @@
     PodmanArgs = [
       "--layers"
       "--cache-from=ghcr.io/reputable2772/duckai"
+      "--cache-to=ghcr.io/reputable2772/duckai"
     ];
     SetWorkingDirectory = sources.duckai.src;
   };
