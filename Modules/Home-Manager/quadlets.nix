@@ -282,6 +282,22 @@ let
             };
           };
     };
+
+    replaceImageTag = {
+      enable = cfg.excludeBuildQuadletsFromHosts;
+      order = 600;
+      apply =
+        name: quadlet: options: utils:
+        if utils.isContainer && hasSuffix ".build" quadlet.Container.Image then
+          quadlet
+          // {
+            Container = quadlet.Container // {
+              Image = cfg.quadlets.${quadlet.Container.Image}.Build.ImageTag;
+            };
+          }
+        else
+          quadlet;
+    };
   };
 
   # Compose pipeline and process quadlets
@@ -296,7 +312,7 @@ let
     name: initialQuadlet: options: utils:
     foldl' (q: fn: fn name q options utils) initialQuadlet activeFns;
 
-  finalConfig = mapAttrs (
+  _finalConfig = mapAttrs (
     name: raw:
     let
       options = defaultOptions // (raw.__options or { });
@@ -314,6 +330,12 @@ let
     in
     pipeline name quadlet options utils
   ) cfg.quadlets;
+  finalConfig =
+    if cfg.excludeBuildQuadletsFromHosts then
+      filterAttrs (n: v: !(v ? Build)) _finalConfig
+    else
+      _finalConfig;
+  finalBuildConfig = filterAttrs (n: v: v ? Build) _finalConfig;
 
   unitFilesFor =
     qName: quadlet:
@@ -326,8 +348,6 @@ let
     ++ map (t: "${t}.requires/${unit}") (convertToList (install.RequiredBy or null))
     ++ map (t: "${t}.upholds/${unit}") (convertToList (install.UpheldBy or null))
     ++ (convertToList (install.Alias or null));
-
-  allUnitFiles = concatLists (mapAttrsToList unitFilesFor finalConfig);
 in
 {
   options.programs.quadlets = {
@@ -397,22 +417,28 @@ in
     };
 
     buildQuadlets = mkOption {
-      type = types.attrsOf types.attrs;
+      type = types.package;
       readOnly = true;
       description = "Exposed map of all declared .build quadlets and their build specifications.";
-      default =
-        cfg.quadlets
-        |> filterAttrs (n: q: (hasSuffix ".build" n) || (q ? Build))
-        |> mapAttrs (
-          n: q: {
-            name = removeSuffix ".build" n;
-            unitName = n;
-            imageTag = q.Build.ImageTag or (removeSuffix ".build" n);
-            file = q.Build.File or null;
-            setWorkingDirectory = q.Build.SetWorkingDirectory or null;
-            raw = q.Build;
-          }
-        );
+    };
+
+    excludeBuildQuadletsFromHosts = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Misleading option name. Below is an explanation with example of what this option achieves:
+
+        For e.g, if two quadlets caddy.container & caddy.build exists, and caddy.container
+        refers to caddy.build in Container.Image. That means, that every host using caddy.container
+        will try to build caddy.build, which is both time consuming & costly.
+
+        To prevent this, Container.Image (on caddy.container) will be replaced with the Build.ImageTag
+        (from caddy.builsd), so that Container.Image always pulls from the Image cache (using the replaceImageTag
+        preprocessor). All the hosts will also exclude *.build quadlets, so they don't end up in the final derivation.
+
+        You are responsible for manually building the derivation `programs.quadlets.buildQuadlets` from all
+        hosts on CI, and pushing it to the cache given in the Build.ImageTag for the *.build file.
+      '';
     };
   };
 
@@ -467,44 +493,53 @@ in
         }
       ) badUnits;
 
+      allUnitFiles = concatLists (mapAttrsToList unitFilesFor finalConfig);
+      allBuildUnitFiles = concatLists (mapAttrsToList unitFilesFor finalBuildConfig);
+
       allQuadletsDir = pkgs.linkFarm "quadlets-src" (
         mapAttrs (qName: qVal: pkgs.writeText qName (toSystemdUnit qVal)) finalConfig
       );
+      allBuildsDir = pkgs.linkFarm "build-quadlets-src" (
+        mapAttrs (qName: qVal: pkgs.writeText qName (toSystemdUnit qVal)) finalBuildConfig
+      );
 
       # Phase 2 & 3 - Generating using `pkgs.runCommand` and verification of list
-      generatedUnits = pkgs.runCommand "quadlet-units" { } ''
-        mkdir -p $out
-        QUADLET_UNIT_DIRS=${allQuadletsDir} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
+      generatedUnits =
+        quadletsDir: unitsDir:
+        pkgs.runCommand "quadlet-units" { } ''
+          mkdir -p $out
+          QUADLET_UNIT_DIRS=${quadletsDir} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
 
-        (
-          cd $out
-          for file in $(find . -type f | sed 's|^\./||'); do
-            substituteInPlace "$file" \
-              --replace-quiet ${allQuadletsDir}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
-              --replace-quiet \\x20 " "
-            ${optionalString cfg.stripSourcePath ''
-              sed -i '/^SourcePath=/d' "$file"
-            ''}
-          done
-        )
+          (
+            cd $out
+            for file in $(find . -type f | sed 's|^\./||'); do
+              substituteInPlace "$file" \
+                --replace-quiet ${quadletsDir}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
+                --replace-quiet \\x20 " "
+              ${optionalString cfg.stripSourcePath ''
+                sed -i '/^SourcePath=/d' "$file"
+              ''}
+            done
+          )
 
-        expected=${escapeShellArg (concatStringsSep "\n" allUnitFiles)}
-        while IFS= read -r f; do
-          if ! grep -qxF -- "$f" <<< "$expected"; then
-            echo "[quadlet-generator] unexpected generator output: $f" >&2
-            exit 1
-          fi
-        done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
-      '';
+          expected=${escapeShellArg (concatStringsSep "\n" unitsDir)}
+          while IFS= read -r f; do
+            if ! grep -qxF -- "$f" <<< "$expected"; then
+              echo "[quadlet-generator] unexpected generator output: $f" >&2
+              exit 1
+            fi
+          done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
+        '';
     in
     {
       programs.quadlets.preprocessors = builtInPreprocessors;
+      programs.quadlets.buildQuadlets = generatedUnits allBuildsDir allBuildUnitFiles;
 
       inherit assertions;
 
       # Phase 3: Final linking
       xdg.configFile = genAttrs (map (f: "systemd/user/${f}") allUnitFiles) (f: {
-        source = "${generatedUnits}/${removePrefix "systemd/user/" f}";
+        source = "${generatedUnits allQuadletsDir allUnitFiles}/${removePrefix "systemd/user/" f}";
       });
     }
   );
