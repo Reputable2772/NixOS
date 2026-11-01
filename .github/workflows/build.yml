@@ -63,7 +63,9 @@ jobs:
           mkdir -p ~/.config/systemd/user
           cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
-          (cd container-builds && systemctl --user start *.service)
+          cd container-builds
+          systemctl --user start *.service
+          systemctl --user status *.service
 
       - name: Activate Cachix deployment
         env:
