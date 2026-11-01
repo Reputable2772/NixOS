@@ -20,7 +20,6 @@
       "net.core.rmem_max" = 7500000;
       "net.core.wmem_max" = 7500000;
     };
-    initrd.systemd.enable = true;
 
     # RTL8821CE
     # Overlay doesn't apply if `config.boot.kernelPackages.rtl8821ce` is used.
