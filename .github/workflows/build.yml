@@ -61,7 +61,7 @@ jobs:
         run: |
           nix build .#packages.$(uname -m)-linux.container-builds --out-link container-builds
           mkdir -p ~/.config/systemd/user
-          cp -r container-builds ~/.config/systemd/user
+          cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
           (cd container-builds && systemctl --user start *.service)
 
