@@ -52,6 +52,7 @@ jobs:
           nix build .#packages.$(uname -m)-linux.deploy --out-link deploy.json
 
       - name: Log in to GitHub Container Registry
+        if: always()
         env:
           REGISTRY_AUTH: ${{ secrets.GITHUB_TOKEN }}
           # Uses the same podman version as in the nix flake
