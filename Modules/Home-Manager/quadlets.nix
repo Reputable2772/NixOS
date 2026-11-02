@@ -295,6 +295,8 @@ let
               Image = cfg.quadlets.${quadlet.Container.Image}.Build.ImageTag;
             };
           }
+        else if utils.isBuild then
+          deepMerge quadlet { Service.ExecStartPost = [ "podman push ${quadlet.Build.ImageTag}" ]; }
         else
           quadlet;
     };
@@ -434,7 +436,8 @@ in
 
         To prevent this, Container.Image (on caddy.container) will be replaced with the Build.ImageTag
         (from caddy.builsd), so that Container.Image always pulls from the Image cache (using the replaceImageTag
-        preprocessor). All the hosts will also exclude *.build quadlets, so they don't end up in the final derivation.
+        preprocessor). It also adds an ExecStartPost with `podman push` to Build.ImageTag. All the hosts will also
+        exclude *.build quadlets, so they don't end up in the final derivation.
 
         You are responsible for manually building the derivation `programs.quadlets.buildQuadlets` from all
         hosts on CI, and pushing it to the cache given in the Build.ImageTag for the *.build file.
