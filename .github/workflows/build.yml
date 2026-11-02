@@ -54,10 +54,12 @@ jobs:
       - name: Log in to GitHub Container Registry
         env:
           REGISTRY_AUTH: ${{ secrets.GITHUB_TOKEN }}
+          # Uses the same podman version as in the nix flake
         run: |
-          echo "PODMAN_PATH=$(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.podman')" >> $GITHUB_OUTPUT
+          PODMAN_PATH="$(nix build --print-out-paths $(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.podman'))/bin/podman"
           $PODMAN_PATH info
           echo "$REGISTRY_AUTH" | $PODMAN_PATH login ghcr.io -u "${{ github.actor }}" --password-stdin
+          echo "PODMAN_PATH=$PODMAN_PATH" >> $GITHUB_OUTPUT
 
       - name: Build & push container images
         run: |
