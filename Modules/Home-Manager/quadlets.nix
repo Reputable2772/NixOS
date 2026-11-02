@@ -82,6 +82,8 @@ let
     networkNameAlias = true;
     secretDependency = true;
     mapVolumes = true;
+    replaceImageTag = true;
+    pushPostBuild = true;
   };
 
   hasVal =
@@ -302,14 +304,14 @@ let
       order = 600;
       apply =
         name: quadlet: options: utils:
-        if utils.isContainer && hasSuffix ".build" quadlet.Container.Image then
+        if utils.isContainer && hasSuffix ".build" quadlet.Container.Image && options.replaceImageTag then
           quadlet
           // {
             Container = quadlet.Container // {
               Image = cfg.quadlets.${quadlet.Container.Image}.Build.ImageTag;
             };
           }
-        else if utils.isBuild then
+        else if utils.isBuild && options.pushPostBuild then
           deepMerge quadlet {
             Service.ExecStartPost = [
               "${osConfig.virtualisation.podman.package}/bin/podman push ${quadlet.Build.ImageTag}"
