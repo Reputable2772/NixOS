@@ -79,6 +79,10 @@ This modules pre-dates the one in HM, and was jankily written for only my use ca
 
 - **Pre-Processing** - Pre-Processing is done as mainly a convenience feature. It has `unitDefaults`, etc.
 
+Some pre-processors are more special than others (e.g. replaceImageTag). It essentially replaces a Container.Image (linked to a .build quadlet) with the Build.ImageTag, adds Service.ExecStartPost to push to Build.ImageTag, and with the help of the special option `programs.quadlets.excludeBuildQuadletsFromHosts`, it removes all .build quadlets from target hosts. Instead, all of them are exposed via `programs.quadlets.buildQuadlets`, and must be built by the user (either through CI or manually) and be pushed to Build.ImageTag. [build.yaml](./.github/workflows/build.yml) currently does this in CI.
+
+For more info on this, check the description of `programs.quadlets.excludeBuildQuadletsFromHosts`.
+
 ---
 
 ## 4. Pushing Config from Home-Manager to System
