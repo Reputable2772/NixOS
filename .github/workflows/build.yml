@@ -64,6 +64,7 @@ jobs:
           cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
           cd container-builds
+          podman info --debug
           systemctl --user start *.service || true
           systemctl --user status *.service
 
