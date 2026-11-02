@@ -296,7 +296,11 @@ let
             };
           }
         else if utils.isBuild then
-          deepMerge quadlet { Service.ExecStartPost = [ "podman push ${quadlet.Build.ImageTag}" ]; }
+          deepMerge quadlet {
+            Service.ExecStartPost = [
+              "${osConfig.virtualisation.podman.package}/bin/podman push ${quadlet.Build.ImageTag}"
+            ];
+          }
         else
           quadlet;
     };
