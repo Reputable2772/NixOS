@@ -56,7 +56,14 @@ jobs:
         env:
           REGISTRY_AUTH: ${{ secrets.GITHUB_TOKEN }}
           # Uses the same podman version as in the nix flake
+          # The AppArmor code below solves the `failed to reexec: Permission denied` error
         run: |
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+            echo "AppArmor user namespace restriction:"
+            cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+          fi
+
           PODMAN_PATH="$(nix build --print-out-paths $(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.podman'))/bin/podman"
           $PODMAN_PATH info
           echo "$REGISTRY_AUTH" | $PODMAN_PATH login ghcr.io -u "${{ github.actor }}" --password-stdin
