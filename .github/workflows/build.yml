@@ -58,11 +58,7 @@ jobs:
           # Uses the same podman version as in the nix flake
           # The AppArmor code below solves the `failed to reexec: Permission denied` error
         run: |
-          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
-            echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
-            echo "AppArmor user namespace restriction:"
-            cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns
-          fi
+          echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
           PODMAN_PATH="$(nix build --print-out-paths $(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.podman'))/bin/podman"
           echo "$REGISTRY_AUTH" | $PODMAN_PATH login ghcr.io -u "${{ github.actor }}" --password-stdin
@@ -73,9 +69,18 @@ jobs:
           mkdir -p ~/.config/systemd/user
           cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
+
           cd container-builds
-          systemctl --user start $(ls *.service) || true
-          systemctl --user status $(ls *.service)
+          units=$(ls *.service)
+
+          rc=0
+          output=$(systemctl --user start $units 2>&1) || rc=$?
+
+          if [ "$rc" -ne 0 ]; then
+            echo "$output"
+            systemctl --user status $units --no-pager --full || true
+            exit "$rc"
+          fi
 
       - name: Activate Cachix deployment
         env:
