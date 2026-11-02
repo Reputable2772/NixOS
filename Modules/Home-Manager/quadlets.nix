@@ -86,62 +86,72 @@ let
     pushPostBuild = true;
   };
 
-  hasVal =
-    set: path:
-    let
-      v = attrByPath path null set;
-    in
-    v != null && v != "" && v != [ ] && v != { };
+  utils = rec {
+    hasVal =
+      set: path:
+      let
+        v = attrByPath path null set;
+      in
+      v != null && v != "" && v != [ ] && v != { };
 
-  convertToList =
-    v:
-    if v == null then
-      [ ]
-    else if isList v then
-      v
-    else
-      [ v ];
-
-  getVolPath =
-    cname:
-    (
-      if
-        hasVal config' [
-          "containers"
-          cname
-          "dir"
-        ]
-      then
-        config'.containers.${cname}.dir
+    convertToList =
+      v:
+      if v == null then
+        [ ]
+      else if isList v then
+        v
       else
-        "${config'.dir.containers}/${
-          toUpper (substring 0 1 cname) + substring 1 (stringLength cname) cname
-        }"
-    )
-    + "/";
+        [ v ];
 
-  mapVolume =
-    cname: vol:
-    let
-      src = elemAt (splitString ":" vol) 0;
-    in
-    if hasSuffix ":noMap" vol then
-      removeSuffix ":noMap" vol
-    else if hasSuffix ".volume" src then
-      vol
-    else
-      "${getVolPath cname}${vol}";
+    getVolPath =
+      cname:
+      (
+        if
+          hasVal config' [
+            "containers"
+            cname
+            "dir"
+          ]
+        then
+          config'.containers.${cname}.dir
+        else
+          "${config'.dir.containers}/${
+            toUpper (substring 0 1 cname) + substring 1 (stringLength cname) cname
+          }"
+      )
+      + "/";
 
-  mkdirScript =
-    cname: volumes:
-    let
-      hostDirs =
-        volumes |> map (x: elemAt (builtins.split ":" x) 0) |> filter (x: !(hasSuffix ".volume" x));
-    in
-    pkgs.writeShellScript "${cname}-mkdir" (
-      (concatMapStringsSep "\n" (x: "[[ ! -e ${x} ]] && ${pkgs.coreutils}/bin/mkdir -p ${x}") hostDirs)
-      + "\nexit 0\n"
-    );
+    mapVolume =
+      cname: vol:
+      let
+        src = elemAt (splitString ":" vol) 0;
+      in
+      if hasSuffix ":noMap" vol then
+        removeSuffix ":noMap" vol
+      else if hasSuffix ".volume" src then
+        vol
+      else
+        "${getVolPath cname}${vol}";
+
+    mkdirScript =
+      cname: volumes:
+      let
+        hostDirs =
+          volumes |> map (x: elemAt (builtins.split ":" x) 0) |> filter (x: !(hasSuffix ".volume" x));
+      in
+      pkgs.writeShellScript "${cname}-mkdir" (
+        (concatMapStringsSep "\n" (x: "[[ ! -e ${x} ]] && ${pkgs.coreutils}/bin/mkdir -p ${x}") hostDirs)
+        + "\nexit 0\n"
+      );
+
+    isContainer = name: quadlet: (hasSuffix ".container" name) || (quadlet ? Container);
+    isVolume = name: quadlet: (hasSuffix ".volume" name) || (quadlet ? Volume);
+    isNetwork = name: quadlet: (hasSuffix ".network" name) || (quadlet ? Network);
+    isPod = name: quadlet: (hasSuffix ".pod" name) || (quadlet ? Pod);
+    isImage = name: quadlet: (hasSuffix ".image" name) || (quadlet ? Image);
+    isBuild = name: quadlet: (hasSuffix ".build" name) || (quadlet ? Build);
+    isKube = name: quadlet: (hasSuffix ".kube" name) || (quadlet ? Kube);
+  };
 
   # Phase 1: Pre-Processors
   # Built-in preprocessors executed in order of `order`.
@@ -151,11 +161,11 @@ let
       order = 0;
       apply =
         name: quadlet: options: utils:
-        if utils.isContainer && !(quadlet.Container ? ContainerName) then
+        if utils.isContainer name quadlet && !(quadlet.Container ? ContainerName) then
           throw "Provide Container.ContainerName attribute for ${name}"
-        else if utils.isNetwork && !(quadlet.Network ? NetworkName) then
+        else if utils.isNetwork name quadlet && !(quadlet.Network ? NetworkName) then
           throw "Provide Network.NetworkName attribute for ${name}"
-        else if utils.isVolume && !(quadlet.Volume ? VolumeName) then
+        else if utils.isVolume name quadlet && !(quadlet.Volume ? VolumeName) then
           throw "Provide Volume.VolumeName attribute for ${name}"
         else
           quadlet;
@@ -172,12 +182,12 @@ let
             defaults = {
               Install.WantedBy = [ "default.target" ];
               Service = {
-                Restart = if utils.isContainer then "always" else "on-failure";
+                Restart = if utils.isContainer _name quadlet then "always" else "on-failure";
                 TimeoutStartSec = 300;
-                Type = if utils.isContainer then "notify" else "oneshot";
+                Type = if utils.isContainer _name quadlet then "notify" else "oneshot";
               };
             }
-            // optionalAttrs utils.isContainer {
+            // optionalAttrs (utils.isContainer _name quadlet) {
               Unit = { };
               Container.PodmanArgs = [ "--user 0:0" ];
             };
@@ -189,7 +199,7 @@ let
       order = 150;
       apply =
         _name: quadlet: options: utils:
-        if !utils.isContainer || !options.networkNameAlias then
+        if !(utils.isContainer _name quadlet) || !options.networkNameAlias then
           quadlet
         else
           deepMerge {
@@ -206,9 +216,9 @@ let
           vols = utils.convertToList quadlet.Container.Volume;
         in
         if
-          !utils.isContainer
+          !(utils.isContainer _name quadlet)
           || !options.mapVolumes
-          || !(hasVal quadlet [
+          || !(utils.hasVal quadlet [
             "Container"
             "Volume"
           ])
@@ -216,7 +226,7 @@ let
           quadlet
         else
           recursiveUpdate quadlet {
-            Container.Volume = map (mapVolume cName) vols;
+            Container.Volume = map (utils.mapVolume cName) vols;
           };
     };
 
@@ -230,18 +240,18 @@ let
           existingPre = utils.convertToList (quadlet.Service.ExecStartPre or null);
           script =
             if
-              utils.isContainer
+              (utils.isContainer _name quadlet)
               && options.mkdir
-              && (hasVal quadlet [
+              && (utils.hasVal quadlet [
                 "Container"
                 "Volume"
               ])
             then
-              mkdirScript cName vols
+              utils.mkdirScript cName vols
             else
               null;
         in
-        if !utils.isContainer || script == null then
+        if !(utils.isContainer _name quadlet) || script == null then
           quadlet
         else
           recursiveUpdate quadlet {
@@ -257,7 +267,7 @@ let
           cName = quadlet.Container.ContainerName;
           extraEnv = optionals (
             options.appendEnv
-            && (hasVal config' [
+            && (utils.hasVal config' [
               "containers"
               cName
               "env"
@@ -265,7 +275,7 @@ let
           ) config'.containers.${cName}.env;
           existingEnv = utils.convertToList (quadlet.Container.Environment or null);
         in
-        if !utils.isContainer then
+        if !(utils.isContainer _name quadlet) then
           quadlet
         else
           recursiveUpdate quadlet {
@@ -278,9 +288,9 @@ let
       apply =
         _name: quadlet: options: utils:
         if
-          !utils.isContainer
+          !(utils.isContainer _name quadlet)
           || !options.secretDependency
-          || !(hasVal quadlet [
+          || !(utils.hasVal quadlet [
             "Container"
             "EnvironmentFile"
           ])
@@ -304,14 +314,18 @@ let
       order = 600;
       apply =
         name: quadlet: options: utils:
-        if utils.isContainer && hasSuffix ".build" quadlet.Container.Image && options.replaceImageTag then
+        if
+          utils.isContainer name quadlet
+          && hasSuffix ".build" quadlet.Container.Image
+          && options.replaceImageTag
+        then
           quadlet
           // {
             Container = quadlet.Container // {
               Image = cfg.quadlets.${quadlet.Container.Image}.Build.ImageTag;
             };
           }
-        else if utils.isBuild && options.pushPostBuild then
+        else if utils.isBuild name quadlet && options.pushPostBuild then
           deepMerge quadlet {
             Service.ExecStartPost = [
               "${osConfig.virtualisation.podman.package}/bin/podman push ${quadlet.Build.ImageTag}"
@@ -339,16 +353,7 @@ let
     let
       options = defaultOptions // (raw.__options or { });
       quadlet = removeAttrs raw [ "__options" ];
-      utils = {
-        inherit hasVal convertToList;
-        isContainer = (hasSuffix ".container" name) || (quadlet ? Container);
-        isVolume = (hasSuffix ".volume" name) || (quadlet ? Volume);
-        isNetwork = (hasSuffix ".network" name) || (quadlet ? Network);
-        isPod = (hasSuffix ".pod" name) || (quadlet ? Pod);
-        isImage = (hasSuffix ".image" name) || (quadlet ? Image);
-        isBuild = (hasSuffix ".build" name) || (quadlet ? Build);
-        isKube = (hasSuffix ".kube" name) || (quadlet ? Kube);
-      };
+      inherit utils;
     in
     pipeline name quadlet options utils
   ) cfg.quadlets;
@@ -366,10 +371,10 @@ let
       install = quadlet.Install or { };
     in
     [ unit ]
-    ++ map (t: "${t}.wants/${unit}") (convertToList (install.WantedBy or null))
-    ++ map (t: "${t}.requires/${unit}") (convertToList (install.RequiredBy or null))
-    ++ map (t: "${t}.upholds/${unit}") (convertToList (install.UpheldBy or null))
-    ++ (convertToList (install.Alias or null));
+    ++ map (t: "${t}.wants/${unit}") (utils.convertToList (install.WantedBy or null))
+    ++ map (t: "${t}.requires/${unit}") (utils.convertToList (install.RequiredBy or null))
+    ++ map (t: "${t}.upholds/${unit}") (utils.convertToList (install.UpheldBy or null))
+    ++ (utils.convertToList (install.Alias or null));
 in
 {
   options.programs.quadlets = {
@@ -400,7 +405,7 @@ in
             };
             apply = mkOption {
               type = types.functionTo (types.functionTo (types.functionTo (types.functionTo types.attrs)));
-              description = "Function taking `name: quadlet: options: utils:` returning modified quadlet. `utils` provides: `convertToList`, `hasVal`, and unit type helpers (`isContainer`, `isVolume`, `isNetwork`, `isPod`, `isImage`, `isBuild`, `isKube`).";
+              description = "Function taking `name: quadlet: options: utils:` returning modified quadlet.";
             };
           };
         }
@@ -408,7 +413,7 @@ in
       default = { };
       description = ''
         Customizable pipeline of preprocessing modules executed in order of `order`.
-        Built-ins: `unitDefaults` (100), `networkNameAlias` (150), `mapVolumes` (200), `mkdir` (300), `appendEnv` (400), `secretDependency` (500).
+        Built-ins: `basicChecks` (0) `unitDefaults` (100), `networkNameAlias` (150), `mapVolumes` (200), `mkdir` (300), `appendEnv` (400), `secretDependency` (500), replaceImageTag (600).
         Built-in steps can be disabled via `programs.quadlets.preprocessors.<name>.enable = false;`.
       '';
     };
