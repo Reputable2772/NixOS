@@ -52,7 +52,6 @@ jobs:
           nix build .#packages.$(uname -m)-linux.deploy --out-link deploy.json
 
       - name: Log in to GitHub Container Registry
-        if: always()
         env:
           REGISTRY_AUTH: ${{ secrets.GITHUB_TOKEN }}
           # Uses the same podman version as in the nix flake
@@ -71,17 +70,18 @@ jobs:
           systemctl --user daemon-reload
 
           cd container-builds
-          ls
 
-          units=$(ls *.service)
+          if ls container-builds/*.service >/dev/null 2>&1; then
+            units=$(ls *.service)
 
-          rc=0
-          output=$(systemctl --user start $units 2>&1) || rc=$?
+            rc=0
+            output=$(systemctl --user start $units 2>&1) || rc=$?
 
-          if [ "$rc" -ne 0 ]; then
-            echo "$output"
-            systemctl --user status $units --no-pager --full || true
-            exit "$rc"
+            if [ "$rc" -ne 0 ]; then
+              echo "$output"
+              systemctl --user status $units --no-pager --full || true
+              exit "$rc"
+            fi
           fi
 
       - name: Activate Cachix deployment
