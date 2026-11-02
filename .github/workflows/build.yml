@@ -70,7 +70,10 @@ jobs:
           cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
 
-          units=$(cd container-builds && ls *.service)
+          cd container-builds
+          ls
+
+          units=$(ls *.service)
 
           rc=0
           output=$(systemctl --user start $units 2>&1) || rc=$?
