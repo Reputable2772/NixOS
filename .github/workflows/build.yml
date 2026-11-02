@@ -65,9 +65,7 @@ jobs:
           fi
 
           PODMAN_PATH="$(nix build --print-out-paths $(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.podman'))/bin/podman"
-          $PODMAN_PATH info
           echo "$REGISTRY_AUTH" | $PODMAN_PATH login ghcr.io -u "${{ github.actor }}" --password-stdin
-          echo "PODMAN_PATH=$PODMAN_PATH" >> $GITHUB_OUTPUT
 
       - name: Build & push container images
         run: |
@@ -76,8 +74,8 @@ jobs:
           cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
           cd container-builds
-          systemctl --user start *.service || true
-          systemctl --user status *.service
+          systemctl --user start $(ls *.service) || true
+          systemctl --user status $(ls *.service)
 
       - name: Activate Cachix deployment
         env:
