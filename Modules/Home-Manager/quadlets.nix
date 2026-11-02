@@ -145,6 +145,20 @@ let
   # Built-in preprocessors executed in order of `order`.
   # Each preprocessor receives: (name: quadlet: options: utils:) -> modified quadlet
   builtInPreprocessors = {
+    basicChecks = {
+      order = 0;
+      apply =
+        name: quadlet: options: utils:
+        if utils.isContainer && !(quadlet.Container ? ContainerName) then
+          throw "Provide Container.ContainerName attribute for ${name}"
+        else if utils.isNetwork && !(quadlet.Network ? NetworkName) then
+          throw "Provide Network.NetworkName attribute for ${name}"
+        else if utils.isVolume && !(quadlet.Volume ? VolumeName) then
+          throw "Provide Volume.VolumeName attribute for ${name}"
+        else
+          quadlet;
+    };
+
     unitDefaults = {
       order = 100;
       apply =
@@ -451,55 +465,6 @@ in
 
   config = mkIf cfg.enable (
     let
-      badUnits = filterAttrs (
-        name: q:
-        let
-          isContainer = (hasSuffix ".container" name) || (q ? Container);
-          isVolume = (hasSuffix ".volume" name) || (q ? Volume);
-          isNetwork = (hasSuffix ".network" name) || (q ? Network);
-        in
-        (
-          isContainer
-          && !(hasVal q [
-            "Container"
-            "ContainerName"
-          ])
-        )
-        || (
-          isVolume
-          && !(hasVal q [
-            "Volume"
-            "VolumeName"
-          ])
-        )
-        || (
-          isNetwork
-          && !(hasVal q [
-            "Network"
-            "NetworkName"
-          ])
-        )
-      ) cfg.quadlets;
-
-      assertions = mapAttrsToList (
-        name: q:
-        let
-          isContainer = (hasSuffix ".container" name) || (q ? Container);
-          isVolume = (hasSuffix ".volume" name) || (q ? Volume);
-          kind =
-            if isContainer then
-              "Container.ContainerName"
-            else if isVolume then
-              "Volume.VolumeName"
-            else
-              "Network.NetworkName";
-        in
-        {
-          assertion = false;
-          message = "programs.quadlets.quadlets.\"${name}\": Must specify '${kind}'.";
-        }
-      ) badUnits;
-
       allUnitFiles = concatLists (mapAttrsToList unitFilesFor finalConfig);
       allBuildUnitFiles = concatLists (mapAttrsToList unitFilesFor finalBuildConfig);
 
@@ -541,8 +506,6 @@ in
     {
       programs.quadlets.preprocessors = builtInPreprocessors;
       programs.quadlets.buildQuadlets = generatedUnits allBuildsDir allBuildUnitFiles;
-
-      inherit assertions;
 
       # Phase 3: Final linking
       xdg.configFile = genAttrs (map (f: "systemd/user/${f}") allUnitFiles) (f: {
