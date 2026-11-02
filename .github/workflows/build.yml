@@ -55,7 +55,8 @@ jobs:
         env:
           REGISTRY_AUTH: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "$REGISTRY_AUTH" | podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+          echo "PODMAN_PATH=$(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.legacyPackages.${builtins.currentSystem}.podman')" >> $GITHUB_OUTPUT
+          echo "$REGISTRY_AUTH" | $PODMAN_PATH login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: Build & push container images
         run: |
@@ -64,7 +65,7 @@ jobs:
           cp -a container-builds/. ~/.config/systemd/user/
           systemctl --user daemon-reload
           cd container-builds
-          podman info --debug
+          $PODMAN_PATH info --debug
           systemctl --user start *.service || true
           systemctl --user status *.service
 
