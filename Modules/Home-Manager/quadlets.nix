@@ -15,18 +15,19 @@ let
     attrNames
     attrValues
     filterAttrs
-    genAttrs
+    listToAttrs
     mapAttrs
     mapAttrsToList
+    nameValuePair
     optionalAttrs
     recursiveUpdate
     removeAttrs
     ;
   inherit (lib.lists)
-    concatLists
     elem
     elemAt
     filter
+    flatten
     foldl'
     isList
     optionals
@@ -38,9 +39,9 @@ let
     concatMapStringsSep
     concatStringsSep
     escapeShellArg
+    hasInfix
     hasSuffix
     optionalString
-    removePrefix
     removeSuffix
     replaceStrings
     splitString
@@ -103,6 +104,9 @@ let
       else
         [ v ];
 
+    getConvertedToList =
+      set: path: convertToList (if hasVal set path then attrByPath path null set else null);
+
     getVolPath =
       cname:
       (
@@ -151,6 +155,34 @@ let
     isImage = name: quadlet: (hasSuffix ".image" name) || (quadlet ? Image);
     isBuild = name: quadlet: (hasSuffix ".build" name) || (quadlet ? Build);
     isKube = name: quadlet: (hasSuffix ".kube" name) || (quadlet ? Kube);
+
+    getDependencies =
+      qName: qVal:
+      let
+        networks =
+          getConvertedToList qVal [
+            "Container"
+            "Network"
+          ]
+          |> filter (net: hasSuffix ".network" net);
+        volumes =
+          getConvertedToList qVal [
+            "Container"
+            "Volume"
+          ]
+          |> filter (vol: hasInfix ".volume" vol)
+          |> map (vol: elemAt (splitString ":" vol) 0);
+        builds =
+          if !cfg.excludeBuildQuadletsFromHosts then
+            getConvertedToList qVal [
+              "Container"
+              "Image"
+            ]
+            |> filter (img: hasSuffix ".image" img)
+          else
+            [ ];
+      in
+      if isContainer qName qVal then networks ++ volumes ++ builds else [ ];
   };
 
   # Phase 1: Pre-Processors
@@ -364,17 +396,21 @@ let
       _finalConfig;
   finalBuildConfig = filterAttrs (n: v: v ? Build) _finalConfig;
 
+  # Recursively get unit files names for current unit & its own dependencies, if needed.
   unitFilesFor =
-    qName: quadlet:
+    qName: quadlet: recursive:
     let
       unit = unitNameConvertor qName;
       install = quadlet.Install or { };
+      dependencies = if recursive then utils.getDependencies qName quadlet else [ ];
+      dependencyFiles = map (dep: unitFilesFor dep finalConfig.${dep} recursive) dependencies;
     in
     [ unit ]
     ++ map (t: "${t}.wants/${unit}") (utils.convertToList (install.WantedBy or null))
     ++ map (t: "${t}.requires/${unit}") (utils.convertToList (install.RequiredBy or null))
     ++ map (t: "${t}.upholds/${unit}") (utils.convertToList (install.UpheldBy or null))
-    ++ (utils.convertToList (install.Alias or null));
+    ++ (utils.convertToList (install.Alias or null))
+    ++ flatten dependencyFiles;
 in
 {
   options.programs.quadlets = {
@@ -416,12 +452,6 @@ in
         Built-ins: `basicChecks` (0) `unitDefaults` (100), `networkNameAlias` (150), `mapVolumes` (200), `mkdir` (300), `appendEnv` (400), `secretDependency` (500), replaceImageTag (600).
         Built-in steps can be disabled via `programs.quadlets.preprocessors.<name>.enable = false;`.
       '';
-    };
-
-    stripSourcePath = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Whether to strip SourcePath= from generated unit files to prevent unnecessary restarts.";
     };
 
     finalQuadlets = mkOption {
@@ -472,52 +502,65 @@ in
 
   config = mkIf cfg.enable (
     let
-      allUnitFiles = concatLists (mapAttrsToList unitFilesFor finalConfig);
-      allBuildUnitFiles = concatLists (mapAttrsToList unitFilesFor finalBuildConfig);
+      # QUADLET_UNIT_DIRS environment stays true to its name.
+      writtenQuadlets = mapAttrs (qName: qVal: pkgs.writeTextDir qName (toSystemdUnit qVal)) finalConfig;
+      writtenBuildQuadlets = mapAttrs (
+        qName: qVal: pkgs.writeTextDir qName (toSystemdUnit qVal)
+      ) finalBuildConfig;
 
-      allQuadletsDir = pkgs.linkFarm "quadlets-src" (
-        mapAttrs (qName: qVal: pkgs.writeText qName (toSystemdUnit qVal)) finalConfig
-      );
-      allBuildsDir = pkgs.linkFarm "build-quadlets-src" (
-        mapAttrs (qName: qVal: pkgs.writeText qName (toSystemdUnit qVal)) finalBuildConfig
-      );
+      convertQuadletToUnits =
+        finalQuadletAttrs: writtenFiles:
+        mapAttrs (
+          qName: qVal:
+          let
+            quadletDeps = map (dep: toString writtenFiles.${dep}) (utils.getDependencies qName qVal);
+            recursiveExpectedUnits = unitFilesFor qName qVal true;
+          in
+          pkgs.runCommand "quadlet-build-${qName}" { } ''
+            mkdir -p $out
+            QUADLET_UNIT_DIRS="${writtenFiles.${qName}}${
+              optionalString (quadletDeps != [ ]) ":${concatStringsSep ":" quadletDeps}"
+            }" ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -v -user $out
 
-      # Phase 2 & 3 - Generating using `pkgs.runCommand` and verification of list
-      generatedUnits =
-        quadletsDir: unitsDir:
-        pkgs.runCommand "quadlet-units" { } ''
-          mkdir -p $out
-          QUADLET_UNIT_DIRS=${quadletsDir} ${osConfig.virtualisation.podman.package}/libexec/podman/quadlet -user $out
+            (
+              cd $out
+              for file in $(find . -type f | sed 's|^\./||'); do
+                substituteInPlace "$file" \
+                  --replace-quiet ${writtenFiles.${qName}}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
+                  --replace-quiet \\x20 " "
+              done
+            )
 
-          (
-            cd $out
-            for file in $(find . -type f | sed 's|^\./||'); do
-              substituteInPlace "$file" \
-                --replace-quiet ${quadletsDir}/\$\{XDG_RUNTIME_DIR} \$\{XDG_RUNTIME_DIR} \
-                --replace-quiet \\x20 " "
-              ${optionalString cfg.stripSourcePath ''
-                sed -i '/^SourcePath=/d' "$file"
-              ''}
-            done
-          )
-
-          expected=${escapeShellArg (concatStringsSep "\n" unitsDir)}
-          while IFS= read -r f; do
-            if ! grep -qxF -- "$f" <<< "$expected"; then
-              echo "[quadlet-generator] unexpected generator output: $f" >&2
-              exit 1
-            fi
-          done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
-        '';
+            expected=${escapeShellArg (concatStringsSep "\n" recursiveExpectedUnits)}
+            while IFS= read -r f; do
+              if ! grep -qxF -- "$f" <<< "$expected"; then
+                echo "[quadlet-generator] unexpected generator output: $f" >&2
+                exit 1
+              fi
+            done < <(cd $out && find . \( -type f -o -type l \) | sed 's|^\./||' | sort)
+          ''
+        ) finalQuadletAttrs;
     in
     {
       programs.quadlets.preprocessors = builtInPreprocessors;
-      programs.quadlets.buildQuadlets = generatedUnits allBuildsDir allBuildUnitFiles;
+      programs.quadlets.buildQuadlets = pkgs.symlinkJoin {
+        name = "quadlet-units";
+        paths = attrValues (convertQuadletToUnits finalBuildConfig writtenBuildQuadlets);
+      };
 
       # Phase 3: Final linking
-      xdg.configFile = genAttrs (map (f: "systemd/user/${f}") allUnitFiles) (f: {
-        source = "${generatedUnits allQuadletsDir allUnitFiles}/${removePrefix "systemd/user/" f}";
-      });
+      xdg.configFile = foldl' (acc: elem: acc // elem) { } (
+        mapAttrsToList (
+          qName: outDir:
+          let
+            quadletUnitNames = unitFilesFor qName finalConfig.${qName} false;
+            quadletUnitsMapped = listToAttrs (
+              map (svc: nameValuePair "systemd/user/${svc}" { source = "${outDir}/${svc}"; }) quadletUnitNames
+            );
+          in
+          quadletUnitsMapped
+        ) (convertQuadletToUnits finalConfig writtenQuadlets)
+      );
     }
   );
 }
