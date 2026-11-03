@@ -21,6 +21,11 @@
   };
 
   wayland.windowManager.hyprland.settings.bind = [
-    "SUPER, E, exec, nemo"
+    {
+      _args = [
+        "SUPER + E"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("nemo")'')
+      ];
+    }
   ];
 }

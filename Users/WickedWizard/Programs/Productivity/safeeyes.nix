@@ -24,10 +24,15 @@ in
 {
   home.packages = [ safeeyes ];
 
-  wayland.windowManager.hyprland.settings.windowrule = [
-    "match:initial_class ^(Safeeyes)$, fullscreen on"
-    "match:initial_class ^(Safeeyes)$, stay_focused on"
-    "match:initial_class ^(Safeeyes)$, focus_on_activate on"
+  wayland.windowManager.hyprland.settings.window_rule = [
+    {
+      match = {
+        initial_class = "^(Safeeyes)$";
+      };
+      fullscreen = true;
+      stay_focused = true;
+      focus_on_activate = true;
+    }
   ];
 
   xdg.autostart.packages = [ safeeyes ];

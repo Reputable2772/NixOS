@@ -44,8 +44,13 @@ in
     # bind = [
     #   "SUPER, V, exec, firefox"
     # ];
-    windowrule = [
-      "match:initial_class (firefox), workspace 1"
+    window_rule = [
+      {
+        match = {
+          initial_class = "(firefox)";
+        };
+        workspace = "1";
+      }
     ];
   };
 }

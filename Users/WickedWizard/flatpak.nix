@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 {
   services.flatpak = {
     enable = true;
@@ -17,8 +22,17 @@
     ];
   };
 
-  wayland.windowManager.hyprland.settings.exec-once = [
-    "${pkgs.systemd}/bin/systemctl --user restart flatpak-managed-install.service"
+  wayland.windowManager.hyprland.settings.on = [
+    {
+      _args = [
+        "hyprland.start"
+        (lib.generators.mkLuaInline ''
+          function()
+            hl.exec_cmd("${pkgs.systemd}/bin/systemctl --user restart flatpak-managed-install.service")
+          end
+        '')
+      ];
+    }
   ];
 
   imports = [

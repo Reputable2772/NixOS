@@ -98,17 +98,47 @@ in
 
   wayland.windowManager.hyprland.settings.bind = [
     # Swappy
-    ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-    ''SHIFT, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - | swappy -f -''
+    {
+      _args = [
+        "Print"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | swappy -f -")'')
+      ];
+    }
+    {
+      _args = [
+        "SHIFT + Print"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd('grim -g "$(hyprctl activewindow -j | jq -r \'\\"\\\\(.at[0]),\\\\(.at[1]) \\\\(.size[0])x\\\\(.size[1])\\"\')" - | swappy -f -')'')
+      ];
+    }
 
     # Direct
-    "CTRL, Print, exec, grim -g \"$(slurp)\" ~/Pictures/Screenshots/region-$(date +%Y-%m-%d_%H-%M-%S).png"
-    ''CTRL SHIFT, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" ~/Pictures/Screenshots/window-$(date +%Y-%m-%d_%H-%M-%S).png''
+    {
+      _args = [
+        "CTRL + Print"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("grim -g \"$(slurp)\" ~/Pictures/Screenshots/region-$(date +%Y-%m-%d_%H-%M-%S).png")'')
+      ];
+    }
+    {
+      _args = [
+        "CTRL + SHIFT + Print"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd('grim -g "$(hyprctl activewindow -j | jq -r \'\\"\\\\(.at[0]),\\\\(.at[1]) \\\\(.size[0])x\\\\(.size[1])\\"\')" ~/Pictures/Screenshots/window-$(date +%Y-%m-%d_%H-%M-%S).png')'')
+      ];
+    }
 
     # OCR
-    "SUPER SHIFT, Print, exec, ${ocrScript}"
+    {
+      _args = [
+        "SUPER + SHIFT + Print"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${ocrScript}")'')
+      ];
+    }
 
     # Upload to 0x0
-    "CTRL SHIFT SUPER, Print, exec, grim -g \"$(slurp)\" - | swappy -f - -o - | 0x0 - | wl-copy"
+    {
+      _args = [
+        "CTRL + SHIFT + SUPER + Print"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | swappy -f - -o - | 0x0 - | wl-copy")'')
+      ];
+    }
   ];
 }
