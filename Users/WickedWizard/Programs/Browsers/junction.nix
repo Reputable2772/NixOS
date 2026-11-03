@@ -22,7 +22,12 @@
     "x-scheme-handler/junction" = [ "re.sonny.Junction.desktop" ];
   };
 
-  wayland.windowManager.hyprland.settings.windowrule = [
-    "match:class (re.sonny.Junction), tag +dialog"
+  wayland.windowManager.hyprland.settings.window_rule = [
+    {
+      match = {
+        class = "(re.sonny.Junction)";
+      };
+      tag = "+dialog";
+    }
   ];
 }

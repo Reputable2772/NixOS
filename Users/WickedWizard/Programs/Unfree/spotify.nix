@@ -79,7 +79,12 @@ in
     )
   ];
 
-  wayland.windowManager.hyprland.settings.windowrule = [
-    "match:initial_class (Spotify), workspace 5"
+  wayland.windowManager.hyprland.settings.window_rule = [
+    {
+      match = {
+        initial_class = "(Spotify)";
+      };
+      workspace = "5";
+    }
   ];
 }

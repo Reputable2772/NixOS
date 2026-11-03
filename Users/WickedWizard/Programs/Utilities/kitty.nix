@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   programs.kitty = {
     enable = true;
@@ -31,6 +31,11 @@
   dconf.settings."org/cinnamon/desktop/applications/terminal".exec = "kitty";
 
   wayland.windowManager.hyprland.settings.bind = [
-    "SUPER, Return, exec, kitty"
+    {
+      _args = [
+        "SUPER + Return"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("kitty")'')
+      ];
+    }
   ];
 }

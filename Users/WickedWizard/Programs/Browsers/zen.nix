@@ -11,7 +11,12 @@
 
   wayland.windowManager.hyprland.settings = {
     bind = [
-      "SUPER, V, exec, app.zen_browser.zen"
+      {
+        _args = [
+          "SUPER + V"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("app.zen_browser.zen")'')
+        ];
+      }
     ];
   };
 

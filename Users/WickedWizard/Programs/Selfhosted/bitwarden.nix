@@ -35,8 +35,13 @@
       </policyconfig>
     '';
 
-  wayland.windowManager.hyprland.settings.windowrule = [
-    "match:initial_class (Bitwarden), workspace 2"
+  wayland.windowManager.hyprland.settings.window_rule = [
+    {
+      match = {
+        initial_class = "(Bitwarden)";
+      };
+      workspace = "2";
+    }
   ];
 
   services.ssh-agent.enable = lib.mkForce false;

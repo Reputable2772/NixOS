@@ -28,10 +28,20 @@
 
   wayland.windowManager.hyprland.settings = {
     bind = [
-      "SUPER, B, exec, io.gitlab.librewolf-community"
+      {
+        _args = [
+          "SUPER + B"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("io.gitlab.librewolf-community")'')
+        ];
+      }
     ];
-    windowrule = [
-      "match:initial_class (librewolf), workspace 3"
+    window_rule = [
+      {
+        match = {
+          initial_class = "(librewolf)";
+        };
+        workspace = "3";
+      }
     ];
   };
 }

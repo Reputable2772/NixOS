@@ -5,11 +5,16 @@
     kdePackages.xwaylandvideobridge
   ];
 
-  wayland.windowManager.hyprland.settings.windowrule = [
-    "match:class ^(xwaylandvideobridge)$, opacity 0.0 override 0.0 override"
-    "match:class ^(xwaylandvideobridge)$, anim off"
-    "match:class ^(xwaylandvideobridge)$, initial_focus off"
-    "match:class ^(xwaylandvideobridge)$, max_size 1 1"
-    "match:class ^(xwaylandvideobridge)$, blur off"
+  wayland.windowManager.hyprland.settings.window_rule = [
+    {
+      match = {
+        class = "^(xwaylandvideobridge)$";
+      };
+      opacity = "0.0 override 0.0 override";
+      anim = false;
+      initial_focus = false;
+      max_size = "1 1";
+      blur = false;
+    }
   ];
 }
