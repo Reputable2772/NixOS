@@ -9,7 +9,12 @@
 
   wayland.windowManager.hyprland.settings = {
     bind = [
-      "SUPER, X, exec, ${lib.getExe pkgs.hyprpicker} --autocopy"
+      {
+        _args = [
+          "SUPER + X"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${lib.getExe pkgs.hyprpicker} --autocopy")'')
+        ];
+      }
     ];
   };
 }

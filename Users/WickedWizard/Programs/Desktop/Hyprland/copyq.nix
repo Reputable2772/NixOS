@@ -11,17 +11,36 @@
   ];
 
   wayland.windowManager.hyprland.settings = {
-    exec-once = [
-      (lib.getExe config.services.copyq.package)
+    on = [
+      {
+        _args = [
+          "hyprland.start"
+          (lib.generators.mkLuaInline ''
+            function()
+              hl.exec_cmd("${lib.getExe config.services.copyq.package}")
+            end
+          '')
+        ];
+      }
     ];
     bind = [
-      "SUPER, C, exec, copyq toggle"
+      {
+        _args = [
+          "SUPER + C"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("copyq toggle")'')
+        ];
+      }
     ];
-    windowrule = [
-      "match:initial_class com.github.hluk.copyq, float on"
-      "match:initial_class com.github.hluk.copyq, opaque on"
-      "match:initial_class com.github.hluk.copyq, dim_around on"
-      "match:initial_class com.github.hluk.copyq, stay_focused on"
+    window_rule = [
+      {
+        match = {
+          initial_class = "com.github.hluk.copyq";
+        };
+        float = true;
+        opaque = true;
+        dim_around = true;
+        stay_focused = true;
+      }
     ];
   };
 }

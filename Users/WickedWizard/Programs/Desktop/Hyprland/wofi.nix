@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     wofi-emoji
@@ -45,14 +45,34 @@
 
   wayland.windowManager.hyprland.settings = {
     bind = [
-      "SUPER, A, exec, wofi"
-      "SUPER, R, exec, wofi --show run"
-      "SUPER, period, exec, ${pkgs.wofi-emoji}/bin/wofi-emoji"
+      {
+        _args = [
+          "SUPER + A"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("wofi")'')
+        ];
+      }
+      {
+        _args = [
+          "SUPER + R"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("wofi --show run")'')
+        ];
+      }
+      {
+        _args = [
+          "SUPER + period"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("${pkgs.wofi-emoji}/bin/wofi-emoji")'')
+        ];
+      }
     ];
-    windowrule = [
-      "match:initial_class wofi, float on"
-      "match:initial_class wofi, stay_focused on"
-      "match:initial_class wofi, dim_around on"
+    window_rule = [
+      {
+        match = {
+          initial_class = "wofi";
+        };
+        float = true;
+        stay_focused = true;
+        dim_around = true;
+      }
     ];
   };
 

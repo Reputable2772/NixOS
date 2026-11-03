@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 {
   services.dunst.enable =
     config.wayland.windowManager.hyprland.enable && !config.programs.hyprpanel.enable;
@@ -6,9 +6,24 @@
 
   wayland.windowManager.hyprland.settings = {
     bind = [
-      "CTRL SUPER, N, exec, dunstctl close-all"
-      "SUPER, N, exec, dunstctl history-pop"
-      "CTRL SUPER, D, exec, dunstctl set-paused toggle"
+      {
+        _args = [
+          "CTRL + SUPER + N"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("dunstctl close-all")'')
+        ];
+      }
+      {
+        _args = [
+          "SUPER + N"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("dunstctl history-pop")'')
+        ];
+      }
+      {
+        _args = [
+          "CTRL + SUPER + D"
+          (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("dunstctl set-paused toggle")'')
+        ];
+      }
     ];
   };
 }
