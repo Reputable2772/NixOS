@@ -1,4 +1,9 @@
-{ config, sources, ... }:
+{
+  config,
+  sources,
+  lib,
+  ...
+}:
 {
   stylix.targets.hyprlock = {
     enable = true;
@@ -59,7 +64,11 @@
   xdg.configFile."user.jpg".source = sources.wickedwizard_picture.src;
 
   wayland.windowManager.hyprland.settings.bind = [
-    # "CTRL ALT, Delete, exec, hyprlock"
-    "CTRL ALT, Delete, exec, systemctl suspend"
+    {
+      _args = [
+        "CTRL + ALT + Delete"
+        (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("systemctl suspend")'')
+      ];
+    }
   ];
 }
