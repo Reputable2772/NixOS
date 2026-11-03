@@ -508,6 +508,8 @@ in
         qName: qVal: pkgs.writeTextDir qName (toSystemdUnit qVal)
       ) finalBuildConfig;
 
+      # The debug check recursively checks for the current unit,
+      # its dependencies, and so on.
       convertQuadletToUnits =
         finalQuadletAttrs: writtenFiles:
         mapAttrs (
@@ -549,6 +551,9 @@ in
       };
 
       # Phase 3: Final linking
+      # Here, only units belonging to its own respective quadlet are linked.
+      # This is unlike the check above, since we want to avoid collisions, due to
+      # different parameter ordering in ExecStart=.
       xdg.configFile = foldl' (acc: elem: acc // elem) { } (
         mapAttrsToList (
           qName: outDir:
