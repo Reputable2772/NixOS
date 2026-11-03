@@ -178,7 +178,7 @@ let
               "Container"
               "Image"
             ]
-            |> filter (img: hasSuffix ".image" img)
+            |> filter (img: hasSuffix ".build" img)
           else
             [ ];
       in
