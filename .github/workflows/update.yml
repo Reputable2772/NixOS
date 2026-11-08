@@ -2,7 +2,7 @@ name: "Flake Update"
 
 on:
   schedule:
-    - cron: '30 16 * * 6'
+    - cron: "30 16 * * 6"
   workflow_dispatch:
 
 jobs:
@@ -149,6 +149,7 @@ jobs:
             _sources/*
             flake.lock
           signoff: true
+          sign-commits: true
           delete-branch: true
           branch: flake-update/${{ steps.changelog.outputs.date_year }}-${{ steps.changelog.outputs.date_week }}
           body-path: ${{ steps.changelog.outputs.body_file }}
