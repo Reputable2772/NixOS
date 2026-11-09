@@ -1,8 +1,8 @@
-{
-  services.xserver.enable = true;
+{ lib, ... }: {
+  services.xserver.enable = lib.mkDefault false;
 
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = false;
+  services.desktopManager.gnome.enable = false;
 
   services.xserver.xkb = {
     layout = "us";
