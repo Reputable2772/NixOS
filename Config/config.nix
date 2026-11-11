@@ -140,7 +140,7 @@ rec {
         # The SSH Key that is used for authentication by Git
         authentication = {
           pkeyfile = "${home}/.ssh/git-authentication";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBAKg52CA11/TshMFkN689IYepPlIDJZQOA7cMzoe7PU";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOkJ2Ocy3vhx4jWQlYv0kTPNp6YwiYOlLGxOmXjcAoOd";
         };
         # The SSH Key that is used for signing by Git
         signing = {
