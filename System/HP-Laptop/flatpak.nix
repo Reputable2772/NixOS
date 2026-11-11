@@ -1,4 +1,4 @@
 {
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
+  services.flatpak.enable = false;
+  xdg.portal.enable = false;
 }
