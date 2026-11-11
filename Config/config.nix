@@ -335,6 +335,10 @@ rec {
           dir = null;
           env = null;
         };
+        shared-context-mcp = {
+          dir = null;
+          env = null;
+        };
         crowdsec = {
           dir = null;
           env = null;
