@@ -71,7 +71,7 @@ jobs:
 
           cd container-builds
 
-          if ls container-builds/*.service >/dev/null 2>&1; then
+          if ls *.service >/dev/null 2>&1; then
             units=$(ls *.service)
 
             rc=0
